@@ -3,8 +3,53 @@
 @tailwind utilities;
 
 
+
+@font-face {
+	font-family: 'ShadowHand';
+	src: url('//2ttf.com/webfont/UIswCwhB/webfont.ttf') format('truetype');
+}
+
+/* sample using the font */
+
+:root{
+  --primary-color: #040D12;
+  --secondary-color: #93B1A6; 
+  --tertiary-color: #183D3D;
+}
 body {
-  color: black;
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+  color: rgb(96, 96, 96);
+  background: white;
+  /* color: gainsboro; */
+  /* background: black; */
+}
+
+.scrollbaronhover::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollbaronhover:hover::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 5px;
+  transition-duration: 0.3s;
+  height: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 50%;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  transition-duration: 0.3s;
+  background: gray;
+  border-radius: 10px;
 }

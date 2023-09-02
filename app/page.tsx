@@ -1,13 +1,31 @@
 import Image from "next/image";
 import { JSX } from "react";
 import Navbar from "@/components/navbar";
+import LankingSection from "@/components/LandingSection";
+import CardSection from "@/components/CardSection";
+import Filter from "@/components/Filter";
+import getAllProducts from "@/utils/GetProduct";
+import ProductsCategories from "@/components/ProductsCategories";
+import { dataforproduct } from "@/lib/Interfaces";
 
-export default function Home(): JSX.Element {
+
+export default async function Home(){
+  const Items: dataforproduct[] | undefined = await getAllProducts();
+  const Manclothings = Items?.filter(e => e.category === "men's clothing")
+  const Jewelery = Items?.filter(e => e.category === "jewelery")
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col">
       <Navbar></Navbar>
-      Exlaso exlaos
-      <div className="w-full h-32 bg-blue-500 transform skew-x-12"></div>
+      <LankingSection />
+      <div className="w-full mx-auto text-center min-h-[20vh] bg-purple-700 shadow-2xl flex justify-center items-center  text-gray-200">
+       <h2 className="text-4xl max-sm:text-xl font-bold text-yellow-400 shadowhand tracking-widest">"We Prefer Only Premium Things"</h2>
+      </div>
+      <div className=" px-16 py-4 max-lg:px-0">
+
+      <ProductsCategories data={Items}/>
+     
+      </div>
     </main>
   );
 }
