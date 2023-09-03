@@ -2,27 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @font-face {
-	font-family: 'ShadowHand';
-	src: url('//2ttf.com/webfont/UIswCwhB/webfont.ttf') format('truetype');
+  font-family: "ShadowHand";
+  src: url("//2ttf.com/webfont/UIswCwhB/webfont.ttf") format("truetype");
 }
 
 /* sample using the font */
 
-:root{
-  --primary-color: #040D12;
-  --secondary-color: #93B1A6; 
-  --tertiary-color: #183D3D;
+:root {
+  --primary-color: white;
+  --secondary-color: rgb(96, 96, 96);
+  /* --primary-color: black;
+  --secondary-color: white;  */
+
+  --tertiary-color: #183d3d;
 }
+
 body {
-  color: rgb(96, 96, 96);
-  background: white;
+  color: var(--secondary-color);
+  background: var(--primary-color);
   /* color: gainsboro; */
   /* background: black; */
 }
 
+.shadowhand {
+  font-family: "ShadowHand" !important;
+}
 .scrollbaronhover::-webkit-scrollbar-thumb {
   background: transparent;
 }
@@ -52,4 +57,27 @@ body {
   transition-duration: 0.3s;
   background: gray;
   border-radius: 10px;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.jablutext{
+  color: rgb(58, 58, 58);
 }
