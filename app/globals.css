@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "ShadowHand";
-  src: url("//2ttf.com/webfont/UIswCwhB/webfont.ttf") format("truetype");
+  font-family: "groovy";
+  src: url("/Fonts/super-funky-font/SuperFunky-lgmWw.ttf") format("truetype");
 }
 
 /* sample using the font */
@@ -26,7 +26,7 @@ body {
 }
 
 .shadowhand {
-  font-family: "ShadowHand" !important;
+  font-family: "groovy" !important;
 }
 .scrollbaronhover::-webkit-scrollbar-thumb {
   background: transparent;
@@ -77,7 +77,11 @@ body {
   }
 }
 
-
-.jablutext{
-  color: rgb(58, 58, 58);
+.jablutext {
+  color: black;
 }
+*,html,body {
+  scroll-behavior: smooth;
+  /* outline: 1px solid red; */
+}
+

@@ -1,7 +1,4 @@
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { type } from "os";
-import { title } from "process";
 import React from "react";
 const MenuCard = () => {
   type menuwithdata = {
@@ -15,18 +12,20 @@ const MenuCard = () => {
 
   const Menu: menuwithdata[] = [
     {
-      title: "Outfits",
+      title: "Wearable",
       data: [
+        { title: "", href: "" },
         { title: "Men Tshirts ", href: "" },
-        { title: "Men Tshirts ", href: "" },
-        { title: "Men Tshirts ", href: "" },
+        { title: "Jablu's Exclusives", href: "" },
+        { title: "Unfit to fit Exclusives", href: "" },
       ],
     },
     {
-      title: "Accessories",
+      title: "Retro Fits",
       data: [
-        { title: "Men Tshirts ", href: "" },
-        { title: "Men Tshirts ", href: "" },
+        { title: "Watches", href: "" },
+        { title: "Cap", href: "" },
+        { title: "Phone Case", href: "" },
 
       ],
     },
@@ -47,10 +46,10 @@ const MenuCard = () => {
         {Menu.map((data,i) => (
           <ul key={i} className="flex justify-center h-full gap-3  flex-wrap items-center flex-col">
             <h1 className="text-2xl font-bold capitalize">{data.title}</h1>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 justify-center items-center">
 
             {data.data.map((d) => (
-                <li key={d.title}>{d.title}</li>
+                <li className="text-lg" key={d.title}>{d.title}</li>
                 ))}
                 </div>
           </ul>
