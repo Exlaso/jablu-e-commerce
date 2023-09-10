@@ -8,7 +8,7 @@ const CardSection = ({
   data,
   children,
 }: {
-  data: undefined;
+  data: dataforproduct[] | undefined;
   children: ReactNode;
 }) => {
   const [filtereditems, setFiltereditems] = useState<

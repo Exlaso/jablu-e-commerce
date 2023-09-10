@@ -15,22 +15,23 @@ const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
 
   
   return (
-    <div className="text-lg flex flex-col gap-4">
+    <div className="text-lg flex flex-col gap-4 ">
       <div>
-        <span> Color :</span>
+        <span> Color: </span>
         <span className="font-bold text-black capitalize"> {currentColor} </span>
       </div>
       
-      <div className="flex gap-3 flex-wrap ">
+      <div className="flex gap-3  flex-wrap justify-between ">
         {Colors.map((e) => {
           let highlight:string = ""
           if (e === currentColor) {
             highlight =
-              " outline outline-cyan-600 outline outline-offset-1";
+              " outline outline-cyan-600  outline outline-offset-1";
           } else {
             highlight = "";
           }
           return  <motion.span
+          key={e}
           initial={{scale:1}}
           whileTap={{scale:.9}}
             id={e}
@@ -39,7 +40,7 @@ const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
               FetchColor(e.currentTarget.id)
             }}
             style={{ background: e }}
-            className={` rounded-3xl  shrink-0 border  py-4 px-12   ${highlight}`}
+            className={` rounded-3xl   shrink-0 border  py-4 px-12   ${highlight}`}
           ></motion.span>
         })}
       </div>

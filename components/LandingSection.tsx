@@ -58,7 +58,7 @@ const LankingSection: FC = () => {
           src="/static/hero/tshirts.gif"
           alt="tshirt"
           className="object-cover"
-          layout="fill"
+         fill={true}
         ></Image>
       </div>
     </div>
