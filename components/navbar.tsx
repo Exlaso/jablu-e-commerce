@@ -11,10 +11,10 @@ const Navbar = () => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   useEffect(() => {
-    let prevScrollPos:number = window.scrollY;
+    let prevScrollPos: number = window.scrollY;
 
-    const handleScroll = ():void => {
-      const currentScrollPos:number = window.scrollY;
+    const handleScroll = (): void => {
+      const currentScrollPos: number = window.scrollY;
 
       if (currentScrollPos > 0) {
         setIsScrolling(prevScrollPos < currentScrollPos);
@@ -74,15 +74,15 @@ const Navbar = () => {
               </Link>
             </div>
             <ul className="flex space-x-4 items-center justify-end">
-              <li>
+              <li className="max-md:hidden">
                 <SearchBar />
               </li>
 
               <Link
                 className="flex gap-1 items-center justify-center relative"
-                href={"/Cart"}
+                href={"/ShoppingBag"}
               >
-                {/* <h1 className="text-lg text-black font-bold">Cart</h1> */}
+                {/* <h1 className="text-lg text-black font-bold">Shopping Bag</h1> */}
                 <Image
                   src={"/static/icons/navbar/buy.svg"}
                   width={30}

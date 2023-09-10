@@ -1,4 +1,5 @@
 import CardSection from "@/components/CardSection";
+import ImageGallery from "@/components/Products/ImageGallery";
 import SelectionSection from "@/components/Products/SelectionSection";
 import BackButton from "@/components/Utils/Backbtn";
 import Navbar from "@/components/navbar";
@@ -12,9 +13,8 @@ const Page = async (props: any) => {
     (e) => e.id.toString() === props.params.products.toString()
   );
 
-  const { image, id, description, category }: dataforproduct = newdata?.at(
-    0
-  ) as dataforproduct;
+  const { images, id, title, description, category }: dataforproduct =
+    newdata?.at(0) as dataforproduct;
   return (
     <>
       <Navbar />
@@ -22,15 +22,10 @@ const Page = async (props: any) => {
         <BackButton></BackButton>
         <span>Product ID: {id}</span>
         <div className=" grid grid-cols-2 max-lg:grid-cols-1 gap-10">
-          <div>
-            <Image
-              src={image}
-              alt={"alt"}
-              width={500}
-              height={500}
-              className="rounded-3xl"
-            ></Image>
-          </div>
+          <ImageGallery
+            images={images}
+            title={title}
+          />
           <div className="flex flex-col gap-10 ">
             <SelectionSection data={newdata as dataforproduct[]} />
           </div>
@@ -44,7 +39,9 @@ const Page = async (props: any) => {
           </div>
         </div>
         <div className="py-10">
-          <CardSection data={data?.filter((e) => (e.category === category && e.id !== id))}>
+          <CardSection
+            data={data?.filter((e) => e.category === category && e.id !== id)}
+          >
             Related Products
           </CardSection>
         </div>

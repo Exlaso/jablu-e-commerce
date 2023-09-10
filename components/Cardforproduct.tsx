@@ -1,9 +1,11 @@
 "use client";
+import { useCartContext } from "@/Store/StoreContext";
 import { dataforproduct } from "@/lib/Interfaces";
 import { Variants, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Heart from "./Utils/Heart";
 
 const varients: Variants = {
   hidden: {
@@ -32,43 +34,72 @@ const Cardforproduct = ({
   id,
   title,
   price,
-  description,
-  category,
   image,
+  category,
+  description,
+  images,
   rating,
   varients,
   className,
 }: datawithvarients) => {
-
-
+  const { favourited, setFavourited } = useCartContext();
+  const [liked, setLiked] = useState<boolean>(false);
+  useEffect(() => {
+    const data: dataforproduct | undefined = favourited.find(
+      (e) => e.id === id
+    );
+    console.log("liked ",data);
+    
+    if (data !== undefined) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    return () => {};
+  }, [favourited]);
 
   return (
     <motion.div
       variants={varients}
-      className={`flex min-w-[40vh] max-sm:snap-center relative  shadow-lg rounded-3xl gap-4 justify-start  items-center flex-col ${className}`}
+      className={`flex min-w-[40vh] max-sm:snap-center relative w-full  shadow-lg rounded-3xl gap-4 justify-start  items-center flex-col ${className}`}
       viewport={{ once: true }}
     >
       <motion.div
-        className="flex flex-col gap-4 h-full justify-start  items-start"
+        className="flex flex-col gap-4 h-full group justify-start  items-start"
         initial="hidden"
         whileHover={"visible"}
         whileTap={"taped"}
       >
-   
         <motion.button
           type="button"
           initial={{ opacity: 1, scale: 1 }}
           whileTap={{
             scale: 0.8,
           }}
-          className="absolute right-5 top-5"
+          onClick={() => {
+            setFavourited((prev) => {
+              if (!liked) {
+                return [
+                  ...prev,
+                  {
+                    id,
+                    title,
+                    price,
+                    image,
+                    category,
+                    description,
+                    images,
+                    rating,
+                  },
+                ];
+              } else {
+                return [...prev.filter((e) => e.id !== id)];
+              }
+            });
+          }}
+          className="absolute right-5 top-5 z-10"
         >
-          <Image
-            src={"/static/icons/navbar/favourite.svg"}
-            alt={"liked"}
-            width={30}
-            height={30}
-          ></Image>
+          <Heart liked={liked}></Heart>
         </motion.button>
 
         <Link
@@ -82,7 +113,7 @@ const Cardforproduct = ({
               alt={title}
               width={300}
               height={300}
-              className="w-80 h-80 max-lg:w-40 max-lg:h-40 object-contain mx-auto  "
+              className="group-hover:scale-95 duration-300 w-80 h-80 max-lg:w-40 max-lg:h-40 object-contain mx-auto  "
             ></Image>
           </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-4">
@@ -114,7 +145,6 @@ const Cardforproduct = ({
                   ></path>
                 </svg>
               </span>
-           
             </div>
           </div>
         </Link>

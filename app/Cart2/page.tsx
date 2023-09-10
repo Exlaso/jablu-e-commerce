@@ -1,4 +1,15 @@
 "use client";
+
+
+
+
+
+
+
+
+
+
+////////////////////////////// Depreceted
 import { useCartContext } from "@/Store/StoreContext";
 import Cardforproduct from "@/components/Cardforproduct";
 import Navbar from "@/components/navbar";
@@ -9,7 +20,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 
 interface CartPageProps {}
 const CartPage: FunctionComponent<CartPageProps> = () => {
-  const [carted] = useCartContext();
+  const {carted} = useCartContext();
   let total: number = 0;
   const data: dataforproduct[] = carted;
   return (

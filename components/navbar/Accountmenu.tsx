@@ -12,7 +12,7 @@ const Accountmenu = () => {
     {
       image: "/static/icons/navbar/favourite.svg",
       title: "Favourites",
-      href: "#",
+      href: "/Favourites",
     },
     {
       image: "/static/menu_content/orders.svg",

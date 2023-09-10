@@ -22,7 +22,6 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
           item.size === data.size
       );
       if (existingObject !== undefined) {
-        console.log("found");
 
         return [
           ...prev.filter(
@@ -36,7 +35,6 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
           { ...data, count: existingObject.count + data.count },
         ];
       } else {
-        console.log("unfound");
         return [...prev, data];
       }
     });
@@ -56,7 +54,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
         width={25}
         height={25}
       ></Image>
-      <p>Add to Cart</p>
+      <p>Add to Bag</p>
     </motion.button>
   );
 };

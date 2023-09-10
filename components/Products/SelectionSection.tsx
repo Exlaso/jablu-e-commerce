@@ -1,11 +1,11 @@
 "use client";
 import { dataforproduct } from "@/lib/Interfaces";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Colors from "./Colors";
 import Size from "./Size";
 import CartButton from "./CartButton";
-import IncDecButton from "../Cart/EncDecButton";
 import { useCartContext } from "@/Store/StoreContext";
+import Heart from "../Utils/Heart";
 
 interface SelectionSectionProps {
   data: dataforproduct[];
@@ -14,7 +14,8 @@ interface SelectionSectionProps {
 const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   data,
 }) => {
-  const { setCarted} = useCartContext();
+  const { setCarted, favourited, setFavourited } = useCartContext();
+  const [liked, setLiked] = useState<boolean>(false);
   const colors = ["red", "white", "black", "cyan", "gray", "green"];
   const sizes: string[] = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
   const [color, setColor] = useState<string>(colors.at(0) as string);
@@ -22,10 +23,25 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   const [count, setCount] = useState<number>(1);
   type varientsofsize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 
+  useEffect(() => {
+    const data: dataforproduct | undefined = favourited.find(
+      (e) => e.id === id
+    );
+    console.log("liked ", data);
+
+    if (data !== undefined) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    return () => {};
+  }, [favourited]);
+
   const {
     image,
     title,
     price,
+    images,
     description,
     rating,
     category,
@@ -42,7 +58,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   return (
     <>
       <h1 className="text-3xl font-bold text-black">{title}</h1>
-      <div className=" flex gap-3 items-center">
+      <div className=" flex gap-3 items-center ">
         <span className="border border-green-500 text-xl  font-bold text-green-500 rounded-md py-2 px-4">
           ₹
           {(price * 82.69).toLocaleString("en-US", {
@@ -64,10 +80,37 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
             ></path>
           </svg>
           {rating.rate}
-        </span>{" "}
+        </span>
         <span>·</span>
         <span className="underline cursor-pointer">{rating.count} reviews</span>
       </div>
+      <span
+        className="flex gap-1 underline cursor-pointer"
+        onClick={() => {
+          setFavourited((prev) => {
+            if (!liked) {
+              return [
+                ...prev,
+                {
+                  id,
+                  title,
+                  price,
+                  image,
+                  category,
+                  description,
+                  images,
+                  rating,
+                },
+              ];
+            } else {
+              return [...prev.filter((e) => e.id !== id)];
+            }
+          });
+        }}
+      >
+        <Heart liked={liked} />
+        {liked ? "Remove from Favourite" : "Add to Favourite"}
+      </span>
       <Colors
         Colors={colors}
         FetchColor={Fetchcolor}
@@ -98,6 +141,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
             id,
             image,
             title,
+            images,
             category,
             description,
             price,

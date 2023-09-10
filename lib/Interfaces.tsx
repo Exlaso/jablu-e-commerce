@@ -4,7 +4,8 @@ export type dataforproduct = {
   price: number;
   description: string;
   category: string;
-  image: string;
+  images: string[];
+  image:string
   rating: {
     rate: number;
     count: number;
