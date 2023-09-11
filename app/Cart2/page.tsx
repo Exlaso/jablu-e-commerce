@@ -1,14 +1,5 @@
 "use client";
 
-
-
-
-
-
-
-
-
-
 ////////////////////////////// Depreceted
 import { useCartContext } from "@/Store/StoreContext";
 import Cardforproduct from "@/components/Cardforproduct";
@@ -20,7 +11,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 
 interface CartPageProps {}
 const CartPage: FunctionComponent<CartPageProps> = () => {
-  const {carted} = useCartContext();
+  const { carted } = useCartContext();
   let total: number = 0;
   const data: dataforproduct[] = carted;
   return (
@@ -45,6 +36,7 @@ const CartPage: FunctionComponent<CartPageProps> = () => {
             {data?.length === 0 && <h2 className="text-lg">Cart is Empty</h2>}
             {data?.map((e) => (
               <Cardforproduct
+                images={e.images}
                 id={e.id}
                 category={e.category}
                 image={e.image}
@@ -63,7 +55,10 @@ const CartPage: FunctionComponent<CartPageProps> = () => {
               {data.map((e) => {
                 total += e.price;
                 return (
-                  <div className="flex shrink-0 justify-between py-10 items-center border-b border-b-black">
+                  <div
+                    key={e.id}
+                    className="flex shrink-0 justify-between py-10 items-center border-b border-b-black"
+                  >
                     <span className="break-all pr-10">{e.title}</span>
                     <span className="font-bold">
                       ₹

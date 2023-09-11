@@ -23,19 +23,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   const [count, setCount] = useState<number>(1);
   type varientsofsize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 
-  useEffect(() => {
-    const data: dataforproduct | undefined = favourited.find(
-      (e) => e.id === id
-    );
-    console.log("liked ", data);
-
-    if (data !== undefined) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
-    return () => {};
-  }, [favourited]);
+ 
 
   const {
     image,
@@ -48,6 +36,20 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     id,
   }: dataforproduct = data?.at(0) as dataforproduct;
 
+
+  useEffect(() => {
+    const data: dataforproduct | undefined = favourited.find(
+      (e) => e.id === id
+    );
+    console.log("liked ", data);
+
+    if (data !== undefined) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+    return () => {};
+  }, [favourited,id]);
   const Fetchcolor = (e: string) => {
     setColor(e);
   };

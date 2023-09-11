@@ -56,7 +56,7 @@ const Cardforproduct = ({
       setLiked(false);
     }
     return () => {};
-  }, [favourited]);
+  }, [favourited,id]);
 
   return (
     <motion.div

@@ -31,6 +31,7 @@ const ImageGallery = ({
             }
             return (
               <Image
+                key={e}
                 src={e}
                 id={e}
                 onClick={(e) => setMainimage(e.currentTarget.id)}

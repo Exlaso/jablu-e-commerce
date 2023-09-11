@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 
-const isTouchScreen = ():boolean => {
+const IsTouchScreen = ():boolean => {
     const [isTouchScreen, setIsTouchScreen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -27,4 +27,4 @@ const isTouchScreen = ():boolean => {
 
     return isTouchScreen
 }
-export default isTouchScreen
+export default IsTouchScreen

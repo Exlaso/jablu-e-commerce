@@ -53,6 +53,7 @@ const CardSection = ({
           <Cardforproduct
             varients={varients}
             id={item.id}
+            images={item.images}
             category={item.category}
             image={item.image}
             price={item.price}

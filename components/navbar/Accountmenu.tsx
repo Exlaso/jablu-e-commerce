@@ -49,6 +49,7 @@ const Accountmenu = () => {
       >
         {list.map((e) => (
           <Link
+          key={e.title}
             href={e.href}
             className="flex items-start justify-start h-full w-full"
           >
