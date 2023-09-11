@@ -74,7 +74,7 @@ const Navbar = () => {
               </Link>
             </div>
             <ul className="flex space-x-4 items-center justify-end">
-              <li className="max-md:hidden">
+              <li className="max-lg:hidden">
                 <SearchBar />
               </li>
 

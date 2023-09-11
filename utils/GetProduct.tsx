@@ -8,7 +8,7 @@ export default async function getAllProducts(): Promise<
     const data: dataforproduct[] = await Response.json();
     return data.map((e) => ({ ...e, images: [e.image] }));
   } catch (error) {
-    console.log("err", error);
+    console.log("Product Fetch Error: ", error);
   }
 }
 
@@ -30,6 +30,6 @@ export default async function getAllProducts(): Promise<
 //       },
 //     }));
 //   } catch (error) {
-//     console.log("err", error);
+//     console.log("Product Fetch Error: ", error);
 //   }
 // }

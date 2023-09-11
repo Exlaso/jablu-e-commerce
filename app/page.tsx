@@ -10,9 +10,9 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <Navbar></Navbar>
+      <Navbar />
       <LankingSection />
-      <div className="w-full mx-auto text-center min-h-[20vh] relative bg-transparent  before:shadow-2xl flex justify-center items-center  text-gray-200  before:bg-[#0B2447] before:absolute before:inset-0 before:-z-10  before:skew-y-1">
+      <div className="w-full mx-auto text-center min-h-[20vh]  shadow-2xl flex justify-center items-center  text-gray-200  bg-[#0B2447]">
         <h2 className="text-3xl max-sm:text-xl font-extrabold tracking-widest uppercase">
           &quot;<span className="text-yellow-300">Express</span> yourself with a
           twist of <span className="text-red-600">uniqueness</span>.&quot;

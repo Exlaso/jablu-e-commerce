@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 const SearchBar = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [searchquery, setSearchquery] = useState<string>("");
   const formeventhandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/Catergories/Search/${searchquery}`)
+    router.push(`/Catergories/Search/${searchquery}`);
   };
 
   return (
@@ -44,7 +44,7 @@ const SearchBar = () => {
           value={searchquery}
           type="search"
           id="default-search"
-          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-800 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500"
           placeholder="Jang-yoh"
           required
           onInput={(e) => setSearchquery(e.currentTarget.value)}

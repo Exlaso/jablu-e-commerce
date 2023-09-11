@@ -43,7 +43,7 @@ const MenuCard = () => {
       className="fixed  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%] top-0 w-full  h-auto z-20 border-b border-b-black bg-white"
     >
       <div className="flex flex-col gap-8">
-        <div className="px-5 sm:hidden">
+        <div className="px-5 py-5 lg:hidden">
           <SearchBar />
         </div>
         <div className="z-10 grid grid-cols-2 ">

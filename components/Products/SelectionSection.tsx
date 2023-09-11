@@ -41,7 +41,6 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     const data: dataforproduct | undefined = favourited.find(
       (e) => e.id === id
     );
-    console.log("liked ", data);
 
     if (data !== undefined) {
       setLiked(true);
