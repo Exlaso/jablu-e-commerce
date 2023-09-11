@@ -97,12 +97,6 @@ body {
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(90deg, #008080, #008B8B);
 }
-*,
-html,
-body {
-  scroll-behavior: smooth;
-  /* outline: 1px solid red; */
-}
 input[type="color"],
 input[type="date"],
 input[type="datetime"],

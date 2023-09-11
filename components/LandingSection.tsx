@@ -26,7 +26,7 @@ const LandingSection: FC = () => {
         </Parallax> */}
         <Parallax
           translateX={[50, -50]}
-          className="flex justify-center items-center h-[92vh] max-lg:h-[90vh]"
+          className="flex justify-center items-center h-screen"
         >
           <div className="flex flex-col justify-center items-center gap-8">
             <span className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
@@ -77,14 +77,30 @@ const LandingSection: FC = () => {
 
         <Parallax
           translateX={[-50, 50]}
-          className=" relative h-[92vh] max-lg:h-[90vh] w-full  mix-blend-darken bg-blend-darken"
+          className=" relative h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
         >
-          <Image
+          <video
+            autoPlay={true}
+            preload={"auto"}
+            loop={true}
+            playsInline={true}
+            muted={true}
+            className="max-sm:scale-[2] scale-150"
+          >
+            <source
+              src="/static/hero/tshirts_black.mp4"
+              type="video/mp4"
+              className="w-full h-full "
+            />
+            Your browser does not support the video tag.
+          </video>
+          {/* <Image
             src="/static/hero/tshirts_black.gif"
             alt="tshirt"
             className="object-cover "
-            fill={true}
-          ></Image>
+            width={600}
+            height={600}
+          ></Image> */}
         </Parallax>
       </div>
     </ParallaxProvider>

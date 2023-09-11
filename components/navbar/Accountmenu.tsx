@@ -3,6 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 const Accountmenu = () => {
+
+
+
+
+
+
   const list: { title: string; href: string; image: string }[] = [
     {
       image: "/static/menu_content/login.svg",
