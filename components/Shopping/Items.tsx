@@ -2,15 +2,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import IncDecButton from "../Cart/EncDecButton";
 import { dataforproductwithmetadata } from "@/lib/Interfaces";
 import { useCartContext } from "@/Store/StoreContext";
 const Items = () => {
-    const { carted, setCarted } = useCartContext();
- 
-    const data: dataforproductwithmetadata[] = carted;
-   
+  const { carted, setCarted } = useCartContext();
+
+  const data: dataforproductwithmetadata[] = carted.sort((a, b) => a.id - b.id);
+
   let total: number = 0;
   const ItemRemoveHandler = (productdata: dataforproductwithmetadata) => {
     setCarted((prev) => {
@@ -100,6 +100,26 @@ const Items = () => {
             maximumFractionDigits: 2,
           })}
         </span>
+      </div>
+      <div className="flex justify-end items-end">
+        {data?.length !== 0 && (
+          <Link href={"#"}>
+            <motion.button
+            type="button"
+            initial={{ scale: 1 }}
+            whileTap={{ scale: 0.9 }}
+            className="flex px-10  select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-cyan-200 duration-100"
+          >
+            <Image
+              src={"/static/icons/navbar/buy.svg"}
+              alt={"Buy Icon"}
+              width={25}
+              height={25}
+            ></Image>
+            <p>Check Out</p>
+          </motion.button>
+          </Link>
+        )}
       </div>
     </div>
   );

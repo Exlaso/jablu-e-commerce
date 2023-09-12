@@ -1,10 +1,13 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 import { Parallax, ParallaxProvider } from "react-scroll-parallax";
 
 const LandingSection: FC = () => {
+  const router = useRouter();
+
   return (
     <ParallaxProvider>
       <div
@@ -29,49 +32,31 @@ const LandingSection: FC = () => {
           className="flex justify-center items-center h-screen"
         >
           <div className="flex flex-col justify-center items-center gap-8">
-            <span className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
+            <Parallax
+              translateX={[50, -50]}
+              className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap"
+              >
+              <Parallax
+              translateX={[50, -50]}
+              >
+
               <Image
                 src={"/static/logo/jablu4.svg"}
                 alt={"jablulogo"}
                 width={200}
                 height={200}
-              ></Image>
+                ></Image>
+                </Parallax>
               <div className="flex items-center justify-center flex-wrap tracking-widest">
                 <h1 className="jablutext ">Jablu </h1>
                 <h1 className="jablutext ">.</h1>
                 <h1 className="jablutext ">com</h1>
               </div>
-            </span>
+            </Parallax>
             <p className="w-1/2 text-center">
               Crafting Excellence, Elevating Elegance: Your Premium Choice in
               Quality
             </p>
-            <span className="flex gap-2 items-center justify-center whitespace-nowrap flex-wrap ">
-              <Link
-                href={"/"}
-                className="bg-blue-300 hover:bg-blue-600 flex gap-2  justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
-              >
-                <Image
-                  src={"/static/icons/navbar/explore.svg"}
-                  alt={"explore"}
-                  width={"20"}
-                  height={"20"}
-                ></Image>
-                Explore
-              </Link>
-              <Link
-                href={"/"}
-                className="bg-cyan-400 hover:bg-cyan-400 flex gap-2  justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
-              >
-                <Image
-                  src={"/static/hero/register.svg"}
-                  alt={"explore"}
-                  width={"20"}
-                  height={"20"}
-                ></Image>
-                Become Member
-              </Link>
-            </span>
           </div>
         </Parallax>
 

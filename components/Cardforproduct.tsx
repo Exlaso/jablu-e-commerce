@@ -29,6 +29,7 @@ const varients: Variants = {
 };
 interface datawithvarients extends dataforproduct {
   varients?: Variants;
+  className?: string;
 }
 const Cardforproduct = ({
   id,
@@ -48,23 +49,23 @@ const Cardforproduct = ({
     const data: dataforproduct | undefined = favourited.find(
       (e) => e.id === id
     );
-    
+
     if (data !== undefined) {
       setLiked(true);
     } else {
       setLiked(false);
     }
     return () => {};
-  }, [favourited,id]);
+  }, [favourited, id]);
 
   return (
     <motion.div
       variants={varients}
-      className={`flex min-w-[40vh] max-sm:snap-center relative w-full  shadow-lg rounded-3xl gap-4 justify-start  items-center flex-col ${className}`}
+      className={` ${className}  flex min-w-[40vh] max-sm:snap-center relative w-full  shadow-lg rounded-3xl gap-4 justify-start  items-start flex-col`}
       viewport={{ once: true }}
     >
       <motion.div
-        className="flex flex-col gap-4 h-full group justify-start  items-start"
+        className="flex flex-col gap-4 w-full h-full group justify-start  items-start"
         initial="hidden"
         whileHover={"visible"}
         whileTap={"taped"}
@@ -102,7 +103,7 @@ const Cardforproduct = ({
         </motion.button>
 
         <Link
-          className="flex gap-4  justify-start items-start h-full flex-col"
+          className="flex gap-4  w-full justify-start items-start h-full flex-col"
           href={`/Products/${id}`}
         >
           <div className="flex justify-center items-center w-full ">

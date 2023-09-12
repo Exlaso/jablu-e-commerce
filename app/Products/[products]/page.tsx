@@ -5,7 +5,6 @@ import BackButton from "@/components/Utils/Backbtn";
 import Navbar from "@/components/navbar";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
-import Image from "next/image";
 import React from "react";
 const Page = async (props: any) => {
   const data = await getAllProducts();

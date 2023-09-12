@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
-const Navbar = () => {
+const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Navbar = () => {
     <>
       <AnimatePresence>{ismenuopen && <MenuCard></MenuCard>}</AnimatePresence>
       <nav
-        className={`px-2 min-h-[8vh] w-full fixed flex z-20 justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
+        className={`px-2 min-h-[8vh] w-full fixed flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
           isScrolling ? "-translate-y-full" : "translate-y-0"
         } `}
       >
@@ -74,9 +74,11 @@ const Navbar = () => {
               </Link>
             </div>
             <ul className="flex space-x-4 items-center justify-end">
+              {showsearch && 
               <li className="max-lg:hidden">
                 <SearchBar />
               </li>
+              }
 
               <Link
                 className="flex gap-1 items-center justify-center relative"

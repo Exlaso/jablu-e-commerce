@@ -10,7 +10,6 @@ export type dataforproduct = {
     rate: number;
     count: number;
   };
-  className?: string;
 };
 export interface dataforproductwithmetadata extends dataforproduct {
   count: number;

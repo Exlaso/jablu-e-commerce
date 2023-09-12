@@ -3,9 +3,9 @@ import "./globals.css";
 import "./output.css";
 
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
-const manrope = Manrope({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Jabluuu.com",
@@ -24,7 +24,7 @@ export default function RootLayout({
       
       <ContextProvider>
         
-        <body className={manrope.className}>{children}</body>
+        <body className={montserrat.className}>{children}</body>
       </ContextProvider>
     </html>
   );
