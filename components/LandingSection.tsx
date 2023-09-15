@@ -59,6 +59,7 @@ const LandingSection: FC = () => {
           className=" relative h-[80vh] md:h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
         >
           <video
+          
             autoPlay={true}
             preload={"auto"}
             loop={true}

@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
         <Link href="/" className="flex justify-center items-center flex-col  w-full">
           <Image
-            src={"/static/logo/jablu4.svg"}
+            src={"/icon.svg"}
             alt={"jablulogo"}
             width={200}
             height={200}

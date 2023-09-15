@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FunctionComponent } from "react";
 
 export const metadata: Metadata = {
-  title: "Favourites",
+  title: "Shopping Bag",
   description:
     "Your list of desired items or products you have expressed interest in.",
 };
@@ -19,7 +19,6 @@ const CartPage: FunctionComponent<CartPageProps> = () => {
           <BackButton />
           <h1 className="font-bold text-4xl text-black flex items-center">
             <Image
-
               src={"/static/icons/navbar/buy.svg"}
               alt={"buy"}
               width={40}
