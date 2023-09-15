@@ -14,12 +14,12 @@ interface CartPageProps {}
 const CartPage: FunctionComponent<CartPageProps> = () => {
   return (
     <>
-      <Navbar />
-      <div className="px-[10%] gap-14 py-[15vh] max-md:px-5 w-full h-auto grid ">
+      <div className="px-[10%]  min-h-screen gap-14 py-[15vh] max-md:px-5 w-full  flex flex-col ">
         <div className="grid gap-3">
           <BackButton />
           <h1 className="font-bold text-4xl text-black flex items-center">
             <Image
+
               src={"/static/icons/navbar/buy.svg"}
               alt={"buy"}
               width={40}

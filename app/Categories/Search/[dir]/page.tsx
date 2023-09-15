@@ -1,4 +1,4 @@
-import Cardforproduct from "@/components/Cardforproduct";
+import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
@@ -22,7 +22,6 @@ const Dir = async ({
       (product) => product.category.toLowerCase() === directory.toLowerCase()
     );
   }
-  console.log(searchParams);
 
   switch (searchParams.rate) {
     case "relevant":
@@ -44,21 +43,7 @@ const Dir = async ({
 
   return (
     <>
-      <div className="grid grid-cols-2  max-lg:grid-cols-1 gap-5 ">
-        {filtereddata?.map((e) => (
-          <Cardforproduct
-            category={e.category}
-            title={e.title}
-            key={e.id}
-            description={e.description}
-            id={e.id}
-            image={e.image}
-            images={e.images}
-            price={e.price}
-            rating={e.rating}
-          />
-        ))}
-      </div>
+          <Items filtereddata={filtereddata}></Items>
       <div className="w-full max-md:row-start-2 ">
         <div className="w-full md:sticky top-[12vh]  ">
           <p className="text-sm text-gray-500 my-3 ">Sort by</p>

@@ -13,9 +13,8 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <>
-      <Navbar />
-      <main className="px-[10%] gap-14 py-[15vh] max-md:px-5 w-full h-auto grid ">
-        <div className="grid gap-3">
+      <main className="px-[10%] min-h-screen gap-14 py-[15vh] flex flex-col max-md:px-5 w-full ">
+        <div className="grid gap-3 ">
           <BackButton />
           <h1 className="font-bold text-4xl text-black flex items-center">
             <Image
@@ -27,8 +26,8 @@ const Page = () => {
             Favourites
           </h1>
         </div>
-        <section className="flex flex-col justify-between items-start relative ">
-          <div className=" w-full flex-col flex gap-10">
+        <section className="flex flex-col  justify-between items-start relative ">
+          <div className=" w-full flex-col  flex gap-10">
             <Items />
           </div>
         </section>

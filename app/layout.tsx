@@ -1,9 +1,11 @@
-import  ContextProvider  from "@/Store/StoreContext";
+import ContextProvider from "@/Store/StoreContext";
 import "./globals.css";
 import "./output.css";
 
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/navbar";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -17,14 +19,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  
   return (
     <html lang="en">
-      
       <ContextProvider>
-        
-        <body className={montserrat.className}>{children}</body>
+        <body className={montserrat.className}>
+          <Navbar />
+          {children}
+          <Footer />
+        </body>
       </ContextProvider>
     </html>
   );

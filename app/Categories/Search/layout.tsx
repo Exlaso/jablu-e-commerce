@@ -16,13 +16,10 @@ const layout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <div>
-      <header>
-        <Navbar />
-      </header>
 
       <main className="py-[12vh] max-lg:px-[3vh] px-[12vh] ">
         <BackButton />
-        <div className="my-5 gap-10 grid grid-cols-[auto,3fr,auto] max-md:grid-cols-[1fr]">
+        <div className="my-5 gap-3 grid grid-cols-[auto,3fr,auto] max-md:grid-cols-[1fr]">
           <div className="w-full ">
             <div className="w-full md:sticky top-[12vh] ">
               <p className="text-sm text-gray-500 my-3 ">Categories</p>

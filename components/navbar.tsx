@@ -42,12 +42,12 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
   return (
     <>
       <AnimatePresence>{ismenuopen && <MenuCard></MenuCard>}</AnimatePresence>
-      <nav
+      <header
         className={`px-2 min-h-[8vh] w-full fixed flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
           isScrolling ? "-translate-y-full" : "translate-y-0"
         } `}
       >
-        <div className="container mx-auto ">
+        <nav className="container mx-auto ">
           <div className="justify-between items-center grid grid-cols-3">
             <div
               className="z-40 relative"
@@ -117,8 +117,8 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
               </motion.li>
             </ul>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
     </>
   );
 };

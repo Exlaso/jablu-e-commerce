@@ -28,31 +28,25 @@ const LandingSection: FC = () => {
           ></Image>
         </Parallax> */}
         <Parallax
-          translateX={[50, -50]}
-          className="flex justify-center items-center h-screen"
+          translateX={[55, -50]}
+          className="flex justify-center items-center  h-[80vh] md:h-screen"
         >
           <div className="flex flex-col justify-center items-center gap-8">
-            <Parallax
-              translateX={[50, -50]}
-              className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap"
-              >
-              <Parallax
-              translateX={[50, -50]}
-              >
-
-              <Image
-                src={"/static/logo/jablu4.svg"}
-                alt={"jablulogo"}
-                width={200}
-                height={200}
+            <div className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
+              <div>
+                <Image
+                  src={"/static/logo/jablu4.svg"}
+                  alt={"jablulogo"}
+                  width={200}
+                  height={200}
                 ></Image>
-                </Parallax>
+              </div>
               <div className="flex items-center justify-center flex-wrap tracking-widest">
                 <h1 className="jablutext ">Jablu </h1>
                 <h1 className="jablutext ">.</h1>
                 <h1 className="jablutext ">com</h1>
               </div>
-            </Parallax>
+            </div>
             <p className="w-1/2 text-center">
               Crafting Excellence, Elevating Elegance: Your Premium Choice in
               Quality
@@ -61,8 +55,8 @@ const LandingSection: FC = () => {
         </Parallax>
 
         <Parallax
-          translateX={[-50, 50]}
-          className=" relative h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
+          translateX={[-50, 55]}
+          className=" relative h-[80vh] md:h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
         >
           <video
             autoPlay={true}

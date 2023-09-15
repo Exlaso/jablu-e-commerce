@@ -117,7 +117,7 @@ const Cardforproduct = ({
             ></Image>
           </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-4">
-            <h1 className="max-sm:text-sm text-md  font-bold text-black">
+            <h1 className="max-sm:text-sm text-md capitalize  font-bold text-black">
               {title}
             </h1>
 

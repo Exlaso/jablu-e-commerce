@@ -16,7 +16,6 @@ const Page = async (props: any) => {
     newdata?.at(0) as dataforproduct;
   return (
     <>
-      <Navbar />
       <div className="py-[13vh] px-[10%] flex flex-col gap-4">
         <BackButton></BackButton>
         <span>Product ID: {id}</span>
