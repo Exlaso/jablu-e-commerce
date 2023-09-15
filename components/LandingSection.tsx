@@ -44,7 +44,7 @@ const LandingSection: FC = () => {
               <div className="flex items-center justify-center flex-wrap tracking-widest">
                 <h1 className="jablutext ">Jablu </h1>
                 <h1 className="jablutext ">.</h1>
-                <h1 className="jablutext ">com</h1>
+                <h1 className="jablutext ">in</h1>
               </div>
             </div>
             <p className="w-1/2 text-center">
