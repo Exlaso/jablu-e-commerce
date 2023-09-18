@@ -23,7 +23,7 @@ const LandingSection: FC = () => {
             width={400}
             height={400}
           ></Image>
-        </Parallax> */}
+        </Parallax> */} 
         <Parallax
           {...(!Isphone && { translateX: [50, -55] })}
           className="flex justify-center items-center  h-[80vh] md:h-screen"
