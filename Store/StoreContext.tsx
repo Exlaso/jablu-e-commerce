@@ -1,5 +1,5 @@
 "use client";
-import { dataforproductwithmetadata,dataforproduct } from "@/lib/Interfaces";
+import { dataforproductwithmetadata, dataforproduct } from "@/lib/Interfaces";
 import {
   Dispatch,
   ReactNode,

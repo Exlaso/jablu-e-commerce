@@ -1,6 +1,5 @@
 import { dataforproduct } from "@/lib/Interfaces";
-import getAllProducts from "@/utils/GetProduct";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 const Filter = ({
   data,

@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { FunctionComponent, MouseEvent, useState } from "react";
 
 interface colorsProps {
-  Colors: string[];
+  Colors: string[] | undefined;
   FetchColor:(e:string)=>void
 }
 
 const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
-  const [currentColor, setCurrentColor] = useState(Colors.at(0));
+  const [currentColor, setCurrentColor] = useState(Colors?.at(0));
   const ColorChoose = (e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => {
     setCurrentColor((e.currentTarget.id));
   };
@@ -22,7 +22,9 @@ const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
       </div>
       
       <div className="flex gap-3  flex-wrap justify-between ">
-        {Colors.map((e) => {
+      {Colors === undefined && "No Colors Found for this product"}
+
+        {Colors?.map((e) => {
           let highlight:string = ""
           if (e === currentColor) {
             highlight =

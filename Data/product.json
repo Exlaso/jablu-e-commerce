@@ -1,0 +1,233 @@
+[
+    {
+        "id": "X001",
+        "title": "gojo satoru Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X002",
+        "title": "luffy Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "grey"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X003",
+        "title": "Roronoa zoro Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X004",
+        "title": "tony tony chopper Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "skye blue"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X005",
+        "title": "brook Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "grey"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X006",
+        "title": "Eren Yeager Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "Anime",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X007",
+        "title": "yoga mat w jablu.in ",
+        "description": "Nathi karta koini raji reh",
+        "category": "Unfit to Fit yoga mat",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X008",
+        "title": "yoga mat w jablu.in ",
+        "description": "Nathi karta koini raji reh",
+        "category": "Unfit to Fit yoga mat",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X009",
+        "title": "cool cat ",
+        "description": "Nathi karta koini raji reh",
+        "category": "jablu exclusive",
+        "price": 100,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "black"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    },
+    {
+        "id": "X0010",
+        "title": "monkey Oversized T-shirt",
+        "description": "Nathi karta koini raji reh",
+        "category": "jablu exclusive",
+        "price": 999999,
+        "images": [
+            "Exlaso1.png",
+            "Exlaso2.png"
+        ],
+        "rating": {
+            "rate": 0,
+            "count": 0
+        },
+        "available_color": [
+            "cream"
+        ],
+        "available_size": [
+            "xs",
+            "sm",
+            "md"
+        ]
+    }
+]

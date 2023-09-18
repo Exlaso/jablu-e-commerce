@@ -6,27 +6,29 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Heart from "./Utils/Heart";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const varients: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 1,
-    y: -10,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-  },
-  taped: {
-    scale: 0.95,
-  },
-  onview: {
-    y: 0,
-    opacity: 1,
-    scale: 1,
-  },
-};
+// const varients: Variants = {
+//   hidden: {
+//     opacity: 0,
+//     scale: 1,
+//     y: -10,
+//   },
+//   visible: {
+//     opacity: 1,
+//     x: 0,
+//     y: 0,
+//   },
+//   taped: {
+//     scale: 0.95,
+//   },
+//   onview: {
+//     y: 0,
+//     opacity: 1,
+//     scale: 1,
+//   },
+// };
 interface datawithvarients extends dataforproduct {
   varients?: Variants;
   className?: string;
@@ -35,14 +37,17 @@ const Cardforproduct = ({
   id,
   title,
   price,
-  image,
   category,
+  available_color,
+  available_size,
   description,
   images,
   rating,
   varients,
   className,
 }: datawithvarients) => {
+  const { status } = useSession();
+  const router = useRouter();
   const { favourited, setFavourited } = useCartContext();
   const [liked, setLiked] = useState<boolean>(false);
   useEffect(() => {
@@ -78,22 +83,30 @@ const Cardforproduct = ({
           }}
           onClick={() => {
             setFavourited((prev) => {
-              if (!liked) {
-                return [
-                  ...prev,
-                  {
-                    id,
-                    title,
-                    price,
-                    image,
-                    category,
-                    description,
-                    images,
-                    rating,
-                  },
-                ];
+              if (status === "unauthenticated") {
+                router.push("/Signin");
+                return prev;
+              } else if (status === "authenticated") {
+                if (!liked) {
+                  return [
+                    ...prev,
+                    {
+                      id,
+                      title,
+                      price,
+                      available_color,
+                      available_size,
+                      category,
+                      description,
+                      images,
+                      rating,
+                    },
+                  ];
+                } else {
+                  return [...prev.filter((e) => e.id !== id)];
+                }
               } else {
-                return [...prev.filter((e) => e.id !== id)];
+                return prev;
               }
             });
           }}
@@ -109,11 +122,11 @@ const Cardforproduct = ({
           <div className="flex justify-center items-center w-full ">
             <Image
               // src={"/static/shuz.jpg"}
-              src={image}
+              src={images.at(0) as string}
               alt={title}
-              width={300}
-              height={300}
-              className="group-hover:scale-95 duration-300 w-80 h-80 max-lg:w-40 max-lg:h-40 object-contain mx-auto  "
+              width={500}
+              height={500}
+              className="group-hover:scale-95 duration-300 w-80 h-80  object-contain mx-auto"
             ></Image>
           </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-4">
@@ -124,7 +137,7 @@ const Cardforproduct = ({
             <div className="flex items-center justify-center gap-2">
               <span className="text-xl text-gray-800 bg-blue-100  rounded-full px-3 py-2  font-semibold">
                 ₹
-                {(price * 82.69).toLocaleString("en-US", {
+                {(price ).toLocaleString("en-US", {
                   maximumFractionDigits: 2,
                 })}
               </span>

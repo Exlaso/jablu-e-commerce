@@ -1,7 +1,32 @@
 import { motion } from "framer-motion";
-import React from "react";
+
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import SearchBar from "./SearchBar";
-const MenuCard = () => {
+import Link from "next/link";
+const MenuCard = ({
+  Categories,
+  setIsmenuopen,
+}: {
+  Categories: string[] | undefined;
+
+  setIsmenuopen: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        setIsmenuopen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setIsmenuopen]);
+
   type menuwithdata = {
     title: string;
     data: menu[];
@@ -14,25 +39,17 @@ const MenuCard = () => {
   const Menu: menuwithdata[] = [
     {
       title: "Wearable",
-      data: [
-        { title: "", href: "" },
-        { title: "Men Tshirts ", href: "" },
-        { title: "Jablu's Exclusives", href: "" },
-        { title: "Unfit to fit Exclusives", href: "" },
-      ],
+      data: Categories?.map((e) => ({ title: e, href: e })) as menu[],
     },
     {
-      title: "Retro Fits",
-      data: [
-        { title: "Watches", href: "" },
-        { title: "Cap", href: "" },
-        { title: "Phone Case", href: "" },
-      ],
+      title: "Wearable",
+      data: Categories?.map((e) => ({ title: e, href: e })) as menu[],
     },
   ];
 
   return (
     <motion.div
+      ref={divRef}
       initial={{ y: "-100%" }}
       animate={{ y: 0 }}
       transition={{
@@ -44,9 +61,9 @@ const MenuCard = () => {
     >
       <div className="flex flex-col gap-8">
         <div className="px-5 py-5 lg:hidden">
-          <SearchBar />
+          <SearchBar onClick={setIsmenuopen} />
         </div>
-        <div className="z-10 grid grid-cols-2 ">
+        <div className="z-10 grid grid-cols-2 capitalize gap-3 px-7 text-center ">
           {Menu.map((data, i) => (
             <ul
               key={i}
@@ -55,12 +72,16 @@ const MenuCard = () => {
               <h1 className="text-2xl font-bold capitalize">{data.title}</h1>
               <div className="flex flex-col gap-1 justify-center items-center">
                 {data.data.map((d) => (
-                  <li
-                    className="text-lg"
+                  <Link
+                    href={"/Categories/Search/" + d.href}
+                    className="text-lg underline underline-offset-4"
                     key={d.title}
+                    onClick={()=> {
+                      setIsmenuopen(false)
+                    }}
                   >
                     {d.title}
-                  </li>
+                  </Link>
                 ))}
               </div>
             </ul>

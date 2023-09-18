@@ -9,7 +9,7 @@ import { useCartContext } from "@/Store/StoreContext";
 const Items = () => {
   const { carted, setCarted } = useCartContext();
 
-  const data: dataforproductwithmetadata[] = carted.sort((a, b) => a.id - b.id);
+  const data: dataforproductwithmetadata[] = carted.sort();
 
   let total: number = 0;
   const ItemRemoveHandler = (productdata: dataforproductwithmetadata) => {
@@ -45,7 +45,7 @@ const Items = () => {
             >
               <Link href={"/Products/" + e.id}>
                 <Image
-                  src={e.image}
+                  src={e.images?.at(0) as string}
                   alt={e.title + " image"}
                   width={100}
                   height={100}
@@ -55,13 +55,13 @@ const Items = () => {
                 <div className="flex max-sm:flex-col text-xl max-sm:text-sm justify-between items-start w-full gap-4">
                   <Link
                     href={"/Products/" + e.id}
-                    className="underline"
+                    className="underline capitalize"
                   >
                     <h2>{e.title}</h2>
                   </Link>
                   <span className="font-bold">
                     ₹
-                    {(e.price * e.count * 82.69).toLocaleString("en-US", {
+                    {(e.price * e.count ).toLocaleString("en-US", {
                       maximumFractionDigits: 2,
                     })}
                   </span>
@@ -96,7 +96,7 @@ const Items = () => {
         <span>Total</span>
         <span>
           ₹
-          {(total * 82.69).toLocaleString("en-US", {
+          {(total ).toLocaleString("en-US", {
             maximumFractionDigits: 2,
           })}
         </span>
@@ -105,19 +105,19 @@ const Items = () => {
         {data?.length !== 0 && (
           <Link href={"#"}>
             <motion.button
-            type="button"
-            initial={{ scale: 1 }}
-            whileTap={{ scale: 0.9 }}
-            className="flex px-10  select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-cyan-200 duration-100"
-          >
-            <Image
-              src={"/static/icons/navbar/buy.svg"}
-              alt={"Buy Icon"}
-              width={25}
-              height={25}
-            ></Image>
-            <p>Check Out</p>
-          </motion.button>
+              type="button"
+              initial={{ scale: 1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex px-10  select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-cyan-200 duration-100"
+            >
+              <Image
+                src={"/static/icons/navbar/buy.svg"}
+                alt={"Buy Icon"}
+                width={25}
+                height={25}
+              ></Image>
+              <p>Check Out</p>
+            </motion.button>
           </Link>
         )}
       </div>

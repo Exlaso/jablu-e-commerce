@@ -10,6 +10,7 @@ const Items = ({
   filtereddata: dataforproduct[] | undefined;
 }) => {
   return (
+    
     <motion.div
       initial="hidden"
       animate={"visible"}
@@ -30,10 +31,11 @@ const Items = ({
           }}
           category={e.category}
           title={e.title}
+          available_color={e.available_color}
+          available_size={e.available_size}
           key={e.id}
           description={e.description}
           id={e.id}
-          image={e.image}
           images={e.images}
           price={e.price}
           rating={e.rating}

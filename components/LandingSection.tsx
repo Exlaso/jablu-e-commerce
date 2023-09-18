@@ -1,13 +1,10 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 import { Parallax, ParallaxProvider } from "react-scroll-parallax";
+import { Isphone } from "./Utils/Isphone";
 
 const LandingSection: FC = () => {
-  const router = useRouter();
-
   return (
     <ParallaxProvider>
       <div
@@ -28,7 +25,7 @@ const LandingSection: FC = () => {
           ></Image>
         </Parallax> */}
         <Parallax
-          translateX={[55, -50]}
+          {...(!Isphone && { translateX: [50, -55] })}
           className="flex justify-center items-center  h-[80vh] md:h-screen"
         >
           <div className="flex flex-col justify-center items-center gap-8">
@@ -59,7 +56,6 @@ const LandingSection: FC = () => {
           className=" relative h-[80vh] md:h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
         >
           <video
-          
             autoPlay={true}
             preload={"auto"}
             loop={true}

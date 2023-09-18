@@ -1,13 +1,18 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
-const SearchBar = () => {
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+const SearchBar = ({
+  onClick,
+}: {
+  onClick?: Dispatch<SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
-  const query:string | null = useSearchParams().get("q");
-  const [searchquery, setSearchquery] = useState<string>((query?query:""));
+  const query: string | null = useSearchParams().get("q");
+  const [searchquery, setSearchquery] = useState<string>(query ? query : "");
   const formeventhandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (onClick !== undefined) onClick(false);
     router.push(`/Categories/Search/?q=${searchquery}`);
   };
 

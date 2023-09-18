@@ -1,11 +1,14 @@
 import ContextProvider from "@/Store/StoreContext";
-import "./globals.css";
+// import "./globals.css";
 import "./output.css";
 
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar";
+import { Session } from "next-auth";
+import { SessionProvider } from "@/components/Utils/SessionProvider";
+import getAllProducts from "@/utils/GetProduct";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -26,20 +29,29 @@ export const metadata: Metadata = {
   description: "Jabluu.in",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  session,
 }: {
   children: React.ReactNode;
-  session: any | null | undefined;
+  session: Session;
 }) {
+  const category: string[] = [];
+  const products = await getAllProducts();
+  products?.map((product) => {
+    if (!category.includes(product.category)) category.push(product.category);
+  });
+
   return (
     <html lang="en">
       <ContextProvider>
+        <SessionProvider session={session}>
           <body className={montserrat.className}>
-            <Navbar />
+            <Navbar category={category} />
             {children}
-            <Footer />
+            <Footer category={category} />
           </body>
+        </SessionProvider>
       </ContextProvider>
     </html>
   );

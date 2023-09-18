@@ -29,7 +29,7 @@ const Page = async ({ searchParams }: { searchParams: { q: string,rate:string } 
   }
   return (
     <>
-      <div className="flex flex-col gap-9">
+      <div className="flex flex-col gap-9 min-h-screen">
         {Query !== undefined ? (
           <h1>
             Showing {filtereddata?.length} results for{" "}

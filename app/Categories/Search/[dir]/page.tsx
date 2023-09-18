@@ -2,6 +2,7 @@ import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 
 const Dir = async ({
@@ -12,6 +13,8 @@ const Dir = async ({
   searchParams: { rate: string };
 }) => {
   const directory = decodeURIComponent(params.dir);
+  if (directory) {
+  }
 
   const data = await getAllProducts();
   let filtereddata: dataforproduct[] | undefined;
@@ -21,6 +24,10 @@ const Dir = async ({
     filtereddata = data?.filter(
       (product) => product.category.toLowerCase() === directory.toLowerCase()
     );
+  }
+
+  if (filtereddata?.length === 0) {
+    notFound();
   }
 
   switch (searchParams.rate) {
@@ -43,7 +50,7 @@ const Dir = async ({
 
   return (
     <>
-          <Items filtereddata={filtereddata}></Items>
+      <Items filtereddata={filtereddata}></Items>
       <div className="w-full max-md:row-start-2 ">
         <div className="w-full md:sticky top-[12vh]  ">
           <p className="text-sm text-gray-500 my-3 ">Sort by</p>

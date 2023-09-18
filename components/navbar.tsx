@@ -7,8 +7,35 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
-const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+const Navbar = ({
+  showsearch = true,
+  category,
+}: {
+  showsearch?: boolean;
+  category: string[] | undefined;
+}) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const [userpfp, setuserpfp] = useState<string>(
+    "/static/icons/navbar/facenosignin.svg"
+  );
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/GetuserPFP", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setuserpfp(data.data));
+    }
+
+    return () => {};
+  }, [status]);
 
   useEffect(() => {
     let prevScrollPos: number = window.scrollY;
@@ -31,7 +58,7 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const router = useRouter();
   const { carted } = useCartContext();
   const numberofcardedproducts: number = carted.length;
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
@@ -39,9 +66,17 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
   const menustate = ismenuopen
     ? "/static/icons/navbar/cross.svg"
     : "/static/icons/navbar/menu.svg";
+
   return (
     <>
-      <AnimatePresence>{ismenuopen && <MenuCard></MenuCard>}</AnimatePresence>
+      <AnimatePresence>
+        {ismenuopen && (
+          <MenuCard
+            Categories={category}
+            setIsmenuopen={setIsmenuopen}
+          ></MenuCard>
+        )}
+      </AnimatePresence>
       <header
         className={`px-2 min-h-[8vh] w-full fixed flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
           isScrolling ? "-translate-y-full" : "translate-y-0"
@@ -74,26 +109,33 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
               </Link>
             </div>
             <ul className="flex space-x-4 items-center justify-end">
-              {showsearch && 
-              <li className="max-lg:hidden">
-                <SearchBar />
-              </li>
-              }
+              {showsearch && (
+                <li className="max-lg:hidden">
+                  <SearchBar />
+                </li>
+              )}
 
               <Link
                 className="flex gap-1 items-center justify-center relative"
                 href={"/ShoppingBag"}
               >
-                {/* <h1 className="text-lg text-black font-bold">Shopping Bag</h1> */}
-                <Image
-                  src={"/static/icons/navbar/buy.svg"}
-                  width={30}
-                  height={30}
-                  alt="search"
-                ></Image>
-                <div className="w-3.5 h-3.5 flex items-center justify-center bg-[rgb(14,165,233)] absolute -top-0 -right-1 rounded-full text-[10px] leading-none text-white font-medium">
-                  <span className="mt-[1px]">{numberofcardedproducts}</span>
-                </div>
+                {/* <h1 className="text-lg text-black font-bold">Shopping Bag</h1> */}{" "}
+                <motion.div
+                  initial={{ scale: 1 }}
+                  whileTap={{ scale: 0.85 }}
+                >
+                  <Image
+                    src={"/static/icons/navbar/buy.svg"}
+                    width={30}
+                    height={30}
+                    alt="search"
+                  ></Image>
+                  {numberofcardedproducts !== 0 && (
+                    <div className="w-3.5 h-3.5 flex items-center justify-center bg-[rgb(14,165,233)] absolute -top-0 -right-1 rounded-full text-[10px] leading-none text-white font-medium">
+                      <span className="mt-[1px]">{numberofcardedproducts}</span>
+                    </div>
+                  )}
+                </motion.div>
               </Link>
               <motion.li
                 initial="hidden"
@@ -101,18 +143,29 @@ const Navbar = ({showsearch = true}:{showsearch?:boolean}) => {
                 className="flex justify-center group flex-col relative items-center gap-2 text-lg font-bold"
               >
                 {/* <h1>Your Account</h1> */}
-                <Image
-                  className="rounded-full "
-                  onClick={() => {
-                    setAccountmenu((e) => !e);
-                  }}
-                  src={"/static/icons/navbar/face.svg"}
-                  width={30}
-                  height={30}
-                  alt="search"
-                ></Image>{" "}
+                <motion.div
+                  initial={{ scale: 1 }}
+                  whileTap={{ scale: 0.85 }}
+                >
+                  <Image
+                    onClick={() => {
+                      if (status === "unauthenticated") {
+                        router.push("/Signin");
+                      } else if (status === "authenticated") {
+                        setAccountmenu((e) => !e);
+                      }
+                    }}
+                    src={userpfp}
+                    width={35}
+                    height={35}
+                    className="rounded-full aspect-square  object-cover"
+                    alt="user pfp"
+                  ></Image>
+                </motion.div>{" "}
                 <AnimatePresence>
-                  {accountmenu && <Accountmenu />}
+                  {accountmenu && (
+                    <Accountmenu setAccountmenu={setAccountmenu} />
+                  )}
                 </AnimatePresence>
               </motion.li>
             </ul>

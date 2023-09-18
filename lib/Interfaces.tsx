@@ -1,18 +1,19 @@
 export type dataforproduct = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
   category: string;
   images: string[];
-  image:string
   rating: {
     rate: number;
     count: number;
   };
+  available_color: string[];
+  available_size: string[];
 };
 export interface dataforproductwithmetadata extends dataforproduct {
-  count: number;
   color: string;
   size: string;
+  count: number;
 }

@@ -2,7 +2,6 @@ import CardSection from "@/components/CardSection";
 import ImageGallery from "@/components/Products/ImageGallery";
 import SelectionSection from "@/components/Products/SelectionSection";
 import BackButton from "@/components/Utils/Backbtn";
-import Navbar from "@/components/navbar";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
 import React from "react";
@@ -14,6 +13,7 @@ const Page = async (props: any) => {
 
   const { images, id, title, description, category }: dataforproduct =
     newdata?.at(0) as dataforproduct;
+
   return (
     <>
       <div className="py-[13vh] px-[10%] flex flex-col gap-4">

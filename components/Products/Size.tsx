@@ -4,12 +4,12 @@ import Link from "next/link";
 import { FunctionComponent, MouseEvent, useState } from "react";
 
 interface colorsProps {
-  Size: string[];
+  Size: string[] | undefined;
   FetchSize: (e: "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL") => void;
 }
 
 const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
-  const [currentColor, setCurrentColor] = useState(Size.at(0));
+  const [currentColor, setCurrentColor] = useState(Size?.at(0));
   const ColorChoose = (
     e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
   ) => {
@@ -33,7 +33,8 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
         </Link>
       </div>
       <div className="flex gap-3 flex-wrap justify-between ">
-        {Size.map((e) => {
+        {Size === undefined && "No size Found for this product"}
+        {Size?.map((e) => {
           let highlight: string = "";
           if (e === currentColor) {
             highlight = " outline outline-cyan-600 outline outline-offset-1";
@@ -43,7 +44,6 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
           return (
             <motion.span
               key={e}
-
               initial={{ scale: 1 }}
               whileTap={{ scale: 0.9 }}
               id={e}

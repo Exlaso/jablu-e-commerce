@@ -6,6 +6,9 @@ import Size from "./Size";
 import CartButton from "./CartButton";
 import { useCartContext } from "@/Store/StoreContext";
 import Heart from "../Utils/Heart";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface SelectionSectionProps {
   data: dataforproduct[];
@@ -14,20 +17,27 @@ interface SelectionSectionProps {
 const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   data,
 }) => {
+  const router = useRouter();
+  const { status } = useSession();
   const { setCarted, favourited, setFavourited } = useCartContext();
   const [liked, setLiked] = useState<boolean>(false);
-  const colors = ["red", "white", "black", "cyan", "gray", "green"];
-  const sizes: string[] = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-  const [color, setColor] = useState<string>(colors.at(0) as string);
-  const [size, setsize] = useState<string>(sizes.at(0) as string);
+  const colors: string[] | undefined = data
+    .at(0)
+    ?.available_color.map((e) => e.toUpperCase());
+  // ["red", "white", "black", "cyan", "gray", "green"];
+  const sizes: string[] | undefined = data
+    .at(0)
+    ?.available_size.map((e) => e.toUpperCase());
+  // const sizes: string[] | undefined = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"]
+  const [color, setColor] = useState<string>(colors?.at(0) as string);
+  const [size, setsize] = useState<string>(sizes?.at(0) as string);
   const [count, setCount] = useState<number>(1);
   type varientsofsize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
-
- 
-
+  const islogin = useSession().status === "authenticated";
   const {
-    image,
     title,
+    available_color,
+    available_size,
     price,
     images,
     description,
@@ -35,7 +45,6 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     category,
     id,
   }: dataforproduct = data?.at(0) as dataforproduct;
-
 
   useEffect(() => {
     const data: dataforproduct | undefined = favourited.find(
@@ -48,7 +57,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
       setLiked(false);
     }
     return () => {};
-  }, [favourited,id]);
+  }, [favourited, id]);
   const Fetchcolor = (e: string) => {
     setColor(e);
   };
@@ -58,11 +67,19 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-black">{title}</h1>
+      <h1 className="text-3xl font-bold text-black capitalize">{title}</h1>
+      <span className="capitalize ">
+        category:<Link
+          className="underline w-fit p-2 cursor-pointer capitalize underline-offset-2"
+          href={"/Categories/Search/"+category}
+        >
+          {category}
+        </Link>
+      </span>
       <div className=" flex gap-3 items-center ">
         <span className="border border-green-500 text-xl  font-bold text-green-500 rounded-md py-2 px-4">
           ₹
-          {(price * 82.69).toLocaleString("en-US", {
+          {price.toLocaleString("en-US", {
             maximumFractionDigits: 2,
           })}
         </span>
@@ -89,22 +106,30 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
         className="flex gap-1 underline cursor-pointer"
         onClick={() => {
           setFavourited((prev) => {
-            if (!liked) {
-              return [
-                ...prev,
-                {
-                  id,
-                  title,
-                  price,
-                  image,
-                  category,
-                  description,
-                  images,
-                  rating,
-                },
-              ];
+            if (status === "unauthenticated") {
+              router.push("/Signin");
+              return prev;
+            } else if (status === "authenticated") {
+              if (!liked) {
+                return [
+                  ...prev,
+                  {
+                    id,
+                    title,
+                    price,
+                    available_color,
+                    available_size,
+                    category,
+                    description,
+                    images,
+                    rating,
+                  },
+                ];
+              } else {
+                return [...prev.filter((e) => e.id !== id)];
+              }
             } else {
-              return [...prev.filter((e) => e.id !== id)];
+              return prev;
             }
           });
         }}
@@ -138,10 +163,12 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
         </div>
 
         <CartButton
+          islogin={islogin}
           data={{
             id,
-            image,
             title,
+            available_color,
+            available_size,
             images,
             category,
             description,

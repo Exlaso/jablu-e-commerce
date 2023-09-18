@@ -24,7 +24,7 @@ const Items = () => {
           >
             <Link href={"/Products/" + e.id}>
               <Image
-                src={e.image}
+                src={e.images.at(0) as string}
                 alt={e.title + " image"}
                 width={150}
                 height={150}
@@ -35,7 +35,7 @@ const Items = () => {
               <div className="flex max-sm:flex-col  max-sm:text-sm justify-between items-start w-full gap-4">
                 <Link
                   href={"/Products/" + e.id}
-                  className="underline text-xl"
+                  className="underline text-xl capitalize"
                 >
                   <h2>{e.title}</h2>
                 </Link>

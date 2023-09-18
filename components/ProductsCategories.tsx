@@ -7,6 +7,9 @@ const ProductsCategories = ({
 }: {
   data: dataforproduct[] | undefined;
 }) => {
+
+
+  
   const category: string[] = [];
   data?.map((product) => {
     if (!category.includes(product.category)) category.push(product.category);

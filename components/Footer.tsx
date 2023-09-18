@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Footer = () => {
+const Footer = ({category}:{category:string[]}) => {
   return (
-    <footer className="bg-gray-800 text-gray-300 py-6 mt-10 px-6">
-      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+    <footer className="bg-gray-800 text-gray-300 py-12  px-6">
+      <div className="container mx-auto flex flex-col  items-center justify-between gap-10">
         <Link href="/" className="flex justify-center items-center flex-col  w-full">
           <Image
             src={"/icon.svg"}
@@ -21,11 +21,10 @@ const Footer = () => {
         <div className="grid grid-cols-3 w-full max-md:grid-cols-2 gap-5 mt-4 lg:mt-0">
           <div className="w-full md:flex flex-col items-center gap-5 justify-start">
             <h3 className="text-lg font-semibold">Categories</h3>
-            <ul className="mt-2 flex flex-col gap-1">
-              <li>Men&apos;s Fashion</li>
-              <li>Women&apos;s Fashion</li>
-              <li>Electronics</li>
-              <li>Home &amp; Garden</li>
+            <ul className="mt-2 flex flex-col gap-1 capitalize">
+             {category.map((e,i) => <Link href={"/Categories/Search/"+e}
+             key={i}
+             className="cursor-pointer">{e}</Link>)}
             </ul>
           </div>
 

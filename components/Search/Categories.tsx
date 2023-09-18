@@ -1,10 +1,26 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 
 const Categories = ({ category }: { category: string[] }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setIsOpen]);
+
   const pathname: string | undefined = decodeURIComponent(
     usePathname().split("/").at(-1) as string
   ).toLowerCase();
@@ -17,11 +33,12 @@ const Categories = ({ category }: { category: string[] }) => {
       <ul className="flex flex-col gap-3 capitalize max-md:hidden">
         {["All", ...category].map((e, i) => {
           return (
-            <Link shallow={true}
+            <Link
+              shallow={true}
               key={i}
               href={"/Categories/Search/" + e}
-              className={`hover:underline text-black  ${
-                e.toLowerCase() === pathname && "underline"
+              className={`hover:underline text-black p-1 rounded-sm  ${
+                e.toLowerCase() === pathname && "bg-gray-200 "
               }`}
             >
               {e}
@@ -29,7 +46,10 @@ const Categories = ({ category }: { category: string[] }) => {
           );
         })}
       </ul>
-      <div className="relative w-full text-left md:hidden">
+      <div
+        ref={divRef}
+        className="relative w-full text-left md:hidden"
+      >
         <button
           onClick={toggleDropdown}
           type="button"
@@ -56,7 +76,8 @@ const Categories = ({ category }: { category: string[] }) => {
           <div className="origin-top-right absolute right-0 mt-1 p-2 w-full capitalize z-20  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div className="flex flex-col gap-2">
               {["All", ...category].map((e, i) => (
-                <Link shallow
+                <Link
+                  shallow
                   key={i}
                   onClick={() => setIsOpen(false)}
                   href={"/Categories/Search/" + e}

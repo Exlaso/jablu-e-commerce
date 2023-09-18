@@ -11,51 +11,48 @@ const CardSection = ({
   data: dataforproduct[] | undefined;
   children: ReactNode;
 }) => {
-  const [filtereditems, setFiltereditems] = useState<
-    dataforproduct[] | undefined
-  >(data);
 
-
-  const divVarients:Variants = {
+  const divVarients: Variants = {
     visible: {
-      transition: { staggerChildren: .1, 
-      },
-      
+      transition: { staggerChildren: 0.1 },
     },
     hidden: {},
   };
 
   const varients: Variants = {
     hidden: {
-      scale: 0.5,opacity:0,
+      scale: 0.5,
+      opacity: 0,
       y: 50,
     },
     visible: {
-      scale: 1,opacity:1,
-      y: 0, 
+      scale: 1,
+      opacity: 1,
+      y: 0,
     },
   };
 
   return (
     <div>
-      <h1 className="text-4xl font-bold px-4 whitespace-nowrap capitalize">
+      <h1 className="text-4xl font-bold px-4 break-all capitalize">
         {children}
       </h1>
       {/* <Filter data={data} filteritem={filteritem}/> */}
-      <motion.div 
-      variants={divVarients}
-      viewport={{once:true}}
+      <motion.div
+        variants={divVarients}
+        viewport={{ once: true }}
         initial="hidden"
         whileInView={"visible"}
         className="p-4 flex gap-4 overflow-x-auto snap-mandatory snap-x"
       >
-        {filtereditems?.map((item) => (
+        {data?.map((item) => (
           <Cardforproduct
+            available_color={item?.available_color}
+            available_size={item?.available_size}
             varients={varients}
             id={item.id}
             images={item.images}
             category={item.category}
-            image={item.image}
             price={item.price}
             key={item.id}
             description={item.description}

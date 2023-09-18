@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-const Accountmenu = () => {
-
-
-
-
-
-
-  const list: { title: string; href: string; image: string }[] = [
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+const Accountmenu = ({
+  setAccountmenu,
+}: {
+  setAccountmenu: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const list: {
+    title: string;
+    href: string;
+    image: string;
+    onClick?: Function;
+  }[] = [
     {
       image: "/static/menu_content/login.svg",
       title: "Account Settings",
@@ -28,11 +32,30 @@ const Accountmenu = () => {
     {
       image: "/static/menu_content/logout.svg",
       title: "Logout",
-      href: "#",
+      href: "",
+      onClick: signOut,
     },
   ];
+
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        setAccountmenu(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setAccountmenu]);
+
   return (
     <motion.div
+      ref={divRef}
       variants={{
         hidden: { y: 10, opacity: 0, height: 0 },
         visible: { y: 0, opacity: 1, height: "auto" },
@@ -55,8 +78,16 @@ const Accountmenu = () => {
       >
         {list.map((e) => (
           <Link
-          key={e.title}
+            key={e.title}
             href={e.href}
+            onClick={(xe) => {
+              if (e.href === "") {
+                xe.preventDefault();
+                if (e.onClick) {
+                  e.onClick();
+                }
+              }
+            }}
             className="flex items-start justify-start h-full w-full"
           >
             <motion.li

@@ -1,12 +1,24 @@
 import { dataforproduct } from "@/lib/Interfaces";
+import products from "@/Data/product.json"
 
+// export default async function getAllProducts(): Promise<
+//   dataforproduct[] | undefined
+// > {
+//   try {
+//     const Response: Response = await fetch("https://fakestoreapi.com/products");
+//     const data: any[] = await Response.json();
+//     return data.map((e) => ({ ...e, images: [e.image] }))
+//   } catch (error) {
+//     console.log("Product Fetch Error: ", error);
+//   }
+// }
 export default async function getAllProducts(): Promise<
   dataforproduct[] | undefined
 > {
   try {
-    const Response: Response = await fetch("https://fakestoreapi.com/products");
-    const data: dataforproduct[] = await Response.json();
-    return data.map((e) => ({ ...e, images: [e.image,] }));
+ 
+ 
+    return products.map(e => ({...e,images:['/static/shuz.jpg']}))
   } catch (error) {
     console.log("Product Fetch Error: ", error);
   }
