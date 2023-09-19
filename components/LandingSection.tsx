@@ -31,7 +31,7 @@ const LandingSection: FC = () => {
           <div className="flex flex-col justify-center items-center gap-8">
             <div className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
               <div>
-                <Image
+                <Image  
                   src={"/static/logo/jablu4.svg"}
                   alt={"jablulogo"}
                   width={200}
