@@ -24,7 +24,7 @@ const Navbar = ({
 
   useEffect(() => {
     if (status === "authenticated") {
-      fetch("/api/GetuserPFP", {
+      fetch(process.env.NEXTAUTH_URL + "/api/GetuserPFP", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

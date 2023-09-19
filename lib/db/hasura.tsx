@@ -1,4 +1,12 @@
+import { dataforproduct } from "../Interfaces";
+
 const CryptoJS = require("crypto-js");
+
+export const GetProducts = async (): Promise<dataforproduct[] | undefined> => {
+  const response = await fetchGraphQLUsingAdmin("GetProducts");
+
+  return response.data.products;
+};
 
 export const SignupUser = async (
   token: string,
@@ -82,6 +90,23 @@ mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:Str
       isverified
     }
   }
+  query GetProducts {
+    products {
+      title
+      rating
+      price
+      images
+      id
+      description
+      category
+      available_size
+      available_color
+    }
+  }
+
+
+
+
   `;
 
 export default async function fetchGraphQL(
@@ -102,5 +127,26 @@ export default async function fetchGraphQL(
       operationName: operationName,
     }),
   });
+
+  return await result.json();
+}
+
+async function fetchGraphQLUsingAdmin(
+  operationName: string,
+  variables: object = {},
+  operationsDoc: string = doperationsDoc
+) {
+  const result = await fetch(process.env.Hasura_URL as string, {
+    method: "POST",
+    headers: {
+      "x-hasura-admin-secret": process.env.Hasura_Secret as string,
+    },
+    body: JSON.stringify({
+      query: operationsDoc,
+      variables: variables,
+      operationName: operationName,
+    }),
+  });
+
   return await result.json();
 }

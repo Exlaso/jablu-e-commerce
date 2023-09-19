@@ -1,5 +1,5 @@
 import { dataforproduct } from "@/lib/Interfaces";
-import products from "@/Data/product.json"
+import products from "@/Data/product.json";
 
 // export default async function getAllProducts(): Promise<
 //   dataforproduct[] | undefined
@@ -16,14 +16,18 @@ export default async function getAllProducts(): Promise<
   dataforproduct[] | undefined
 > {
   try {
- 
- 
-    return products.map(e => ({...e,images:['/static/shuz.jpg']}))
+    const dataforproduct = await fetch(
+      process.env.NEXTAUTH_URL + "/api/GetProducts"
+    );
+
+    const { message }: { message: dataforproduct[] } =
+      await dataforproduct.json();
+
+    return message?.map((e) => ({ ...e, images: ["/static/shuz.jpg"] }));
   } catch (error) {
     console.log("Product Fetch Error: ", error);
   }
 }
-
 
 // interface tempfordataforproduct extends dataforproduct {
 //   thumbnail: string;
