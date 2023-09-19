@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar";
 import { Session } from "next-auth";
 import { SessionProvider } from "@/components/Utils/SessionProvider";
 import getAllProducts from "@/utils/GetProduct";
+import { dataforproduct } from "@/lib/Interfaces";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -37,7 +38,7 @@ export default async function RootLayout({
   session: Session;
 }) {
   const category: string[] = [];
-  const products = await getAllProducts();
+  const products: dataforproduct[] | undefined = await getAllProducts();
   products?.map((product) => {
     if (!category.includes(product.category)) category.push(product.category);
   });

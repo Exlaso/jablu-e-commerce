@@ -1,7 +1,5 @@
 import Categories from "@/components/Search/Categories";
-import SortBy from "@/components/Search/SortBy";
 import BackButton from "@/components/Utils/Backbtn";
-import Navbar from "@/components/navbar";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
 import React, { ReactNode } from "react";
