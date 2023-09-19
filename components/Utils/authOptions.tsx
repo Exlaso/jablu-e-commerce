@@ -13,7 +13,7 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const res = await fetch(process.env.NEXTAUTH_URL + "/api/Signin", {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/Signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

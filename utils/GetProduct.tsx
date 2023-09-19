@@ -17,15 +17,14 @@ export default async function getAllProducts(): Promise<
 > {
   try {
     const dataforproduct = await fetch(
-      process.env.NEXTAUTH_URL + "/api/GetProducts"
+      `${process.env.NEXTAUTH_URL}/api/GetProducts`
     );
 
-    const { message }: { message: dataforproduct[] } =
-      await dataforproduct.json();
+    const { message }: { message: dataforproduct[] } = await dataforproduct.json();
 
     return message?.map((e) => ({ ...e, images: ["/static/shuz.jpg"] }));
   } catch (error) {
-    console.log("Product Fetch Error: ", error);
+    console.log("Product Fetch Error: ", error);  
   }
 }
 

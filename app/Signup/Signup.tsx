@@ -78,7 +78,7 @@ const Signup = ({
       }));
     } else {
       try {
-        const res = await fetch(process.env.NEXTAUTH_URL + "/api/Signup", {
+        const res = await fetch("/api/Signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

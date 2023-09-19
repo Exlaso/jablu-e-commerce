@@ -1,11 +1,28 @@
 import { IsEmailExists, IsPasswordMatched } from "@/lib/db/hasura";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
   try {
     const waitedreq = await req.json();
     const { email, password } = waitedreq;
+
+    if (!email) {
+      return NextResponse.json(
+        { message: "Invalid Email ID", code: "A-SN-VI", error: true },
+        {
+          status: 200,
+        }
+      );
+    } else if (!password) {
+      return NextResponse.json(
+        { message: "Invalid Password", code: "A-SN-VI", error: true },
+        {
+          status: 200,
+        }
+      );
+    }
+
     const JwtTokenforemail = jwt.sign(
       {
         iat: Math.floor(Date.now() / 1000),
@@ -24,7 +41,7 @@ export const POST = async (req: Request) => {
 
       if (res) {
         return NextResponse.json(
-          { message: "success", data: res, error: false },
+          { message: "success", data: res, code: "A-SN-I", error: false },
           {
             status: 200,
             headers: {
@@ -35,12 +52,14 @@ export const POST = async (req: Request) => {
       } else {
         return NextResponse.json({
           message: "Incorrect Credentials",
+          code: "A-SN-II",
           error: true,
         });
       }
     } else {
       return NextResponse.json({
         message: "Account Do Not Exists",
+        code: "A-SN-III",
         error: true,
       });
     }
@@ -48,7 +67,7 @@ export const POST = async (req: Request) => {
     if (typeof e === "string") {
       console.error("Error in api/Signin", e);
       return NextResponse.json(
-        { message: e, error: true },
+        { message: e, code: "A-SN-IV", error: true },
         {
           status: 400,
         }
@@ -56,7 +75,7 @@ export const POST = async (req: Request) => {
     } else if (e instanceof Error) {
       console.error("Error in api/Signin", e?.message);
       return NextResponse.json(
-        { message: e?.message, error: true },
+        { message: e?.message, code: "A-SN-V", error: true },
         {
           status: 400,
         }
