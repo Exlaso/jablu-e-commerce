@@ -1,6 +1,6 @@
 import ContextProvider from "@/Store/StoreContext";
-// import "./globals.css";
-import "./output.css";
+import "./globals.css";
+// import "./output.css";
 
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { SessionProvider } from "@/components/Utils/SessionProvider";
 import getAllProducts from "@/utils/GetProduct";
 import { dataforproduct } from "@/lib/Interfaces";
+import { Suspense } from "react";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -48,7 +49,9 @@ export default async function RootLayout({
       <ContextProvider>
         <SessionProvider session={session}>
           <body className={montserrat.className}>
-            <Navbar category={category} />
+            <Suspense fallback={<></>}>
+              <Navbar category={category} />
+            </Suspense>
             {children}
             <Footer category={category} />
           </body>

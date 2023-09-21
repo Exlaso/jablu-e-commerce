@@ -3,38 +3,23 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-const cats = [
-  {
-    src: "/static/Categories/anime.png",
-    title: "Anime",
-    description: "this is anime card",
-  },
-  {
-    src: "/static/Categories/anime.png",
-    title: "Jablu Exclusive",
-    description: "this is anime card",
-  },
-  {
-    src: "/static/Categories/anime.png",
-    title: "Oversize Tshirts",
-    description: "this is anime card",
-  },
-  {
-    src: "/static/Categories/anime.png",
-    title: "Mugs",
-    description: "this is anime card",
-  },
-];
-const CategoriesDisplay = () => {
+
+const CategoriesDisplay = ({
+  cats,
+  className,
+}: {
+  cats: { src: string; title: string; description: string }[];
+  className?: string;
+}) => {
   return (
-    <section className="my-20 w-full grid-cols-4 py-10 max-lg:grid-cols-2 grid min-h-screen gap-1 bg-black">
-      {cats.map((e,i) => {
+    <section className={className}>
+      {cats.map((e, i) => {
         return (
           <motion.div
-          key={i}
+            key={i}
             initial="faded"
             whileHover="visible"
-            className=" w-full h-full relative border  hover:border-gray-500 duration-150 border-transparent aspect-square group overflow-hidden "
+            className=" w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent aspect-square group overflow-hidden "
           >
             <Link
               href={"Categories/Search/" + e.title}
@@ -45,13 +30,13 @@ const CategoriesDisplay = () => {
                   faded: {
                     opacity: 0.25,
                     scale: 1,
-                    filter:"blur(0px)",
+                    filter: "blur(2px)",
                     transition: { scale: { duration: 30 } },
                   },
                   visible: {
                     opacity: 0.5,
                     scale: 1.5,
-                    filter:"blur(4px)",
+                    filter: "blur(4px)",
                     transition: { scale: { duration: 60 } },
                   },
                 }}
@@ -62,14 +47,14 @@ const CategoriesDisplay = () => {
               >
                 <Image
                   src={e.src}
-                  className="object-cover "
+                  className="object-cover"
                   alt={"Anime"}
                   fill={true}
                 ></Image>
               </motion.div>
-              <div className="absolute top-[10%] w-full capitalize text-white   left-[10%]">
+              <div className="absolute top-[10%] w-[80%] capitalize break-words px-5 text-white  left-[10%]">
                 <h1
-                  className="text-6xl max-lg:text-3xl duration-150  lg:group-hover:text-7xl 
+                  className="text-5xl max-lg:text-3xl duration-150  lg:group-hover:text-6xl 
                
             "
                 >

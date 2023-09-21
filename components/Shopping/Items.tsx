@@ -2,37 +2,70 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IncDecButton from "../Cart/EncDecButton";
 import { dataforproductwithmetadata } from "@/lib/Interfaces";
-import { useCartContext } from "@/Store/StoreContext";
 const Items = () => {
-  const { carted, setCarted } = useCartContext();
+  const [carteditems, setCarteditems] = useState<dataforproductwithmetadata[]>(
+    []
+  );
+  useEffect(() => {
+    fetch("/api/GetCartitems", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json())
+      .then((data) => {
+        const d = data.message.map((e: any) => ({ ...e, ...e.product }));
+        setCarteditems(d);
+      });
 
-  const data: dataforproductwithmetadata[] = carted.sort();
+    return () => {};
+  }, []);
 
   let total: number = 0;
   const ItemRemoveHandler = (productdata: dataforproductwithmetadata) => {
-    setCarted((prev) => {
-      return [
-        ...prev.filter(
-          (e) =>
-            !(
-              e.id === productdata.id &&
-              e.color === productdata.color &&
-              e.size === productdata.size
-            )
-        ),
-      ];
-    });
+    fetch("api/UpdateCount", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: productdata.id,
+        color: productdata.color,
+        size: productdata.size,
+        count: 0,
+        inc: -1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          console.error(data.message);
+        } else {
+          setCarteditems((prev) => {
+            return [
+              ...prev.filter(
+                (e) =>
+                  !(
+                    e.id === productdata.id &&
+                    e.color === productdata.color &&
+                    e.size === productdata.size
+                  )
+              ),
+            ];
+          });
+        }
+      });
   };
   return (
     <div className=" w-full flex-col flex gap-4">
       <AnimatePresence>
-        {data?.length === 0 && (
+        {carteditems?.length === 0 && (
           <h2 className="text-lg">Shopping Bag is Empty</h2>
         )}
-        {data?.sort()?.map((e) => {
+        {carteditems?.sort()?.map((e) => {
           total += e.price * e.count;
           return (
             <motion.div
@@ -61,20 +94,20 @@ const Items = () => {
                   </Link>
                   <span className="font-bold">
                     ₹
-                    {(e.price * e.count ).toLocaleString("en-US", {
+                    {(e.price * e.count).toLocaleString("en-US", {
                       maximumFractionDigits: 2,
                     })}
                   </span>
                 </div>
 
                 <div className="flex justify-between w-full items-center">
-                  <h2 className="capitalize">
+                  <h2 className="uppercase">
                     {e.color}/{e.size}
                   </h2>
                   <div className="flex flex-col items-center gap-1">
                     <IncDecButton
+                      setCarteditems={setCarteditems}
                       data={e}
-                      setCarted={setCarted}
                     ></IncDecButton>
                     <span
                       className="underline capitalize cursor-pointer text-red-500"
@@ -96,13 +129,13 @@ const Items = () => {
         <span>Total</span>
         <span>
           ₹
-          {(total ).toLocaleString("en-US", {
+          {total.toLocaleString("en-US", {
             maximumFractionDigits: 2,
           })}
         </span>
       </div>
       <div className="flex justify-end items-end">
-        {data?.length !== 0 && (
+        {carteditems?.length !== 0 && (
           <Link href={"#"}>
             <motion.button
               type="button"

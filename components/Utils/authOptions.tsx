@@ -8,31 +8,13 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
-        credentials as {
-          email: string;
-          password: string;
-        };
-
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/Signin`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
-        const data = await res.json();
-
-        if (data.error) {
-          throw new Error(data.message);
-        } else {
-          return data.data;
-        }
-        // confirmed users
-        // return { id: "1", name: "Exlaso", email: "Exlaso@email.com" };
+        const a: any = credentials;
+        return { id: a.id, name: a.name, email: a.email };
       },
     }),
   ],
+
   pages: {
-    signIn: "/Signin",
+    signIn: "/Auth/Signin",
   },
 };

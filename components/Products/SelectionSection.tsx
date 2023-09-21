@@ -9,6 +9,9 @@ import Heart from "../Utils/Heart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import DislikeProduct from "@/utils/DisikeProduct";
+import LikeProduct from "@/utils/LikeProduct";
+import Image from "next/image";
 
 interface SelectionSectionProps {
   data: dataforproduct[];
@@ -45,19 +48,23 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     category,
     id,
   }: dataforproduct = data?.at(0) as dataforproduct;
-
+  const [HeartLoading, setHeartLoading] = useState<boolean>(false);
   useEffect(() => {
-    const data: dataforproduct | undefined = favourited.find(
-      (e) => e.id === id
-    );
-
-    if (data !== undefined) {
-      setLiked(true);
-    } else {
-      setLiked(false);
+    if (status === "authenticated") {
+      setHeartLoading(true);
+      fetch(`/api/IsProductLiked?product_id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLiked(data.message);
+          setHeartLoading(false);
+        });
     }
-    return () => {};
-  }, [favourited, id]);
+  }, [id, status]);
   const Fetchcolor = (e: string) => {
     setColor(e);
   };
@@ -65,13 +72,39 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     setsize(e);
   };
 
+  const OnLikeHandler = () => {
+    setHeartLoading(true);
+    if (!HeartLoading) {
+      if (status === "unauthenticated") {
+        router.push("/Signin");
+      } else if (status === "authenticated") {
+        if (liked) {
+          DislikeProduct(id).then((e) => {
+            if (e) {
+              setLiked(false);
+              setHeartLoading(false);
+            }
+          });
+        } else {
+          LikeProduct(id).then((e) => {
+            if (e) {
+              setLiked(e);
+              setHeartLoading(false);
+            }
+          });
+        }
+      }
+    }
+  };
+
   return (
     <>
       <h1 className="text-3xl font-bold text-black capitalize">{title}</h1>
       <span className="capitalize ">
-        category:<Link
+        category:
+        <Link
           className="underline w-fit p-2 cursor-pointer capitalize underline-offset-2"
-          href={"/Categories/Search/"+category}
+          href={"/Categories/Search/" + category}
         >
           {category}
         </Link>
@@ -104,37 +137,18 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
       </div>
       <span
         className="flex gap-1 underline cursor-pointer"
-        onClick={() => {
-          setFavourited((prev) => {
-            if (status === "unauthenticated") {
-              router.push("/Signin");
-              return prev;
-            } else if (status === "authenticated") {
-              if (!liked) {
-                return [
-                  ...prev,
-                  {
-                    id,
-                    title,
-                    price,
-                    available_color,
-                    available_size,
-                    category,
-                    description,
-                    images,
-                    rating,
-                  },
-                ];
-              } else {
-                return [...prev.filter((e) => e.id !== id)];
-              }
-            } else {
-              return prev;
-            }
-          });
-        }}
+        onClick={OnLikeHandler}
       >
-        <Heart liked={liked} />
+        {!HeartLoading ? (
+          <Heart liked={liked}></Heart>
+        ) : (
+          <Image
+            src={"/static/icons/loading.svg"}
+            alt={"loading"}
+            width={25}
+            height={25}
+          ></Image>
+        )}
         {liked ? "Remove from Favourite" : "Add to Favourite"}
       </span>
       <Colors

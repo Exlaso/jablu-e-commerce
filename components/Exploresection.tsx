@@ -16,7 +16,7 @@ const Exploresection = () => {
       </h2>
       <span className="flex gap-2 items-center justify-center whitespace-nowrap flex-wrap ">
         <Link
-          href={"/Categories/Search/All"}
+          href={"/Categories"}
           className="bg-blue-300 hover:bg-blue-600 flex gap-2  duration-150 justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image

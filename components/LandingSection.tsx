@@ -3,8 +3,11 @@ import Image from "next/image";
 import React, { FC } from "react";
 import { Parallax, ParallaxProvider } from "react-scroll-parallax";
 import { Isphone } from "./Utils/Isphone";
+import { useSession } from "next-auth/react";
 
 const LandingSection: FC = () => {
+  const { data } = useSession();
+
   return (
     <ParallaxProvider>
       <div
@@ -23,7 +26,7 @@ const LandingSection: FC = () => {
             width={400}
             height={400}
           ></Image>
-        </Parallax> */} 
+        </Parallax> */}
         <Parallax
           {...(!Isphone && { translateX: [50, -55] })}
           className="flex justify-center items-center  h-[80vh] md:h-screen"
@@ -31,7 +34,7 @@ const LandingSection: FC = () => {
           <div className="flex flex-col justify-center items-center gap-8">
             <div className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
               <div>
-                <Image  
+                <Image
                   src={"/static/logo/jablu4.svg"}
                   alt={"jablulogo"}
                   width={200}

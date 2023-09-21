@@ -1,24 +1,19 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { FormEventHandler, useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import InputField from "@/components/Signup/InputField";
 import Image from "next/image";
-const Signin = ({
-  params,
-  searchParams,
-}: {
-  params: {};
-  searchParams: {
-    callbackUrl: string | undefined;
-  };
-}) => {
-  const [userInfo, setUserInfo] = useState<{ email: string; password: string }>(
-    { email: "", password: "" }
-  );
+import InputField from "@/components/Signup/InputField";
+import { useRouter } from "next/navigation";
+const Signup = () => {
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useState<{
+    email: string;
+    password: string;
+    firstname: string;
+    lastname: string;
+  }>({ email: "", password: "", firstname: "", lastname: "" });
   type errorform = {
     error: string;
     fname: boolean;
@@ -33,21 +28,34 @@ const Signin = ({
     email: false,
     password: false,
   };
-
   const [isbtnloading, setIsbtnloading] = useState<boolean>(false);
   const [myerror, seterror] = useState<errorform>(reseterror);
-  const router = useRouter();
-  const Validateemail = (e: string) =>
-    !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(e);
-  const ValidatePassword = (e: string) => e.length < 8;
   const [ispassvisible, setIspassvisible] = useState<boolean>(false);
   const changeVisibility = () => {
     setIspassvisible((e) => !e);
   };
+  const Validateemail = (e: string) =>
+    !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(e);
+  const ValidateName = (e: string) => e.length <= 2;
+  const ValidatePassword = (e: string) => e.length < 8;
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     setIsbtnloading(true);
     e.preventDefault();
-    if (Validateemail(userInfo.email)) {
+
+    if (ValidateName(userInfo.firstname)) {
+      seterror(() => ({
+        ...reseterror,
+        fname: true,
+        error: "First Name length Must be more than 2 characters",
+      }));
+    } else if (ValidateName(userInfo.lastname)) {
+      seterror(() => ({
+        ...reseterror,
+        lname: true,
+        error: "Last Name length Must be more than 2 characters",
+      }));
+    } else if (Validateemail(userInfo.email)) {
       seterror(() => ({
         ...reseterror,
         email: true,
@@ -61,24 +69,30 @@ const Signin = ({
       }));
     } else {
       try {
-        const res = await signIn("credentials", {
-          email: userInfo.email.toLowerCase(),
-          password: userInfo.password,
-          redirect: false,
+        const res = await fetch("/api/Signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...userInfo,
+            email: userInfo.email.toLowerCase(),
+          }),
         });
+        const data = await res.json();
 
-        if (res?.error === null) {
-          router.replace(
-            !!searchParams?.callbackUrl ? searchParams.callbackUrl : "/"
-          );
+        if (data.error) {
+          seterror((ex) => ({ ...reseterror, error: data.message as string }));
+        } else {
+          router.replace("/Signin");
         }
-        seterror({ ...myerror, error: res?.error as string });
       } catch (error: any) {
-        console.error("Error at Signin Req", error);
+        console.error({ error });
       }
     }
     setIsbtnloading(false);
   };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -89,11 +103,45 @@ const Signin = ({
       }}
       className=" p-8 rounded w-[70vw] max-md:w-full relative flex flex-col gap-6 "
     >
-      <h2 className="text-2xl font-semibold mb-4">Log In to Jablu.in</h2>
+      <h2 className="text-2xl font-semibold mb-4">Sign up to Jablu.in</h2>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-3"
       >
+        <div className="grid grid-cols-2 gap-2">
+          <InputField
+            haveerror={myerror.fname}
+            placeholder="John"
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={userInfo.firstname}
+            onChange={(e) => {
+              seterror((e) => ({ ...reseterror }));
+              setUserInfo({ ...userInfo, firstname: e.currentTarget.value });
+            }}
+            required={true}
+            className="mb-4 w-full"
+            label="First Name"
+          />
+          <InputField
+            haveerror={myerror.lname}
+            className="mb-4 w-full"
+            id="Lastname"
+            label="Last Name"
+            name="Lastname"
+            onChange={(e) => {
+              seterror((e) => ({ ...reseterror }));
+
+              setUserInfo({ ...userInfo, lastname: e.currentTarget.value });
+            }}
+            placeholder="Doe"
+            required={true}
+            type="text"
+            value={userInfo.lastname}
+          />
+        </div>
+
         <InputField
           haveerror={myerror.email}
           label=" Email"
@@ -110,7 +158,6 @@ const Signin = ({
           }}
           required={true}
         />
-
         <div
           className={`mb-4  duration-100 ${
             myerror.password && " text-red-500"
@@ -165,7 +212,7 @@ const Signin = ({
           {isbtnloading && (
             <div className="border-4 border-blue-600 border-l-4 border-l-red-600 p-2 rounded-full animate-spin"></div>
           )}
-          {isbtnloading ? "Loading..." : "Log in"}
+          {isbtnloading ? "Loading..." : "Sign up"}
         </motion.button>
         <AnimatePresence>
           {myerror.error && (
@@ -182,16 +229,16 @@ const Signin = ({
         </AnimatePresence>
       </form>
       <div className="flex justify-center items-center gap-1">
-        Not a member?{" "}
+        Already a member?
         <Link
-          href={"/Signup"}
+          href={"/Auth/Signin"}
           className="underline cursor-pointer"
         >
-          Join Now
+          Login Now
         </Link>
       </div>
     </motion.div>
   );
 };
 
-export default Signin;
+export default Signup;

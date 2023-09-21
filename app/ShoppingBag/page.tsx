@@ -1,6 +1,5 @@
 import Items from "@/components/Shopping/Items";
 import BackButton from "@/components/Utils/Backbtn";
-import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 import Image from "next/image";
 import { FunctionComponent } from "react";

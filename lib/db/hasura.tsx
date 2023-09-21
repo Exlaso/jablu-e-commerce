@@ -34,6 +34,7 @@ export const SignupUser = async (
     user_password,
     isverified,
   });
+
   return response;
 };
 export const IsPasswordMatched = async (
@@ -46,6 +47,7 @@ export const IsPasswordMatched = async (
     process.env.JWT_KEY as string
   );
   let plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
   return plaintext === password;
 };
 
@@ -57,9 +59,115 @@ export const IsEmailExists = async (token: string) => {
 
 export const GetUserImage = async (token: string) => {
   const response = await fetchGraphQL("GetUserImage", token);
+
   return response.data.users.at(0).user_pfp;
 };
+export const isProductLiked = async (
+  token: string,
+  data: { product_id: string }
+) => {
+  const response = await fetchGraphQL("isProductLiked", token, data);
 
+  return response.data.wishlist_items.length !== 0;
+};
+export const Retriveuserdata = async (
+  token: string
+): Promise<
+  | {
+      user_first_name: string;
+      user_phone_number: string;
+      user_email: string;
+      unique_id: string;
+    }
+  | undefined
+> => {
+  const response = await fetchGraphQL("Retriveuserdata", token);
+
+  return response.data.users.at(0);
+};
+
+export const InsertWishlist = async (
+  token: string,
+  data: {
+    product_id: string;
+    user_id: string;
+  }
+): Promise<boolean | undefined> => {
+  const response = await fetchGraphQL("InsertWishlist", token, data);
+
+  return response.data.insert_wishlist_items_one;
+};
+
+export const GetFavouritedItems = async (token: string) => {
+  const response = await fetchGraphQL("GetFavouritedItems", token, {
+    mynum: Date.now().toString(),
+  });
+  return response.data.wishlist_items;
+};
+
+export const GetCategories = async () => {
+  const response = await fetchGraphQLUsingAdmin("GetCategories");
+  return response.data.categories;
+};
+
+export const InsertintoCart = async (
+  token: string,
+  vars: {
+    color: string;
+    count: number;
+    size: string;
+    product_id: string;
+    user_id: string;
+  }
+) => {
+  const response = await fetchGraphQL("InsertintoCart", token, vars);
+  return response.data.insert_cart_one;
+};
+
+export const DeletefromWishlist = async (
+  token: string,
+  data: {
+    product_id: string;
+  }
+): Promise<boolean | undefined> => {
+  const response = await fetchGraphQL("DeletefromWishlist", token, data);
+
+  return response.data.delete_wishlist_items.affected_rows !== 0;
+};
+
+export const GetCartItems = async (
+  token: string,
+  vars: {
+    color: string;
+    size: string;
+    product_id: string;
+  }
+) => {
+  const response = await fetchGraphQL("GetCartItems", token, vars);
+  return response.data.cart;
+};
+export const UpdateCart = async (
+  token: string,
+  vars: { color: string; count: number; size: string; product_id: string }
+) => {
+  const response = await fetchGraphQL("UpdateCart", token, vars);
+  return response.data;
+};
+
+export const DeleteCartItem = async (
+  token: string,
+  vars: { color: string; size: string; product_id: string }
+) => {
+  const response = await fetchGraphQL("DeleteCartItem", token, vars);
+  return response.data.delete_cart.affected_rows;
+};
+
+export const GetallCartItems = async (token: string) => {
+  const response = await fetchGraphQL("GetallCartItems", token, {
+    mynum: (Math.random() * 10).toString(),
+  });
+  return response.data.cart;
+};
 const doperationsDoc = `
 
 query IsEmailExists {
@@ -68,11 +176,94 @@ query IsEmailExists {
   }
 }
 
+query GetFavouritedItems($mynum:String!) {
+  wishlist_items(where: {_not: {product_id: {_eq: $mynum}}}) {
+    product {
+      available_color
+      available_size
+      category
+      description
+      id
+      images
+      price
+      rating
+      title
+    }
+  }
+}
+
+
+
+
 query GetUserImage {
   users {
     user_pfp
   }
 }
+query Retriveuserdata {
+  users {
+    user_first_name
+    user_phone_number
+    user_email
+    unique_id
+  }
+}
+
+  query GetallCartItems($mynum: String!) {
+    cart(where: {_not: {product_id: {_eq: $mynum}}}) {
+      color
+    count
+    size
+    product {
+      available_color
+      available_size
+      category
+      description
+      id
+      images
+      price
+      rating
+      title
+    }
+      }
+      
+  }
+
+
+  mutation DeleteCartItem($color:String!,$size:String!,$product_id:String!) {
+    delete_cart(where: {product_id: {_eq: $product_id}, size: {_eq: $size}, color: {_eq: $color}}) {
+      affected_rows
+    }
+  }
+  
+
+query GetCartItems($color:String!,$size:String!,$product_id:String!) {
+  cart(where: {product_id: {_eq: $product_id}, color: {_eq: $color}, size: {_eq: $size}}) {
+    count
+    product_id
+    size
+    color
+  }
+}
+
+mutation UpdateCart($color:String!,$count:Int!,$size:String!,$product_id:String!) {
+  update_cart(where: {product_id: {_eq: $product_id}, color: {_eq: $color}, size: {_eq: $size}}, _set: {count: $count}) {
+    affected_rows
+  }
+}
+
+
+
+mutation InsertintoCart($color:String!,$count:Int!,$size:String!,$user_id:String!,$product_id:String!) {
+  insert_cart_one(object: {color: $color, count: $count, product_id: $product_id, size: $size, user_id: $user_id}) {
+    color
+    count
+    product_id
+    size
+    user_id
+  }
+}
+
 
 query IsPasswordMatched {
   users {
@@ -80,6 +271,35 @@ query IsPasswordMatched {
   }
 }
 
+query GetCategories {
+  categories {
+    description
+    image
+    name
+  }
+}
+
+
+query isProductLiked($product_id:String!) { 
+  wishlist_items(where: {product_id: {_eq: $product_id}}) {
+    product_id
+    sortid
+    user_id
+  }
+}
+ 
+mutation InsertWishlist($product_id:String!,$user_id:String!) {
+  insert_wishlist_items_one(object: {product_id: $product_id, user_id: $user_id}) {
+    sortid
+    user_id
+    product_id
+  }
+}
+mutation DeletefromWishlist($product_id:String!) {
+  delete_wishlist_items(where: {product_id: {_eq: $product_id}}) {
+    affected_rows
+  } 
+}
 
 mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:String!,$user_last_name:String!,$user_password:String!,$isverified: Boolean!) {
     insert_users_one(object: {user_email: $user_email, user_first_name: $user_first_name, user_last_name: $user_last_name, user_password: $user_password,isverified: $isverified,unique_id: $unique_id}) {

@@ -62,7 +62,7 @@ export const POST = async (req: Request) => {
         {
           status: 200,
           headers: {
-            "Set-Cookie": `token=${JwtTokenforemail}; Path=/; Expires=Tue, 22 Aug 2023 11:34:37 GMT; Max-Age=604800`,
+            "Set-Cookie": `jablu_jwt_token=${JwtTokenforemail}; Path=/; Expires=Tue, 22 Aug 2023 11:34:37 GMT; Max-Age=604800`,
           },
         }
       );

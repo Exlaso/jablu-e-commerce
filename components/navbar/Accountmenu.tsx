@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
@@ -8,6 +9,17 @@ const Accountmenu = ({
 }: {
   setAccountmenu: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const Logout = () => {
+    fetch("/api/DeleteCookie", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => signOut());
+  };
+
   const list: {
     title: string;
     href: string;
@@ -33,7 +45,7 @@ const Accountmenu = ({
       image: "/static/menu_content/logout.svg",
       title: "Logout",
       href: "",
-      onClick: signOut,
+      onClick: Logout,
     },
   ];
 

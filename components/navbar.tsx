@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Navbar = ({
   showsearch = true,
@@ -31,7 +31,11 @@ const Navbar = ({
         },
       })
         .then((res) => res.json())
-        .then((data) => setuserpfp(data.data));
+        .then((data) => {
+          if (data.data) {
+            setuserpfp(data.data);
+          }
+        });
     }
 
     return () => {};
@@ -150,7 +154,7 @@ const Navbar = ({
                   <Image
                     onClick={() => {
                       if (status === "unauthenticated") {
-                        router.push("/Signin");
+                        void signIn("okta");
                       } else if (status === "authenticated") {
                         setAccountmenu((e) => !e);
                       }

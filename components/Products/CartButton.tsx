@@ -27,36 +27,26 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
     if (islogin) {
       setBuyicon("/static/icons/loading.svg");
       setIsadding(true);
-      setCarted((prev) => {
-        const existingObject = prev.find(
-          (item) =>
-            item.id === data.id &&
-            item.color === data.color &&
-            item.size === data.size
-        );
-        if (existingObject !== undefined) {
-          return [
-            ...prev.filter(
-              (e) =>
-                !(
-                  e.id === data.id &&
-                  e.color === data.color &&
-                  e.size === data.size
-                )
-            ),
-            { ...data, count: existingObject.count + data.count },
-          ];
-        } else {
-          return [...prev, data];
-        }
-      });
-      setTimeout(() => {
-        setBuyicon("/static/icons/done.svg");
-        setIsadding(false);
-        setTimeout(() => {
-          setBuyicon("/static/icons/navbar/buy.svg");
-        }, 2000);
-      }, 500);
+      fetch("/api/InsertIntoCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          size: data.size,
+          product_id: data.id,
+          count: data.count,
+          color: data.color
+        }),
+      })
+        .then((res) => res.json())
+        .then(() => { 
+            setBuyicon("/static/icons/done.svg");
+            setIsadding(false);
+            setTimeout(() => {
+              setBuyicon("/static/icons/navbar/buy.svg");
+            }, 2000); 
+        });
     } else {
       router.push(`/Signin?callback=${encodeURIComponent(path)}`);
     }

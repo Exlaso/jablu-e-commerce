@@ -2,8 +2,8 @@ import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
-import { notFound, redirect } from "next/navigation";
-import React from "react";
+import { notFound } from "next/navigation";
+import React, { Suspense } from "react";
 
 const Dir = async ({
   params,
@@ -54,7 +54,7 @@ const Dir = async ({
       <div className="w-full max-md:row-start-2 ">
         <div className="w-full md:sticky top-[12vh]  ">
           <p className="text-sm text-gray-500 my-3 ">Sort by</p>
-          <SortBy />
+            <SortBy />
         </div>
       </div>
     </>

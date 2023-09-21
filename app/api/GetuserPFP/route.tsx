@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
   try {
-    const token: RequestCookie | undefined = req.cookies.get("token");
+    const token: RequestCookie | undefined = req.cookies.get("jablu_jwt_token");
     if (!token) {
       return NextResponse.json({
         message: "Token Cookie Not Found",

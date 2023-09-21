@@ -1,5 +1,4 @@
 "use client";
-import { useCartContext } from "@/Store/StoreContext";
 import { dataforproduct } from "@/lib/Interfaces";
 import { Variants, motion } from "framer-motion";
 import Image from "next/image";
@@ -8,27 +7,9 @@ import React, { useEffect, useState } from "react";
 import Heart from "./Utils/Heart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LikeProduct from "@/utils/LikeProduct";
+import DislikeProduct from "@/utils/DisikeProduct";
 
-// const varients: Variants = {
-//   hidden: {
-//     opacity: 0,
-//     scale: 1,
-//     y: -10,
-//   },
-//   visible: {
-//     opacity: 1,
-//     x: 0,
-//     y: 0,
-//   },
-//   taped: {
-//     scale: 0.95,
-//   },
-//   onview: {
-//     y: 0,
-//     opacity: 1,
-//     scale: 1,
-//   },
-// };
 interface datawithvarients extends dataforproduct {
   varients?: Variants;
   className?: string;
@@ -48,20 +29,51 @@ const Cardforproduct = ({
 }: datawithvarients) => {
   const { status } = useSession();
   const router = useRouter();
-  const { favourited, setFavourited } = useCartContext();
   const [liked, setLiked] = useState<boolean>(false);
+  const [HeartLoading, setHeartLoading] = useState<boolean>(false);
   useEffect(() => {
-    const data: dataforproduct | undefined = favourited.find(
-      (e) => e.id === id
-    );
-
-    if (data !== undefined) {
-      setLiked(true);
-    } else {
-      setLiked(false);
+    if (status === "authenticated") {
+      setHeartLoading(true);
+      fetch(`/api/IsProductLiked?product_id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLiked(data.message);
+          setHeartLoading(false);
+        });
     }
     return () => {};
-  }, [favourited, id]);
+  }, [id,status]);
+
+  // Handle When Product is liked
+  const OnLikeHandler = () => {
+    setHeartLoading(true);
+    if (!HeartLoading) {
+      if (status === "unauthenticated") {
+        router.push("/Signin");
+      } else if (status === "authenticated") {
+        if (liked) {
+          DislikeProduct(id).then((e) => {
+            if (e) {
+              setLiked(false);
+              setHeartLoading(false);
+            }
+          });
+        } else {
+          LikeProduct(id).then((e) => {
+            if (e) {
+              setLiked(e);
+              setHeartLoading(false);
+            }
+          });
+        }
+      }
+    }
+  };
 
   return (
     <motion.div
@@ -78,41 +90,20 @@ const Cardforproduct = ({
         <motion.button
           type="button"
           initial={{ opacity: 1, scale: 1 }}
-          whileTap={{
-            scale: 0.8,
-          }}
-          onClick={() => {
-            setFavourited((prev) => {
-              if (status === "unauthenticated") {
-                router.push("/Signin");
-                return prev;
-              } else if (status === "authenticated") {
-                if (!liked) {
-                  return [
-                    ...prev,
-                    {
-                      id,
-                      title,
-                      price,
-                      available_color,
-                      available_size,
-                      category,
-                      description,
-                      images,
-                      rating,
-                    },
-                  ];
-                } else {
-                  return [...prev.filter((e) => e.id !== id)];
-                }
-              } else {
-                return prev;
-              }
-            });
-          }}
+          onClick={OnLikeHandler}
           className="absolute right-5 top-5 z-10"
         >
-          <Heart liked={liked}></Heart>
+          {!HeartLoading ? (
+            <Heart liked={liked}></Heart>
+          ) : (
+            <Image
+              src={"/static/icons/loading.svg"}
+              alt={"loading"}
+              width={25}
+              priority={true}
+              height={25}
+            ></Image>
+          )}
         </motion.button>
 
         <Link
@@ -137,7 +128,7 @@ const Cardforproduct = ({
             <div className="flex items-center justify-center gap-2">
               <span className="text-xl text-gray-800 bg-blue-100  rounded-full px-3 py-2  font-semibold">
                 ₹
-                {(price ).toLocaleString("en-US", {
+                {price.toLocaleString("en-US", {
                   maximumFractionDigits: 2,
                 })}
               </span>

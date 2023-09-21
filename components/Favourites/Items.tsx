@@ -1,12 +1,31 @@
 "use client";
-import { useCartContext } from "@/Store/StoreContext";
+import { dataforproduct } from "@/lib/Interfaces";
+import DislikeProduct from "@/utils/DisikeProduct";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Items = () => {
-  const { favourited, setFavourited } = useCartContext();
+  const [favourited, setfavouriteditems] = useState<dataforproduct[]>([]);
+  useEffect(() => {
+    fetch("/api/Getallwishlist", {
+      cache: "no-cache",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        console.error(data);
+        const d = await data.message.map((e: any) => ({ ...e, ...e.product }));
+        setfavouriteditems(d);
+      });
+
+    return () => {};
+  }, []);
+
   return (
     <AnimatePresence>
       {favourited?.length === 0 && (
@@ -50,9 +69,10 @@ const Items = () => {
                 <span
                   className="underline capitalize cursor-pointer flex flex-col items-center text-red-500"
                   onClick={() => {
-                    setFavourited((prev) => [
-                      ...prev.filter((pe) => pe.id !== e.id),
-                    ]);
+                    setfavouriteditems((prev) =>
+                      prev.filter((ex) => ex.id !== e.id)
+                    );
+                    DislikeProduct(e.id);
                   }}
                 >
                   Remove from Favourite

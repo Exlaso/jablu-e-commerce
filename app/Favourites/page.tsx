@@ -1,4 +1,3 @@
-// "use client";
 
 import Items from "@/components/Favourites/Items";
 import BackButton from "@/components/Utils/Backbtn";
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Your list of desired items or products you have expressed interest in.",
 };
-const Page = () => {
+const Page = async() => {
 
 
     return (

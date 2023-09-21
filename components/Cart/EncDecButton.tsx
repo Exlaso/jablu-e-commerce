@@ -1,17 +1,52 @@
 import { dataforproductwithmetadata } from "@/lib/Interfaces";
-import { Dispatch, FunctionComponent, SetStateAction } from "react";
+import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 
 interface IncDecButtonProps {
   data: dataforproductwithmetadata;
-  setCarted: Dispatch<SetStateAction<dataforproductwithmetadata[]>>;
+  setCarteditems: Dispatch<SetStateAction<dataforproductwithmetadata[]>>;
 }
 
 const IncDecButton: FunctionComponent<IncDecButtonProps> = ({
+  setCarteditems,
   data,
-  setCarted,
 }) => {
+  const [decloading, setDecloading] = useState<boolean>(false);
+  const [incloading, setIncloading] = useState<boolean>(false);
+
+  const UpdateHandler = (
+    productdata: dataforproductwithmetadata,
+    inc: number
+  ) => {
+    fetch("api/UpdateCount", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: productdata.id,
+        color: productdata.color,
+        size: productdata.size,
+        count: productdata.count,
+        inc: inc,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIncloading(false);
+        setDecloading(false);
+        if (data.error) {
+          console.error(data.message);
+        } else {
+          if (inc > 0) {
+            IncrementHandler(productdata);
+          } else {
+            DecrementHandler(productdata);
+          }
+        }
+      });
+  };
   const IncrementHandler = (productdata: dataforproductwithmetadata) => {
-    setCarted((prev) => {
+    setCarteditems((prev) => {
       return [
         ...prev
           .filter(
@@ -34,7 +69,7 @@ const IncDecButton: FunctionComponent<IncDecButtonProps> = ({
   };
   const DecrementHandler = (productdata: dataforproductwithmetadata) => {
     if (productdata.count === 1) {
-      setCarted((prev) => {
+      setCarteditems((prev) => {
         return [
           ...prev.filter(
             (e) =>
@@ -47,7 +82,7 @@ const IncDecButton: FunctionComponent<IncDecButtonProps> = ({
         ];
       });
     } else {
-      setCarted((prev) => {
+      setCarteditems((prev) => {
         return [
           ...prev
             .filter(
@@ -73,15 +108,25 @@ const IncDecButton: FunctionComponent<IncDecButtonProps> = ({
   return (
     <div className=" px-4 py-2 text-xl bg-transparent text-black border border-black rounded-full w-28 flex justify-between">
       <button
+        disabled={decloading || incloading}
         type="button"
-        onClick={() => DecrementHandler(data)}
+        className="disabled:opacity-25"
+        onClick={() => {
+          UpdateHandler(data, -1);
+          setDecloading(true);
+        }}
       >
         -
       </button>
       <span>{data.count}</span>
       <button
+        disabled={decloading || incloading}
         type="button"
-        onClick={() => IncrementHandler(data)}
+        className="disabled:opacity-25"
+        onClick={() => {
+          UpdateHandler(data, +1);
+          setIncloading(true);
+        }}
       >
         +
       </button>

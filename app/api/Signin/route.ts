@@ -1,4 +1,8 @@
-import { IsEmailExists, IsPasswordMatched } from "@/lib/db/hasura";
+import {
+  IsEmailExists,
+  IsPasswordMatched,
+  Retriveuserdata,
+} from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
@@ -38,14 +42,29 @@ export const POST = async (req: NextRequest) => {
 
     if (await IsEmailExists(JwtTokenforemail)) {
       const res = await IsPasswordMatched(JwtTokenforemail, { password });
+      const userinfo = await Retriveuserdata(JwtTokenforemail);
+
+      const JwtToken = jwt.sign(
+        {
+          userid: userinfo?.unique_id,
+          iat: Math.floor(Date.now() / 1000),
+          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+          "https://hasura.io/jwt/claims": {
+            "x-hasura-allowed-roles": ["user", "admin", "email"],
+            "x-hasura-default-role": "user",
+            "x-hasura-user-id": `${userinfo?.unique_id}`,
+          },
+        },
+        process.env.JWT_KEY as string
+      );
 
       if (res) {
         return NextResponse.json(
-          { message: "success", data: res, code: "A-SN-I", error: false },
+          { message: userinfo, data: res, code: "A-SN-I", error: false },
           {
             status: 200,
             headers: {
-              "Set-Cookie": `token=${JwtTokenforemail}; Path=/; Expires=Tue, 22 Aug 2023 11:34:37 GMT; Max-Age=604800`,
+              "Set-Cookie": `jablu_jwt_token=${JwtToken}; Path=/; Expires=Tue, 22 Aug 2023 11:34:37 GMT; Max-Age=604800`,
             },
           }
         );

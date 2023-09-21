@@ -1,5 +1,6 @@
 import { dataforproduct } from "@/lib/Interfaces";
 import products from "@/Data/product.json";
+import { GetProducts } from "@/lib/db/hasura";
 
 // export default async function getAllProducts(): Promise<
 //   dataforproduct[] | undefined
@@ -9,22 +10,20 @@ import products from "@/Data/product.json";
 //     const data: any[] = await Response.json();
 //     return data.map((e) => ({ ...e, images: [e.image] }))
 //   } catch (error) {
-//     console.log("Product Fetch Error: ", error);
+//     console.error("Product Fetch Error: ", error);
 //   }
 // }
 export default async function getAllProducts(): Promise<
   dataforproduct[] | undefined
 > {
   try {
-    const dataforproduct = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/GetProducts`
-    );
+    
+    const data = await GetProducts();
+   
 
-    const { message }: { message: dataforproduct[] } = await dataforproduct.json();
-
-    return message?.map((e) => ({ ...e, images: ["/static/shuz.jpg"] }));
+    return await data;
   } catch (error) {
-    console.log("Product Fetch Error: ", error);  
+    console.error("Product Fetch Error: ", error);  
   }
 }
 
@@ -46,6 +45,6 @@ export default async function getAllProducts(): Promise<
 //       },
 //     }));
 //   } catch (error) {
-//     console.log("Product Fetch Error: ", error);
+//     console.error("Product Fetch Error: ", error);
 //   }
 // }
