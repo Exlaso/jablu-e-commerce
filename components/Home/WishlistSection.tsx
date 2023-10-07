@@ -10,7 +10,7 @@ const WishlistSection = async () => {
     signOut();
   }
   const res = await fetch(
-    process.env.NEXTAUTH_URL +
+    process.env.VERCEL_URL +
       `/api/Getallwishlist?jablu_jwt_token=${token?.value}`
   );
   let data = await res.json();

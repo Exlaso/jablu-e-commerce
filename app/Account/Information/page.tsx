@@ -14,7 +14,7 @@ const Page = async () => {
     signOut();
   }
   const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
+    `${process.env.VERCEL_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
   );
   const data: {
     message: {

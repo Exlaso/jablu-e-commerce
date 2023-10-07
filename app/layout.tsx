@@ -1,6 +1,6 @@
 import ContextProvider from "@/Store/StoreContext";
-import "./globals.css";
-// import "./output.css";
+// import "./globals.css";
+import "./output.css";
 
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
