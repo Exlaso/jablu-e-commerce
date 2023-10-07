@@ -1,5 +1,7 @@
 "use client";
+import { useCartContext } from "@/Store/StoreContext";
 import { dataforproductwithmetadata } from "@/lib/Interfaces";
+import ItemsinCart from "@/utils/ItemsinCart";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,15 +9,15 @@ import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 
 interface CartButtonProps {
   data: dataforproductwithmetadata;
-  setCarted: Dispatch<SetStateAction<dataforproductwithmetadata[]>>;
   islogin: boolean;
 }
 
 const CartButton: FunctionComponent<CartButtonProps> = ({
   data,
-  setCarted,
   islogin,
 }) => {
+  const { FetchNoifItemsinCart } = useCartContext();
+
   const router = useRouter();
   const path = usePathname();
   const [buyicon, setBuyicon] = useState<string>(
@@ -36,16 +38,17 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
           size: data.size,
           product_id: data.id,
           count: data.count,
-          color: data.color
+          color: data.color,
         }),
       })
         .then((res) => res.json())
-        .then(() => { 
-            setBuyicon("/static/icons/done.svg");
-            setIsadding(false);
-            setTimeout(() => {
-              setBuyicon("/static/icons/navbar/buy.svg");
-            }, 2000); 
+        .then(() => {
+          FetchNoifItemsinCart();
+          setBuyicon("/static/icons/done.svg");
+          setIsadding(false);
+          setTimeout(() => {
+            setBuyicon("/static/icons/navbar/buy.svg");
+          }, 2000);
         });
     } else {
       router.push(`/Signin?callback=${encodeURIComponent(path)}`);
@@ -59,7 +62,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
       {...(!isadding && { whileTap: { scale: 0.9 } })}
       initial={{ scale: 1 }}
       onClick={addtoCartHandler}
-      className="flex bg-slate-100/80 grow select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-slate-200 duration-100"
+      className="flex bg-[var(--tertiary-color)] grow select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-slate-200 duration-100"
     >
       <Image
         src={buyicon}

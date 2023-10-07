@@ -9,6 +9,7 @@ export const GET = async (req: NextRequest) => {
       return NextResponse.json({
         message: "Token Cookie Not Found",
         error: true,
+        errorcode:"TCNF"
       });
     }
     const res: string = await GetUserImage(token.value);

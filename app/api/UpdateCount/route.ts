@@ -10,6 +10,7 @@ export const PATCH = async (req: NextRequest) => {
         message: "Token cookie Not found",
         error: "true",
         code: "A-UC-I",
+        errorcode:"TCNF"
       });
     }
     const body: {

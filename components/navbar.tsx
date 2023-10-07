@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 const Navbar = ({
   showsearch = true,
   category,
@@ -62,9 +61,7 @@ const Navbar = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const router = useRouter();
-  const { carted } = useCartContext();
-  const numberofcardedproducts: number = carted.length;
+  const { noItemsinCart } = useCartContext();
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
   const [accountmenu, setAccountmenu] = useState<boolean>(false);
   const menustate = ismenuopen
@@ -82,7 +79,7 @@ const Navbar = ({
         )}
       </AnimatePresence>
       <header
-        className={`px-2 min-h-[8vh] w-full fixed flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
+        className={`px-2 min-h-[8vh] w-full fixed  flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
           isScrolling ? "-translate-y-full" : "translate-y-0"
         } `}
       >
@@ -92,7 +89,7 @@ const Navbar = ({
               className="z-40 relative"
               onClick={() => setIsmenuopen((prev) => !prev)}
             >
-              <Image
+              <Image 
                 src={menustate}
                 alt="menu"
                 width={30}
@@ -104,7 +101,7 @@ const Navbar = ({
                 href="/"
                 className="font-bold text-center  flex shadowhand justify-evenly flex-wrap"
               >
-                <Image
+                <Image 
                   src={"/static/logo/jablu4.svg"}
                   alt={"jablulogo"}
                   width={80}
@@ -128,15 +125,15 @@ const Navbar = ({
                   initial={{ scale: 1 }}
                   whileTap={{ scale: 0.85 }}
                 >
-                  <Image
+                  <Image 
                     src={"/static/icons/navbar/buy.svg"}
                     width={30}
                     height={30}
                     alt="search"
                   ></Image>
-                  {numberofcardedproducts !== 0 && (
+                  {noItemsinCart !== 0 && (
                     <div className="w-3.5 h-3.5 flex items-center justify-center bg-[rgb(14,165,233)] absolute -top-0 -right-1 rounded-full text-[10px] leading-none text-white font-medium">
-                      <span className="mt-[1px]">{numberofcardedproducts}</span>
+                      <span className="mt-[1px]">{noItemsinCart}</span>
                     </div>
                   )}
                 </motion.div>
@@ -151,7 +148,7 @@ const Navbar = ({
                   initial={{ scale: 1 }}
                   whileTap={{ scale: 0.85 }}
                 >
-                  <Image
+                  <Image 
                     onClick={() => {
                       if (status === "unauthenticated") {
                         void signIn("okta");

@@ -39,7 +39,7 @@ const Page = async ({
           {Query !== undefined ? (
             <h1>
               Showing {filtereddata?.length} results for{" "}
-              <span className="font-bold uppercase text-black">{Query}</span>
+              <span className="font-bold uppercase exlasi">{Query}</span>
             </h1>
           ) : null}
           <Items filtereddata={filtereddata}></Items>

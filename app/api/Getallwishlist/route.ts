@@ -8,17 +8,19 @@ export const dynamic = 'force-dynamic'
 
 export const GET = async (req: NextRequest) => {
   try {
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const { searchParams } = new URL(req.url);
 
-    if (!token?.value) {
+    if (!searchParams.get("jablu_jwt_token")) {
       return NextResponse.json({
         message: "Token cookie Not found",
+        errorcode: "TCNF",
         error: "true",
-        meta: `t-${token?.value}`,
-        code: "A-GAW-I",
+        code: "A-FUD-I",
       });
     }
-    const wishlist: dataforproduct[] = await GetFavouritedItems(token.value);
+    const token: string = searchParams.get("jablu_jwt_token") as string; 
+    
+    const wishlist: dataforproduct[] = await GetFavouritedItems(token);
     return NextResponse.json({
       message: wishlist,
       error: false,

@@ -54,7 +54,7 @@ const Cardforproduct = ({
     setHeartLoading(true);
     if (!HeartLoading) {
       if (status === "unauthenticated") {
-        router.push("/Signin");
+        router.push("/Auth/Signin");
       } else if (status === "authenticated") {
         if (liked) {
           DislikeProduct(id).then((e) => {
@@ -112,7 +112,7 @@ const Cardforproduct = ({
         >
           <div className="flex justify-center items-center w-full ">
             <Image
-              // src={"/static/shuz.jpg"}
+              // src={"/static/maitray.png"}
               src={images.at(0) as string}
               alt={title}
               width={500}
@@ -121,7 +121,7 @@ const Cardforproduct = ({
             ></Image>
           </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-4">
-            <h1 className="max-sm:text-sm text-md capitalize  font-bold text-black">
+            <h1 className="max-sm:text-sm text-md capitalize  font-bold exlasi">
               {title}
             </h1>
 
@@ -133,7 +133,7 @@ const Cardforproduct = ({
                 })}
               </span>
 
-              <span className="flex gap-1 justify-center items-center px-3 py-2  text-black rounded-full ">
+              <span className="flex gap-1 justify-center items-center px-3 py-2  exlasi rounded-full ">
                 Ratings: {rating.rate}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

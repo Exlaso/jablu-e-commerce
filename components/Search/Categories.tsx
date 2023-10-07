@@ -76,7 +76,7 @@ const Categories = ({ category }: { category: string[] }) => {
           <div className="origin-top-right absolute right-0 mt-1 p-2 w-full capitalize z-20  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div className="flex flex-col gap-2">
               {["All", ...category].map((e, i) => (
-                <Link
+                <Link 
                   shallow
                   key={i}
                   onClick={() => setIsOpen(false)}

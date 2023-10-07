@@ -19,6 +19,7 @@ export const GET = async(req: NextRequest) => {
     if (!token?.value) {
       return NextResponse.json({
         message: "Token cookie Not found",
+        errorcode:"TCNF",
         error: "true",
         code: "A-IPL-I",
       });

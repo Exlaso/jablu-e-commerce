@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
@@ -17,7 +16,7 @@ const Accountmenu = ({
       },
     })
       .then((res) => res.json())
-      .then((data) => signOut());
+      .then(() => signOut());
   };
 
   const list: {
@@ -29,7 +28,7 @@ const Accountmenu = ({
     {
       image: "/static/menu_content/login.svg",
       title: "Account Settings",
-      href: "#",
+      href: "Account",
     },
     {
       image: "/static/icons/navbar/favourite.svg",
@@ -41,12 +40,12 @@ const Accountmenu = ({
       title: "Orders",
       href: "#",
     },
-    {
-      image: "/static/menu_content/logout.svg",
-      title: "Logout",
-      href: "",
-      onClick: Logout,
-    },
+    // {
+    //   image: "/static/menu_content/logout.svg",
+    //   title: "Logout",
+    //   href: "",
+    //   onClick: Logout,
+    // },
   ];
 
   const divRef = useRef<HTMLDivElement>(null);
@@ -68,6 +67,7 @@ const Accountmenu = ({
   return (
     <motion.div
       ref={divRef}
+      exit={{opacity:0}}  
       variants={{
         hidden: { y: 10, opacity: 0, height: 0 },
         visible: { y: 0, opacity: 1, height: "auto" },
@@ -82,6 +82,7 @@ const Accountmenu = ({
     >
       <motion.ul
         initial={"hidden"}
+       
         animate="visible"
         transition={{
           staggerChildren: 0.15,
@@ -93,6 +94,7 @@ const Accountmenu = ({
             key={e.title}
             href={e.href}
             onClick={(xe) => {
+              setAccountmenu(false)
               if (e.href === "") {
                 xe.preventDefault();
                 if (e.onClick) {
@@ -120,6 +122,7 @@ const Accountmenu = ({
                 src={e.image}
                 width={30}
                 height={30}
+                loading="eager"
                 alt="search"
               ></Image>
               <h1>{e.title}</h1>

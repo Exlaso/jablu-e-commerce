@@ -64,7 +64,7 @@ export const POST = async (req: NextRequest) => {
           {
             status: 200,
             headers: {
-              "Set-Cookie": `jablu_jwt_token=${JwtToken}; Path=/; Expires=Tue, 22 Aug 2023 11:34:37 GMT; Max-Age=604800`,
+              "Set-Cookie": `jablu_jwt_token=${JwtToken}; Path=/;  Max-Age=605800`,
             },
           }
         );

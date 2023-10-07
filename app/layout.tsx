@@ -11,6 +11,10 @@ import { SessionProvider } from "@/components/Utils/SessionProvider";
 import getAllProducts from "@/utils/GetProduct";
 import { dataforproduct } from "@/lib/Interfaces";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
+import { signOut } from "next-auth/react";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import ItemsinCart from "@/utils/ItemsinCart";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -44,11 +48,14 @@ export default async function RootLayout({
     if (!category.includes(product.category)) category.push(product.category);
   });
 
+
+
   return (
     <html lang="en">
       <ContextProvider>
         <SessionProvider session={session}>
-          <body className={montserrat.className}>
+          {/* className={montserrat.className} */}
+          <body className="darkmode">
             <Suspense fallback={<></>}>
               <Navbar category={category} />
             </Suspense>

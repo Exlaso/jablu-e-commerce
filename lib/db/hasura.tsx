@@ -42,6 +42,7 @@ export const IsPasswordMatched = async (
   { password }: { password: string }
 ) => {
   const response = await fetchGraphQL("IsPasswordMatched", token);
+
   const bytes = CryptoJS.AES.decrypt(
     response.data.users.at(0).user_password,
     process.env.JWT_KEY as string
@@ -168,7 +169,29 @@ export const GetallCartItems = async (token: string) => {
   });
   return response.data.cart;
 };
+export const GetnoofitemsinCart = async (token: string) => {
+  
+  const response = await fetchGraphQL("GetnoofitemsinCart", token);
+  return response.data.cart.length;
+  
+};
+
+export const GetUserDetails = async (token: string) => {
+  const response = await fetchGraphQL("GetUserDetails", token);
+  return response.data.users;
+};
 const doperationsDoc = `
+
+
+query GetUserDetails {
+  users {
+    user_email
+    user_first_name
+    user_last_name
+    user_pfp
+    user_phone_number
+  }
+}
 
 query IsEmailExists {
   users {
@@ -192,6 +215,11 @@ query GetFavouritedItems($mynum:String!) {
   }
 }
 
+query GetnoofitemsinCart {
+  cart {
+    product_id
+  }
+}
 
 
 

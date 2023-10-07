@@ -1,18 +1,24 @@
 "use client";
+import { useCartContext } from "@/Store/StoreContext";
+import ItemsinCart from "@/utils/ItemsinCart";
 import Image from "next/image";
-import React, { FC } from "react";
-import { Parallax, ParallaxProvider } from "react-scroll-parallax";
-import { Isphone } from "./Utils/Isphone";
-import { useSession } from "next-auth/react";
+import React, { FC, useEffect } from "react";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const LandingSection: FC = () => {
-  const { data } = useSession();
+  const { FetchNoifItemsinCart } = useCartContext();
+
+  useEffect(() => {
+    FetchNoifItemsinCart();
+
+    return () => {};
+  }, [FetchNoifItemsinCart]);
 
   return (
     <ParallaxProvider>
       <div
         className="relative -z-10 grid  grid-cols-2 max-lg:grid-cols-1 bg-gradient-to-l py-[5vh] 
-     overflow-hidden bg-no-repeat bg-cover"
+     overflow-hidden bg-no-repeat bg-cover  "
         style={{ backgroundImage: "url('/static/hero/background.jpg')" }}
       >
         {/* <Parallax
@@ -27,10 +33,7 @@ const LandingSection: FC = () => {
             height={400}
           ></Image>
         </Parallax> */}
-        <Parallax
-          {...(!Isphone && { translateX: [50, -55] })}
-          className="flex justify-center items-center  h-[80vh] md:h-screen"
-        >
+        <div className="flex justify-center items-center  h-[80vh] md:h-screen">
           <div className="flex flex-col justify-center items-center gap-8">
             <div className="text-8xl  max-sm:text-5xl font-extrabold shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
               <div>
@@ -52,12 +55,9 @@ const LandingSection: FC = () => {
               Quality
             </p>
           </div>
-        </Parallax>
+        </div>
 
-        <Parallax
-          translateX={[-50, 55]}
-          className=" relative h-[80vh] md:h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden "
-        >
+        <div className=" relative h-[80vh] md:h-screen flex justify-between items-center w-full  mix-blend-darken bg-blend-darken overflow-hidden ">
           <video
             autoPlay={true}
             preload={"auto"}
@@ -80,7 +80,7 @@ const LandingSection: FC = () => {
             width={600}
             height={600}
           ></Image> */}
-        </Parallax>
+        </div>
       </div>
     </ParallaxProvider>
   );

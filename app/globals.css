@@ -12,10 +12,15 @@
 :root {
   --primary-color: white;
   --secondary-color: rgb(96, 96, 96);
-  /* --primary-color: black;
-  --secondary-color: white;  */
 
-  --tertiary-color: #183d3d;
+  --tertiary-color: rgb(241 245 249 / 0.8);
+  --highlight-color: black;
+}
+.darkmosd {
+  --primary-color: rgb(15, 15, 15);
+  --secondary-color: rgb(200, 200, 200);
+  --tertiary-color: rgba(51, 51, 51, 0.8);
+  --highlight-color: white;
 }
 
 body {
@@ -76,6 +81,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
 .jablutext {
   --padding: 0.06em;
   padding: var(--padding);
@@ -84,7 +90,7 @@ body {
   background: linear-gradient(
     45deg,
     #800080,
-    #4B0082
+    #4b0082
   ); /* Define your gradient colors and direction */
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text; /* Apply the gradient within the text area */
@@ -95,7 +101,7 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(90deg, #008080, #008B8B);
+  background-image: linear-gradient(90deg, #008080, #008b8b);
 }
 
 input[type="color"],
@@ -115,4 +121,20 @@ input[type="week"],
 select:focus,
 textarea {
   font-size: 16px;
+}
+h1 {
+  font-size: larger;
+  font-weight: 600;
+}
+h2 {
+  font-size: large;
+  font-weight: 600;
+}
+h3 {
+  font-size: medium;
+  font-weight: 600;
+}
+h4 {
+  font-size: small;
+  font-weight: 600;
 }

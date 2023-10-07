@@ -12,6 +12,7 @@ export const DELETE = async (req: NextRequest) => {
         message: "Token cookie Not found",
         error: "true",
         code: "A-DP-I",
+        errorcode:"TCNF"
       });
     }
     const Decoded_token: {

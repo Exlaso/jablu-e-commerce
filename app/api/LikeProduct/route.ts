@@ -13,6 +13,7 @@ export const POST = async (req: NextRequest) => {
         message: "Token cookie Not found",
         error: "true",
         code: "A-LP-I",
+        errorcode:"TCNF"
       });
     }
     const Decoded_token: {

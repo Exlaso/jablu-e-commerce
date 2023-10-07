@@ -27,7 +27,7 @@ export async function generateMetadata(
   ) as dataforproduct;
 
   return {
-    title: title,
+    title: title.toUpperCase(),
     keywords: [
       title,
       description,
@@ -71,7 +71,7 @@ const Page = async (props: any) => {
           <div className="col-span-full">
             <details>
               <p className="ml-5 my-5 text-[#717171]">{description}</p>
-              <summary className="bg-slate-100/80 p-2 rounded-lg cursor-pointer">
+              <summary className="bg-[var(--tertiary-color)] p-2 rounded-lg cursor-pointer">
                 <span className=" w-full">Description</span>
               </summary>
             </details>

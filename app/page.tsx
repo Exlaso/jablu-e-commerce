@@ -5,22 +5,26 @@ import { dataforproduct } from "@/lib/Interfaces";
 import ProccessSection from "@/components/Parallax/Parallax";
 import Exploresection from "@/components/Exploresection";
 import CategoriesDisplay from "@/components/Categories/CategoriesDisplay";
+import WishlistSection from "@/components/Home/WishlistSection";
 
 const cats = [
   {
     src: "/static/Categories/anime.png",
     title: "Anime",
-    description: "Elevate your anime style with our collection of wearable treasures. From iconic characters to unique designs, embrace your anime obsession.",
+    description:
+      "Elevate your anime style with our collection of wearable treasures. From iconic characters to unique designs, embrace your anime obsession.",
   },
   {
     src: "/static/background_imgs/exclusive.jpeg",
     title: "Jablu Exclusive",
-    description: "Explore JABLU's exclusive wearables - a curated selection of one-of-a-kind fashion pieces designed to make you stand out. Discover uniqueness today!",
+    description:
+      "Explore JABLU's exclusive wearables - a curated selection of one-of-a-kind fashion pieces designed to make you stand out. Discover uniqueness today!",
   },
   {
     src: "/static/background_imgs/exclusive.jpg",
     title: "Quirky tshirts",
-    description: "Step into comfort and style with our Oversized T-shirt collection. Embrace the relaxed, trendy look with these spacious and versatile garments.",
+    description:
+      "Step into comfort and style with our Oversized T-shirt collection. Embrace the relaxed, trendy look with these spacious and versatile garments.",
   },
   {
     src: "/static/background_imgs/mat.jpeg",
@@ -45,6 +49,7 @@ export default async function Home() {
       />
 
       <div className=" px-16 py-4 max-lg:px-0">
+        <WishlistSection />
         <ProductsCategories data={Items} />
       </div>
     </main>

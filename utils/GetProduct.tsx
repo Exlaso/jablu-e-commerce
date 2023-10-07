@@ -1,5 +1,4 @@
 import { dataforproduct } from "@/lib/Interfaces";
-import products from "@/Data/product.json";
 import { GetProducts } from "@/lib/db/hasura";
 
 // export default async function getAllProducts(): Promise<

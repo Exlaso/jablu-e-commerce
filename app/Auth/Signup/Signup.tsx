@@ -84,7 +84,7 @@ const Signup = () => {
         if (data.error) {
           seterror((ex) => ({ ...reseterror, error: data.message as string }));
         } else {
-          router.replace("/Signin");
+          router.replace("/Auth/Signin");
         }
       } catch (error: any) {
         console.error({ error });

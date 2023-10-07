@@ -1,32 +1,33 @@
 "use client";
-import { dataforproductwithmetadata, dataforproduct } from "@/lib/Interfaces";
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 
 type context = {
-  carted: dataforproductwithmetadata[];
-  setCarted: Dispatch<SetStateAction<dataforproductwithmetadata[]>>;
-  favourited: dataforproduct[];
-  setFavourited: Dispatch<SetStateAction<dataforproduct[]>>;
+  noItemsinCart: number;
+  FetchNoifItemsinCart: () => void;
 };
 const Storecontext = createContext<any>(null);
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {
-  const [carted, setCarted] = useState<dataforproductwithmetadata[]>([]);
-  const [favourited, setFavourited] = useState<dataforproductwithmetadata[]>(
-    []
-  );
+  const [noItemsinCart, setnoItemsinCart] = useState<number>(0);
+  const FetchNoifItemsinCart = () => {
+    fetch(`/api/GetNoofitemsincart`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setnoItemsinCart(0);
+        } else {
+          setnoItemsinCart(data.message);
+        }
+      });
+  };
 
   return (
-    <Storecontext.Provider
-      value={{ carted, setCarted, favourited, setFavourited }}
-    >
+    <Storecontext.Provider value={{ noItemsinCart, FetchNoifItemsinCart }}>
       {children}
     </Storecontext.Provider>
   );

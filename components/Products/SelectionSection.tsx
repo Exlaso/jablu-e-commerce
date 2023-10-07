@@ -22,7 +22,6 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
 }) => {
   const router = useRouter();
   const { status } = useSession();
-  const { setCarted, favourited, setFavourited } = useCartContext();
   const [liked, setLiked] = useState<boolean>(false);
   const colors: string[] | undefined = data
     .at(0)
@@ -76,7 +75,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
     setHeartLoading(true);
     if (!HeartLoading) {
       if (status === "unauthenticated") {
-        router.push("/Signin");
+        router.push("/Auth/Signin");
       } else if (status === "authenticated") {
         if (liked) {
           DislikeProduct(id).then((e) => {
@@ -192,7 +191,6 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
             size,
             count,
           }}
-          setCarted={setCarted}
         ></CartButton>
       </div>
     </>

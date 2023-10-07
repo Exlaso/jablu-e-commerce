@@ -6,7 +6,7 @@ const ProccessSection = () => {
   return (
     <ParallaxProvider>
       <Parallax 
-      speed={-10} className="grid mix-blend-darken grid-cols-4 gap-4 py-10 my-10 mx-10 max-md:grid-cols-2 max-md:mx-5">
+      speed={-10} className="grid  grid-cols-4 gap-4 py-10 my-10 mx-10 max-md:grid-cols-2 max-md:mx-5">
         <div
           
           className="flex text-center flex-col gap-3 justify-center  items-center"
