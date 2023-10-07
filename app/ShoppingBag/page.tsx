@@ -20,7 +20,7 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
     signOut();
   }
   const res = await fetch(
-    process.env.VERCEL_URL +
+    process.env.NEXTAUTH_URL +
       `/api/GetCartitems?jablu_jwt_token=${token?.value}`,
     {
       cache: "no-cache",
@@ -41,7 +41,7 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
       <div className="px-[10%]  min-h-screen gap-14 py-[15vh] max-md:px-5 w-full  flex flex-col ">
         <div className="grid gap-3">
           <BackButton />
-          <h1 className="font-bold text-4xl exlasi flex items-center">
+          <h1 className="flex items-center text-4xl font-bold exlasi">
             <Image
               src={"/static/icons/navbar/buy.svg"}
               alt={"buy"}
@@ -51,7 +51,7 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
             Shopping Bag
           </h1>
         </div>
-        <section className="flex flex-col justify-between items-start relative ">
+        <section className="relative flex flex-col items-start justify-between ">
           <Items Carteddata={Carteddata} />
         </section>
       </div>

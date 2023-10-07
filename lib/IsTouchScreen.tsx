@@ -5,7 +5,7 @@ const IsTouchScreen = ():boolean => {
     const [isTouchScreen, setIsTouchScreen] = useState<boolean>(false);
 
     useEffect(() => {
-     if (window !== undefined){
+     if (typeof window !== undefined){
       const checkTouchScreen = () => {
         if ("ontouchstart" in window || navigator.maxTouchPoints) {
           setIsTouchScreen(true);

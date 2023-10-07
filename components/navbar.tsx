@@ -42,7 +42,7 @@ const Navbar = ({
 
   useEffect(() => {
     
-    if (window !== undefined) {
+    if (typeof window !== undefined) {
       let prevScrollPos: number = window.scrollY;
 
     const handleScroll = (): void => {

@@ -9,15 +9,15 @@ const Exploresection = () => {
   const {status} = useSession();
 
   return (
-    <div className="w-full relative mx-auto overflow-hidden flex-col gap-10 text-center py-20 shadow-lg flex justify-center items-center  text-gray-200 bg-black ">
-      <h2 className="text-3xl max-sm:text-xl font-extrabold tracking-widest uppercase">
+    <div className="relative flex flex-col items-center justify-center w-full gap-10 py-20 mx-auto overflow-hidden text-center text-gray-200 bg-black shadow-lg ">
+      <h2 className="text-3xl font-extrabold tracking-widest uppercase max-sm:text-xl">
         &quot;<span className="text-yellow-300">Express</span> yourself with a
         twist of <span className="text-red-600">uniqueness</span>.&quot;
       </h2>
-      <span className="flex gap-2 items-center justify-center whitespace-nowrap flex-wrap ">
+      <span className="flex flex-wrap items-center justify-center gap-2 whitespace-nowrap ">
         <Link
           href={"/Categories"}
-          className="bg-blue-300 hover:bg-blue-600 flex gap-2  duration-150 justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
+          className="flex items-center justify-center gap-2 px-8 py-4 font-bold text-white duration-150 bg-blue-300 rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image
             src={"/static/icons/navbar/explore.svg"}
@@ -28,8 +28,8 @@ const Exploresection = () => {
           Explore
         </Link>
        {status !== "authenticated" ? <Link
-          href={"/Signup"}
-          className="bg-cyan-400 hover:bg-cyan-600 flex gap-2  duration-150 justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
+          href={"/Auth/Signup"}
+          className="flex items-center justify-center gap-2 px-8 py-4 font-bold text-white duration-150 rounded-full bg-cyan-400 hover:bg-cyan-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image
             src={"/static/hero/register.svg"}
@@ -40,7 +40,7 @@ const Exploresection = () => {
           Become Member
         </Link>:<Link
           href={"/Favourites"}
-          className="bg-cyan-400 hover:bg-cyan-600 flex gap-2  duration-150 justify-center items-center text-white font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
+          className="flex items-center justify-center gap-2 px-8 py-4 font-bold text-white duration-150 rounded-full bg-cyan-400 hover:bg-cyan-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image
             src={"/static/hero/register.svg"}

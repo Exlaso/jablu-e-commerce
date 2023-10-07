@@ -14,11 +14,8 @@ export const metadata: Metadata = {
 };
 const Page = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
-  if (!token?.value) {
-    signOut();
-  }
   const res = await fetch(
-    process.env.VERCEL_URL +
+    process.env.NEXTAUTH_URL +
       `/api/Getallwishlist?jablu_jwt_token=${token?.value}`,
     {
       cache: "no-cache",
@@ -38,7 +35,7 @@ const Page = async () => {
       <main className="px-[10%] min-h-screen gap-14 py-[15vh] flex flex-col max-md:px-5 w-full ">
         <div className="grid gap-3 ">
           <BackButton />
-          <h1 className="font-bold text-4xl exlasi flex items-center">
+          <h1 className="flex items-center text-4xl font-bold exlasi">
             <Image
               src={"/static/icons/navbar/buy.svg"}
               alt={"buy"}
@@ -48,8 +45,8 @@ const Page = async () => {
             Favourites
           </h1>
         </div>
-        <section className="flex flex-col  justify-between items-start relative ">
-          <div className=" w-full flex-col  flex gap-10">
+        <section className="relative flex flex-col items-start justify-between ">
+          <div className="flex flex-col w-full gap-10 ">
             <Items wishlistdata={wishlistdata} />
           </div>
         </section>

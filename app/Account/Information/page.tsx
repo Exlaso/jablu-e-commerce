@@ -14,7 +14,7 @@ const Page = async () => {
     signOut();
   }
   const res = await fetch(
-    `${process.env.VERCEL_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
+    `${process.env.NEXTAUTH_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
   );
   const data: {
     message: {
@@ -37,9 +37,9 @@ const Page = async () => {
 
   return (
     <div>
-      <div className="header flex gap-1 flex-col " >
+      <div className="flex flex-col gap-1 header " >
 
-        <h1 className="text-4xl text-black font-bold text-center">
+        <h1 className="text-4xl font-bold text-center text-black">
           Personal Information
         </h1>
         <p className="text-lg text-center">
@@ -48,7 +48,7 @@ const Page = async () => {
       </div>
       <div className="grid grid-cols-2 gap-1 max-md:grid-cols-1">
        <ProfilePhoto imageurl={userinfo?.user_pfp as string}/>
-        <div className=" p-2 gap-5 flex flex-col">
+        <div className="flex flex-col gap-5 p-2 ">
           <h2>Personal Information</h2>
           <div className="flex flex-col gap-2">
             <Input
@@ -95,7 +95,7 @@ const Page = async () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center ">
+      <div className="flex items-center justify-center ">
         <Logout></Logout>
       </div>
     </div>

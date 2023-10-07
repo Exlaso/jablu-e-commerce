@@ -103,7 +103,11 @@ export const GetFavouritedItems = async (token: string) => {
   const response = await fetchGraphQL("GetFavouritedItems", token, {
     mynum: Date.now().toString(),
   });
-  return response.data.wishlist_items;
+  if (response?.data?.wishlist_items) {
+    return response?.data?.wishlist_items
+  }else{
+    return []
+  }
 };
 
 export const GetCategories = async () => {
@@ -170,10 +174,8 @@ export const GetallCartItems = async (token: string) => {
   return response.data.cart;
 };
 export const GetnoofitemsinCart = async (token: string) => {
-  
   const response = await fetchGraphQL("GetnoofitemsinCart", token);
   return response.data.cart.length;
-  
 };
 
 export const GetUserDetails = async (token: string) => {
