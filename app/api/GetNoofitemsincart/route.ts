@@ -6,7 +6,6 @@ export const GET = async (req: NextRequest) => {
   try {
 
     const token: RequestCookie | undefined = req.cookies.get("jablu_jwt_token");
-    console.log(token);
 
     if (!token?.value) {
       return NextResponse.json({

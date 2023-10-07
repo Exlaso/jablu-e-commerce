@@ -41,7 +41,9 @@ const Navbar = ({
   }, [status]);
 
   useEffect(() => {
-    let prevScrollPos: number = window.scrollY;
+    
+    if (window !== undefined) {
+      let prevScrollPos: number = window.scrollY;
 
     const handleScroll = (): void => {
       const currentScrollPos: number = window.scrollY;
@@ -60,6 +62,7 @@ const Navbar = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    }
   }, []);
   const { noItemsinCart } = useCartContext();
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
@@ -84,9 +87,9 @@ const Navbar = ({
         } `}
       >
         <nav className="container mx-auto ">
-          <div className="justify-between items-center grid grid-cols-3">
+          <div className="grid items-center justify-between grid-cols-3">
             <div
-              className="z-40 relative"
+              className="relative z-40"
               onClick={() => setIsmenuopen((prev) => !prev)}
             >
               <Image 
@@ -96,10 +99,10 @@ const Navbar = ({
                 height={30}
               ></Image>
             </div>
-            <div className=" font-bold text-xl">
+            <div className="text-xl font-bold ">
               <Link
                 href="/"
-                className="font-bold text-center  flex shadowhand justify-evenly flex-wrap"
+                className="flex flex-wrap font-bold text-center shadowhand justify-evenly"
               >
                 <Image 
                   src={"/static/logo/jablu4.svg"}
@@ -109,7 +112,7 @@ const Navbar = ({
                 ></Image>
               </Link>
             </div>
-            <ul className="flex space-x-4 items-center justify-end">
+            <ul className="flex items-center justify-end space-x-4">
               {showsearch && (
                 <li className="max-lg:hidden">
                   <SearchBar />
@@ -117,10 +120,10 @@ const Navbar = ({
               )}
 
               <Link
-                className="flex gap-1 items-center justify-center relative"
+                className="relative flex items-center justify-center gap-1"
                 href={"/ShoppingBag"}
               >
-                {/* <h1 className="text-lg text-black font-bold">Shopping Bag</h1> */}{" "}
+                {/* <h1 className="text-lg font-bold text-black">Shopping Bag</h1> */}{" "}
                 <motion.div
                   initial={{ scale: 1 }}
                   whileTap={{ scale: 0.85 }}
@@ -141,7 +144,7 @@ const Navbar = ({
               <motion.li
                 initial="hidden"
                 animate="visible"
-                className="flex justify-center group flex-col relative items-center gap-2 text-lg font-bold"
+                className="relative flex flex-col items-center justify-center gap-2 text-lg font-bold group"
               >
                 {/* <h1>Your Account</h1> */}
                 <motion.div
@@ -159,7 +162,7 @@ const Navbar = ({
                     src={userpfp}
                     width={35}
                     height={35}
-                    className="rounded-full aspect-square  object-cover"
+                    className="object-cover rounded-full aspect-square"
                     alt="user pfp"
                   ></Image>
                 </motion.div>{" "}

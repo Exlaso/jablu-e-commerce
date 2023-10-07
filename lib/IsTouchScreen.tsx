@@ -5,6 +5,7 @@ const IsTouchScreen = ():boolean => {
     const [isTouchScreen, setIsTouchScreen] = useState<boolean>(false);
 
     useEffect(() => {
+     if (window !== undefined){
       const checkTouchScreen = () => {
         if ("ontouchstart" in window || navigator.maxTouchPoints) {
           setIsTouchScreen(true);
@@ -23,6 +24,7 @@ const IsTouchScreen = ():boolean => {
         // Clean up the event listener on unmount
         window.removeEventListener("touchstart", checkTouchScreen);
       };
+     }
     }, []);
 
     return isTouchScreen
