@@ -6,9 +6,6 @@ import { cookies } from "next/headers";
 
 const WishlistSection = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
-  if (!token?.value) {
-    signOut();
-  }
   const res = await fetch(
     process.env.NEXTAUTH_URL +
       `/api/Getallwishlist?jablu_jwt_token=${token?.value}`
@@ -16,7 +13,6 @@ const WishlistSection = async () => {
   let data = await res.json();
   let wishlistdata;
   if (data.errorcode === "TCNF") {
-    signOut();
     wishlistdata = [];
   } else {
     wishlistdata = data.message.map((e: any) => ({ ...e.product }));
