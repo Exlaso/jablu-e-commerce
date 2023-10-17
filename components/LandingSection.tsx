@@ -1,9 +1,9 @@
 "use client";
 import { useCartContext } from "@/Store/StoreContext";
 import React, { FC, useEffect } from "react";
-import Button from "./Utils/Button";
 import Image from "next/image";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 const LandingSection: FC = () => {
   const { FetchNoifItemsinCart } = useCartContext();
@@ -13,6 +13,26 @@ const LandingSection: FC = () => {
 
     return () => {};
   }, [FetchNoifItemsinCart]);
+
+useEffect(() => {
+  fetch(`/api/islogin?a=${Math.random}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.islogin) {
+        signOut();
+      }
+    });
+
+  return () => {
+    
+  }
+}, [])
+
 
   return (
     <div
@@ -26,7 +46,7 @@ const LandingSection: FC = () => {
         fetchPriority="high"
         quality={100}
         priority
-        className="object-cover relative -z-10 frontimage " 
+        className="object-cover relative -z-10 frontimage "
       ></Image>
       <div className="flex justify-center items-center  h-screen  flex-col gap-5 ">
         <div className="flex flex-col justify-center items-center gap-8">
@@ -42,7 +62,12 @@ const LandingSection: FC = () => {
             Quality
           </p>
         </div>
-        <Link href={"/Categories"} className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50">Get Started</Link>
+        <Link
+          href={"/Categories"}
+          className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50"
+        >
+          Get Started
+        </Link>
       </div>
     </div>
   );

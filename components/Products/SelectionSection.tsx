@@ -88,11 +88,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
       }
     }
   };
-  if (cookies().get("__Secure-next-auth.session-token")) {
-    if (!cookies().get("jablu_jwt_token")) {
-      signOut();
-    }
-  }
+
   return (
     <>
       <h1 className="text-3xl font-bold text-black capitalize">{title}</h1>
