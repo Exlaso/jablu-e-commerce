@@ -5,12 +5,13 @@ import Colors from "./Colors";
 import Size from "./Size";
 import CartButton from "./CartButton";
 import Heart from "../Utils/Heart";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DislikeProduct from "@/utils/DisikeProduct";
 import LikeProduct from "@/utils/LikeProduct";
 import Image from "next/image";
+import { cookies } from "next/headers";
 
 interface SelectionSectionProps {
   data: dataforproduct[];
@@ -35,14 +36,9 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   const [count, setCount] = useState<number>(1);
   type varientsofsize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
   const islogin = useSession().status === "authenticated";
-  const {
-    title, 
-    price, 
-    rating,
-    mrp,
-    category,
-    id, 
-  }: dataforproduct = data?.at(0) as dataforproduct;
+  const { title, price, rating, mrp, category, id }: dataforproduct = data?.at(
+    0
+  ) as dataforproduct;
   const discount: string = (((mrp - price) / mrp) * 100 * -1).toFixed(0);
   const [HeartLoading, setHeartLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -92,7 +88,11 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
       }
     }
   };
-
+  if (cookies().get("__Secure-next-auth.session-token")) {
+    if (!cookies().get("jablu_jwt_token")) {
+      signOut();
+    }
+  }
   return (
     <>
       <h1 className="text-3xl font-bold text-black capitalize">{title}</h1>
@@ -106,17 +106,19 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
         </Link>
       </span>
       <div className=" flex gap-3 items-center ">
-      <div className="flex items-center  font-semibold gap-2">
-                <span className=" rounded-full  text-xl  ">
-                  Rs.
-                  {price.toLocaleString("en-US", {
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
-                 {discount !== "0.0" && <span className="text-red-600  text-lg">
-                    <s>Rs. 100</s>
-                  </span>}
-              </div>
+        <div className="flex items-center  font-semibold gap-2">
+          <span className=" rounded-full  text-xl  ">
+            Rs.
+            {price.toLocaleString("en-US", {
+              maximumFractionDigits: 2,
+            })}
+          </span>
+          {discount !== "0.0" && (
+            <span className="text-red-600  text-lg">
+              <s>Rs. 100</s>
+            </span>
+          )}
+        </div>
         <span className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -14,6 +14,8 @@ import { Suspense } from "react";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { cookies } from "next/headers";
+import { signOut } from "next-auth/react";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -46,12 +48,10 @@ export default async function RootLayout({
   products?.map((product) => {
     if (!category.includes(product.category)) category.push(product.category);
   });
-
   return (
     <html lang="en">
       <ContextProvider>
         <SessionProvider session={session}>
-    
           <body className="darkxmode">
             <Suspense fallback={<></>}>
               <Navbar category={category} />
