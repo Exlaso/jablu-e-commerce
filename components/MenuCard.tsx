@@ -57,7 +57,7 @@ const MenuCard = ({
         duration: 0.2,
       }}
       exit={{ y: "-100%" }}
-      className="fixed  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%] top-0 w-full  h-auto z-[21] border-b border-b-black bg-white"
+      className="fixed  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%] top-0 w-full  h-auto z-[21] border-b border-b-black bg-[var(--primary-color)]"
     >
       <div className="flex flex-col gap-8">
         <div className="px-5 py-5 lg:hidden">

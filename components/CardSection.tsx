@@ -11,7 +11,6 @@ const CardSection = ({
   data: dataforproduct[] | undefined;
   children: ReactNode;
 }) => {
-
   const divVarients: Variants = {
     visible: {
       transition: { staggerChildren: 0.1 },
@@ -45,8 +44,9 @@ const CardSection = ({
         whileInView={"visible"}
         className="p-4 flex gap-4 overflow-x-auto snap-mandatory snap-x"
       >
-        {data?.map((item) => (
+        {data?.slice(0, 3)?.map((item, i) => (
           <Cardforproduct
+            mrp={item?.mrp}
             available_color={item?.available_color}
             available_size={item?.available_size}
             varients={varients}

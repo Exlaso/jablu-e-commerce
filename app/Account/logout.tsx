@@ -18,12 +18,13 @@ const Logout = () => {
   return (
     <Button
       color="danger"
-      label="Logout!"
       onClick={(e) => {
         Signout();
         return;
       }}
-    />
+    >
+      Logout!
+    </Button>
   );
 };
 

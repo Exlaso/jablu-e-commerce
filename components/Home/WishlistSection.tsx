@@ -1,6 +1,5 @@
 import React from "react";
 import CardSection from "../CardSection";
-import { signOut } from "next-auth/react";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 

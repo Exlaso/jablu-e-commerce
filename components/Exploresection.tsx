@@ -9,14 +9,14 @@ const Exploresection = () => {
   const {status} = useSession();
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full gap-10 py-20 mx-auto overflow-hidden text-center text-gray-200 bg-black shadow-lg ">
+    <div className="relative z-20 flex flex-col items-center justify-center w-full gap-10 py-20 mx-auto overflow-hidden text-center text-gray-200 bg-black shadow-lg ">
       <h2 className="text-3xl font-extrabold tracking-widest uppercase max-sm:text-xl">
         &quot;<span className="text-yellow-300">Express</span> yourself with a
         twist of <span className="text-red-600">uniqueness</span>.&quot;
       </h2>
       <span className="flex flex-wrap items-center justify-center gap-2 whitespace-nowrap ">
         <Link
-          href={"/Categories"}
+          href={"/Categories/Search/Jablu%20Exclusive"}
           className="flex items-center justify-center gap-2 px-8 py-4 font-bold text-white duration-150 bg-blue-300 rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image
@@ -25,7 +25,7 @@ const Exploresection = () => {
             width={"20"}
             height={"20"}
           ></Image>
-          Explore
+          Explore Exclusive
         </Link>
        {status !== "authenticated" ? <Link
           href={"/Auth/Signup"}

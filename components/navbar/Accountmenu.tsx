@@ -28,7 +28,7 @@ const Accountmenu = ({
     {
       image: "/static/menu_content/login.svg",
       title: "Account Settings",
-      href: "Account",
+      href: "/Account/Information",
     },
     {
       image: "/static/icons/navbar/favourite.svg",

@@ -44,6 +44,7 @@ export async function generateMetadata(
 }
 
 const Page = async (props: any) => {
+  
   const data = await getAllProducts();
   const newdata = data?.filter(
     (e) => e.id.toString() === props.params.products.toString()

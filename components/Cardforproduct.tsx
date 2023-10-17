@@ -3,12 +3,7 @@ import { dataforproduct } from "@/lib/Interfaces";
 import { Variants, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import Heart from "./Utils/Heart";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import LikeProduct from "@/utils/LikeProduct";
-import DislikeProduct from "@/utils/DisikeProduct";
+import React from "react";
 
 interface datawithvarients extends dataforproduct {
   varients?: Variants;
@@ -22,63 +17,17 @@ const Cardforproduct = ({
   available_color,
   available_size,
   description,
+  mrp,
   images,
   rating,
   varients,
   className,
 }: datawithvarients) => {
-  const { status } = useSession();
-  const router = useRouter();
-  const [liked, setLiked] = useState<boolean>(false);
-  const [HeartLoading, setHeartLoading] = useState<boolean>(false);
-  useEffect(() => {
-    if (status === "authenticated") {
-      setHeartLoading(true);
-      fetch(`/api/IsProductLiked?product_id=${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLiked(data.message);
-          setHeartLoading(false);
-        });
-    }
-    return () => {};
-  }, [id,status]);
-
-  // Handle When Product is liked
-  const OnLikeHandler = () => {
-    setHeartLoading(true);
-    if (!HeartLoading) {
-      if (status === "unauthenticated") {
-        router.push("/Auth/Signin");
-      } else if (status === "authenticated") {
-        if (liked) {
-          DislikeProduct(id).then((e) => {
-            if (e) {
-              setLiked(false);
-              setHeartLoading(false);
-            }
-          });
-        } else {
-          LikeProduct(id).then((e) => {
-            if (e) {
-              setLiked(e);
-              setHeartLoading(false);
-            }
-          });
-        }
-      }
-    }
-  };
-
+  const discount: string = (((mrp - price) / mrp) * 100 * -1).toFixed(0);
   return (
     <motion.div
       variants={varients}
-      className={` ${className}  flex min-w-[40vh] max-sm:snap-center relative w-full  shadow-lg rounded-3xl gap-4 justify-start  items-start flex-col`}
+      className={` ${className}  flex min-w-[33vh]  max-sm:snap-center relative w-full max-w-[60vh]   gap-4 justify-start  items-start flex-col`}
       viewport={{ once: true }}
     >
       <motion.div
@@ -87,53 +36,48 @@ const Cardforproduct = ({
         whileHover={"visible"}
         whileTap={"taped"}
       >
-        <motion.button
-          type="button"
-          initial={{ opacity: 1, scale: 1 }}
-          onClick={OnLikeHandler}
-          className="absolute right-5 top-5 z-10"
-        >
-          {!HeartLoading ? (
-            <Heart liked={liked}></Heart>
-          ) : (
-            <Image
-              src={"/static/icons/loading.svg"}
-              alt={"loading"}
-              width={25}
-              priority={true}
-              height={25}
-            ></Image>
-          )}
-        </motion.button>
-
+        {discount !== "0.0" && (
+          <div className="absolute right-2 top-2 z-10 py-1 px-2 text-sm bg-[var(--primary-color)] rounded-2xl ">
+            {discount + "%"}
+          </div>
+        )}
         <Link
           className="flex gap-4  w-full justify-start items-start h-full flex-col"
           href={`/Products/${id}`}
         >
-          <div className="flex justify-center items-center w-full ">
+          <motion.div 
+            className="flex justify-center items-center w-full "
+          >
             <Image
-              // src={"/static/maitray.png"}
-              src={images.at(0) as string}
+              src={"/static/demotshirt.jpg"}
+              // src={images.at(0) as string}
               alt={title}
               width={500}
               height={500}
-              className="group-hover:scale-95 duration-300 w-80 h-80  object-contain mx-auto"
+              className="group-hover:scale-95 duration-300 w-80 h-80  object-cover mx-auto"
             ></Image>
-          </div>
-          <div className="p-3 flex flex-col items-start  justify-between h-full gap-4">
+          </motion.div>
+          <div className="p-3 flex flex-col items-start  justify-between h-full gap-0">
             <h1 className="max-sm:text-sm text-md capitalize  font-bold exlasi">
               {title}
             </h1>
 
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-xl text-gray-800 bg-blue-100  rounded-full px-3 py-2  font-semibold">
-                ₹
-                {price.toLocaleString("en-US", {
-                  maximumFractionDigits: 2,
-                })}
-              </span>
+            <div className="flex items-start flex-col justify-center gap-1">
+              <div className="flex items-center  font-semibold gap-2">
+                {discount !== "0.0" && (
+                  <span className="text-red-600  text-lg">
+                    <s>Rs. {mrp}</s>
+                  </span>
+                )}
+                <span className=" rounded-full  text-xl  ">
+                  Rs.
+                  {price.toLocaleString("en-US", {
+                    maximumFractionDigits: 2,
+                  })}
+                </span>
+              </div>
 
-              <span className="flex gap-1 justify-center items-center px-3 py-2  exlasi rounded-full ">
+              <span className="flex gap-1 justify-center items-center py-2  px-1">
                 Ratings: {rating.rate}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

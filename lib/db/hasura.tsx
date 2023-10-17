@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import { dataforproduct } from "../Interfaces";
 
 const CryptoJS = require("crypto-js");
@@ -59,7 +60,9 @@ export const IsEmailExists = async (token: string) => {
 };
 
 export const GetUserImage = async (token: string) => {
-  const response = await fetchGraphQL("GetUserImage", token);
+  const response = await fetchGraphQL("GetUserImage", token, {
+    mynum: Date.now().toString(),
+  });
 
   return response.data.users.at(0).user_pfp;
 };
@@ -104,9 +107,9 @@ export const GetFavouritedItems = async (token: string) => {
     mynum: Date.now().toString(),
   });
   if (response?.data?.wishlist_items) {
-    return response?.data?.wishlist_items
-  }else{
-    return []
+    return response?.data?.wishlist_items;
+  } else {
+    return [];
   }
 };
 
@@ -182,12 +185,45 @@ export const GetUserDetails = async (token: string) => {
   const response = await fetchGraphQL("GetUserDetails", token);
   return response.data.users;
 };
+export const UploadImage = async (
+  token: string,
+  {
+    user_pfp,
+    unique_id,
+  }: {
+    user_pfp: string;
+    unique_id: string;
+  }
+) => {
+  const response = await fetchGraphQL("UploadImage", token, {
+    user_pfp,
+    unique_id,
+  });
+  console.log(response);
+
+  return response?.data?.update_users?.affected_rows === 1;
+};
+export const Updateinfo = async (
+  token: string,
+  data: {
+    user_phone_number: string;
+    user_last_name: string;
+    user_first_name: string;
+    unique_id: string;
+  }
+) => {
+  const response = await fetchGraphQL("Updateinfo", token, data);
+  console.log(response);
+
+  return response?.data?.update_users?.affected_rows === 1;
+};
 const doperationsDoc = `
 
 
 query GetUserDetails {
   users {
     user_email
+    unique_id
     user_first_name
     user_last_name
     user_pfp
@@ -201,12 +237,20 @@ query IsEmailExists {
   }
 }
 
-query GetFavouritedItems($mynum:String!) {
+mutation Updateinfo($user_phone_number: String!, $user_last_name: String!,$user_first_name:String!,$unique_id: String!) {
+  update_users(_set: {user_phone_number: $user_phone_number, user_last_name:$user_last_name, user_first_name: $user_first_name}, where: {unique_id: {_eq: $unique_id}}) {
+    affected_rows
+  }
+}
+
+
+query GetFavouritedItems($mynum: String!) {
   wishlist_items(where: {_not: {product_id: {_eq: $mynum}}}) {
     product {
       available_color
       available_size
       category
+      mrp
       description
       id
       images
@@ -214,6 +258,13 @@ query GetFavouritedItems($mynum:String!) {
       rating
       title
     }
+  }
+}
+
+
+mutation UploadImage($user_pfp: String!,$unique_id:String!) {
+  update_users(_set: {user_pfp: $user_pfp}, where: {unique_id: {_eq:$unique_id}}) {
+    affected_rows
   }
 }
 
@@ -225,8 +276,8 @@ query GetnoofitemsinCart {
 
 
 
-query GetUserImage {
-  users {
+query GetUserImage($mynum: String!)  {
+  users(where: {_not: {user_pfp : {_eq: $mynum}}}) {
     user_pfp
   }
 }
@@ -340,17 +391,21 @@ mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:Str
       isverified
     }
   }
-  query GetProducts {
+  query GetProducts @cached(ttl: 600){
     products {
-      title
-      rating
-      price
-      images
-      id
-      description
-      category
-      available_size
       available_color
+      available_size
+      category
+      description
+      id
+      images
+      mrp
+      price
+      rating
+      title
+      wishlist_items {
+        product_id
+      }
     }
   }
 
@@ -383,7 +438,7 @@ export default async function fetchGraphQL(
 
 async function fetchGraphQLUsingAdmin(
   operationName: string,
-  variables: object = {},
+  variables: {} = {},
   operationsDoc: string = doperationsDoc
 ) {
   const result = await fetch(process.env.Hasura_URL as string, {

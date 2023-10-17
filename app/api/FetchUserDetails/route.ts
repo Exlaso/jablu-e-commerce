@@ -20,6 +20,7 @@ export const GET = async (req: NextRequest) => {
     const token: string = searchParams.get("jablu_jwt_token") as string; 
     
     const userinfo: {
+      unique_id:string,
       user_email: string;
       user_first_name: string;
       user_last_name: string;

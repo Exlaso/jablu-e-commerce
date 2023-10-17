@@ -1,6 +1,6 @@
 import ContextProvider from "@/Store/StoreContext";
-// import "./globals.css";
-import "./output.css";
+import "./globals.css";
+// import "./output.css";
 
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
@@ -11,10 +11,9 @@ import { SessionProvider } from "@/components/Utils/SessionProvider";
 import getAllProducts from "@/utils/GetProduct";
 import { dataforproduct } from "@/lib/Interfaces";
 import { Suspense } from "react";
-import { cookies } from "next/headers";
-import { signOut } from "next-auth/react";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import ItemsinCart from "@/utils/ItemsinCart";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -48,14 +47,12 @@ export default async function RootLayout({
     if (!category.includes(product.category)) category.push(product.category);
   });
 
-
-
   return (
     <html lang="en">
       <ContextProvider>
         <SessionProvider session={session}>
-          {/* className={montserrat.className} */}
-          <body className="darkmode">
+    
+          <body className="darkxmode">
             <Suspense fallback={<></>}>
               <Navbar category={category} />
             </Suspense>

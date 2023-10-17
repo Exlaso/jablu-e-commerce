@@ -5,11 +5,37 @@ import Link from "next/link";
 import React from "react";
 
 const CategoriesDisplay = ({
-  cats,
+  cats = [
+    {
+      src:"/static/demotshirt.jpg",
+      title: "Anime",
+      description:
+        "Elevate your anime style with our collection of wearable treasures. From iconic characters to unique designs, embrace your anime obsession.",
+    },
+    {
+      src:"/static/demotshirt.jpg",
+      title: "Jablu Exclusive",
+      description:
+        "Explore JABLU's exclusive wearables - a curated selection of one-of-a-kind fashion pieces designed to make you stand out. Discover uniqueness today!",
+    },
+    {
+      src:"/static/demotshirt.jpg",
+      title: "Quirky tshirts",
+      description:
+        "Step into comfort and style with our Oversized T-shirt collection. Embrace the relaxed, trendy look with these spacious and versatile garments.",
+    },
+    {
+      src:"/static/demotshirt.jpg",
+      title: "Unfit to Fit yoga mat",
+      description: "UTF Card",
+    },
+  ],
   className,
+  innerClassName
 }: {
-  cats: { src: string; title: string; description: string }[];
+  cats?: { src: string; title: string; description: string }[];
   className?: string;
+  innerClassName?:string
 }) => {
   return (
     <section className={className}>
@@ -19,7 +45,7 @@ const CategoriesDisplay = ({
             key={i}
             initial="faded"
             whileHover="visible"
-            className=" w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent aspect-square group overflow-hidden "
+            className={` w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent  group overflow-hidden ${innerClassName}`}
           >
             <Link
               href={"Categories/Search/" + e.title}
@@ -30,26 +56,23 @@ const CategoriesDisplay = ({
                   faded: {
                     opacity: 0.25,
                     scale: 1,
-                    filter: "blur(2px)",
                     transition: { scale: { duration: 30 } },
                   },
                   visible: {
                     opacity: 0.5,
                     scale: 1.5,
-                    filter: "blur(4px)",
                     transition: { scale: { duration: 60 } },
                   },
                 }}
-                // transition={{
-                //   scale:{duration:120}
-                // }}
                 className="h-full w-full"
               >
                 <Image
                   src={e.src}
-                  className="object-cover"
+                  className="object-cover w-full h-96 "
                   alt={"Anime"}
-                  fill={true}
+                  width={1000}
+                  
+                  height={1000}
                 ></Image>
               </motion.div>
               <div className="absolute top-[10%] w-[80%] capitalize break-words px-5 text-white  left-[10%]">

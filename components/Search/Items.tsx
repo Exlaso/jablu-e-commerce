@@ -21,8 +21,8 @@ const Items = ({
     >
       {filtereddata?.map((e) => (
         <Cardforproduct
-          varients={{
-            hidden: {
+        varients={{
+          hidden: {
               opacity: 0,
             },
             visible: {
@@ -38,6 +38,7 @@ const Items = ({
           id={e.id}
           images={e.images}
           price={e.price}
+          mrp={e.mrp}
           rating={e.rating}
         />
       ))}

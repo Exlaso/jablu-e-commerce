@@ -6,10 +6,12 @@ const Input = ({
   id,
   disabled = false,
   DefaultValue,
+  value,
   onChange,
 }: {
   children: ReactNode;
   id: string;
+  value:string,
   disabled?: boolean;
   DefaultValue: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +25,7 @@ const Input = ({
     </label>
     {/* <div className="border p-2 h-10 border-gray-500 bg-gray-500 animate-pulse"></div> */}
     <input
+    value={value}
       onChange={onChange}
       disabled={disabled}
       defaultValue={DefaultValue}

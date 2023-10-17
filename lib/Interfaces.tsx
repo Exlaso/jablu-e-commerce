@@ -11,6 +11,7 @@ export type dataforproduct = {
   };
   available_color: string[];
   available_size: string[];
+  mrp:number
 };
 export interface dataforproductwithmetadata extends dataforproduct {
   color: string;

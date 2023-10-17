@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Navbar = ({
   showsearch = true,
   category,
@@ -26,7 +27,7 @@ const Navbar = ({
       fetch("/api/GetuserPFP", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
       })
         .then((res) => res.json())
@@ -41,29 +42,29 @@ const Navbar = ({
   }, [status]);
 
   useEffect(() => {
-    
     if (typeof window !== undefined) {
       let prevScrollPos: number = window.scrollY;
 
-    const handleScroll = (): void => {
-      const currentScrollPos: number = window.scrollY;
+      const handleScroll = (): void => {
+        const currentScrollPos: number = window.scrollY;
 
-      if (currentScrollPos > 0) {
-        setIsScrolling(prevScrollPos < currentScrollPos);
-      } else {
-        setIsScrolling(false);
-      }
+        if (currentScrollPos > 0) {
+          setIsScrolling(prevScrollPos < currentScrollPos);
+        } else {
+          setIsScrolling(false);
+        }
 
-      prevScrollPos = currentScrollPos;
-    };
+        prevScrollPos = currentScrollPos;
+      };
 
-    window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
     }
   }, []);
+  const router = useRouter();
   const { noItemsinCart } = useCartContext();
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
   const [accountmenu, setAccountmenu] = useState<boolean>(false);
@@ -92,11 +93,12 @@ const Navbar = ({
               className="relative z-40"
               onClick={() => setIsmenuopen((prev) => !prev)}
             >
-              <Image 
+              <Image
                 src={menustate}
                 alt="menu"
                 width={30}
                 height={30}
+                className="invertsvg"
               ></Image>
             </div>
             <div className="text-xl font-bold ">
@@ -104,7 +106,8 @@ const Navbar = ({
                 href="/"
                 className="flex flex-wrap font-bold text-center shadowhand justify-evenly"
               >
-                <Image 
+                <Image
+                  className="invertsvg"
                   src={"/static/logo/jablu4.svg"}
                   alt={"jablulogo"}
                   width={80}
@@ -128,11 +131,12 @@ const Navbar = ({
                   initial={{ scale: 1 }}
                   whileTap={{ scale: 0.85 }}
                 >
-                  <Image 
+                  <Image
                     src={"/static/icons/navbar/buy.svg"}
                     width={30}
                     height={30}
                     alt="search"
+                    className="invertsvg"
                   ></Image>
                   {noItemsinCart !== 0 && (
                     <div className="w-3.5 h-3.5 flex items-center justify-center bg-[rgb(14,165,233)] absolute -top-0 -right-1 rounded-full text-[10px] leading-none text-white font-medium">
@@ -151,10 +155,10 @@ const Navbar = ({
                   initial={{ scale: 1 }}
                   whileTap={{ scale: 0.85 }}
                 >
-                  <Image 
+                  <Image
                     onClick={() => {
                       if (status === "unauthenticated") {
-                        void signIn("okta");
+                        router.push("/Auth/Signin?callbackUrl=/");
                       } else if (status === "authenticated") {
                         setAccountmenu((e) => !e);
                       }

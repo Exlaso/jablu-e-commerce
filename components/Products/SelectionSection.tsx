@@ -1,10 +1,9 @@
 "use client";
-import { dataforproduct } from "@/lib/Interfaces";
+import { dataforproduct, dataforproductwithmetadata } from "@/lib/Interfaces";
 import { FunctionComponent, useEffect, useState } from "react";
 import Colors from "./Colors";
 import Size from "./Size";
 import CartButton from "./CartButton";
-import { useCartContext } from "@/Store/StoreContext";
 import Heart from "../Utils/Heart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -37,16 +36,14 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
   type varientsofsize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
   const islogin = useSession().status === "authenticated";
   const {
-    title,
-    available_color,
-    available_size,
-    price,
-    images,
-    description,
+    title, 
+    price, 
     rating,
+    mrp,
     category,
-    id,
+    id, 
   }: dataforproduct = data?.at(0) as dataforproduct;
+  const discount: string = (((mrp - price) / mrp) * 100 * -1).toFixed(0);
   const [HeartLoading, setHeartLoading] = useState<boolean>(false);
   useEffect(() => {
     if (status === "authenticated") {
@@ -109,12 +106,17 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
         </Link>
       </span>
       <div className=" flex gap-3 items-center ">
-        <span className="border border-green-500 text-xl  font-bold text-green-500 rounded-md py-2 px-4">
-          ₹
-          {price.toLocaleString("en-US", {
-            maximumFractionDigits: 2,
-          })}
-        </span>
+      <div className="flex items-center  font-semibold gap-2">
+                <span className=" rounded-full  text-xl  ">
+                  Rs.
+                  {price.toLocaleString("en-US", {
+                    maximumFractionDigits: 2,
+                  })}
+                </span>
+                 {discount !== "0.0" && <span className="text-red-600  text-lg">
+                    <s>Rs. 100</s>
+                  </span>}
+              </div>
         <span className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -177,20 +179,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
 
         <CartButton
           islogin={islogin}
-          data={{
-            id,
-            title,
-            available_color,
-            available_size,
-            images,
-            category,
-            description,
-            price,
-            rating,
-            color,
-            size,
-            count,
-          }}
+          data={data?.at(0) as dataforproductwithmetadata}
         ></CartButton>
       </div>
     </>
