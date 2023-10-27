@@ -13,13 +13,9 @@ const Cardforproduct = ({
   id,
   title,
   price,
-  category,
-  available_color,
-  available_size,
-  description,
   mrp,
-  images,
   rating,
+  images,
   varients,
   className,
 }: datawithvarients) => {
@@ -27,14 +23,12 @@ const Cardforproduct = ({
   return (
     <motion.div
       variants={varients}
-      className={` ${className}  flex min-w-[33vh]  max-sm:snap-center relative w-full max-w-[60vh]   gap-4 justify-start  items-start flex-col`}
+      className={` ${className} min-w-[30vh] grow-0 max-w-[60vh] shrink-0  flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-tertiary`}
       viewport={{ once: true }}
     >
-      <motion.div
+      <div
         className="flex flex-col gap-4 w-full h-full group justify-start  items-start"
-        initial="hidden"
-        whileHover={"visible"}
-        whileTap={"taped"}
+
       >
         {discount !== "0.0" && (
           <div className="absolute right-2 top-2 z-10 py-1 px-2 text-sm bg-[var(--primary-color)] rounded-2xl ">
@@ -45,20 +39,18 @@ const Cardforproduct = ({
           className="flex gap-4  w-full justify-start items-start h-full flex-col"
           href={`/Products/${id}`}
         >
-          <motion.div 
-            className="flex justify-center items-center w-full "
-          >
+          <div className="flex justify-center items-center w-full ">
             <Image
-              src={"/static/demotshirt.jpg"}
-              // src={images.at(0) as string}
+              // src={"/static/demotshirt.jpg"}
+              src={images.at(0) as string}
               alt={title}
               width={500}
               height={500}
-              className="group-hover:scale-95 duration-300 w-80 h-80  object-cover mx-auto"
+              className="rounded-b-[30px] duration-300 w-80 h-80  object-cover mx-auto"
             ></Image>
-          </motion.div>
+          </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-0">
-            <h1 className="max-sm:text-sm text-md capitalize  font-bold exlasi">
+            <h1 className="max-sm:text-sm text-md capitalize  font-bold ">
               {title}
             </h1>
 
@@ -96,7 +88,7 @@ const Cardforproduct = ({
             </div>
           </div>
         </Link>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

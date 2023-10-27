@@ -14,25 +14,22 @@ const LandingSection: FC = () => {
     return () => {};
   }, [FetchNoifItemsinCart]);
 
-useEffect(() => {
-  fetch(`/api/islogin?a=${Math.random}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (!data.islogin) {
-        signOut();
-      }
-    });
+  useEffect(() => {
+    fetch(`/api/islogin?a=${Math.random}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.islogin) {
+          signOut();
+        }
+      });
 
-  return () => {
-    
-  }
-}, [])
-
+    return () => {};
+  }, []);
 
   return (
     <div
@@ -51,10 +48,10 @@ useEffect(() => {
       <div className="flex justify-center items-center  h-screen  flex-col gap-5 ">
         <div className="flex flex-col justify-center items-center gap-8">
           <div className="text-[8rem] max-md:text-8xl shadowhand  text-center flex flex-col items-center justify-center flex-wrap">
-            <div className="flex items-center justify-center flex-wrap tracking-widest">
-              <h1 className="jablutext ">Jablu </h1>
-              <h1 className="jablutext ">.</h1>
-              <h1 className="jablutext ">in</h1>
+            <div className="flex items-center justify-center flex-wrap tracking-widest jablutext font-bold">
+              <div className="jablutext ">Jablu </div>
+              <div className="jablutext ">.</div>
+              <div className="jablutext ">in</div>
             </div>
           </div>
           <p className="w-1/2 text-center">

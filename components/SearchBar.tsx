@@ -24,7 +24,7 @@ const SearchBar = ({
     >
       <label
         htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only"
+        className="mb-2 text-sm font-medium  sr-only"
       >
         Search
       </label>
@@ -50,7 +50,7 @@ const SearchBar = ({
           value={searchquery}
           type="search"
           id="default-search"
-          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-800 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500"
+          className="block w-full p-4 pl-10 text-sm  border border-gray-800 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500"
           placeholder="Jang-yoh"
           required
           onInput={(e) => setSearchquery(e.currentTarget.value)}

@@ -1,6 +1,6 @@
 "use client";
 import Input from "@/app/Account/Input";
-import Button from "@/components/Utils/Button";
+import { Alert } from "@mui/material";
 import React, { useState } from "react";
 
 const InputSection = ({
@@ -57,14 +57,12 @@ const InputSection = ({
             setMessageupdate("Save");
           }, 3000);
         }
-        console.log(data);
       });
   };
 
   return (
     <div className="flex flex-col gap-2">
       <Input
-        DefaultValue={userinfo?.user_first_name as string}
         value={mainuserinfo?.user_first_name as string}
         id="FirstName"
         onChange={(e) => {
@@ -73,11 +71,8 @@ const InputSection = ({
             user_first_name: e.target.value,
           }));
         }}
-      >
-        First Name
-      </Input>
+      >First Name</Input>
       <Input
-        DefaultValue={userinfo?.user_last_name as string}
         value={mainuserinfo?.user_last_name as string}
         id="LastName"
         onChange={(e) => {
@@ -90,7 +85,6 @@ const InputSection = ({
         Last Name
       </Input>
       <Input
-        DefaultValue={userinfo?.user_email as string}
         value={mainuserinfo?.user_email as string}
         id="Email"
         disabled={true}
@@ -104,7 +98,6 @@ const InputSection = ({
         Email Address
       </Input>
       <Input
-        DefaultValue={userinfo?.user_phone_number as string}
         value={mainuserinfo?.user_phone_number as string}
         id="Phone Number"
         onChange={(e) => {
@@ -116,6 +109,10 @@ const InputSection = ({
       >
         Phone Number
       </Input>
+
+      {messageupdate === "Saved" && (
+        <Alert color="success">Information Was Successfully updated.</Alert>
+      )}
       <div className="flex gap-4 my-5 text-lg ">
         <button
           disabled={userinfo === mainuserinfo || isbtnloading}
@@ -133,8 +130,6 @@ const InputSection = ({
           disabled={userinfo === mainuserinfo}
           className="px-3 py-2 rounded-lg disabled:brightness-50 bg-gray-700 text-white"
           onClick={() => {
-            console.log(userinfo);
-
             setMainuserinfo(userinfo as any);
           }}
         >

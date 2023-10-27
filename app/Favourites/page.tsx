@@ -27,7 +27,7 @@ const Page = async () => {
     signOut();
     wishlistdata = [];
   } else {
-    wishlistdata = data.message.map((e: any) => ({ ...e.product }));
+    wishlistdata = data?.message?.map((e: any) => ({ ...e.product }));
   }
 
   return (
@@ -41,6 +41,7 @@ const Page = async () => {
               alt={"buy"}
               width={40}
               height={40}
+              className="invertsvg"
             ></Image>
             Favourites
           </h1>

@@ -16,7 +16,7 @@ const WishlistSection = async () => {
       if (data.errorcode === "TCNF") {
         wishlistdata = [];
       } else {
-        wishlistdata = data.message.map((e: any) => ({ ...e.product }));
+        wishlistdata = data?.message?.map((e: any) => ({ ...e.product }));
       }
     }
 else{

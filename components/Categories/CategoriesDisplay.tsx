@@ -5,41 +5,17 @@ import Link from "next/link";
 import React from "react";
 
 const CategoriesDisplay = ({
-  cats = [
-    {
-      src:"/static/demotshirt.jpg",
-      title: "Anime",
-      description:
-        "Elevate your anime style with our collection of wearable treasures. From iconic characters to unique designs, embrace your anime obsession.",
-    },
-    {
-      src:"/static/demotshirt.jpg",
-      title: "Jablu Exclusive",
-      description:
-        "Explore JABLU's exclusive wearables - a curated selection of one-of-a-kind fashion pieces designed to make you stand out. Discover uniqueness today!",
-    },
-    {
-      src:"/static/demotshirt.jpg",
-      title: "Quirky tshirts",
-      description:
-        "Step into comfort and style with our Oversized T-shirt collection. Embrace the relaxed, trendy look with these spacious and versatile garments.",
-    },
-    {
-      src:"/static/demotshirt.jpg",
-      title: "Unfit to Fit yoga mat",
-      description: "UTF Card",
-    },
-  ],
+  data,
   className,
-  innerClassName
+  innerClassName,
 }: {
-  cats?: { src: string; title: string; description: string }[];
+  data: { name: string; image: string; description: string }[];
   className?: string;
-  innerClassName?:string
+  innerClassName?: string;
 }) => {
   return (
     <section className={className}>
-      {cats.map((e, i) => {
+      {data?.map((e, i) => {
         return (
           <motion.div
             key={i}
@@ -48,7 +24,7 @@ const CategoriesDisplay = ({
             className={` w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent  group overflow-hidden ${innerClassName}`}
           >
             <Link
-              href={"Categories/Search/" + e.title}
+              href={"Categories/Search/" + e.name}
               className="group"
             >
               <motion.div
@@ -67,11 +43,10 @@ const CategoriesDisplay = ({
                 className="h-full w-full"
               >
                 <Image
-                  src={e.src}
+                  src={e.image}
                   className="object-cover w-full h-96 "
                   alt={"Anime"}
                   width={1000}
-                  
                   height={1000}
                 ></Image>
               </motion.div>
@@ -81,7 +56,7 @@ const CategoriesDisplay = ({
                
             "
                 >
-                  {e.title}
+                  {e.name}
                 </h1>
                 <motion.p
                   transition={{

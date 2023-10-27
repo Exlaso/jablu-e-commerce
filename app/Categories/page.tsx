@@ -9,11 +9,7 @@ const Page = async () => {
     <div className="px-[15vh] py-[15vh] max-md:px-[1vh]">
       <h1 className="text-4xl font-bold">Categories</h1>
       <CategoriesDisplay
-        cats={data.map((e) => ({
-          title: e.name,
-          src: e.image,
-          description: e.description,
-        }))} 
+        data={data} 
         innerClassName="rounded-3xl "
         className="my-20 w-full grid-cols-1 gap-2  grid min-h-screen   "
       />

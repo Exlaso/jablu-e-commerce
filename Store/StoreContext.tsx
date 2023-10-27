@@ -10,15 +10,18 @@ const Storecontext = createContext<any>(null);
 const ContextProvider = ({ children }: { children: ReactNode }) => {
   const [noItemsinCart, setnoItemsinCart] = useState<number>(0);
   const FetchNoifItemsinCart = () => {
+    
     fetch(`/api/GetNoofitemsincart`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "pragma":"no-cache",
+        "cache-control":"no-cache"
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
           setnoItemsinCart(0);
         } else {
           setnoItemsinCart(data.message);

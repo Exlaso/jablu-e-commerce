@@ -62,8 +62,8 @@ const SortBy = ({ Query }: { Query?: string }) => {
                 "rate=" +
                 e.urlval
               }
-              className={`hover:underline text-black  p-1 rounded-sm   ${
-                e.urlval.toLowerCase() === searchparams &&  "bg-gray-200 "
+              className={`hover:underline text-highlight  p-1 rounded-sm   ${
+                e.urlval.toLowerCase() === searchparams &&  "bg-tertiary "
               }`}
             >
               {e.title}

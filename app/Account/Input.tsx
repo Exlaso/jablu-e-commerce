@@ -5,7 +5,6 @@ const Input = ({
   children,
   id,
   disabled = false,
-  DefaultValue,
   value,
   onChange,
 }: {
@@ -13,7 +12,6 @@ const Input = ({
   id: string;
   value:string,
   disabled?: boolean;
-  DefaultValue: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
   <>
@@ -28,9 +26,8 @@ const Input = ({
     value={value}
       onChange={onChange}
       disabled={disabled}
-      defaultValue={DefaultValue}
       type="text"
-      className="border p-2 border-gray-500"
+      className="border p-4 rounded-xl border-gray-500 bg-transparent"
     />
   </>
 );

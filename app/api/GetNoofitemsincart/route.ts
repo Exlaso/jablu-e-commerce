@@ -1,11 +1,14 @@
 import { GetnoofitemsinCart } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+
+
+export const dynamic = "force-dynamic";
 
 export const GET = async (req: NextRequest) => {
   try {
-
-    const token: RequestCookie | undefined = req.cookies.get("jablu_jwt_token");
+    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
 
     if (!token?.value) {
       return NextResponse.json({
@@ -15,10 +18,9 @@ export const GET = async (req: NextRequest) => {
         code: "A-FUD-I",
       });
     }
-  
+
     const res = await GetnoofitemsinCart(token.value);
-    
-    
+
     return NextResponse.json({ message: res, error: false });
   } catch (error) {
     if (typeof error === "string") {

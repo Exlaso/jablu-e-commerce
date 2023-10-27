@@ -1,12 +1,9 @@
 "use client";
 import Image from "next/image";
-import { Parallax, ParallaxProvider } from "react-scroll-parallax";
-
 const ProccessSection = () => {
   return (
-    <ParallaxProvider>
-      <Parallax 
-      speed={-10} className="grid relative z-10 grid-cols-4 gap-4 py-10 my-10 mx-10 max-md:grid-cols-2 max-md:mx-5">
+      <div 
+className="grid relative z-10 grid-cols-4 gap-4 py-10 my-10 mx-10 max-md:grid-cols-2 max-md:mx-5">
         <div
           
           className="flex text-center flex-col gap-3 justify-center  items-center"
@@ -75,8 +72,7 @@ const ProccessSection = () => {
             Have fun and enjoy your 5-star quality products
           </p>
         </div>
-      </Parallax>
-    </ParallaxProvider>
+      </div>
   );
 };
 

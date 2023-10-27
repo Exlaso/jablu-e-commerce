@@ -1,4 +1,6 @@
+import { useCartContext } from "@/Store/StoreContext";
 import Items from "@/components/Shopping/Items";
+import ConfirmationModal from "@/components/Shopping/Modal";
 import BackButton from "@/components/Utils/Backbtn";
 import { Metadata } from "next";
 import { signOut } from "next-auth/react";
@@ -10,7 +12,7 @@ import { FunctionComponent } from "react";
 export const metadata: Metadata = {
   title: "Shopping Bag",
   description:
-    "Your list of desired items or products you have expressed interest in.",
+  "Your list of desired items or products you have expressed interest in.",
 };
 
 interface CartPageProps {}
@@ -33,7 +35,7 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
     signOut();
     Carteddata = [];
   } else {
-    Carteddata = data.message.map((e: any) => ({ ...e, ...e.product }));
+    Carteddata = data?.message?.map((e: any) => ({ ...e, ...e.product }));
   }
 
   return (
@@ -41,12 +43,14 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
       <div className="px-[10%]  min-h-screen gap-14 py-[15vh] max-md:px-5 w-full  flex flex-col ">
         <div className="grid gap-3">
           <BackButton />
+          {/* <ConfirmationModal  closetext="Saved"  body="Helmowejwmroiroietim"  title="Testing"/> */}
           <h1 className="flex items-center text-4xl font-bold exlasi">
             <Image
               src={"/static/icons/navbar/buy.svg"}
               alt={"buy"}
               width={40}
               height={40}
+              className="invertsvg"
             ></Image>
             Shopping Bag
           </h1>

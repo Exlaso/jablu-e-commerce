@@ -1,6 +1,4 @@
-import { GetUserDetails, GetallCartItems } from "@/lib/db/hasura";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import { cookies } from "next/headers";
+import { GetUserDetails } from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

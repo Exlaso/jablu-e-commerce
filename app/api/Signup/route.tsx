@@ -44,7 +44,7 @@ export const POST = async (req: Request) => {
     );
 
     if (!(await IsEmailExists(JwtTokenforemail))) {
-      const User_Unique_ID = "C-" + randomUUID();
+      const User_Unique_ID = "Jablu-in-" + randomUUID();
 
       const res = await SignupUser(JwtTokenforemail, {
         user_first_name: firstname,
@@ -56,9 +56,10 @@ export const POST = async (req: Request) => {
         ).toString(),
         isverified: false,
         unique_id: User_Unique_ID,
-      });
+      }); 
+      
       return NextResponse.json(
-        { message: "success", data: res, error: false },
+        { message: User_Unique_ID, data: res, error: false },
         {
           status: 200,
           headers: {

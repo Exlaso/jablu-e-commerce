@@ -14,7 +14,7 @@ const ProfilePhoto = ({
   return (
     <div className=" p-2 gap-2 flex flex-col">
       <h2>Profile Photo</h2>
-      <div className="bg-slate-100 h-[300px] w-full relative flex justify-center items-center ">
+      <div className="bg-tertiary h-[300px] w-full relative flex justify-center items-center ">
         <Image
           src={imageurll}
           className="rounded-full aspect-square object-cover w-[250px]"

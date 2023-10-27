@@ -4,7 +4,7 @@ import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
 import React, { ReactNode, Suspense } from "react";
 
-const layout = async ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
   const data: dataforproduct[] | undefined = await getAllProducts();
 
   const category: string[] = [];
@@ -32,4 +32,4 @@ const layout = async ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

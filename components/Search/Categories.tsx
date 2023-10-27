@@ -37,8 +37,8 @@ const Categories = ({ category }: { category: string[] }) => {
               shallow={true}
               key={i}
               href={"/Categories/Search/" + e}
-              className={`hover:underline text-black p-1 rounded-sm  ${
-                e.toLowerCase() === pathname && "bg-gray-200 "
+              className={`hover:underline text-highlight p-1 rounded-sm  ${
+                e.toLowerCase() === pathname && "bg-tertiary "
               }`}
             >
               {e}

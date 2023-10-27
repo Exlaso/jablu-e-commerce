@@ -17,7 +17,7 @@ const Items = ({
       transition={{
         staggerChildren: 0.1,
       }}
-      className="grid grid-cols-2  max-lg:grid-cols-1 gap-5 "
+      className="grid grid-cols-2   max-lg:grid-cols-1 gap-5 "
     >
       {filtereddata?.map((e) => (
         <Cardforproduct

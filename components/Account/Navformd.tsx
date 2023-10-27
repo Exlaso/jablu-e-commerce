@@ -13,7 +13,7 @@ const Navformd = ({
 
   return (
     <div className="w-full h-full md:hidden">
-      <div className="text-2xl justify-between flex font-bold my-5 text-[var(--highlight-color)] bg-gray-500/10 p-3">
+      <div className="text-2xl justify-between flex font-bold my-5 text-[var(--highlight-color)] bg-tertiary p-3">
         <span>Manage Account</span>
         <Image
           onClick={() => setIsmenuopen((e) => !e)}
@@ -24,6 +24,7 @@ const Navformd = ({
           }
           alt={"Menu Icon"}
           width={30}
+          className="invertsvg"
           height={30}
         ></Image>
       </div>
@@ -36,7 +37,7 @@ const Navformd = ({
           {navigation.map((e, i) => {
             let selected = "";
             if (path.includes(e.href)) {
-              selected = "  bg-gray-500/10 text-[var(--highlight-color)] ";
+              selected = "  bg-tertiary text-[var(--highlight-color)] ";
             }
             return (
               <Link

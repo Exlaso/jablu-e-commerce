@@ -71,7 +71,7 @@ const Page = async (props: any) => {
           </div>
           <div className="col-span-full">
             <details>
-              <p className="ml-5 my-5 text-[#717171]">{description}</p>
+              <p className="ml-5 my-5 ">{description}</p>
               <summary className="bg-[var(--tertiary-color)] p-2 rounded-lg cursor-pointer">
                 <span className=" w-full">Description</span>
               </summary>

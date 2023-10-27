@@ -13,9 +13,6 @@ const Dir = async ({
   searchParams: { rate: string };
 }) => {
   const directory = decodeURIComponent(params.dir);
-  if (directory) {
-  }
-
   const data = await getAllProducts();
   let filtereddata: dataforproduct[] | undefined;
   if (directory === "All") {

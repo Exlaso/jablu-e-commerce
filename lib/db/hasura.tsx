@@ -72,7 +72,7 @@ export const isProductLiked = async (
 ) => {
   const response = await fetchGraphQL("isProductLiked", token, data);
 
-  return response.data.wishlist_items.length !== 0;
+  return response?.data.wishlist_items?.length !== 0;
 };
 export const Retriveuserdata = async (
   token: string
@@ -129,7 +129,8 @@ export const InsertintoCart = async (
   }
 ) => {
   const response = await fetchGraphQL("InsertintoCart", token, vars);
-  return response.data.insert_cart_one;
+  
+  return response?.data?.insert_cart_one;
 };
 
 export const DeletefromWishlist = async (
@@ -152,7 +153,7 @@ export const GetCartItems = async (
   }
 ) => {
   const response = await fetchGraphQL("GetCartItems", token, vars);
-  return response.data.cart;
+  return response?.data?.cart;
 };
 export const UpdateCart = async (
   token: string,
@@ -199,7 +200,6 @@ export const UploadImage = async (
     user_pfp,
     unique_id,
   });
-  console.log(response);
 
   return response?.data?.update_users?.affected_rows === 1;
 };
@@ -213,11 +213,68 @@ export const Updateinfo = async (
   }
 ) => {
   const response = await fetchGraphQL("Updateinfo", token, data);
-  console.log(response);
 
   return response?.data?.update_users?.affected_rows === 1;
 };
+
+export const InsertVerifyUrl = async (
+  token: string,
+  data: {
+    UUID: string;
+    verifyurl: string;
+  }
+) => {
+  try {
+    const response = await fetchGraphQL("InsertVerifyUrl", token, data);
+
+    return response?.data?.insert_verificationurls?.affected_rows === 1;
+  } catch (error) {
+    return "Error in InsertVerifyUrl " + error;
+  }
+};
+
+export const IsvalidUrl = async (verifyurl: string) => {
+  try {
+    const res = await fetchGraphQLUsingAdmin("InsertVerificationurls", {
+      verifyurl,
+    });
+
+    return res?.data?.update_users?.affected_rows === 1;
+  } catch (error) {
+    return "Something went Wrong";
+  }
+};
+export const UpdateMainverification = async (unique_id: string) => {
+  try {
+    const res = await fetchGraphQLUsingAdmin("UpdateMainverification", {
+      unique_id,
+    });
+
+    return res?.data?.update_users?.affected_rows === 1;
+  } catch (error) {
+    return "Something went Wrong";
+  } 
+};
+
 const doperationsDoc = `
+
+
+
+mutation InsertVerificationurls($verifyurl:String!){
+  update_users(where: {verificationurls: {verifyurl: {_eq: $verifyurl}}}, _set: {isverified: true}) {
+    affected_rows
+  }
+}
+
+
+
+mutation UpdateMainverification($verifyurl: String!) {
+  update_users(where: {verificationurls: {verifyurl: {_eq: $verifyurl}}}, _set: {isverified: true}) {
+    affected_rows
+  }
+}
+
+
 
 
 query GetUserDetails {
@@ -236,6 +293,14 @@ query IsEmailExists {
     user_email
   }
 }
+
+mutation InsertVerifyUrl($UUID: String!, $verifyurl: String!) {
+  insert_verificationurls(objects: {UUID: $UUID, verifyurl: $verifyurl}) {
+    affected_rows 
+  }
+}
+    
+    
 
 mutation Updateinfo($user_phone_number: String!, $user_last_name: String!,$user_first_name:String!,$unique_id: String!) {
   update_users(_set: {user_phone_number: $user_phone_number, user_last_name:$user_last_name, user_first_name: $user_first_name}, where: {unique_id: {_eq: $unique_id}}) {
@@ -276,7 +341,7 @@ query GetnoofitemsinCart {
 
 
 
-query GetUserImage($mynum: String!)  {
+query GetUserImage($mynum: String!) @cached(ttl: 1)  {
   users(where: {_not: {user_pfp : {_eq: $mynum}}}) {
     user_pfp
   }
@@ -391,7 +456,7 @@ mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:Str
       isverified
     }
   }
-  query GetProducts @cached(ttl: 600){
+  query GetProducts @cached(ttl: 599){
     products {
       available_color
       available_size
@@ -435,8 +500,29 @@ export default async function fetchGraphQL(
 
   return await result.json();
 }
+export async function fetchGraphQLUsingDocs(
+  operationsDoc: string,
+  operationName: string,
+  token: string,
+  variables: object
+) {
+  const result = await fetch(process.env.Hasura_URL as string, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      query: operationsDoc,
+      variables: variables,
+      operationName: operationName,
+    }),
+  });
 
-async function fetchGraphQLUsingAdmin(
+  return await result.json();
+}
+
+export async function fetchGraphQLUsingAdmin(
   operationName: string,
   variables: {} = {},
   operationsDoc: string = doperationsDoc

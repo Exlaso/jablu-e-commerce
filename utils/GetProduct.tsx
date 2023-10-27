@@ -1,5 +1,6 @@
 import { dataforproduct } from "@/lib/Interfaces";
 import { GetProducts } from "@/lib/db/hasura";
+import testdata from "@/Data/product.json"
 
 // export default async function getAllProducts(): Promise<
 //   dataforproduct[] | undefined
@@ -18,9 +19,11 @@ export default async function getAllProducts(): Promise<
   try {
     
     const data = await GetProducts();
+
    
 
     return await data;
+    // return await testdata;
   } catch (error) {
     console.error("Product Fetch Error: ", error);  
   }

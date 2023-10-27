@@ -49,7 +49,7 @@ export const POST = async (req: NextRequest) => {
     console.error(error);
 
     if (typeof error === "string") {
-      console.error("Error in api/Getwishlist: ", error);
+      console.error("Error in api/Insertintocart: ", error);
       return NextResponse.json(
         { message: error, code: "A-SN-IV", error: true },
         {
@@ -57,7 +57,7 @@ export const POST = async (req: NextRequest) => {
         }
       );
     } else if (error instanceof Error) {
-      console.error("Error in api/Getwishlist", error?.message);
+      console.error("Error in api/Insertintocart", error?.message);
       return NextResponse.json(
         { message: error?.message, code: "A-SN-V", error: true },
         {

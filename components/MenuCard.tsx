@@ -41,10 +41,6 @@ const MenuCard = ({
       title: "Wearable",
       data: Categories?.map((e) => ({ title: e, href: e })) as menu[],
     },
-    {
-      title: "Wearable",
-      data: Categories?.map((e) => ({ title: e, href: e })) as menu[],
-    },
   ];
 
   return (
@@ -63,18 +59,17 @@ const MenuCard = ({
         <div className="px-5 py-5 lg:hidden">
           <SearchBar onClick={setIsmenuopen} />
         </div>
-        <div className="z-10 grid grid-cols-2 capitalize gap-3 px-7 text-center ">
+        <div className="z-10 grid grid-cols-1 capitalize gap-3 px-7 text-center ">
           {Menu.map((data, i) => (
             <ul
               key={i}
               className="flex justify-start   gap-3 flex-wrap items-center flex-col"
             >
               <h1 className="text-2xl font-bold capitalize">{data.title}</h1>
-              <div className="flex flex-col gap-1 justify-center items-center">
+              <div className="flex flex-col gap-1 justify-center items-start text-lg">
                 {data.data.map((d) => (
                   <Link
                     href={"/Categories/Search/" + d.href}
-                    className="text-lg underline underline-offset-4"
                     key={d.title}
                     onClick={()=> {
                       setIsmenuopen(false)

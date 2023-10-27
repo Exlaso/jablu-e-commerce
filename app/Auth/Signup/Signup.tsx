@@ -4,9 +4,13 @@ import { FormEventHandler, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import InputField from "@/components/Signup/InputField";
 import { useRouter } from "next/navigation";
-const Signup = () => {
+import { Emailsendinterface, errortype } from "@/lib/Interfaces";
+import { TokengenBase32 } from "@/utils/RandStringGen";
+import { TextField } from "@mui/material";
+import { signIn } from "next-auth/react";
+
+const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState<{
     email: string;
@@ -29,7 +33,15 @@ const Signup = () => {
     password: false,
   };
   const [isbtnloading, setIsbtnloading] = useState<boolean>(false);
-  const [myerror, seterror] = useState<errorform>(reseterror);
+  const [MainError, setMainError] = useState("");
+  const defaulterror: errortype = { error: false, message: "" };
+  const [Errorforfirstname, setErrorforfirstname] =
+    useState<errortype>(defaulterror);
+  const [Errorforlastname, setErrorforlastname] =
+    useState<errortype>(defaulterror);
+  const [Errorforemail, setErrorforemail] = useState<errortype>(defaulterror);
+  const [Errorforpassword, setErrorforpassword] =
+    useState<errortype>(defaulterror);
   const [ispassvisible, setIspassvisible] = useState<boolean>(false);
   const changeVisibility = () => {
     setIspassvisible((e) => !e);
@@ -44,29 +56,22 @@ const Signup = () => {
     e.preventDefault();
 
     if (ValidateName(userInfo.firstname)) {
-      seterror(() => ({
-        ...reseterror,
-        fname: true,
-        error: "First Name length Must be more than 2 characters",
-      }));
+      setErrorforfirstname({
+        error: true,
+        message: "First Name length Must be more than 2 characters",
+      });
     } else if (ValidateName(userInfo.lastname)) {
-      seterror(() => ({
-        ...reseterror,
-        lname: true,
-        error: "Last Name length Must be more than 2 characters",
-      }));
+      setErrorforlastname({
+        error: true,
+        message: "Last Name length Must be more than 2 characters",
+      });
     } else if (Validateemail(userInfo.email)) {
-      seterror(() => ({
-        ...reseterror,
-        email: true,
-        error: "Email Address is Invalid",
-      }));
+      setErrorforemail({ error: true, message: "Email Address is Invalid" });
     } else if (ValidatePassword(userInfo.password)) {
-      seterror(() => ({
-        ...reseterror,
-        password: true,
-        error: "Password length Must be more than 8 characters",
-      }));
+      setErrorforpassword({
+        error: true,
+        message: "Password length Must be more than 8 characters",
+      });
     } else {
       try {
         const res = await fetch("/api/Signup", {
@@ -79,11 +84,45 @@ const Signup = () => {
             email: userInfo.email.toLowerCase(),
           }),
         });
-        const data = await res.json();
+        const data: {
+          message: string;
+          data: string;
+          error: boolean;
+        } = await res.json();
 
         if (data.error) {
-          seterror((ex) => ({ ...reseterror, error: data.message as string }));
+          if (data.message === "Email Address Already Exist") {
+            setErrorforemail({ error: true, message: data.message as string });
+          } else {
+            setMainError(data.message as string);
+          }
         } else {
+          const VerifyUrl = TokengenBase32();
+
+          fetch("/api/Insertverifyurl", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify({ UUID: data.message, URL: VerifyUrl }),
+          })
+
+          const emailsenddata: Emailsendinterface = {
+            Body: {
+              Firstname: userInfo.firstname,
+              verifyurl: VerifyUrl,
+            },
+            Subject: "Verify Your Email Address on Jablu.in",
+            to: userInfo.email,
+          };
+          fetch("/api/emailsend", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(emailsenddata),
+          })
           router.replace("/Auth/Signin");
         }
       } catch (error: any) {
@@ -91,6 +130,12 @@ const Signup = () => {
       }
     }
     setIsbtnloading(false);
+  };
+  const Googlelogin = async () => {
+    const res = await signIn("google", {
+      callbackUrl,
+      redirect: true,
+    });
   };
 
   return (
@@ -109,29 +154,31 @@ const Signup = () => {
         className="flex flex-col gap-3"
       >
         <div className="grid grid-cols-2 gap-2">
-          <InputField
-            haveerror={myerror.fname}
+          <TextField
+            helperText={Errorforfirstname.message}
+            error={Errorforfirstname.error}
             placeholder="John"
             type="text"
             id="firstName"
             name="firstName"
             value={userInfo.firstname}
             onChange={(e) => {
-              seterror((e) => ({ ...reseterror }));
+              setErrorforfirstname(defaulterror);
               setUserInfo({ ...userInfo, firstname: e.currentTarget.value });
             }}
             required={true}
             className="mb-4 w-full"
             label="First Name"
           />
-          <InputField
-            haveerror={myerror.lname}
+          <TextField
+            helperText={Errorforlastname.message}
+            error={Errorforlastname.error}
             className="mb-4 w-full"
             id="Lastname"
             label="Last Name"
             name="Lastname"
             onChange={(e) => {
-              seterror((e) => ({ ...reseterror }));
+              setErrorforlastname(defaulterror);
 
               setUserInfo({ ...userInfo, lastname: e.currentTarget.value });
             }}
@@ -141,10 +188,10 @@ const Signup = () => {
             value={userInfo.lastname}
           />
         </div>
-
-        <InputField
-          haveerror={myerror.email}
-          label=" Email"
+        <TextField
+          helperText={Errorforemail.message}
+          error={Errorforemail.error}
+          label="Email"
           placeholder="example@email.com"
           className="mb-4 w-full"
           type="email"
@@ -152,44 +199,34 @@ const Signup = () => {
           name="email"
           value={userInfo.email}
           onChange={(e) => {
-            seterror((e) => ({ ...reseterror }));
-
+            setErrorforemail(defaulterror);
             setUserInfo({ ...userInfo, email: e.currentTarget.value });
           }}
           required={true}
         />
-        <div
-          className={`mb-4  duration-100 ${
-            myerror.password && " text-red-500"
-          }`}
-        >
-          <label
-            className="block text-sm font-bold mb-2"
-            htmlFor="password"
-          >
-            Password
-          </label>
+        <div className="relative">
+          <TextField
+            helperText={Errorforpassword.message}
+            error={Errorforpassword.error}
+            label={"Password"}
+            placeholder="*********"
+            className={`w-full border rounded-lg focus:outline-none focus:border-blue-400 `}
+            type={ispassvisible ? "text" : "password"}
+            id="password"
+            name="password"
+            value={userInfo.password}
+            onChange={(e) => {
+              setErrorforpassword(defaulterror);
 
-          <div className="relative">
-            <input
-              placeholder="*********"
-              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-400 ${
-                myerror.password && "border-red-600"
-              } `}
-              type={ispassvisible ? "text" : "password"}
-              id="password"
-              name="password"
-              value={userInfo.password}
-              onChange={(e) => {
-                seterror((e) => ({ ...reseterror }));
+              setUserInfo({ ...userInfo, password: e.currentTarget.value });
+            }}
+            required
+          />
 
-                setUserInfo({ ...userInfo, password: e.currentTarget.value });
-              }}
-              required
-            />
+          <div className="absolute px-2 h-full top-0 right-0 flex justify-center items-center">
             <Image
               onClick={changeVisibility}
-              className="absolute right-2.5 top-2.5"
+              className="invertsvg"
               src={
                 ispassvisible
                   ? "/static/icons/Auth/eyeclose.svg"
@@ -214,15 +251,27 @@ const Signup = () => {
           )}
           {isbtnloading ? "Loading..." : "Sign up"}
         </motion.button>
+        <button
+          className="px-3 py-3 border rounded-md bg-tertiary flex justify-center items-center gap-3 text-highlight font-bold"
+          onClick={Googlelogin}
+        >
+          <Image
+            src={"/static/logo/google-icon.svg"}
+            alt={"Google Svg"}
+            width={25}
+            height={25}
+          ></Image>{" "}
+          Signup With Google
+        </button>
         <AnimatePresence>
-          {myerror.error && (
+          {MainError && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
             >
               <div className=" left-0 p-3 rounded-lg top-0 w-full  text-red-600 bg-red-100 capitalize">
-                {myerror.error}
+                {MainError}
               </div>
             </motion.div>
           )}

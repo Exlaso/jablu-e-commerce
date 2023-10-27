@@ -1,21 +1,17 @@
 import React from "react";
 import Logout from "../logout";
-import Input from "../Input";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
-import { signOut } from "next-auth/react";
-import Button from "@/components/Utils/Button";
 import ProfilePhoto from "@/components/Account/Information/ProfilePhoto";
 import InputSection from "@/components/Account/Information/InputSection";
 
 const Page = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
-  if (!token?.value) {
-    signOut();
-  }
   const res = await fetch(
+    
     `${process.env.NEXTAUTH_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
   );
+  
   const data: {
     message: {
       unique_id:string;
@@ -27,13 +23,14 @@ const Page = async () => {
     }[];
     error: boolean;
   } = await res.json();
-  const userinfo = data.message.at(0);
+  
+  const userinfo = data?.message.at(0);
 
   return (
     <div>
       <div className="flex flex-col gap-1 header " >
 
-        <h1 className="text-4xl font-bold text-center text-black">
+        <h1 className="text-4xl font-bold text-center text-highlight">
           Personal Information
         </h1>
         <p className="text-lg text-center">

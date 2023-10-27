@@ -39,7 +39,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
           product_id: data.id,
           count: data.count,
           color: data.color,
-        }),
+        }), 
       })
         .then((res) => res.json())
         .then(() => {
@@ -62,7 +62,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
       {...(!isadding && { whileTap: { scale: 0.9 } })}
       initial={{ scale: 1 }}
       onClick={addtoCartHandler}
-      className="flex bg-[var(--tertiary-color)] grow select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-slate-200 duration-100"
+      className="flex bg-[var(--tertiary-color)] grow select-none items-start justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-slate-200 duration-100"
     >
       <Image
         src={buyicon}

@@ -6,6 +6,7 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
+
 export const POST = async (req: NextRequest) => {
   try {
     const waitedreq = await req.json();

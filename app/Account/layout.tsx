@@ -8,6 +8,7 @@ const navigation: { title: string; href: string }[] = [
   { title: "Personal Information", href: "Information" },
   { title: "Account Password", href: "Password" },
   { title: "Payment Methods", href: "Payment-Methods" },
+  { title: "Preferences", href: "Preferences" },
 ];
 
 const Layout = ({ children }: { children: ReactNode }) => {

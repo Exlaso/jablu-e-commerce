@@ -9,6 +9,7 @@ interface colorsProps {
 
 const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
   const [currentColor, setCurrentColor] = useState(Colors?.at(0));
+  
   const ColorChoose = (e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => {
     setCurrentColor((e.currentTarget.id));
   };
@@ -18,7 +19,7 @@ const Colors: FunctionComponent<colorsProps> = ({ Colors,FetchColor }) => {
     <div className="text-lg flex flex-col gap-4 ">
       <div>
         <span> Color: </span>
-        <span className="font-bold text-black capitalize"> {currentColor} </span>
+        <span className="font-bold text-highlight capitalize"> {currentColor} </span>
       </div>
       
       <div className="flex gap-3  flex-wrap justify-between ">

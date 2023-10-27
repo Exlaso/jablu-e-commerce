@@ -91,7 +91,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-black capitalize">{title}</h1>
+      <h1 className="text-3xl font-bold text-highlight capitalize">{title}</h1>
       <span className="capitalize ">
         category:
         <Link
@@ -145,6 +145,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
             src={"/static/icons/loading.svg"}
             alt={"loading"}
             width={25}
+            className="invertsvg"
             height={25}
           ></Image>
         )}
@@ -177,7 +178,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
 
         <CartButton
           islogin={islogin}
-          data={data?.at(0) as dataforproductwithmetadata}
+          data={{ ...data?.at(0), color, size,count } as dataforproductwithmetadata}
         ></CartButton>
       </div>
     </>

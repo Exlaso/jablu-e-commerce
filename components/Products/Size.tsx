@@ -30,7 +30,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
       <div className="flex justify-between">
         <div>
           <span> Size: </span>
-          <span className="font-bold text-black capitalize">
+          <span className="font-bold text-highlight capitalize">
             {currentColor}
           </span>
         </div>
@@ -52,7 +52,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
           }
           let highlight: string = "";
           if (e === currentColor) {
-            highlight = " outline outline-cyan-600 outline outline-offset-1";
+            highlight = " outline outline-cyan-600 outline outline-offset-1 ";
           } else {
             highlight = "";
           }
@@ -76,7 +76,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
                     | "XXXL"
                 );
               }}
-              className={`disabled:after:absolute disabled:bg-gray-500/10  disabled:after:bg-gray-500/50 disabled:opacity-[25] disabled:after:inset-0  disabled:after:my-auto disabled:after:-rotate-[20deg] overflow-hidden after:bg-red-500 after:h-[1px] after:w-full relative  rounded-3xl select-none ${
+              className={`disabled:after:absolute disabled:text-secondary disabled:bg-gray-500/10 disabled:brightness-50 disabled:after:bg-gray-500/50 disabled:opacity-[25] disabled:after:inset-0  disabled:after:my-auto disabled:after:-rotate-[20deg] overflow-hidden after:bg-red-500 after:h-[1px] after:w-full relative  rounded-3xl select-none ${
                 isavailable && " hover:bg-black/20"
               }  shrink-0 border  py-1 px-8 ${highlight}`}
             >

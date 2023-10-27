@@ -7,8 +7,9 @@ import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useCartContext } from "@/Store/StoreContext";
 import Accountmenu from "./navbar/Accountmenu";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Accounticon from "./navbar/Accounticon";
+import ShoppingCartIcon from "./navbar/ShoppingCartIcon";
 const Navbar = ({
   showsearch = true,
   category,
@@ -17,29 +18,7 @@ const Navbar = ({
   category: string[] | undefined;
 }) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
-  const [userpfp, setuserpfp] = useState<string>(
-    "/static/icons/navbar/facenosignin.svg"
-  );
-  const { status } = useSession();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetch("/api/GetuserPFP", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json", 
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.data) {
-            setuserpfp(data.data);
-          }
-        });
-    }
-
-    return () => {};
-  }, [status]);
+  
 
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -64,8 +43,6 @@ const Navbar = ({
       };
     }
   }, []);
-  const router = useRouter();
-  const { noItemsinCart } = useCartContext();
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
   const [accountmenu, setAccountmenu] = useState<boolean>(false);
   const menustate = ismenuopen
@@ -121,61 +98,8 @@ const Navbar = ({
                   <SearchBar />
                 </li>
               )}
-
-              <Link
-                className="relative flex items-center justify-center gap-1"
-                href={"/ShoppingBag"}
-              >
-                {/* <h1 className="text-lg font-bold text-black">Shopping Bag</h1> */}{" "}
-                <motion.div
-                  initial={{ scale: 1 }}
-                  whileTap={{ scale: 0.85 }}
-                >
-                  <Image
-                    src={"/static/icons/navbar/buy.svg"}
-                    width={30}
-                    height={30}
-                    alt="search"
-                    className="invertsvg"
-                  ></Image>
-                  {noItemsinCart !== 0 && (
-                    <div className="w-3.5 h-3.5 flex items-center justify-center bg-[rgb(14,165,233)] absolute -top-0 -right-1 rounded-full text-[10px] leading-none text-white font-medium">
-                      <span className="mt-[1px]">{noItemsinCart}</span>
-                    </div>
-                  )}
-                </motion.div>
-              </Link>
-              <motion.li
-                initial="hidden"
-                animate="visible"
-                className="relative flex flex-col items-center justify-center gap-2 text-lg font-bold group"
-              >
-                {/* <h1>Your Account</h1> */}
-                <motion.div
-                  initial={{ scale: 1 }}
-                  whileTap={{ scale: 0.85 }}
-                >
-                  <Image
-                    onClick={() => {
-                      if (status === "unauthenticated") {
-                        router.push("/Auth/Signin?callbackUrl=/");
-                      } else if (status === "authenticated") {
-                        setAccountmenu((e) => !e);
-                      }
-                    }}
-                    src={userpfp}
-                    width={35}
-                    height={35}
-                    className="object-cover rounded-full aspect-square"
-                    alt="user pfp"
-                  ></Image>
-                </motion.div>{" "}
-                <AnimatePresence>
-                  {accountmenu && (
-                    <Accountmenu setAccountmenu={setAccountmenu} />
-                  )}
-                </AnimatePresence>
-              </motion.li>
+              <ShoppingCartIcon />
+              <Accounticon />
             </ul>
           </div>
         </nav>

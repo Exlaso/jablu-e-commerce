@@ -1,19 +1,13 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { FormEventHandler, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
-import {
-  ReadonlyURLSearchParams,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { signIn } from "next-auth/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import InputField from "@/components/Signup/InputField";
 import Image from "next/image";
-const Signin = () => {
-  const searchParams: ReadonlyURLSearchParams = useSearchParams();
-  const callbackurl = searchParams.get("callbackUrl");
+import { TextField } from "@mui/material";
+import { errortype } from "@/lib/Interfaces";
+const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   const [userInfo, setUserInfo] = useState<{ email: string; password: string }>(
     { email: "", password: "" }
   );
@@ -31,10 +25,11 @@ const Signin = () => {
     email: false,
     password: false,
   };
-  const { update } = useSession();
   const [isbtnloading, setIsbtnloading] = useState<boolean>(false);
-  const [myerror, seterror] = useState<errorform>(reseterror);
-  const router = useRouter();
+  const defaulterror: errortype = { error: false, message: "" };
+  const [Errorforemail, setErrorforemail] = useState<errortype>(defaulterror);
+  const [Errorforpassword, setErrorforpassword] =
+    useState<errortype>(defaulterror);
   const Validateemail = (e: string) =>
     !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(e);
   const ValidatePassword = (e: string) => e.length < 8;
@@ -46,17 +41,15 @@ const Signin = () => {
     setIsbtnloading(true);
     e.preventDefault();
     if (Validateemail(userInfo.email)) {
-      seterror(() => ({
-        ...reseterror,
-        email: true,
-        error: "Email Address is Invalid",
-      }));
+      setErrorforemail({
+        error: true,
+        message: "Email Address is Invalid",
+      });
     } else if (ValidatePassword(userInfo.password)) {
-      seterror(() => ({
-        ...reseterror,
-        password: true,
-        error: "Password length Must be more than 8 characters",
-      }));
+      setErrorforpassword({
+        error: true,
+        message: "Password length Must be more than 8 characters",
+      });
     } else {
       try {
         const apires = await fetch(`/api/Signin`, {
@@ -78,15 +71,31 @@ const Signin = () => {
           email: userInfo.email.toLowerCase(),
           password: userInfo.password,
           redirect: true,
+          callbackUrl,
         });
-        seterror({ ...myerror, error: res?.error as string });
+        setErrorforemail({ error: true, message: res?.error as string });
       } catch (error: any) {
-        seterror({ ...myerror, error: error?.message as string });
+        if (error?.message === "Account Do Not Exists") {
+          setErrorforemail({ error: true, message: error?.message as string });
+        } else {
+          setErrorforpassword({
+            error: true,
+            message: error?.message as string,
+          });
+        }
         console.error("Error at Signin Req", error);
       }
     }
     setIsbtnloading(false);
   };
+
+  const Googlelogin = async () => {
+    const res = await signIn("google", {
+      callbackUrl,
+      redirect: true,
+    });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -102,8 +111,9 @@ const Signin = () => {
         onSubmit={handleSubmit}
         className="flex flex-col gap-3"
       >
-        <InputField
-          haveerror={myerror.email}
+        <TextField
+          error={Errorforemail.error}
+          helperText={Errorforemail.message}
           label=" Email"
           placeholder="example@email.com"
           className="mb-4 w-full"
@@ -112,45 +122,35 @@ const Signin = () => {
           name="email"
           value={userInfo.email}
           onChange={(e) => {
-            seterror((e) => ({ ...reseterror }));
-
+            setErrorforemail(defaulterror);
             setUserInfo({ ...userInfo, email: e.currentTarget.value });
           }}
           required={true}
         />
 
-        <div
-          className={`mb-4  duration-100 ${
-            myerror.password && " text-red-500"
-          }`}
-        >
-          <label
-            className="block text-sm font-bold mb-2"
-            htmlFor="password"
-          >
-            Password
-          </label>
+        <div className="relative">
+          <TextField
+            helperText={Errorforpassword.message}
+            error={Errorforpassword.error}
+            label={"Password"}
+            placeholder="*********"
+            className={`w-full border rounded-lg focus:outline-none focus:border-blue-400`}
+            type={ispassvisible ? "text" : "password"}
+            id="password"
+            name="password"
+            value={userInfo.password}
+            onChange={(e) => {
+              setErrorforpassword(defaulterror);
 
-          <div className="relative">
-            <input
-              placeholder="*********"
-              className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-400 ${
-                myerror.password && "border-red-600"
-              } `}
-              type={ispassvisible ? "text" : "password"}
-              id="password"
-              name="password"
-              value={userInfo.password}
-              onChange={(e) => {
-                seterror((e) => ({ ...reseterror }));
+              setUserInfo({ ...userInfo, password: e.currentTarget.value });
+            }}
+            required
+          />
 
-                setUserInfo({ ...userInfo, password: e.currentTarget.value });
-              }}
-              required
-            />
+          <div className="absolute px-2 h-full top-0 right-0 flex justify-center items-center">
             <Image
               onClick={changeVisibility}
-              className="absolute right-2.5 top-2.5"
+              className="invertsvg"
               src={
                 ispassvisible
                   ? "/static/icons/Auth/eyeclose.svg"
@@ -175,20 +175,20 @@ const Signin = () => {
           )}
           {isbtnloading ? "Loading..." : "Log in"}
         </motion.button>
-        <AnimatePresence>
-          {myerror.error && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-            >
-              <div className=" left-0 p-3 rounded-lg top-0 w-full  text-red-600 bg-red-100 capitalize">
-                {myerror.error}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </form>
+
+      <button
+        className="px-3 py-3 border rounded-md bg-tertiary flex justify-center items-center gap-3 text-highlight font-bold"
+        onClick={Googlelogin}
+      >
+        <Image
+          src={"/static/logo/google-icon.svg"}
+          alt={"Google Svg"}
+          width={25}
+          height={25}
+        ></Image>{" "}
+        Signin With Google
+      </button>
       <div className="flex justify-center items-center gap-1">
         Not a member?{" "}
         <Link
@@ -196,6 +196,15 @@ const Signin = () => {
           className="underline cursor-pointer"
         >
           Join Now
+        </Link>
+      </div>
+      <div className="flex justify-center items-center gap-1">
+        Forgot Your Password?
+        <Link
+          href={"/Auth/ResetPassword"}
+          className="underline cursor-pointer"
+        >
+          Reset Here
         </Link>
       </div>
     </motion.div>
