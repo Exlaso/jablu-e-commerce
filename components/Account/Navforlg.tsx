@@ -16,7 +16,7 @@ const Navforlg = ({
         {navigation.map((e, i) => {
           let selected = "";
           if (path.includes(e.href)) {
-            selected = "  bg-gray-500/10 text-[var(--highlight-color)] ";
+            selected = "  bg-tertiary text-[var(--highlight-color)] ";
           }
           return (
             <Link

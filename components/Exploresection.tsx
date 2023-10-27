@@ -15,7 +15,7 @@ const Exploresection = () => {
       </h2>
       <span className="flex flex-wrap items-center justify-center gap-2 whitespace-nowrap ">
         <Link
-          href={"/Categories/Search/Jablu%20Exclusive"}
+          href={"/Categories/Search/Jablu-Exclusive"}
           className="flex items-center justify-center gap-2 px-8 py-4 font-bold text-white duration-150 bg-blue-300 rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
         >
           <Image

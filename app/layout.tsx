@@ -19,15 +19,13 @@ export const metadata: Metadata = {
   },
   title: "Jabluu.in",
   keywords: [
-    "Jabluu.in",
-    "Jabluu",
-    "Jablu",
     "Jablu.in",
+    "Jablu",
     "Vedant Bhavsar",
     "Exlaso",
-    "Jablu tshirt",
+    "Jablu.in tshirt",
   ],
-  description: "Jabluu.in",
+  description: "Jablu.in",
 };
 
 export default async function RootLayout({

@@ -36,9 +36,9 @@ const Categories = ({ category }: { category: string[] }) => {
             <Link
               shallow={true}
               key={i}
-              href={"/Categories/Search/" + e}
+              href={"/Categories/Search/" + e.replaceAll(" ", "-")}
               className={`hover:underline text-highlight p-1 rounded-sm  ${
-                e.toLowerCase() === pathname && "bg-tertiary "
+                e.replaceAll(" ", "-").toLowerCase() === pathname && "bg-tertiary "
               }`}
             >
               {e}
@@ -80,9 +80,9 @@ const Categories = ({ category }: { category: string[] }) => {
                   shallow
                   key={i}
                   onClick={() => setIsOpen(false)}
-                  href={"/Categories/Search/" + e}
+                  href={"/Categories/Search/" + e.replaceAll(" ", "-")}
                   className={`hover:underline text-black  ${
-                    e.toLowerCase() === pathname && "underline"
+                    e.replaceAll(" ", "-").toLowerCase() === pathname && "underline"
                   }`}
                 >
                   {e}

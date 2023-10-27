@@ -24,7 +24,7 @@ const CategoriesDisplay = ({
             className={` w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent  group overflow-hidden ${innerClassName}`}
           >
             <Link
-              href={"Categories/Search/" + e.name}
+              href={"Categories/Search/"+e.name.replaceAll(" ", "-")}
               className="group"
             >
               <motion.div

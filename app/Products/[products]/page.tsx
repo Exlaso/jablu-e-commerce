@@ -5,6 +5,7 @@ import BackButton from "@/components/Utils/Backbtn";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
 import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
@@ -13,23 +14,25 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
   const data = await getAllProducts();
   const newdata = data?.filter(
-    (e) => e.id.toString() === params.products.toString()
+    (e) => e.title.replaceAll(" ","-").toString().toLowerCase() === params.products.toString().toLowerCase()
   );
-
+if (newdata?.length === 0) {
+  notFound();
+}
   const { title, description }: dataforproduct = newdata?.at(
     0
   ) as dataforproduct;
 
   return {
-    title: title.toUpperCase(),
+    title: title.toLowerCase(),
     keywords: [
-      title,
+      title.toLowerCase(),
       description,
       "Jabluu.in",
       "Jabluu",
@@ -47,8 +50,12 @@ const Page = async (props: any) => {
   
   const data = await getAllProducts();
   const newdata = data?.filter(
-    (e) => e.id.toString() === props.params.products.toString()
+    (e) => e.title.replaceAll(" ","-").toString().toLowerCase() === props.params.products.toString().toLowerCase()
+
   );
+  if (newdata?.length === 0) {
+    notFound();
+  }
 
   const { images, id, title, description, category }: dataforproduct =
     newdata?.at(0) as dataforproduct;

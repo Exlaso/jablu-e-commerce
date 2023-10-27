@@ -96,7 +96,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
         category:
         <Link
           className="underline w-fit p-2 cursor-pointer capitalize underline-offset-2"
-          href={"/Categories/Search/" + category}
+          href={"/Categories/Search/" + category.replaceAll(" ", "-")}
         >
           {category}
         </Link>

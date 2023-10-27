@@ -69,7 +69,7 @@ const MenuCard = ({
               <div className="flex flex-col gap-1 justify-center items-start text-lg">
                 {data.data.map((d) => (
                   <Link
-                    href={"/Categories/Search/" + d.href}
+                    href={"/Categories/Search/" + d.href.replaceAll(" ", "-")}
                     key={d.title}
                     onClick={()=> {
                       setIsmenuopen(false)

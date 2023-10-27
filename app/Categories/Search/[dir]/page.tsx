@@ -19,7 +19,9 @@ const Dir = async ({
     filtereddata = data;
   } else {
     filtereddata = data?.filter(
-      (product) => product.category.toLowerCase() === directory.toLowerCase()
+      (product) =>
+        product.category.replaceAll(" ", "-").toLowerCase() ===
+        directory.toLowerCase()
     );
   }
 
@@ -30,7 +32,9 @@ const Dir = async ({
   switch (searchParams.rate) {
     case "relevant":
       filtereddata = data?.filter(
-        (product) => product.category.toLowerCase() === directory.toLowerCase()
+        (product) =>
+          product.category.replaceAll(" ", "-").toLowerCase() ===
+          directory.toLowerCase()
       );
 
       break;
@@ -51,7 +55,7 @@ const Dir = async ({
       <div className="w-full max-md:row-start-2 ">
         <div className="w-full md:sticky top-[12vh]  ">
           <p className="text-sm text-gray-500 my-3 ">Sort by</p>
-            <SortBy />
+          <SortBy />
         </div>
       </div>
     </>

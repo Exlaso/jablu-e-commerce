@@ -37,7 +37,7 @@ const Cardforproduct = ({
         )}
         <Link
           className="flex gap-4  w-full justify-start items-start h-full flex-col"
-          href={`/Products/${id}`}
+          href={`/Products/${title.replaceAll(" ","-").toLowerCase()}`}
         >
           <div className="flex justify-center items-center w-full ">
             <Image

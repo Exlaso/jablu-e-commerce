@@ -1,56 +1,65 @@
+"use client";
 import { motion } from "framer-motion";
-import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+interface listtype {
+  title: string;
+  href: string;
+  image: string;
+  onClick?: Function;
+}
 const Accountmenu = ({
   setAccountmenu,
 }: {
   setAccountmenu: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const Logout = () => {
-    fetch("/api/DeleteCookie", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(() => signOut());
-  };
-
-  const list: {
-    title: string;
-    href: string;
-    image: string;
-    onClick?: Function;
-  }[] = [
-    {
-      image: "/static/menu_content/login.svg",
-      title: "Account Settings",
-      href: "/Account/Information",
-    },
-    {
-      image: "/static/icons/navbar/favourite.svg",
-      title: "Favourites",
-      href: "/Favourites",
-    },
-    {
-      image: "/static/menu_content/orders.svg",
-      title: "Orders",
-      href: "#",
-    },
-    // {
-    //   image: "/static/menu_content/logout.svg",
-    //   title: "Logout",
-    //   href: "",
-    //   onClick: Logout,
-    // },
-  ];
+  const [list, setlist] = useState<listtype[]>([]);
+  const { status } = useSession();
 
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (status === "authenticated") {
+      setlist([
+        {
+          image: "/static/menu_content/login.svg",
+          title: "Account Settings",
+          href: "/Account/Information",
+        },
+        {
+          image: "/static/icons/navbar/favourite.svg",
+          title: "Favourites",
+          href: "/Favourites",
+        },
+        {
+          image: "/static/menu_content/orders.svg",
+          title: "Orders",
+          href: "#",
+        },
+      ]);
+    } else {
+     setlist( [
+      {
+        image: "/static/menu_content/login.svg",
+        title: "Sign in",
+        href: `/Auth/Signin?callbackUrl=/`,
+      },
+      {
+        image: "/static/icons/navbar/favourite.svg",
+        title: "Sign up",
+        href: `/Auth/Signup?callbackUrl=/`,
+      },
+    ])
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
       if (divRef.current && !divRef.current.contains(event.target as Node)) {
         setAccountmenu(false);
@@ -62,12 +71,12 @@ const Accountmenu = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [setAccountmenu]);
+  }, [setAccountmenu, status]);
 
   return (
     <motion.div
       ref={divRef}
-      exit={{opacity:0}}  
+      exit={{ opacity: 0 }}
       variants={{
         hidden: { y: 10, opacity: 0, height: 0 },
         visible: { y: 0, opacity: 1, height: "auto" },
@@ -82,7 +91,6 @@ const Accountmenu = ({
     >
       <motion.ul
         initial={"hidden"}
-       
         animate="visible"
         transition={{
           staggerChildren: 0.15,
@@ -94,7 +102,7 @@ const Accountmenu = ({
             key={e.title}
             href={e.href}
             onClick={(xe) => {
-              setAccountmenu(false)
+              setAccountmenu(false);
               if (e.href === "") {
                 xe.preventDefault();
                 if (e.onClick) {

@@ -68,23 +68,25 @@ const Items = ({
               className="flex gap-5 w-full"
               key={e.id}
             >
-              <Link href={"/Products/" + e.id}>
+              <Link href={"/Products/" + e.title.replaceAll(" ", "-")}   
+>
                 <Image
                   src={e.images?.at(0) as string}
                   alt={e.title + " image"}
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
+                  className="aspect-square object-contain"
                 ></Image>
               </Link>
               <div className="w-full flex flex-col gap-3">
                 <div className="flex max-sm:flex-col text-xl max-sm:text-sm justify-between items-start w-full gap-4">
                   <Link
-                    href={"/Products/" + e.id}
+                    href={"/Products/" + e.title.replaceAll(" ", "-")}
                     className="underline capitalize"
                   >
                     <h2>{e.title}</h2>
                   </Link>
-                  <span className="font-bold">
+                  <span className="font-bold text-xl">
                     ₹
                     {(e.price * e.count).toLocaleString("en-US", {
                       maximumFractionDigits: 2,
@@ -93,9 +95,9 @@ const Items = ({
                 </div>
 
                 <div className="flex justify-between w-full items-center">
-                  <h2 className="uppercase">
+                  <h4 className="uppercase">
                     {e.color}/{e.size}
-                  </h2>
+                  </h4>
                   <div className="flex flex-col items-center gap-1">
                     <IncDecButton
                       setCarteditems={setCarteditems}

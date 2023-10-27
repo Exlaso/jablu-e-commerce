@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://jabluu.vercel.app
+
+# Sitemaps
+Sitemap: https://jabluu.vercel.app/sitemap.xml
