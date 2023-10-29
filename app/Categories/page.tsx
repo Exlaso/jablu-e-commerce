@@ -1,6 +1,25 @@
 import CategoriesDisplay from "@/components/Categories/CategoriesDisplay";
 import { GetCategories } from "@/lib/db/hasura";
+import { Metadata } from "next";
 import React from "react";
+
+
+export const metadata: Metadata = {
+  title: "Explore Categories - Jablu.in",
+  description:
+    "Discover a world of unique clothing and premium designs at Jablu.in. Explore a variety of categories, from fashion and accessories to home decor. Your trusted E-commerce destination.",
+  keywords: "Jablu.in, E-commerce, Categories, Unique clothing, Premium designs, Fashion, Accessories, Home decor, Exlaso, Vedant Bhavsar",
+  robots: "index, follow",
+  openGraph: {
+    title: "Explore Categories - Jablu.in",
+    url: "https://jabluu.vercel.app/Categories",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Discover a world of unique clothing and premium designs at Jablu.in. Explore a variety of categories, from fashion and accessories to home decor. Your trusted E-commerce destination.",
+  },
+};
 
 const Page = async () => {
   const data: { name: string; image: string; description: string }[] =

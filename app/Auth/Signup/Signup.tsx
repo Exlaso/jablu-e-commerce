@@ -9,6 +9,8 @@ import { Emailsendinterface, errortype } from "@/lib/Interfaces";
 import { TokengenBase32 } from "@/utils/RandStringGen";
 import { TextField } from "@mui/material";
 import { signIn } from "next-auth/react";
+import Authdiv from "@/components/Authdiv";
+import JabluTextLogo from "@/components/Utils/Jablulogo";
 
 const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
   const router = useRouter();
@@ -106,7 +108,7 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
             },
 
             body: JSON.stringify({ UUID: data.message, URL: VerifyUrl }),
-          })
+          });
 
           const emailsenddata: Emailsendinterface = {
             Body: {
@@ -122,7 +124,7 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(emailsenddata),
-          })
+          });
           router.replace("/Auth/Signin");
         }
       } catch (error: any) {
@@ -139,16 +141,13 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{
-        ease: "linear",
-      }}
-      className=" p-8 rounded w-[70vw] max-md:w-full relative flex flex-col gap-6 "
-    >
-      <h2 className="text-2xl font-semibold mb-4">Sign up to Jablu.in</h2>
+    <Authdiv>
+      <div>
+        <h2 className="text-2xl font-semibold mb-2">Sign up to <JabluTextLogo className="text-[2em] ml-3" /></h2>
+        <p className=" mb-4">
+        Join the Jablu.in shopping experience! Sign up now and unlock exclusive offers and deals.
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-3"
@@ -286,8 +285,7 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
           Login Now
         </Link>
       </div>
-    </motion.div>
-  );
+      </Authdiv>  );
 };
 
 export default Signup;

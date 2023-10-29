@@ -8,10 +8,22 @@ import Image from "next/image";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Favourites",
+  title: "Your Favorite Items - Jablu.in  ",
   description:
-    "Your list of desired items or products you have expressed interest in.",
+    "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
+  keywords: "Jablu.in, E-commerce, Favorites, Favorite Items, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+  robots: "index, follow",
+  openGraph: {
+    title: "Your Favorite Items - Jablu.in  ",
+    url: "https://jabluu.vercel.app/Auth/Favourites",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
+  },
 };
+
 const Page = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
   const res = await fetch(

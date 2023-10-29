@@ -1,8 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
+import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
+import LoginIcon from "@mui/icons-material/Login";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import React, {
   Dispatch,
   SetStateAction,
@@ -13,7 +16,7 @@ import React, {
 interface listtype {
   title: string;
   href: string;
-  image: string;
+  image: JSX.Element;
   onClick?: Function;
 }
 const Accountmenu = ({
@@ -30,34 +33,34 @@ const Accountmenu = ({
     if (status === "authenticated") {
       setlist([
         {
-          image: "/static/menu_content/login.svg",
+          image: <LoginIcon />,
           title: "Account Settings",
           href: "/Account/Information",
         },
         {
-          image: "/static/icons/navbar/favourite.svg",
+          image: <FavoriteIcon />,
           title: "Favourites",
           href: "/Favourites",
         },
         {
-          image: "/static/menu_content/orders.svg",
+          image: <ShoppingCartIcon  />,
           title: "Orders",
           href: "#",
         },
       ]);
     } else {
-     setlist( [
-      {
-        image: "/static/menu_content/login.svg",
-        title: "Sign in",
-        href: `/Auth/Signin?callbackUrl=/`,
-      },
-      {
-        image: "/static/icons/navbar/favourite.svg",
-        title: "Sign up",
-        href: `/Auth/Signup?callbackUrl=/`,
-      },
-    ])
+      setlist([
+        {
+          image: <LoginIcon />,
+          title: "Sign in",
+          href: `/Auth/Signin?callbackUrl=/`,
+        },
+        {
+          image: <SensorOccupiedIcon />,
+          title: "Sign up",
+          href: `/Auth/Signup?callbackUrl=/`,
+        },
+      ]);
     }
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -78,8 +81,8 @@ const Accountmenu = ({
       ref={divRef}
       exit={{ opacity: 0 }}
       variants={{
-        hidden: { y: 10, opacity: 0, height: 0 },
-        visible: { y: 0, opacity: 1, height: "auto" },
+        hidden: { y: 10, visibility: "hidden" },
+        visible: { y: 0, visibility: "visible" },
       }}
       transition={{
         height: {
@@ -126,13 +129,7 @@ const Accountmenu = ({
                 },
               }}
             >
-              <Image
-                src={e.image}
-                width={30}
-                height={30}
-                loading="eager"
-                alt="search"
-              ></Image>
+              {e.image}
               <h1>{e.title}</h1>
             </motion.li>
           </Link>

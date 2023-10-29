@@ -19,6 +19,12 @@ export interface dataforproductwithmetadata extends dataforproduct {
   count: number;
 }
 
+
+export interface API_UpdatePassword_Body{
+  user_email:string,
+  user_password:string,
+  token:string
+}
 export interface GoogleAccountBody{
   email:string,
   name:string,

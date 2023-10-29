@@ -1,7 +1,31 @@
 import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
 import getAllProducts from "@/utils/GetProduct";
-import React, { Suspense } from "react";
+import { Metadata } from "next";
+import React from "react";
+
+export const metadata: Metadata = {
+  title: "Search - Jablu.in",
+  description:
+    "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
+  keywords: "Jablu.in, E-commerce, Search, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+  robots: "index, follow",
+  openGraph: {
+    title: "Search - Jablu.in",
+    url: "https://jabluu.vercel.app/Categories/Search",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
+  },
+};
+
+
+
+
+
+
 
 const Page = async ({
   searchParams,

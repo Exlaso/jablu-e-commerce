@@ -7,6 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { TextField } from "@mui/material";
 import { errortype } from "@/lib/Interfaces";
+import Authdiv from "@/components/Authdiv";
+import JabluTextLogo from "@/components/Utils/Jablulogo";
 const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   const [userInfo, setUserInfo] = useState<{ email: string; password: string }>(
     { email: "", password: "" }
@@ -97,16 +99,14 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{
-        ease: "linear",
-      }}
-      className=" p-8 rounded w-[70vw] max-md:w-full relative flex flex-col gap-6 "
-    >
-      <h2 className="text-2xl font-semibold mb-4">Log In to Jablu.in</h2>
+    <Authdiv>
+      <div>
+        <div className="text-2xl font-semibold mb-2">Log In to <JabluTextLogo className="text-[2em] ml-3" /></div>
+        <p className=" mb-4">
+          Welcome to Jablu.in - Your one-stop shop for all your shopping
+          desires! Sign in and start exploring our amazing collection today.
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-3"
@@ -207,7 +207,7 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
           Reset Here
         </Link>
       </div>
-    </motion.div>
+    </Authdiv>
   );
 };
 

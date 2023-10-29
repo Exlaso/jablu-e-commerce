@@ -10,9 +10,20 @@ import Image from "next/image";
 import { FunctionComponent } from "react";
 
 export const metadata: Metadata = {
-  title: "Shopping Bag",
+  title: "Shopping Bag - Jablu.in",
   description:
-  "Your list of desired items or products you have expressed interest in.",
+    "Your shopping bag at Jablu.in - Explore our E-commerce website's wide selection of unique clothing with premium designs. Review and manage your favorite picks in your shopping cart.",
+  keywords: "Jablu.in, E-commerce, Shopping Bag, Cart, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+  robots: "index, follow",
+  openGraph: {
+    title: "Shopping Bag - Jablu.in",
+    url: "https://jabluu.vercel.app/ShoppingBag",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Your shopping bag at Jablu.in - Explore our E-commerce website's wide selection of unique clothing with premium designs. Review and manage your favorite picks in your shopping cart.",
+  },
 };
 
 interface CartPageProps {}

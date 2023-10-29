@@ -1,6 +1,15 @@
 import { IsvalidUrl } from "@/lib/db/hasura";
 import Link from "next/link";
 
+
+
+
+
+
+
+
+
+
 const SuccessVerificationPage = async ({
   searchParams,
 }: {

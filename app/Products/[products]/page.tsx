@@ -15,24 +15,25 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
   const data = await getAllProducts();
   const newdata = data?.filter(
-    (e) => e.title.replaceAll(" ","-").toString().toLowerCase() === params.products.toString().toLowerCase()
+    (e) =>
+      e.title.replaceAll(" ", "-").toString().toLowerCase() ===
+      params.products.toString().toLowerCase()
   );
-if (newdata?.length === 0) {
-  notFound();
-}
+  if (newdata?.length === 0) {
+    notFound();
+  }
   const { title, description }: dataforproduct = newdata?.at(
     0
   ) as dataforproduct;
 
   return {
-    title: title.toLowerCase(),
+    title: title.toLowerCase()+ " - Jablu.in",
     keywords: [
-      title.toLowerCase(),
+      title.toLowerCase()+ " - Jablu.in",
       description,
       "Jabluu.in",
       "Jabluu",
@@ -42,16 +43,28 @@ if (newdata?.length === 0) {
       "Exlaso",
       "Jablu tshirt",
     ],
-    description: "Jabluu.in",
+    description: description,
+    robots: "index, follow",
+    openGraph: {
+      title: title.toLowerCase()+ " - Jablu.in",
+      url: `https://jabluu.vercel.app/${title
+        .replaceAll(" ", "-")
+        .toString()
+        .toLowerCase()}`,
+      siteName: "Jablu.in",
+      type: "website",
+      images: "https://jabluu.vercel.app/icon.svg",
+      description: description,
+    },
   };
 }
 
 const Page = async (props: any) => {
-  
   const data = await getAllProducts();
   const newdata = data?.filter(
-    (e) => e.title.replaceAll(" ","-").toString().toLowerCase() === props.params.products.toString().toLowerCase()
-
+    (e) =>
+      e.title.replaceAll(" ", "-").toString().toLowerCase() ===
+      props.params.products.toString().toLowerCase()
   );
   if (newdata?.length === 0) {
     notFound();

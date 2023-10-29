@@ -2344,26 +2344,6 @@ h4 {
   }
 }
 
-fieldset.MuiOutlinedInput-notchedOutline{
-  border: 2px solid #2476D2!important;
-}
-
-fieldset:hover {
-  border: 2px solid #2476D2!important;
-}
-
-input{
-  color: var(--secondary-color)!important;
-}
-
-.MuiFormLabel-root {
-  color: var(--secondary-color)!important;
-}
-
-.MuiFormLabel-root.Mui-focused{
-  color: #2476D2,
-}
-
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;

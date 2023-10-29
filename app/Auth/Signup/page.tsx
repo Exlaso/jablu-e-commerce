@@ -1,7 +1,29 @@
 import { Suspense } from "react";
 import Signup from "./Signup";
+import { Metadata } from "next";
 
 interface Props {}
+export const metadata: Metadata = {
+  title: "Sign up - Jablu.in",
+  description:
+    " Welcome to Jablu.in, your go-to E-commerce destination. Sign up now to access a world of unique clothing with premium designs.",
+  keywords: "Jablu.in, E-commerce, Signin, Jablu, Exlaso, Vedant Bhavsar",
+  icons: {
+    icon: "https://jabluu.vercel.app/icon.svg",
+  },
+  robots: "index, follow",
+  openGraph: {
+    title: "Sign up - Jablu.in",
+    url: "https://jabluu.vercel.app/Auth/Signup",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Welcome to Jablu.in, your go-to E-commerce destination. Sign up now to access a world of unique clothing with premium designs.",
+  },
+};
+
+
 
 const SignIn = async (e:{searchParams:{callbackUrl:string}}) => {
   const callbackUrl = e?.searchParams?.callbackUrl;

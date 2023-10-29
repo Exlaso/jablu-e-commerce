@@ -4,6 +4,28 @@ import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import ProfilePhoto from "@/components/Account/Information/ProfilePhoto";
 import InputSection from "@/components/Account/Information/InputSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Account Information - Jablu.in",
+  description:
+    "Manage your account information at Jablu.in, your trusted E-commerce website. Update your details, preferences, and more. Explore unique clothing with premium designs.",
+  keywords: "Jablu.in, E-commerce, Account Information, Account Details, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+  robots: "index, follow",
+  openGraph: {
+    title: "Account Information - Jablu.in",
+    url: "https://jabluu.vercel.app/Account/Information",
+    siteName: "Jablu.in",
+    type: "website",
+    images: "https://jabluu.vercel.app/icon.svg",
+    description:
+      "Manage your account information at Jablu.in, your trusted E-commerce website. Update your details, preferences, and more. Explore unique clothing with premium designs.",
+  },
+};
+
+
+
+
 
 const Page = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");

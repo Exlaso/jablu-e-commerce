@@ -2,8 +2,71 @@ import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
 import { dataforproduct } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import React, { Suspense } from "react";
+import React from "react";
+
+type Props = {
+  params: { dir: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+
+
+export async function generateMetadata(
+  { params }: Props,
+): Promise<Metadata> {
+  // read route params
+  const directory = decodeURIComponent(params.dir);
+  const data = await getAllProducts();
+  let filtereddata: dataforproduct[] | undefined;
+  if (directory === "All") {
+    filtereddata = data;
+  } else {
+    filtereddata = data?.filter(
+      (product) =>
+        product.category.replaceAll(" ", "-").toLowerCase() ===
+        directory.toLowerCase()
+    );
+  }
+
+
+  const { category }: dataforproduct = filtereddata?.at(
+    0
+  ) as dataforproduct;
+
+  return {
+    title: category.toLowerCase()+ " - Jablu.in",
+    keywords: [
+      category.toLowerCase()+ " - Jablu.in",
+      category,
+      "Jabluu.in",
+      "Jabluu",
+      "Jablu",
+      "Jablu.in",
+      "Vedant Bhavsar",
+      "Exlaso",
+      "Jablu tshirt",
+    ],
+    description: category,
+    robots: "index, follow",
+    openGraph: {
+      title: category.toLowerCase()+ " - Jablu.in",
+      url: `https://jabluu.vercel.app/${category
+        .replaceAll(" ", "-")
+        .toString()
+        .toLowerCase()}`,
+      siteName: "Jablu.in",
+      type: "website",
+      images: "https://jabluu.vercel.app/icon.svg",
+      description: category,
+    },
+  };
+}
+
+
+
+
 
 const Dir = async ({
   params,
@@ -24,6 +87,9 @@ const Dir = async ({
         directory.toLowerCase()
     );
   }
+
+
+
 
   if (filtereddata?.length === 0) {
     notFound();

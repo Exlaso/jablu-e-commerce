@@ -4,6 +4,7 @@ import React, { FC, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import ExploreIcon from '@mui/icons-material/Explore';
 
 const LandingSection: FC = () => {
   const { FetchNoifItemsinCart } = useCartContext();
@@ -61,9 +62,9 @@ const LandingSection: FC = () => {
         </div>
         <Link
           href={"/Categories"}
-          className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50"
+          className="px-4 py-2 bb  rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50"
         >
-          Get Started
+        <ExploreIcon></ExploreIcon>  Get Started
         </Link>
       </div>
     </div>
