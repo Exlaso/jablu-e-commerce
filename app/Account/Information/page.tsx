@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   description:
     "Manage your account information at Jablu.in, your trusted E-commerce website. Update your details, preferences, and more. Explore unique clothing with premium designs.",
   keywords: "Jablu.in, E-commerce, Account Information, Account Details, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
-  robots: "index, follow",
-  openGraph: {
+    metadataBase: new URL("https://jabluu.vercel.app"),
+ openGraph: {
     title: "Account Information - Jablu.in",
     url: "https://jabluu.vercel.app/Account/Information",
     siteName: "Jablu.in",

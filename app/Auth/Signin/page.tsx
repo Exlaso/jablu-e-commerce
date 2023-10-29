@@ -10,8 +10,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "https://jabluu.vercel.app/icon.svg",
   },
-  robots: "index, follow",
-  openGraph: {
+ 
+    metadataBase: new URL("https://jabluu.vercel.app"),
+ openGraph: {
     title: "Sign in - Jablu.in",
     url: "https://jabluu.vercel.app/Auth/Signin",
     siteName: "Jablu.in",

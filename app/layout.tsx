@@ -12,6 +12,8 @@ import { dataforproduct } from "@/lib/Interfaces";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jabluu.vercel.app"),
+
   icons: {
     icon: "icon.svg",
   },
@@ -35,6 +37,19 @@ export const metadata: Metadata = {
     siteName: "Jablu.in",
     type: "website",
     images: "https://jabluu.vercel.app/icon.svg",
+  },
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

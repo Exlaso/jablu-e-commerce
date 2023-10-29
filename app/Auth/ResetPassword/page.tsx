@@ -5,13 +5,14 @@ import ResetPassword from "@/components/Resetpassword/ResetPassword";
 import { Metadata } from "next";
 const jwt = require("jsonwebtoken");
 
-
 export const metadata: Metadata = {
   title: "Reset Password - Jablu.in",
   description:
     "Reset your password at Jablu.in, your trusted E-commerce website. Experience a wide range of unique clothing with premium designs.",
-  keywords: "Jablu.in, E-commerce, Reset Password, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
-  robots: "index, follow",
+  keywords:
+    "Jablu.in, E-commerce, Reset Password, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+
+  metadataBase: new URL("https://jabluu.vercel.app"),
   openGraph: {
     title: "Reset Password - Jablu.in",
     url: "https://jabluu.vercel.app/Auth/Signin",
@@ -22,17 +23,6 @@ export const metadata: Metadata = {
       "Reset your password at Jablu.in, your trusted E-commerce website. Experience a wide range of unique clothing with premium designs.",
   },
 };
-
-
-
-
-
-
-
-
-
-
-
 
 const Page = ({
   searchParams: { token },
@@ -64,7 +54,10 @@ const Page = ({
       ) : !token ? (
         <ResetPassword uperror={error} />
       ) : (
-        <NewPassword email={email} token={token}/>
+        <NewPassword
+          email={email}
+          token={token}
+        />
       )}
     </div>
   );

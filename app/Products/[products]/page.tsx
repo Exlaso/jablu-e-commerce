@@ -44,8 +44,9 @@ export async function generateMetadata(
       "Jablu tshirt",
     ],
     description: description,
-    robots: "index, follow",
-    openGraph: {
+   
+      metadataBase: new URL("https://jabluu.vercel.app"),
+ openGraph: {
       title: title.toLowerCase()+ " - Jablu.in",
       url: `https://jabluu.vercel.app/${title
         .replaceAll(" ", "-")
