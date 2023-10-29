@@ -11,11 +11,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-
-
-export async function generateMetadata(
-  { params }: Props,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const directory = decodeURIComponent(params.dir);
   const data = await getAllProducts();
@@ -29,16 +25,15 @@ export async function generateMetadata(
         directory.toLowerCase()
     );
   }
-
-
-  const { category }: dataforproduct = filtereddata?.at(
-    0
-  ) as dataforproduct;
+  if (filtereddata?.length === 0) {
+    notFound();
+  }
+  const { category }: dataforproduct = filtereddata?.at(0) as dataforproduct;
 
   return {
-    title: category.toLowerCase()+ " - Jablu.in",
+    title: category.toLowerCase() + " - Jablu.in",
     keywords: [
-      category.toLowerCase()+ " - Jablu.in",
+      category.toLowerCase() + " - Jablu.in",
       category,
       "Jabluu.in",
       "Jabluu",
@@ -49,10 +44,10 @@ export async function generateMetadata(
       "Jablu tshirt",
     ],
     description: category,
-   
-      metadataBase: new URL("https://jabluu.vercel.app"),
- openGraph: {
-      title: category.toLowerCase()+ " - Jablu.in",
+
+    metadataBase: new URL("https://jabluu.vercel.app"),
+    openGraph: {
+      title: category.toLowerCase() + " - Jablu.in",
       url: `https://jabluu.vercel.app/${category
         .replaceAll(" ", "-")
         .toString()
@@ -64,10 +59,6 @@ export async function generateMetadata(
     },
   };
 }
-
-
-
-
 
 const Dir = async ({
   params,
@@ -84,13 +75,10 @@ const Dir = async ({
   } else {
     filtereddata = data?.filter(
       (product) =>
-        product.category.replaceAll(" ", "-").toLowerCase() ===
+        product?.category.replaceAll(" ", "-").toLowerCase() ===
         directory.toLowerCase()
     );
   }
-
-
-
 
   if (filtereddata?.length === 0) {
     notFound();

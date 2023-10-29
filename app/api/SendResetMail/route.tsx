@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 const jwt = require("jsonwebtoken");
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     const { searchParams } = new URL(req.url);
