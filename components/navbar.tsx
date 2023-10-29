@@ -1,110 +1,67 @@
-"use client";
-import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import MenuCard from "./MenuCard";
-import SearchBar from "./SearchBar";
 import Link from "next/link";
-import { useCartContext } from "@/Store/StoreContext";
-import Accountmenu from "./navbar/Accountmenu";
-import { useSession } from "next-auth/react";
-import Accounticon from "./navbar/Accounticon";
+import SearchBar from "./SearchBar";
 import ShoppingCartIcon from "./navbar/ShoppingCartIcon";
-const Navbar = ({
+import { Catergory_Menu_Bar } from "./navbar/Category_Menu_bar";
+import NavbarHeader from "./navbar/NavbarHeader";
+import Accounticon from "./navbar/Accounticon";
+import { getServerSession } from "next-auth";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
+import { Suspense } from "react";
+const Navbar = async ({
   showsearch = true,
   category,
 }: {
   showsearch?: boolean;
-  category: string[] | undefined;
+  category: string[];
 }) => {
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
-  
+  const Auth = await getServerSession();
+  let data: { data: string } = { data: "/static/icons/navbar/face.svg" };
 
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      let prevScrollPos: number = window.scrollY;
+  const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
 
-      const handleScroll = (): void => {
-        const currentScrollPos: number = window.scrollY;
-
-        if (currentScrollPos > 0) {
-          setIsScrolling(prevScrollPos < currentScrollPos);
-        } else {
-          setIsScrolling(false);
-        }
-
-        prevScrollPos = currentScrollPos;
-      };
-
-      window.addEventListener("scroll", handleScroll);
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
-  const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
-  const [accountmenu, setAccountmenu] = useState<boolean>(false);
-  const menustate = ismenuopen
-    ? "/static/icons/navbar/cross.svg"
-    : "/static/icons/navbar/menu.svg";
+  if (!!Auth?.user?.email) {
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/GetuserPFP?jablu_jwt_token=${token?.value}`,
+      {
+        headers: { pragma: "no-cache", "cache-control": "no-cache" },
+      }
+    );
+    data = await res.json();
+  }
 
   return (
-    <>
-      <AnimatePresence>
-        {ismenuopen && (
-          <MenuCard
-            Categories={category}
-            setIsmenuopen={setIsmenuopen}
-          ></MenuCard>
-        )}
-      </AnimatePresence>
-      <header
-        className={`px-2 min-h-[8vh] w-full fixed  flex z-[25] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
-          isScrolling ? "-translate-y-full" : "translate-y-0"
-        } `}
-      >
-        <nav className="container mx-auto ">
-          <div className="grid items-center justify-between grid-cols-3">
-            <div
-              className="relative z-40"
-              onClick={() => setIsmenuopen((prev) => !prev)}
+    <NavbarHeader>
+      <nav className="container mx-auto ">
+        <div className="grid items-center justify-between grid-cols-3 ">
+          <Catergory_Menu_Bar category={category} />
+          <div className="text-xl font-bold  relative z-[22]">
+            <Link
+              href="/"
+              className="flex flex-wrap font-bold text-center shadowhand justify-evenly"
             >
               <Image
-                src={menustate}
-                alt="menu"
-                width={30}
-                height={30}
                 className="invertsvg"
+                src={"/static/logo/jablu4.svg"}
+                alt={"jablulogo"}
+                width={80}
+                height={80}
               ></Image>
-            </div>
-            <div className="text-xl font-bold ">
-              <Link
-                href="/"
-                className="flex flex-wrap font-bold text-center shadowhand justify-evenly"
-              >
-                <Image
-                  className="invertsvg"
-                  src={"/static/logo/jablu4.svg"}
-                  alt={"jablulogo"}
-                  width={80}
-                  height={80}
-                ></Image>
-              </Link>
-            </div>
-            <ul className="flex items-center justify-end space-x-4">
-              {showsearch && (
-                <li className="max-lg:hidden">
-                  <SearchBar />
-                </li>
-              )}
-              <ShoppingCartIcon />
-              <Accounticon />
-            </ul>
+            </Link>
           </div>
-        </nav>
-      </header>
-    </>
+          <div className="flex items-center justify-end space-x-4 relative z-[22]">
+            {showsearch && (
+              <div className="max-lg:hidden">
+                <SearchBar />
+              </div>
+            )}
+              <ShoppingCartIcon />
+            <Accounticon imgurl={data.data} />
+          </div>
+        </div>
+      </nav>
+    </NavbarHeader>
   );
 };
 

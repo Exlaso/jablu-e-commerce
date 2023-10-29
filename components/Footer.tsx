@@ -11,6 +11,7 @@ const Footer = ({category}:{category:string[]}) => {
         <Link href="/" className="flex justify-center items-center flex-col  w-full">
           <Image
             src={"/icon.svg"}
+            priority
             alt={"jablulogo"}
             width={200}
             height={200}

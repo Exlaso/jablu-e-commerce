@@ -8,16 +8,18 @@ export const dynamic = "force-dynamic";
 export const GET = async (req: NextRequest) => {
   try {
     
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    // const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const {searchParams} = new URL(req.url)
+    const token = searchParams.get("jablu_jwt_token")
 
-    if (!token?.value) {
+    if (!token) {
       return NextResponse.json({
         message: "Token Cookie Not Found",
         error: true,
         errorcode:"TCNF",
       });
     }
-    const res: string = await GetUserImage(token.value);
+    const res: string = await GetUserImage(token);
     return NextResponse.json({ message: "success", data: res, error: false });
   } catch (e) {
     if (typeof e === "string") {

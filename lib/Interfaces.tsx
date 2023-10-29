@@ -19,6 +19,12 @@ export interface dataforproductwithmetadata extends dataforproduct {
   count: number;
 }
 
+export interface Categories {
+  name:string,
+  description:string,
+  image:string
+}
+
 
 export interface API_UpdatePassword_Body{
   user_email:string,

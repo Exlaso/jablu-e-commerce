@@ -1,41 +1,12 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Accountmenu from "./Accountmenu";
-import { useSession } from "next-auth/react";
 
-const Accounticon = () => {
+const Accounticon = ({ imgurl }: { imgurl:string }) => {
   const [accountmenu, setAccountmenu] = useState<boolean>(false);
 
-  const [userpfp, setuserpfp] = useState<string>(
-    "/static/icons/navbar/face.svg"
-  );
-  const { status } = useSession();
-
-  useEffect(() => {
-    
-    if (status === "authenticated") {
-      
-      fetch("/api/GetuserPFP", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          pragma: "no-cache",
-          "cache-control": "no-cache",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          
-          if (data.data) {
-            setuserpfp(data.data);
-          }
-        });
-    }
-
-    return () => {};
-  }, [status]);
   return (
     <>
       <motion.div
@@ -51,8 +22,9 @@ const Accounticon = () => {
             onClick={() => {
               setAccountmenu((e) => !e);
             }}
-            src={userpfp}
+            src={imgurl}
             width={35}
+            loading="eager"
             height={35}
             className="object-cover rounded-full aspect-square border"
             alt="user pfp"

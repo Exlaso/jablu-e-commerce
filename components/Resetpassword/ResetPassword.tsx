@@ -40,7 +40,6 @@ const ResetPassword = ({ uperror }: { uperror: string }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.error) {
             setMainError(data.message);
             setOpen(true);

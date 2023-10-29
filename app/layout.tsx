@@ -5,11 +5,13 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar";
-import { Session } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { SessionProvider } from "@/components/Utils/SessionProvider";
 import getAllProducts from "@/utils/GetProduct";
 import { dataforproduct } from "@/lib/Interfaces";
 import { Suspense } from "react";
+import { useSession } from "next-auth/react";
+import { GetCategories } from "@/lib/db/hasura";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jabluu.vercel.app"),
@@ -60,22 +62,15 @@ export default async function RootLayout({
   children: React.ReactNode;
   session: Session;
 }) {
-  const category: string[] = [];
-  const products: dataforproduct[] | undefined = await getAllProducts();
-  products?.map((product) => {
-    if (!category.includes(product.category)) category.push(product.category);
-  });
-
+  const category = await GetCategories();
   return (
     <html lang="en">
       <ContextProvider>
         <SessionProvider session={session}>
           <body>
-            <Suspense fallback={<></>}>
-              <Navbar category={category} />
-            </Suspense>
+              <Navbar category={category.map(e => (e.name))}/>
             {children}
-            <Footer category={category} />
+            <Footer category={category.map(e => (e.name))} />
           </body>
         </SessionProvider>
       </ContextProvider>

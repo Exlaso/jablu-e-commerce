@@ -1,5 +1,4 @@
-import { data } from "autoprefixer";
-import { dataforproduct } from "../Interfaces";
+import { Categories, dataforproduct } from "../Interfaces";
 
 const CryptoJS = require("crypto-js");
 
@@ -113,9 +112,10 @@ export const GetFavouritedItems = async (token: string) => {
   }
 };
 
-export const GetCategories = async () => {
+export const GetCategories = async ():Promise<Categories[]> => {
   const response = await fetchGraphQLUsingAdmin("GetCategories");
   return response.data.categories;
+  
 };
 
 export const InsertintoCart = async (
@@ -129,7 +129,7 @@ export const InsertintoCart = async (
   }
 ) => {
   const response = await fetchGraphQL("InsertintoCart", token, vars);
-  
+
   return response?.data?.insert_cart_one;
 };
 
@@ -253,7 +253,7 @@ export const UpdateMainverification = async (unique_id: string) => {
     return res?.data?.update_users?.affected_rows === 1;
   } catch (error) {
     return "Something went Wrong";
-  } 
+  }
 };
 
 const doperationsDoc = `
@@ -417,7 +417,7 @@ query IsPasswordMatched {
   }
 }
 
-query GetCategories {
+query GetCategories @cached(ttl: 1) {
   categories {
     description
     image
@@ -456,7 +456,7 @@ mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:Str
       isverified
     }
   }
-  query GetProducts @cached(ttl: 599){
+  query GetProducts @cached(ttl: 1){
     products {
       available_color
       available_size
@@ -529,8 +529,12 @@ export async function fetchGraphQLUsingAdmin(
 ) {
   const result = await fetch(process.env.Hasura_URL as string, {
     method: "POST",
+    next: {
+      revalidate: 86400,
+    },
     headers: {
       "x-hasura-admin-secret": process.env.Hasura_Secret as string,
+      "cache-control": "no-cache",
     },
     body: JSON.stringify({
       query: operationsDoc,

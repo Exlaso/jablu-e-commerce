@@ -25,6 +25,7 @@ const FileUpload = ({
           const imageurl =
             res?.at(0)?.url === undefined ? defaulturl : res?.at(0)?.url;
           setimageurll(imageurl as string);
+          
 
           fetch("/api/UploadImage", {
             method: "POST",
