@@ -1,19 +1,14 @@
 "use client";
-import { Button } from "@mui/material";
 import { FunctionComponent } from "react";
 
 interface ModalProps {
   title: string;
   body: string;
-  onClick?: () => void;
-  closetext: string;
 }
 
 const Modal: FunctionComponent<ModalProps> = ({
   title,
   body,
-  onClick,
-  closetext,
 }) => {
   return (
     <section className="flex fixed text-tertiary inset-0 backdrop-brightness-50 z-20  justify-center items-center">

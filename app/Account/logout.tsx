@@ -18,7 +18,7 @@ const Logout = () => {
   return (
     <Button
       color="danger"
-      onClick={(e) => {
+      onClick={() => {
         Signout();
         return;
       }}

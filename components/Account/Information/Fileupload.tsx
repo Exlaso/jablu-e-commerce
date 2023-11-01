@@ -44,7 +44,7 @@ const FileUpload = ({
               }
             });
         }}
-        onUploadError={(error: Error) => {
+        onUploadError={() => {
           // Do something with the error.
           setDisplayError(`Something went wrong while Uploading!!`);
         }}

@@ -8,7 +8,7 @@ const Navforlg = ({
     path: string;
   }) => {
   return (
-    <div className="w-full h-full  py-10 px-4  max-md:hidden">
+    <aside className="w-full h-full  py-10 px-4  max-md:hidden">
       <h1 className="text-2xl font-bold mb-10 text-[var(--highlight-color)]">
         Manage Account
       </h1>
@@ -29,7 +29,7 @@ const Navforlg = ({
           );
         })}
       </ul>
-    </div>
+    </aside>
   );
 };
 

@@ -1,20 +1,24 @@
 import Items from "@/components/Favourites/Items";
-import BackButton from "@/components/Utils/Backbtn";
-import { Metadata } from "next";
+import {Product, Wishlistitems} from "@/lib/Interfaces";
 import { signOut } from "next-auth/react";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
+import {gqlClient} from "@/lib/service/client";
+import {GetMyFavouriteDocument} from "@/lib/gql/graphql";
+import BackButton from "@/components/Utils/Backbtn";
+import {Metadata} from "next";
 
 export const metadata: Metadata = {
   title: "Your Favorite Items - Jablu.in  ",
   description:
     "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
-  keywords: "Jablu.in, E-commerce, Favorites, Favorite Items, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
- 
-    metadataBase: new URL("https://jabluu.vercel.app"),
- openGraph: {
+  keywords:
+    "Jablu.in, E-commerce, Favorites, Favorite Items, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+
+  metadataBase: new URL("https://jabluu.vercel.app"),
+  openGraph: {
     title: "Your Favorite Items - Jablu.in  ",
     url: "https://jabluu.vercel.app/Auth/Favourites",
     siteName: "Jablu.in",
@@ -27,21 +31,12 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
-  const res = await fetch(
-    process.env.NEXTAUTH_URL +
-      `/api/Getallwishlist?jablu_jwt_token=${token?.value}`,
-    {
-      cache: "no-cache",
-    }
-  );
-  let data = await res.json();
-  let wishlistdata;
-  if (data.errorcode === "TCNF") {
-    signOut();
-    wishlistdata = [];
-  } else {
-    wishlistdata = data?.message?.map((e: any) => ({ ...e.product }));
-  }
+
+  const favitems = await gqlClient.request(GetMyFavouriteDocument,{},{
+    "Authorization": "Bearer " + token?.value
+  })
+
+    const wishlistdata:Wishlistitems[] = favitems.wishlist_items;
 
   return (
     <>
@@ -60,7 +55,7 @@ const Page = async () => {
           </h1>
         </div>
         <section className="relative flex flex-col items-start justify-between ">
-          <div className="flex flex-col w-full gap-10 ">
+          <div className="flex flex-col w-full gap-1 ">
             <Items wishlistdata={wishlistdata} />
           </div>
         </section>

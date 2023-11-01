@@ -2,6 +2,7 @@ import React from "react";
 import CardSection from "../CardSection";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
+import { Product } from "@/lib/Interfaces";
 
 const WishlistSection = async () => {
   const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
@@ -11,12 +12,14 @@ const WishlistSection = async () => {
     const res = await fetch(
       process.env.NEXTAUTH_URL +
       `/api/Getallwishlist?jablu_jwt_token=${token?.value}`
-      );
-      let data = await res.json();
+      ,{
+        cache:"no-cache"
+      });
+      const data = await res.json();
       if (data.errorcode === "TCNF") {
         wishlistdata = [];
       } else {
-        wishlistdata = data?.message?.map((e: any) => ({ ...e.product }));
+        wishlistdata = data?.message?.map((e: {product:Product}) => ({ ...e.product }));
       }
     }
 else{

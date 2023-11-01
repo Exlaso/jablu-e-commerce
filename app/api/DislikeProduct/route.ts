@@ -1,10 +1,10 @@
 import { DeletefromWishlist } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 
 export const DELETE = async (req: NextRequest) => {
   try {
+    const jwt =  require("jsonwebtoken");
     const token: RequestCookie | undefined = req.cookies.get("jablu_jwt_token");
     const data: { product_id: string } = await req.json();
     if (!token?.value) {
@@ -18,7 +18,7 @@ export const DELETE = async (req: NextRequest) => {
     const Decoded_token: {
       userid: string;
     } = jwt.verify(token.value, process.env.JWT_KEY);
-
+    
 
     if (!Decoded_token.userid) {
       return NextResponse.json({

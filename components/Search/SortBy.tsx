@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname,  useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 const SortBy = ({ Query }: { Query?: string }) => {

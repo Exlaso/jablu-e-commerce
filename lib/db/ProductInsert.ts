@@ -1,4 +1,4 @@
-import { dataforproduct } from "./../Interfaces";
+import { Product } from "./../Interfaces";
 /*
 This is an example snippet - you should consider tailoring it
 to your service.
@@ -46,7 +46,7 @@ const operationsDoc = `
 async function fetchGraphQL(
   operationsDoc: string,
   operationName: string,
-  variables: dataforproduct
+  variables: Product
 ) {
   const result = await fetch(process.env.Hasura_URL as string, {
     method: "POST",
@@ -63,6 +63,6 @@ async function fetchGraphQL(
   return await result.json();
 }
 
-export function InsertProduct(data: dataforproduct) {
+export function InsertProduct(data: Product) {
   return fetchGraphQL(operationsDoc, "insertproduct", data);
 }

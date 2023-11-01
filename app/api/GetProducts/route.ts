@@ -1,7 +1,7 @@
 import { GetProducts } from "@/lib/db/hasura";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
     const res = await GetProducts();
     return NextResponse.json({ message: res, error: false });

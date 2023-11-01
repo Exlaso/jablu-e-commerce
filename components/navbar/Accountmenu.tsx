@@ -17,7 +17,7 @@ interface listtype {
   title: string;
   href: string;
   image: JSX.Element;
-  onClick?: Function;
+  onClick?: ()=> void;
 }
 const Accountmenu = ({
   setAccountmenu,

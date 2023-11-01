@@ -13,20 +13,6 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   const [userInfo, setUserInfo] = useState<{ email: string; password: string }>(
     { email: "", password: "" }
   );
-  type errorform = {
-    error: string;
-    fname: boolean;
-    lname: boolean;
-    email: boolean;
-    password: boolean;
-  };
-  const reseterror: errorform = {
-    error: "",
-    fname: false,
-    lname: false,
-    email: false,
-    password: false,
-  };
   const [isbtnloading, setIsbtnloading] = useState<boolean>(false);
   const defaulterror: errortype = { error: false, message: "" };
   const [Errorforemail, setErrorforemail] = useState<errortype>(defaulterror);
@@ -40,8 +26,8 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
     setIspassvisible((e) => !e);
   };
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    setIsbtnloading(true);
     e.preventDefault();
+    setIsbtnloading(true)
     if (Validateemail(userInfo.email)) {
       setErrorforemail({
         error: true,
@@ -65,7 +51,14 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
           }),
         });
         const data = await apires.json();
-
+        const userinfor:
+          | {
+              user_first_name: string;
+              user_phone_number: string;
+              user_email: string;
+              unique_id: string;
+            }
+          | undefined = data.message;
         if (data.error) {
           throw new Error(data.message);
         }
@@ -73,17 +66,22 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
           email: userInfo.email.toLowerCase(),
           password: userInfo.password,
           redirect: true,
+          id:userinfor?.unique_id,
+          name:userinfor?.user_first_name,
           callbackUrl,
         });
         setErrorforemail({ error: true, message: res?.error as string });
-      } catch (error: any) {
-        if (error?.message === "Account Do Not Exists") {
-          setErrorforemail({ error: true, message: error?.message as string });
-        } else {
-          setErrorforpassword({
-            error: true,
-            message: error?.message as string,
-          });
+      } catch (error) {
+        if (error instanceof Error) {
+          
+          if (error?.message === "Account Do Not Exists") {
+            setErrorforemail({ error: true, message: error?.message as string });
+          } else {
+            setErrorforpassword({
+              error: true,
+              message: error?.message as string,
+            });
+          }
         }
         console.error("Error at Signin Req", error);
       }
@@ -92,7 +90,7 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   };
 
   const Googlelogin = async () => {
-    const res = await signIn("google", {
+    await signIn("google", {
       callbackUrl,
       redirect: true,
     });
@@ -101,7 +99,9 @@ const Signin = ({ callbackUrl }: { callbackUrl: string }) => {
   return (
     <Authdiv>
       <div>
-        <div className="text-2xl font-semibold mb-2">Log In to <JabluTextLogo className="text-[2em] ml-3" /></div>
+        <div className="text-2xl font-semibold mb-2">
+          Log In to <JabluTextLogo className="text-[2em] ml-3" />
+        </div>
         <p className=" mb-4">
           Welcome to Jablu.in - Your one-stop shop for all your shopping
           desires! Sign in and start exploring our amazing collection today.

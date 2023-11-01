@@ -1,5 +1,5 @@
 import { GoogleAccountBody } from "@/lib/Interfaces";
-import { Account, Awaitable, NextAuthOptions, Profile, User } from "next-auth";
+import { Account,  NextAuthOptions, Profile, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -12,8 +12,8 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {},
 
-      async authorize(credentials, req) {
-        const a: any = credentials;
+      async authorize(credentials) {
+        const a: {id:string,name:string,email:string} = credentials as {id:string,name:string,email:string};
         return { id: a.id, name: a.name, email: a.email };
       },
     }),
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
       user: User | AdapterUser;
       account: Account | null;
       profile?: Profile | undefined;
-    }): Promise<any> {
+    }): Promise<boolean> {
       if (params.account?.provider === "google") {
         const profile: {
           email: string;

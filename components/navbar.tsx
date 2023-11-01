@@ -8,7 +8,6 @@ import Accounticon from "./navbar/Accounticon";
 import { getServerSession } from "next-auth";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
-import { Suspense } from "react";
 const Navbar = async ({
   showsearch = true,
   category,
@@ -56,7 +55,7 @@ const Navbar = async ({
                 <SearchBar />
               </div>
             )}
-              <ShoppingCartIcon />
+              <ShoppingCartIcon isAuthed={!!Auth?.user?.email}  token={token?.value ?? ""} />
             <Accounticon imgurl={data.data} />
           </div>
         </div>

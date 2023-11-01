@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
 
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
+import { Divider } from "@mui/material";
 const MenuCard = ({
   Categories,
   setIsmenuopen,
@@ -27,6 +34,29 @@ const MenuCard = ({
     };
   }, [setIsmenuopen]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let prevScrollPos: number = window.scrollY;
+
+      const handleScroll = (): void => {
+        const currentScrollPos: number = window.scrollY;
+
+        if (currentScrollPos > 0) {
+          setIsmenuopen(!(prevScrollPos < currentScrollPos));
+        } else {
+          setIsmenuopen(!false);
+        }
+
+        prevScrollPos = currentScrollPos;
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [setIsmenuopen]);
   type menuwithdata = {
     title: string;
     data: menu[];
@@ -53,7 +83,7 @@ const MenuCard = ({
         duration: 0.2,
       }}
       exit={{ y: "-100%" }}
-      className="fixed left-0  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%] top-0 w-full  h-auto z-[21] border-b border-b-black bg-[var(--primary-color)]"
+      className="fixed left-0  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%]  Menucardcss top-0 w-full  h-auto z-[21]  border-b-[var(--tertiary-color)] bg-[var(--primary-color)]"
     >
       <div className="flex flex-col gap-8">
         <div className="px-5 py-5 lg:hidden">
@@ -68,15 +98,17 @@ const MenuCard = ({
               <h1 className="text-2xl font-bold capitalize">{data.title}</h1>
               <div className="flex flex-col gap-1 justify-center items-start text-lg">
                 {data.data.map((d) => (
-                  <Link
-                    href={"/Categories/Search/" + d.href.replaceAll(" ", "-")}
-                    key={d.title}
-                    onClick={()=> {
-                      setIsmenuopen(false)
-                    }}
-                  >
-                    {d.title}
-                  </Link>
+                  <Fragment key={d.title}>
+                    <Divider />
+                    <Link
+                      href={"/Categories/Search/" + d.href.replaceAll(" ", "-")}
+                      onClick={() => {
+                        setIsmenuopen(false);
+                      }}
+                    >
+                      {d.title}
+                    </Link>
+                  </Fragment>
                 ))}
               </div>
             </ul>

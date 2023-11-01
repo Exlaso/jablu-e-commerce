@@ -1,10 +1,10 @@
 import { InsertWishlist } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 
 export const POST = async (req: NextRequest) => {
-
+  
+  const jwt = require("jsonwebtoken");
   try {
     const data: { product_id: string } = await req.json();
     const token: RequestCookie | undefined = req.cookies.get("jablu_jwt_token");

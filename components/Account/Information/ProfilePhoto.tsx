@@ -12,7 +12,7 @@ const ProfilePhoto = ({
 }) => {
   const [imageurll, setimageurll] = useState(imageurl);
   return (
-    <div className=" p-2 gap-2 flex flex-col">
+    <section className=" p-2 gap-2 flex flex-col">
       <h2>Profile Photo</h2>
       <div className="bg-tertiary h-[300px] w-full relative flex justify-center items-center ">
         <Image
@@ -21,6 +21,7 @@ const ProfilePhoto = ({
           alt="Profile Photo"
           width={500}
           quality={100}
+          priority
           height={500}
         ></Image>
       </div>
@@ -33,7 +34,7 @@ const ProfilePhoto = ({
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

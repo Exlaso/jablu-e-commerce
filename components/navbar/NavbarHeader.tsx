@@ -1,11 +1,11 @@
 "use client";
-import React, { ReactNode, Suspense, useEffect, useState } from "react";
+import React, { ReactNode,  useEffect, useState } from "react";
 
 const NavbarHeader = ({ children }: { children: ReactNode }) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       let prevScrollPos: number = window.scrollY;
 
       const handleScroll = (): void => {

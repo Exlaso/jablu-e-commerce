@@ -2,9 +2,11 @@ import { GoogleAccountBody } from "@/lib/Interfaces";
 import { fetchGraphQLUsingAdmin } from "@/lib/db/hasura";
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+
+export const POST = async (req: NextRequest) => {
+  const jwt = require("jsonwebtoken");
+  const CryptoJS = require("crypto-js");
   try {
     const body: GoogleAccountBody = await req.json();
     if (body.key !== process.env.JWT_KEY) {
@@ -36,9 +38,12 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
           user_email: body.email,
           user_first_name: body.given_name,
           user_last_name: body.name,
-          user_password: User_Unique_ID,
+          user_password: CryptoJS.AES.encrypt(
+            User_Unique_ID,
+            process.env.JWT_KEY as string
+          ).toString(),
           unique_id: User_Unique_ID,
-          user_pfp:body.picture
+          user_pfp: body.picture,
         },
         `mutation InsertGoogleAccount($unique_id: String = "", $user_email: String = "", $user_first_name: String = "", $user_last_name: String = "", $user_password: String = "", $user_pfp: String = "") {
                 insert_users_one(object: {unique_id: $unique_id, user_email: $user_email, user_first_name: $user_first_name, user_last_name: $user_last_name, user_password: $user_password, user_pfp: $user_pfp, isverified: true}) {
@@ -46,7 +51,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
                 }
               }`
       );
-      
 
       if (!hasura_signup_res?.data?.insert_users_one.unique_id) {
         return NextResponse.json({
@@ -63,9 +67,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             "https://hasura.io/jwt/claims": {
               "x-hasura-allowed-roles": ["user", "admin", "email"],
               "x-hasura-default-role": "user",
-              "x-hasura-user-id": `${
-                hasura_signup_res?.data?.insert_users_one?.unique_id
-              }`,
+              "x-hasura-user-id": `${hasura_signup_res?.data?.insert_users_one?.unique_id}`,
             },
           },
           process.env.JWT_KEY as string

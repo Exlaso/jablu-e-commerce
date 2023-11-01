@@ -1,10 +1,9 @@
-import { Categories, dataforproduct } from "../Interfaces";
+import { Categories, Product } from "../Interfaces";
 
-const CryptoJS = require("crypto-js");
 
-export const GetProducts = async (): Promise<dataforproduct[] | undefined> => {
+export const GetProducts = async (): Promise<Product[] | undefined> => {
   const response = await fetchGraphQLUsingAdmin("GetProducts");
-
+  
   return response.data.products;
 };
 
@@ -25,30 +24,31 @@ export const SignupUser = async (
     isverified: boolean;
     unique_id: string;
   }
-) => {
-  const response = await fetchGraphQL("SignupUser", token, {
-    user_email,
-    unique_id,
-    user_first_name,
-    user_last_name,
-    user_password,
-    isverified,
-  });
-
-  return response;
-};
-export const IsPasswordMatched = async (
-  token: string,
-  { password }: { password: string }
-) => {
-  const response = await fetchGraphQL("IsPasswordMatched", token);
-
+  ) => {
+    const response = await fetchGraphQL("SignupUser", token, {
+      user_email,
+      unique_id,
+      user_first_name,
+      user_last_name,
+      user_password,
+      isverified,
+    });
+    
+    return response;
+  };
+  export const IsPasswordMatched = async (
+    token: string,
+    { password }: { password: string }
+    ) => {
+      const response = await fetchGraphQL("IsPasswordMatched", token);
+      
+      const CryptoJS = require("crypto-js");
   const bytes = CryptoJS.AES.decrypt(
     response.data.users.at(0).user_password,
     process.env.JWT_KEY as string
-  );
-  let plaintext = bytes.toString(CryptoJS.enc.Utf8);
-
+    );
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    
   return plaintext === password;
 };
 
@@ -417,7 +417,7 @@ query IsPasswordMatched {
   }
 }
 
-query GetCategories @cached(ttl: 1) {
+query GetCategories @cached(ttl: 2) {
   categories {
     description
     image
@@ -524,7 +524,7 @@ export async function fetchGraphQLUsingDocs(
 
 export async function fetchGraphQLUsingAdmin(
   operationName: string,
-  variables: {} = {},
+  variables: object = {},
   operationsDoc: string = doperationsDoc
 ) {
   const result = await fetch(process.env.Hasura_URL as string, {

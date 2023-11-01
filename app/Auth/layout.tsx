@@ -6,11 +6,5 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getServerSession();
-
-  if (!!user?.user?.email) {
-    redirect("/");
-  } else {
-    return <>{children}</>;
-  }
+  return <>{children}</>;
 }

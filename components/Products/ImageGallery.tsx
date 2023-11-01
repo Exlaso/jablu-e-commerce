@@ -6,10 +6,10 @@ const ImageGallery = ({
   images,
   title,
 }: {
-  images: string[];
+  images: { image_url:string }[];
   title: string;
 }) => {
-  const [mainimage, setMainimage] = useState<string | undefined>(images.at(0));
+  const [mainimage, setMainimage] = useState<string | undefined>(images.at(0)?.image_url);
 
   return (
     <div className=" flex flex-col justify-center items-center  p-3 ">
@@ -24,16 +24,16 @@ const ImageGallery = ({
         {images.length > 1 &&
           images.map((e, i) => {
             let css: string = "";
-            if (e === mainimage) {
+            if (e.image_url === mainimage) {
               css = "border-2 border-cyan-500";
             } else {
               css = "border-2 border-gray-300";
             }
             return (
               <Image
-                key={e}
-                src={e}
-                id={e}
+                key={e.image_url}
+                src={e.image_url}
+                id={e.image_url}
                 onClick={(e) => setMainimage(e.currentTarget.id)}
                 alt={title + "image" + i}
                 width={75}

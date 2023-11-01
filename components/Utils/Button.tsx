@@ -1,13 +1,13 @@
 'use client'
 import { motion } from "framer-motion";
-import React from "react";
+import React, { ReactNode } from "react";
 const Button = ({
 children,
   onClick,
   color,
   className
 }: {
-  children: any;
+  children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   color: "primary" | "secondary" | "danger"| "any" | "custom";
   className?:string;

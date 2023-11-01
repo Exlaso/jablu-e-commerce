@@ -1,6 +1,7 @@
-import { Suspense } from "react";
+import { getServerSession } from "next-auth";
 import Signin from "./Signin";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Sign in - Jablu.in",
@@ -23,9 +24,12 @@ export const metadata: Metadata = {
   },
 };
 
-const SignIn = (e: { searchParams: { callbackUrl: string } }) => {
+const SignIn = async (e: { searchParams: { callbackUrl: string } }) => {
   const callbackUrl = e?.searchParams?.callbackUrl;
-
+  const user = await getServerSession();
+  if (!!user?.user?.email) {
+    redirect(`${process.env.NEXTAUTH_URL}/Account/Information`)
+  }
   return (
     <div
       className="py-[15vh] flex items-start justify-center min-h-[120vh] sm:min-h-screen bg-primary  bg-no-repeat bg-cover  "

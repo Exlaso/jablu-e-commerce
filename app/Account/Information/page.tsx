@@ -49,7 +49,7 @@ const Page = async () => {
   const userinfo = data?.message.at(0);
 
   return (
-    <div>
+    <article>
       <div className="flex flex-col gap-1 header " >
 
         <h1 className="text-4xl font-bold text-center text-highlight">
@@ -76,7 +76,7 @@ const Page = async () => {
       <div className="flex items-center justify-center ">
         <Logout></Logout>
       </div>
-    </div>
+    </article>
   );
 };
 

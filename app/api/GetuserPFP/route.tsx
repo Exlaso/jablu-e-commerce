@@ -1,6 +1,4 @@
 import { GetUserImage } from "@/lib/db/hasura";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,7 +6,6 @@ export const dynamic = "force-dynamic";
 export const GET = async (req: NextRequest) => {
   try {
     
-    // const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
     const {searchParams} = new URL(req.url)
     const token = searchParams.get("jablu_jwt_token")
 

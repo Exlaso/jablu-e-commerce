@@ -3,9 +3,9 @@ import { API_UpdatePassword_Body } from "@/lib/Interfaces";
 import { fetchGraphQLUsingDocs } from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-const CryptoJS = require("crypto-js");
 
 export const PATCH = async (req: NextRequest) => {
+  const CryptoJS = require("crypto-js");
   try {
     const { token, user_password, user_email }: API_UpdatePassword_Body =
       await req.json();

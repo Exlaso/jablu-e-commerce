@@ -36,11 +36,7 @@ export const encryptSymmetric = async (plaintext: string, key: string) => {
 };
 
 // some plaintext you want to encrypt
-const plaintext = "The quick brown fox jumps over the lazy dog";
 
 // create or bring your own base64-encoded encryption key
-const key = Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString(
-  "base64"
-);
 
 // encryption

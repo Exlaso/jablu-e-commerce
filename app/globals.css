@@ -7,7 +7,6 @@
 }
 
 /* sample using the font */
-
 :root {
   --primary-color: white;
   --secondary-color: rgb(96, 96, 96);
@@ -52,13 +51,16 @@
     filter: invert() brightness(0.8);
   }
   .jablutext > div:first-child {
-    text-shadow: 5px 5px 0px black;
+    text-shadow: 5px 5px 0 black;
     color: #4b0082;
   }
   .jablutext > div:nth-child(3) {
     color: #008080;
-    text-shadow: 5px 5px 0px black;
+    text-shadow: 5px 5px 0 black;
   }
+}
+hr {
+  border-color: var(--secondary-color);
 }
 
 .text-highlight {
@@ -330,7 +332,10 @@ label.MuiFormLabel-root {
   outline: var(--outline);
   outline-offset: 3px;
 }
+.Menucardcss{
+  box-shadow: 0 4px 30px rgb(96, 96, 96, 0.5);
 
+}
 .AuthDivcss {
   /* From https://css.glass */
   border-radius: 16px;

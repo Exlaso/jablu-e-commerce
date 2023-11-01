@@ -4,8 +4,7 @@ import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
 
-const Validateemail = (e: string) =>
-  !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(e);
+const Validateemail = (e: string) => !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(e);
 const ValidateName = (e: string) => e.length <= 2;
 const ValidatePassword = (e: string) => e.length < 8;
 export const POST = async (req: Request) => {
@@ -56,8 +55,8 @@ export const POST = async (req: Request) => {
         ).toString(),
         isverified: false,
         unique_id: User_Unique_ID,
-      }); 
-      
+      });
+
       return NextResponse.json(
         { message: User_Unique_ID, data: res, error: false },
         {

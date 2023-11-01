@@ -1,12 +1,12 @@
 import { GetnoofitemsinCart } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 
 
 export const dynamic = "force-dynamic";
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
     const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
 

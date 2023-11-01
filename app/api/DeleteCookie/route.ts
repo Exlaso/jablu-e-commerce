@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export const DELETE = (req: NextRequest) => {
+export const DELETE = () => {
   try {
     cookies().delete("jablu_jwt_token");
     return NextResponse.json({ message: "Success", error: false });

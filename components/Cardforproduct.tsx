@@ -1,20 +1,19 @@
 "use client";
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product} from "@/lib/Interfaces";
 import { Variants, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface datawithvarients extends dataforproduct {
+interface datawithvarients extends Product {
   varients?: Variants;
   className?: string;
 }
 const Cardforproduct = ({
-  id,
-  title,
+   title,
   price,
   mrp,
-  rating,
+  product_rating,
   images,
   varients,
   className,
@@ -23,7 +22,7 @@ const Cardforproduct = ({
   return (
     <motion.div
       variants={varients}
-      className={` ${className} min-w-[30vh] grow-0 max-w-[60vh] shrink-0  flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-tertiary`}
+      className={` ${className} min-w-[30vh]  max-w-[55vh] w-full shrink-0   flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-gray-500/10`}
       viewport={{ once: true }}
     >
       <div
@@ -39,14 +38,14 @@ const Cardforproduct = ({
           className="flex gap-4  w-full justify-start items-start h-full flex-col"
           href={`/Products/${title.replaceAll(" ","-").toLowerCase()}`}
         >
-          <div className="flex justify-center items-center w-full ">
+          <div className="flex justify-center items-center w-full pt-4 ">
             <Image
-              // src={"/static/demotshirt.jpg"}
-              src={images.at(0) as string}
+              // src={"/static/tshirt.png"}
+              src={images}
               alt={title}
               width={500}
               height={500}
-              className="rounded-b-[30px] duration-300 w-80 h-80  object-cover mx-auto"
+              className="rounded-b-[30px] duration-300 w-80 h-80  object-contain  mx-auto"
             ></Image>
           </div>
           <div className="p-3 flex flex-col items-start  justify-between h-full gap-0">
@@ -58,7 +57,9 @@ const Cardforproduct = ({
               <div className="flex items-center  font-semibold gap-2">
                 {discount !== "0.0" && (
                   <span className="text-red-600  text-lg">
-                    <s>Rs. {mrp}</s>
+                    <s>Rs. {mrp.toLocaleString("en-US", {
+                      maximumFractionDigits: 2,
+                    })}</s>
                   </span>
                 )}
                 <span className=" rounded-full  text-xl  ">
@@ -70,7 +71,7 @@ const Cardforproduct = ({
               </div>
 
               <span className="flex gap-1 justify-center items-center py-2  px-1">
-                Ratings: {rating.rate}
+                Ratings: {product_rating?.avg_ratings}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

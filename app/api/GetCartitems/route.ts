@@ -1,7 +1,5 @@
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import { GetallCartItems } from "@/lib/db/hasura";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'
@@ -20,7 +18,7 @@ export const GET = async (req: NextRequest) => {
     }
     const token: string = searchParams.get("jablu_jwt_token") as string; 
     
-    const carts: dataforproduct[] = await GetallCartItems(token);
+    const carts: Product[] = await GetallCartItems(token);
     return NextResponse.json({
       message: carts,
       error: false,

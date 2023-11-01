@@ -1,8 +1,6 @@
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import { GetFavouritedItems } from "@/lib/db/hasura";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 
 export const dynamic = 'force-dynamic'
 
@@ -20,7 +18,7 @@ export const GET = async (req: NextRequest) => {
     }
     const token: string = searchParams.get("jablu_jwt_token") as string; 
     
-    const wishlist: dataforproduct[] = await GetFavouritedItems(token);
+    const wishlist: Product[] = await GetFavouritedItems(token);
     return NextResponse.json({
       message: wishlist,
       error: false,

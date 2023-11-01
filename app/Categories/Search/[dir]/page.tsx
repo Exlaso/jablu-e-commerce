@@ -1,6 +1,7 @@
 import Items from "@/components/Search/Items";
 import SortBy from "@/components/Search/SortBy";
-import { dataforproduct } from "@/lib/Interfaces";
+import { Categories, Product } from "@/lib/Interfaces";
+import { GetCategories } from "@/lib/db/hasura";
 import getAllProducts from "@/utils/GetProduct";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -14,27 +15,25 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const directory = decodeURIComponent(params.dir);
-  const data = await getAllProducts();
-  let filtereddata: dataforproduct[] | undefined;
+  const data: Categories[] = await GetCategories();
+  let filtereddata: Categories[] | undefined;
   if (directory === "All") {
     filtereddata = data;
   } else {
     filtereddata = data?.filter(
-      (product) =>
-        product.category.replaceAll(" ", "-").toLowerCase() ===
-        directory.toLowerCase()
+      (dir) =>
+        dir.name.replaceAll(" ", "-").toLowerCase() === directory.toLowerCase()
     );
   }
   if (filtereddata?.length === 0) {
     notFound();
   }
-  const { category }: dataforproduct = filtereddata?.at(0) as dataforproduct;
+  const dir = filtereddata.at(0);
 
   return {
-    title: category.toLowerCase() + " - Jablu.in",
+    title: dir?.name.toLowerCase() + " - Jablu.in",
     keywords: [
-      category.toLowerCase() + " - Jablu.in",
-      category,
+      dir?.name.toLowerCase() + " - Jablu.in",
       "Jabluu.in",
       "Jabluu",
       "Jablu",
@@ -43,19 +42,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "Exlaso",
       "Jablu tshirt",
     ],
-    description: category,
+    description: dir?.description,
 
     metadataBase: new URL("https://jabluu.vercel.app"),
     openGraph: {
-      title: category.toLowerCase() + " - Jablu.in",
-      url: `https://jabluu.vercel.app/${category
-        .replaceAll(" ", "-")
-        .toString()
-        .toLowerCase()}`,
+      title: dir?.name.toLowerCase() + " - Jablu.in",
+      url: `https://jabluu.vercel.app/${dir?.name.replaceAll(" ", "-").toString().toLowerCase()}`,
       siteName: "Jablu.in",
       type: "website",
       images: "https://jabluu.vercel.app/icon.svg",
-      description: category,
+      description: dir?.description,
     },
   };
 }
@@ -69,7 +65,7 @@ const Dir = async ({
 }) => {
   const directory = decodeURIComponent(params.dir);
   const data = await getAllProducts();
-  let filtereddata: dataforproduct[] | undefined;
+  let filtereddata: Product[] | undefined;
   if (directory === "All") {
     filtereddata = data;
   } else {

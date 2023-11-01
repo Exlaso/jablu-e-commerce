@@ -1,5 +1,5 @@
 import { GetCartItems, UpdateCart } from "./../../../lib/db/hasura";
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import { InsertintoCart } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    const Cartlist: dataforproduct[] = await InsertintoCart(token.value, {...body,user_id:Decoded_token.userid});
+    const Cartlist: Product[] = await InsertintoCart(token.value, {...body,user_id:Decoded_token.userid});
     return NextResponse.json({
       message: Cartlist,
       error: false,

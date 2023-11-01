@@ -1,57 +1,84 @@
 "use client";
 import { useCartContext } from "@/Store/StoreContext";
-import { dataforproductwithmetadata } from "@/lib/Interfaces";
-import ItemsinCart from "@/utils/ItemsinCart";
+import { Productwithmetadata } from "@/lib/Interfaces";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FunctionComponent, useState } from "react";
+import { toast } from "sonner";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+
 
 interface CartButtonProps {
-  data: dataforproductwithmetadata;
+  data: Productwithmetadata;
   islogin: boolean;
 }
 
-const CartButton: FunctionComponent<CartButtonProps> = ({
-  data,
-  islogin,
-}) => {
+const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
   const { FetchNoifItemsinCart } = useCartContext();
 
-  const router = useRouter();
   const path = usePathname();
-  const [buyicon, setBuyicon] = useState<string>(
-    "/static/icons/navbar/buy.svg"
-  );
   const [isadding, setIsadding] = useState(false);
 
   const addtoCartHandler = () => {
     if (islogin) {
-      setBuyicon("/static/icons/loading.svg");
       setIsadding(true);
-      fetch("/api/InsertIntoCart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          size: data.size,
-          product_id: data.id,
-          count: data.count,
-          color: data.color,
-        }), 
-      })
-        .then((res) => res.json())
-        .then(() => {
-          FetchNoifItemsinCart();
-          setBuyicon("/static/icons/done.svg");
-          setIsadding(false);
-          setTimeout(() => {
-            setBuyicon("/static/icons/navbar/buy.svg");
-          }, 2000);
-        });
+      toast.promise(
+        fetch("/api/InsertIntoCart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            size: data.size,
+            product_id: data.id,
+            count: data.count,
+            color: data.color,
+          }),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            FetchNoifItemsinCart();
+            setIsadding(false);
+          }),
+        {
+          loading: "Adding to Cart...",
+          success: () => {
+            return (
+              <section className="flex flex-col gap-1">
+                <p className={"capitalize"}>
+                  {data.title.toLowerCase()} x {data.count} was successfully
+                  added to cart.
+                </p>
+                <Link
+                  href={"/ShoppingBag"}
+                  className="underline"
+                >
+                  View Cart
+                </Link>
+              </section>
+            );
+          },
+
+          error: "Error",
+        }
+      );
     } else {
-      router.push(`/Signin?callback=${encodeURIComponent(path)}`);
+      toast.error(
+        <section className="flex flex-col gap-2">
+          <p>Login required to add items to cart.</p>
+          <div className="flex justify-start items-center gap-2">
+              <VpnKeyIcon fontSize="small"></VpnKeyIcon>
+              <Link
+                href={`/Auth/Signin?callback=${encodeURIComponent(path)}`}
+                className="underline"
+              >
+                Login Here
+              </Link>
+            </div>
+        </section>
+      );
     }
   };
 
@@ -62,15 +89,16 @@ const CartButton: FunctionComponent<CartButtonProps> = ({
       {...(!isadding && { whileTap: { scale: 0.9 } })}
       initial={{ scale: 1 }}
       onClick={addtoCartHandler}
-      className="flex bg-[var(--tertiary-color)] grow select-none items-start justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-slate-200 duration-100"
+      className="flex bg-[var(--tertiary-color)] grow select-none items-start justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-gray-500/50 duration-100"
     >
       <Image
-        src={buyicon}
+        src={"/static/icons/navbar/buy.svg"}
         alt={"Buy Icon"}
         width={25}
+        className="invertsvg"
         height={25}
       ></Image>
-      <p>{islogin ? "Add to Bag" : "Login to Add to Bag"}</p>
+      Add to Bag
     </motion.button>
   );
 };

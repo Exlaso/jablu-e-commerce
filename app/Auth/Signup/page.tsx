@@ -1,8 +1,8 @@
-import { Suspense } from "react";
+import { getServerSession } from "next-auth";
 import Signup from "./Signup";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-interface Props {}
 export const metadata: Metadata = {
   title: "Sign up - Jablu.in",
   description:
@@ -26,15 +26,19 @@ export const metadata: Metadata = {
 
 
 
-const SignIn = async (e:{searchParams:{callbackUrl:string}}) => {
+const MSignup = async (e:{searchParams:{callbackUrl:string}}) => {
+  const user = await getServerSession();
+if (!!user?.user?.email) {
+  redirect(`${process.env.NEXTAUTH_URL}/Account/Information`)
+}
   const callbackUrl = e?.searchParams?.callbackUrl;
   return (
-    <div
+    <main
       className="py-[15vh] flex items-start justify-center min-h-[120vh]  bg-primary sm:min-h-screen  bg-no-repeat bg-cover  "
       // style={{ backgroundImage: "url('/static/hero/background.jpg')" }}
     >
         <Signup callbackUrl={callbackUrl}/>
-    </div>
+    </main>
   );
 };
-export default SignIn;
+export default MSignup;

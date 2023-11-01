@@ -1,13 +1,12 @@
 import { isProductLiked } from "@/lib/db/hasura";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 
 export const GET = async(req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const product_id = searchParams.get("product_id");
   try {
-    if (typeof product_id === null) {
+    if (!product_id) {
       return NextResponse.json({
         message: "Product Id Not Specified",
         error: "true",

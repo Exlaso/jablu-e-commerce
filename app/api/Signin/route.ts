@@ -4,10 +4,10 @@ import {
   Retriveuserdata,
 } from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
-const jwt = require("jsonwebtoken");
 
 
 export const POST = async (req: NextRequest) => {
+  const jwt = require("jsonwebtoken");
   try {
     const waitedreq = await req.json();
     const { email, password } = waitedreq;

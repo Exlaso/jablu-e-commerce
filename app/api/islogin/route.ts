@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export const GET = (req: Request) => {
+export const GET = () => {
   if (cookies().get("__Secure-next-auth.session-token")) {
     if (!cookies().get("jablu_jwt_token")) {
       return NextResponse.json({

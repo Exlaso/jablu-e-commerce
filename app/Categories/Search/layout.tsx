@@ -1,11 +1,11 @@
 import Categories from "@/components/Search/Categories";
 import BackButton from "@/components/Utils/Backbtn";
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import getAllProducts from "@/utils/GetProduct";
-import React, { ReactNode, Suspense } from "react";
+import React, { ReactNode } from "react";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
-  const data: dataforproduct[] | undefined = await getAllProducts();
+  const data: Product[] | undefined = await getAllProducts();
 
   const category: string[] = [];
   data?.map((product) => {

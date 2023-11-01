@@ -2,12 +2,12 @@
 
 import React from "react";
 import Cardforproduct from "../Cardforproduct";
-import { dataforproduct } from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import { motion } from "framer-motion";
 const Items = ({
   filtereddata,
 }: {
-  filtereddata: dataforproduct[] | undefined;
+  filtereddata: Product[] | undefined;
 }) => {
   return (
     
@@ -31,15 +31,16 @@ const Items = ({
           }}
           category={e.category}
           title={e.title}
-          available_color={e.available_color}
-          available_size={e.available_size}
           key={e.id}
           description={e.description}
+        product_sizes={e.product_sizes}
+        product_image_urls={e.product_image_urls}
+        product_colors={e.product_colors}
+        product_rating={e.product_rating}
           id={e.id}
           images={e.images}
           price={e.price}
           mrp={e.mrp}
-          rating={e.rating}
         />
       ))}
     </motion.div>

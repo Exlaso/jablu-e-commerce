@@ -1,0 +1,325 @@
+mutation InsertVerificationurls($verifyurl: String!) {
+  update_users(
+    where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
+    _set: { isverified: true }
+  ) {
+    affected_rows
+  }
+}
+
+mutation UpdateMainverification($verifyurl: String!) {
+  update_users(
+    where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
+    _set: { isverified: true }
+  ) {
+    affected_rows
+  }
+}
+
+query GetUserDetails {
+  users {
+    user_email
+    unique_id
+    user_first_name
+    user_last_name
+    user_pfp
+    user_phone_number
+  }
+}
+
+query IsEmailExists {
+  users {
+    user_email
+  }
+}
+
+mutation InsertVerifyUrl($UUID: String!, $verifyurl: String!) {
+  insert_verificationurls(objects: { UUID: $UUID, verifyurl: $verifyurl }) {
+    affected_rows
+  }
+}
+
+mutation Updateinfo(
+  $user_phone_number: String!
+  $user_last_name: String!
+  $user_first_name: String!
+  $unique_id: String!
+) {
+  update_users(
+    _set: {
+      user_phone_number: $user_phone_number
+      user_last_name: $user_last_name
+      user_first_name: $user_first_name
+    }
+    where: { unique_id: { _eq: $unique_id } }
+  ) {
+    affected_rows
+  }
+}
+
+
+
+mutation UploadImage($user_pfp: String!, $unique_id: String!) {
+  update_users(
+    _set: { user_pfp: $user_pfp }
+    where: { unique_id: { _eq: $unique_id } }
+  ) {
+    affected_rows
+  }
+}
+
+query GetnoofitemsinCart {
+  cart {
+    product_id
+  }
+}
+
+query GetUserImage($mynum: String!) @cached(ttl: 1) {
+  users(where: { _not: { user_pfp: { _eq: $mynum } } }) {
+    user_pfp
+  }
+}
+query Retriveuserdata {
+  users {
+    user_first_name
+    user_phone_number
+    user_email
+    unique_id
+  }
+}
+
+
+mutation DeleteCartItem($color: String!, $size: String!, $product_id: String!) {
+  delete_cart(
+    where: {
+      product_id: { _eq: $product_id }
+      size: { _eq: $size }
+      color: { _eq: $color }
+    }
+  ) {
+    affected_rows
+  }
+}
+
+query GetCartItems($color: String!, $size: String!, $product_id: String!) {
+  cart(
+    where: {
+      product_id: { _eq: $product_id }
+      color: { _eq: $color }
+      size: { _eq: $size }
+    }
+  ) {
+    count
+    product_id
+    size
+    color
+  }
+}
+
+mutation UpdateCart(
+  $color: String!
+  $count: Int!
+  $size: String!
+  $product_id: String!
+) {
+  update_cart(
+    where: {
+      product_id: { _eq: $product_id }
+      color: { _eq: $color }
+      size: { _eq: $size }
+    }
+    _set: { count: $count }
+  ) {
+    affected_rows
+  }
+}
+
+mutation InsertintoCart(
+  $color: String!
+  $count: Int!
+  $size: String!
+  $user_id: String!
+  $product_id: String!
+) {
+  insert_cart_one(
+    object: {
+      color: $color
+      count: $count
+      product_id: $product_id
+      size: $size
+      user_id: $user_id
+    }
+  ) {
+    color
+    count
+    product_id
+    size
+    user_id
+  }
+}
+
+query IsPasswordMatched {
+  users {
+    user_password
+  }
+}
+
+query GetCategories @cached(ttl: 2) {
+  categories {
+    description
+    image
+    name
+  }
+}
+
+query isProductLiked($product_id: String!) {
+  wishlist_items(where: { product_id: { _eq: $product_id } }) {
+    product_id
+    sortid
+    user_id
+  }
+}
+
+mutation InsertWishlist($product_id: String!, $user_id: String!) {
+  insert_wishlist_items_one(
+    object: { product_id: $product_id, user_id: $user_id }
+  ) {
+    sortid
+    user_id
+    product_id
+  }
+}
+mutation DeletefromWishlist($product_id: String!) {
+  delete_wishlist_items(where: { product_id: { _eq: $product_id } }) {
+    affected_rows
+  }
+}
+
+mutation SignupUser(
+  $unique_id: String!
+  $user_email: String!
+  $user_first_name: String!
+  $user_last_name: String!
+  $user_password: String!
+  $isverified: Boolean!
+) {
+  insert_users_one(
+    object: {
+      user_email: $user_email
+      user_first_name: $user_first_name
+      user_last_name: $user_last_name
+      user_password: $user_password
+      isverified: $isverified
+      unique_id: $unique_id
+    }
+  ) {
+    unique_id
+    user_email
+    user_first_name
+    user_last_name
+    isverified
+  }
+}
+query GetProducts @cached(ttl:599) {
+  products {
+    id
+    title
+    price
+    description
+    category
+    mrp
+    images
+    product_colors {
+      hexcode
+      color
+
+    }
+    product_image_urls {
+      image_url
+    }
+    product_sizes {
+      size
+    }
+    product_rating {
+      no_of_rated
+      avg_ratings
+    }
+  }
+}
+
+
+query Ispasswordvalid($user_password: String!) {
+  users(where: { user_password: { _eq: $user_password } }) {
+    unique_id
+  }
+}
+query GetMyCartitems @cached(refresh:true) {
+  cart {
+    color
+    count
+    size
+    product_id
+    product {
+      images
+      price
+      title
+    }
+  }
+}
+
+
+
+
+mutation UpdatePassword($user_password: String = "", $user_email: String = "") {
+  update_users(
+    where: { user_email: { _eq: $user_email } }
+    _set: { user_password: $user_password }
+  ) {
+    affected_rows
+    returning {
+      user_first_name
+    }
+  }
+}
+
+subscription Getuserprofilephoto  {
+  users {
+    user_pfp
+  }
+}
+
+
+
+
+
+mutation insertimage($image_url: String = "", $product_id: String = "") {
+  insert_product_image_urls_one(object: {image_url: $image_url, product_id: $product_id}) {
+    product_id
+    image_url
+  }
+}
+
+query GetMyCart @cached(refresh:true){
+  cart {
+    color
+    count
+    product_id
+    size
+    product {
+      images
+      title
+      price
+    }
+  }
+}
+
+query GetMyFavourite @cached(refresh:true){
+  wishlist_items {
+    product_id
+    product {
+      description
+      images
+      title
+    }
+  }
+}

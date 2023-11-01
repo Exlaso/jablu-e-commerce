@@ -20,20 +20,6 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
     firstname: string;
     lastname: string;
   }>({ email: "", password: "", firstname: "", lastname: "" });
-  type errorform = {
-    error: string;
-    fname: boolean;
-    lname: boolean;
-    email: boolean;
-    password: boolean;
-  };
-  const reseterror: errorform = {
-    error: "",
-    fname: false,
-    lname: false,
-    email: false,
-    password: false,
-  };
   const [isbtnloading, setIsbtnloading] = useState<boolean>(false);
   const [MainError, setMainError] = useState("");
   const defaulterror: errortype = { error: false, message: "" };
@@ -56,7 +42,6 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     setIsbtnloading(true);
     e.preventDefault();
-
     if (ValidateName(userInfo.firstname)) {
       setErrorforfirstname({
         error: true,
@@ -134,7 +119,7 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
     setIsbtnloading(false);
   };
   const Googlelogin = async () => {
-    const res = await signIn("google", {
+    await signIn("google", {
       callbackUrl,
       redirect: true,
     });
@@ -143,9 +128,12 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
   return (
     <Authdiv>
       <div>
-        <h2 className="text-2xl font-semibold mb-2">Sign up to <JabluTextLogo className="text-[2em] ml-3" /></h2>
+        <h2 className="text-2xl font-semibold mb-2">
+          Sign up to <JabluTextLogo className="text-[2em] ml-3" />
+        </h2>
         <p className=" mb-4">
-        Join the Jablu.in shopping experience! Sign up now and unlock exclusive offers and deals.
+          Join the Jablu.in shopping experience! Sign up now and unlock
+          exclusive offers and deals.
         </p>
       </div>
       <form
@@ -285,7 +273,8 @@ const Signup = ({ callbackUrl }: { callbackUrl: string }) => {
           Login Now
         </Link>
       </div>
-      </Authdiv>  );
+    </Authdiv>
+  );
 };
 
 export default Signup;

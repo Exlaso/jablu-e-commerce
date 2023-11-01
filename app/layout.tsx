@@ -5,13 +5,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/navbar";
-import { Session, getServerSession } from "next-auth";
+import { Session } from "next-auth";
 import { SessionProvider } from "@/components/Utils/SessionProvider";
-import getAllProducts from "@/utils/GetProduct";
-import { dataforproduct } from "@/lib/Interfaces";
-import { Suspense } from "react";
-import { useSession } from "next-auth/react";
 import { GetCategories } from "@/lib/db/hasura";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jabluu.vercel.app"),
@@ -55,20 +52,28 @@ export const metadata: Metadata = {
   },
 };
 
+
+
+
 export default async function RootLayout({
   children,
-  session,
 }: {
   children: React.ReactNode;
-  session: Session;
-}) {
+},session:Session) {
   const category = await GetCategories();
+
+
+
+
+
+  
   return (
     <html lang="en">
       <ContextProvider>
         <SessionProvider session={session}>
           <body>
               <Navbar category={category.map(e => (e.name))}/>
+              <Toaster  position="top-right" richColors />
             {children}
             <Footer category={category.map(e => (e.name))} />
           </body>

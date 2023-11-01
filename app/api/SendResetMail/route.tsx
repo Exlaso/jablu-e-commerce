@@ -1,13 +1,13 @@
-import { EmailVerificationTemplate, ResetPassword } from "@/components/Emailsend";
+import {  ResetPassword } from "@/components/Emailsend";
 import { fetchGraphQLUsingDocs } from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-const jwt = require("jsonwebtoken");
 
 export const dynamic = "force-dynamic";
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
+export const GET = async (req: NextRequest) => {
   try {
+    const jwt = require("jsonwebtoken");
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email");
     if (email === null) {
