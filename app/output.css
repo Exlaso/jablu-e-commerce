@@ -2321,30 +2321,6 @@ h4 {
   }
 }
 
-p.MuiFormHelperText-root {
-  color: var(--secondary-color);
-}
-
-fieldset.MuiOutlinedInput-notchedOutline {
-  border: 2px solid #2476d2!important;
-}
-
-.MuiOutlinedInput-root{
-  outline: 2px #2476d2;
-}
-
-input {
-  color: var(--secondary-color) !important;
-}
-
-label.MuiFormLabel-root {
-  color: var(--secondary-color);
-}
-
-.MuiFormLabel-root.Mui-focused {
-  color: #2476d2;
-}
-
 .bb {
   --clr: #386397;
   --outline: 3px solid var(--clr);

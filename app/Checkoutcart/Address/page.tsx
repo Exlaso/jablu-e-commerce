@@ -1,16 +1,13 @@
+
 import React from "react";
-import {TextField} from "@mui/material";
+import {Inputform} from "@/components/Checkout/Inputform";
 
 const CheckoutForm: React.FC = () => {
 
 
-return <section>
-    <h2>Contact</h2>
-    <TextField
-    label={"Phone Number"}
-    />
-
-</section>
+    return <section className={"flex gap-4 flex-col w-full py-4"}>
+<Inputform />
+    </section>
 };
 
 export default CheckoutForm;

@@ -35,8 +35,9 @@ const InputSection = ({
       unique_id: mainuserinfo.unique_id,
       user_first_name: mainuserinfo.user_first_name,
       user_last_name: mainuserinfo.user_last_name,
-      user_phone_number: mainuserinfo.user_phone_number,
+  user_phone_number: mainuserinfo.user_phone_number.replaceAll(" ",""),
     };
+  if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(mainuserinfo.user_phone_number.replaceAll(" ",""))){
     setIsbtnloading(true);
 
     toast.promise(
@@ -57,6 +58,9 @@ const InputSection = ({
         error: "Error",
       }
     );
+      }else{
+          toast.error("Phone Number is Invalid")
+      }
   };
 
   return (

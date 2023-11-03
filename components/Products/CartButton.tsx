@@ -1,5 +1,4 @@
 "use client";
-import { useCartContext } from "@/Store/StoreContext";
 import { Productwithmetadata } from "@/lib/Interfaces";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -16,7 +15,6 @@ interface CartButtonProps {
 }
 
 const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
-  const { FetchNoifItemsinCart } = useCartContext();
 
   const path = usePathname();
   const [isadding, setIsadding] = useState(false);
@@ -39,7 +37,6 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
         })
           .then((res) => res.json())
           .then(() => {
-            FetchNoifItemsinCart();
             setIsadding(false);
           }),
         {

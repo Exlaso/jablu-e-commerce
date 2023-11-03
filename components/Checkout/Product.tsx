@@ -6,28 +6,35 @@ import React, {useState} from "react";
 import {motion} from "framer-motion";
 import {useMediaQuery} from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {useCartContext} from "@/utils/StoreContext";
 
 export const ProductSection = ({productdata}: {
     productdata: GetMyCartitemsQuery
 }) => {
+
+
+    const {shippingmethod, progress} = useCartContext()
     const [is_view_product_opened, setIs_view_product_opened] = useState<boolean>(false)
     const ispc = useMediaQuery('(min-width:1024px)')
     let total: number = 0
+    let finaltotal:number = 0
     return <>
-        <div onClick={()=> { setIs_view_product_opened(e => !e)}}
-            className={"lg:hidden flex justify-between select-none bg-tertiary capitalize w-full p-3 rounded-lg"}>
-          <p>
+        <div onClick={() => {
+            setIs_view_product_opened(e => !e)
+        }}
+             className={"lg:hidden flex  justify-between select-none bg-tertiary capitalize w-full p-3 rounded-lg"}>
+            <p>
 
-            View Products
-          </p>
-            <span className={`${is_view_product_opened?"rotate-90":"rotate-0"}   duration-500`}>
+                View Products
+            </p>
+            <span className={`${is_view_product_opened ? "rotate-90" : "rotate-0"}   duration-500`}>
 
-            <ChevronRightIcon />
+            <ChevronRightIcon/>
             </span>
         </div>
         <motion.div
-            {...(ispc)?{initial:{height: "auto"}}:{initial:{height: 0}}}
-            {...(!ispc)?(is_view_product_opened)?{animate:{height: "auto"}}:{animate:{height: 0}}:""}
+            {...(ispc) ? {initial: {height: "auto"}} : {initial: {height: 0}}}
+            {...(!ispc) ? (is_view_product_opened) ? {animate: {height: "auto"}} : {animate: {height: 0}} : ""}
 
 
             className={"flex flex-col gap-2"}>
@@ -42,20 +49,24 @@ export const ProductSection = ({productdata}: {
         </motion.div>
 
         <hr/>
-        <div className={"flex flex-col gap-2"}>
-            <div className={"flex border-b justify-between border-b-gray-500 "}>
+        <div className={"flex flex-col gap-2 sticky bottom-4 bg-primary border border-gray-500/50 p-4 rounded-md "}>
+            <div className={"flex border-b justify-between border-b-gray-500/50 "}>
                 <span>Subtotal</span>
-                <span>Rs. {total.toLocaleString("en-US", {
+                <span>Rs. {(total).toLocaleString("en-US", {
                     maximumFractionDigits: 2,
                 })}</span>
             </div>
-            <div className={"flex border-b justify-between border-b-gray-500 "}>
+            <div className={"flex border-b justify-between border-b-gray-500/50 "}>
                 <span>Delivery Charges</span>
-                <span>Calculated in Next Step</span>
+                {progress <= 1 ? <span>Calculated in Next Step</span>: <span>Rs. {shippingmethod.price.toLocaleString("en-US", {
+                    maximumFractionDigits: 2,
+                })}</span>
+
+                }
             </div>
-            <div className={"flex sticky border-b justify-between border-b-gray-500 text-lg font-bold "}>
+            <div className={"flex sticky border-b justify-between border-b-gray-500/50 text-lg font-bold "}>
                 <span>Total</span>
-                <span>Rs. {total.toLocaleString("en-US", {
+                <span>Rs. {(shippingmethod.price+total).toLocaleString("en-US", {
                     maximumFractionDigits: 2,
                 })}</span>
             </div>
@@ -82,13 +93,13 @@ const ProductCard = ({productdata}: {
                    max={999}>
 
                 <Image
-                    className={"rounded-2xl"}
-                    src={productdata.product.images ?? ""} alt={productdata.product.title} width={100}
-                    height={100}></Image>
+                    className={"rounded-lg border-gray-500/50 border p-1 aspect-square object-contain"}
+                    src={productdata.product.images ?? "/static/shuz.png"} alt={productdata.product.title} width={80}
+                    height={80}></Image>
             </Badge>
             <div className={"flex flex-col justify-around"}>
                 <h3 className={"capitalize"}>{productdata.product.title}</h3>
-                <p>{productdata.color}/{productdata.size}</p>
+                <p className={"uppercase"}>{productdata.color}/{productdata.size}</p>
             </div>
         </div>
         <div className={" flex justify-center items-center"}>

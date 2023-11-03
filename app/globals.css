@@ -83,6 +83,9 @@ hr {
 .text-secondary {
   color: var(--secondary-color);
 }
+.text-primary {
+  color: var(--primary-color);
+}
 
 body {
   color: var(--secondary-color);
@@ -297,26 +300,6 @@ h4 {
   }
 }
 
-p.MuiFormHelperText-root {
-  color: var(--secondary-color);
-}
-fieldset.MuiOutlinedInput-notchedOutline {
-  border: 2px solid #2476d2!important;
-}
-.MuiOutlinedInput-root{
-  outline: 2px #2476d2;
-
-}
-
-input {
-  color: var(--secondary-color) !important;
-}
-label.MuiFormLabel-root {
-  color: var(--secondary-color);
-}
-.MuiFormLabel-root.Mui-focused {
-  color: #2476d2;
-}
 
 .bb {
   --clr: #386397;
@@ -343,4 +326,17 @@ label.MuiFormLabel-root {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.29);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type="radio"]:checked + label {
+  border-color: #00FF00; /* Change the border color when the radio is selected */
 }

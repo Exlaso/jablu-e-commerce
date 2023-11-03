@@ -1,259 +1,258 @@
-import { Categories, Product } from "../Interfaces";
+import {Categories, Product} from "../Interfaces";
 
 
 export const GetProducts = async (): Promise<Product[] | undefined> => {
-  const response = await fetchGraphQLUsingAdmin("GetProducts");
-  
-  return response.data.products;
+    const response = await fetchGraphQLUsingAdmin("GetProducts");
+
+    return response.data.products;
 };
 
 export const SignupUser = async (
-  token: string,
-  {
-    user_first_name,
-    user_last_name,
-    user_email,
-    user_password,
-    isverified,
-    unique_id,
-  }: {
-    user_first_name: string;
-    user_last_name: string;
-    user_email: string;
-    user_password: string;
-    isverified: boolean;
-    unique_id: string;
-  }
-  ) => {
-    const response = await fetchGraphQL("SignupUser", token, {
-      user_email,
-      unique_id,
-      user_first_name,
-      user_last_name,
-      user_password,
-      isverified,
-    });
-    
-    return response;
-  };
-  export const IsPasswordMatched = async (
     token: string,
-    { password }: { password: string }
-    ) => {
-      const response = await fetchGraphQL("IsPasswordMatched", token);
-      
-      const CryptoJS = require("crypto-js");
-  const bytes = CryptoJS.AES.decrypt(
-    response.data.users.at(0).user_password,
-    process.env.JWT_KEY as string
+    {
+        user_first_name,
+        user_last_name,
+        user_email,
+        user_password,
+        isverified,
+        unique_id,
+    }: {
+        user_first_name: string;
+        user_last_name: string;
+        user_email: string;
+        user_password: string;
+        isverified: boolean;
+        unique_id: string;
+    }
+) => {
+    const response = await fetchGraphQL("SignupUser", token, {
+        user_email,
+        unique_id,
+        user_first_name,
+        user_last_name,
+        user_password,
+        isverified,
+    });
+
+    return response;
+};
+export const IsPasswordMatched = async (
+    token: string,
+    {password}: { password: string }
+) => {
+    const response = await fetchGraphQL("IsPasswordMatched", token);
+
+    const CryptoJS = require("crypto-js");
+    const bytes = CryptoJS.AES.decrypt(
+        response.data.users.at(0).user_password,
+        process.env.JWT_KEY as string
     );
     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-    
-  return plaintext === password;
+    return plaintext === password;
 };
 
 export const IsEmailExists = async (token: string) => {
-  const response = await fetchGraphQL("IsEmailExists", token);
+        const response = await fetchGraphQL("IsEmailExists", token);
 
-  return !(response.data.users.length === 0);
+    return !(response.data.users.length === 0);
 };
 
 export const GetUserImage = async (token: string) => {
-  const response = await fetchGraphQL("GetUserImage", token, {
-    mynum: Date.now().toString(),
-  });
+    const response = await fetchGraphQL("GetUserImage", token, {
+        mynum: Date.now().toString(),
+    });
 
-  return response.data.users.at(0).user_pfp;
+    return response.data.users.at(0).user_pfp;
 };
 export const isProductLiked = async (
-  token: string,
-  data: { product_id: string }
+    token: string,
+    data: { product_id: string }
 ) => {
-  const response = await fetchGraphQL("isProductLiked", token, data);
+    const response = await fetchGraphQL("isProductLiked", token, data);
 
-  return response?.data.wishlist_items?.length !== 0;
+    return response?.data.wishlist_items?.length !== 0;
 };
 export const Retriveuserdata = async (
-  token: string
+    token: string
 ): Promise<
-  | {
-      user_first_name: string;
-      user_phone_number: string;
-      user_email: string;
-      unique_id: string;
-    }
-  | undefined
+    | {
+    user_first_name: string;
+    user_phone_number: string;
+    user_email: string;
+    unique_id: string;
+}
+    | undefined
 > => {
-  const response = await fetchGraphQL("Retriveuserdata", token);
+    const response = await fetchGraphQL("Retriveuserdata", token);
 
-  return response.data.users.at(0);
+    return response.data.users.at(0);
 };
 
 export const InsertWishlist = async (
-  token: string,
-  data: {
-    product_id: string;
-    user_id: string;
-  }
+    token: string,
+    data: {
+        product_id: string;
+        user_id: string;
+    }
 ): Promise<boolean | undefined> => {
-  const response = await fetchGraphQL("InsertWishlist", token, data);
+    const response = await fetchGraphQL("InsertWishlist", token, data);
 
-  return response.data.insert_wishlist_items_one;
+    return response.data.insert_wishlist_items_one;
 };
 
 export const GetFavouritedItems = async (token: string) => {
-  const response = await fetchGraphQL("GetFavouritedItems", token, {
-    mynum: Date.now().toString(),
-  });
-  if (response?.data?.wishlist_items) {
-    return response?.data?.wishlist_items;
-  } else {
-    return [];
-  }
+    const response = await fetchGraphQL("GetFavouritedItems", token, {
+        mynum: Date.now().toString(),
+    });
+    if (response?.data?.wishlist_items) {
+        return response?.data?.wishlist_items;
+    } else {
+        return [];
+    }
 };
 
-export const GetCategories = async ():Promise<Categories[]> => {
-  const response = await fetchGraphQLUsingAdmin("GetCategories");
-  return response.data.categories;
-  
+export const GetCategories = async (): Promise<Categories[]> => {
+    const response = await fetchGraphQLUsingAdmin("GetCategories");
+    return response.data.categories;
+
 };
 
 export const InsertintoCart = async (
-  token: string,
-  vars: {
-    color: string;
-    count: number;
-    size: string;
-    product_id: string;
-    user_id: string;
-  }
+    token: string,
+    vars: {
+        color: string;
+        count: number;
+        size: string;
+        product_id: string;
+        user_id: string;
+    }
 ) => {
-  const response = await fetchGraphQL("InsertintoCart", token, vars);
+    const response = await fetchGraphQL("InsertintoCart", token, vars);
 
-  return response?.data?.insert_cart_one;
+    return response?.data?.insert_cart_one;
 };
 
 export const DeletefromWishlist = async (
-  token: string,
-  data: {
-    product_id: string;
-  }
+    token: string,
+    data: {
+        product_id: string;
+    }
 ): Promise<boolean | undefined> => {
-  const response = await fetchGraphQL("DeletefromWishlist", token, data);
+    const response = await fetchGraphQL("DeletefromWishlist", token, data);
 
-  return response.data.delete_wishlist_items.affected_rows !== 0;
+    return response.data.delete_wishlist_items.affected_rows !== 0;
 };
 
 export const GetCartItems = async (
-  token: string,
-  vars: {
-    color: string;
-    size: string;
-    product_id: string;
-  }
+    token: string,
+    vars: {
+        color: string;
+        size: string;
+        product_id: string;
+    }
 ) => {
-  const response = await fetchGraphQL("GetCartItems", token, vars);
-  return response?.data?.cart;
+    const response = await fetchGraphQL("GetCartItems", token, vars);
+    return response?.data?.cart;
 };
 export const UpdateCart = async (
-  token: string,
-  vars: { color: string; count: number; size: string; product_id: string }
+    token: string,
+    vars: { color: string; count: number; size: string; product_id: string }
 ) => {
-  const response = await fetchGraphQL("UpdateCart", token, vars);
-  return response.data;
+    const response = await fetchGraphQL("UpdateCart", token, vars);
+    return response.data;
 };
 
 export const DeleteCartItem = async (
-  token: string,
-  vars: { color: string; size: string; product_id: string }
+    token: string,
+    vars: { color: string; size: string; product_id: string }
 ) => {
-  const response = await fetchGraphQL("DeleteCartItem", token, vars);
-  return response.data.delete_cart.affected_rows;
+    const response = await fetchGraphQL("DeleteCartItem", token, vars);
+    return response.data.delete_cart.affected_rows;
 };
 
 export const GetallCartItems = async (token: string) => {
-  const response = await fetchGraphQL("GetallCartItems", token, {
-    mynum: (Math.random() * 10).toString(),
-  });
-  return response.data.cart;
+    const response = await fetchGraphQL("GetallCartItems", token, {
+        mynum: (Math.random() * 10).toString(),
+    });
+    return response.data.cart;
 };
 export const GetnoofitemsinCart = async (token: string) => {
-  const response = await fetchGraphQL("GetnoofitemsinCart", token);
-  return response.data.cart.length;
+    const response = await fetchGraphQL("GetnoofitemsinCart", token);
+    return response.data.cart.length;
 };
 
 export const GetUserDetails = async (token: string) => {
-  const response = await fetchGraphQL("GetUserDetails", token);
-  return response.data.users;
+    const response = await fetchGraphQL("GetUserDetails", token);
+    return response.data.users;
 };
 export const UploadImage = async (
-  token: string,
-  {
-    user_pfp,
-    unique_id,
-  }: {
-    user_pfp: string;
-    unique_id: string;
-  }
+    token: string,
+    {
+        user_pfp,
+        unique_id,
+    }: {
+        user_pfp: string;
+        unique_id: string;
+    }
 ) => {
-  const response = await fetchGraphQL("UploadImage", token, {
-    user_pfp,
-    unique_id,
-  });
+    const response = await fetchGraphQL("UploadImage", token, {
+        user_pfp,
+        unique_id,
+    });
 
-  return response?.data?.update_users?.affected_rows === 1;
+    return response?.data?.update_users?.affected_rows === 1;
 };
 export const Updateinfo = async (
-  token: string,
-  data: {
-    user_phone_number: string;
-    user_last_name: string;
-    user_first_name: string;
-    unique_id: string;
-  }
+    token: string,
+    data: {
+        user_phone_number: string;
+        user_last_name: string;
+        user_first_name: string;
+        unique_id: string;
+    }
 ) => {
-  const response = await fetchGraphQL("Updateinfo", token, data);
+    const response = await fetchGraphQL("Updateinfo", token, data);
 
-  return response?.data?.update_users?.affected_rows === 1;
+    return response?.data?.update_users?.affected_rows === 1;
 };
 
 export const InsertVerifyUrl = async (
-  token: string,
-  data: {
-    UUID: string;
-    verifyurl: string;
-  }
+    token: string,
+    data: {
+        UUID: string;
+        verifyurl: string;
+    }
 ) => {
-  try {
-    const response = await fetchGraphQL("InsertVerifyUrl", token, data);
+    try {
+        const response = await fetchGraphQL("InsertVerifyUrl", token, data);
 
-    return response?.data?.insert_verificationurls?.affected_rows === 1;
-  } catch (error) {
-    return "Error in InsertVerifyUrl " + error;
-  }
+        return response?.data?.insert_verificationurls?.affected_rows === 1;
+    } catch (error) {
+        return "Error in InsertVerifyUrl " + error;
+    }
 };
 
 export const IsvalidUrl = async (verifyurl: string) => {
-  try {
-    const res = await fetchGraphQLUsingAdmin("InsertVerificationurls", {
-      verifyurl,
-    });
+    try {
+        const res = await fetchGraphQLUsingAdmin("InsertVerificationurls", {
+            verifyurl,
+        });
 
-    return res?.data?.update_users?.affected_rows === 1;
-  } catch (error) {
-    return "Something went Wrong";
-  }
+        return res?.data?.update_users?.affected_rows === 1;
+    } catch (error) {
+        return "Something went Wrong";
+    }
 };
 export const UpdateMainverification = async (unique_id: string) => {
-  try {
-    const res = await fetchGraphQLUsingAdmin("UpdateMainverification", {
-      unique_id,
-    });
+    try {
+        const res = await fetchGraphQLUsingAdmin("UpdateMainverification", {
+            unique_id,
+        });
 
-    return res?.data?.update_users?.affected_rows === 1;
-  } catch (error) {
-    return "Something went Wrong";
-  }
+        return res?.data?.update_users?.affected_rows === 1;
+    } catch (error) {
+        return "Something went Wrong";
+    }
 };
 
 const doperationsDoc = `
@@ -288,9 +287,10 @@ query GetUserDetails {
   }
 }
 
-query IsEmailExists {
+    query IsEmailExists {
   users {
     user_email
+    isverified
   }
 }
 
@@ -480,68 +480,69 @@ mutation SignupUser($unique_id: String!,$user_email:String!,$user_first_name:Str
   `;
 
 export default async function fetchGraphQL(
-  operationName: string,
-  token: string,
-  variables: object = {},
-  operationsDoc: string = doperationsDoc
+    operationName: string,
+    token: string,
+    variables: object = {},
+    operationsDoc: string = doperationsDoc
 ) {
-  const result = await fetch(process.env.Hasura_URL as string, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      query: operationsDoc,
-      variables: variables,
-      operationName: operationName,
-    }),
-  });
+    const result = await fetch(process.env.Hasura_URL as string, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            query: operationsDoc,
+            variables: variables,
+            operationName: operationName,
+        }),
+    });
 
-  return await result.json();
+    return await result.json();
 }
-export async function fetchGraphQLUsingDocs(
-  operationsDoc: string,
-  operationName: string,
-  token: string,
-  variables: object
-) {
-  const result = await fetch(process.env.Hasura_URL as string, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      query: operationsDoc,
-      variables: variables,
-      operationName: operationName,
-    }),
-  });
 
-  return await result.json();
+export async function fetchGraphQLUsingDocs(
+    operationsDoc: string,
+    operationName: string,
+    token: string,
+    variables: object
+) {
+    const result = await fetch(process.env.Hasura_URL as string, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            query: operationsDoc,
+            variables: variables,
+            operationName: operationName,
+        }),
+    });
+
+    return await result.json();
 }
 
 export async function fetchGraphQLUsingAdmin(
-  operationName: string,
-  variables: object = {},
-  operationsDoc: string = doperationsDoc
+    operationName: string,
+    variables: object = {},
+    operationsDoc: string = doperationsDoc
 ) {
-  const result = await fetch(process.env.Hasura_URL as string, {
-    method: "POST",
-    next: {
-      revalidate: 86400,
-    },
-    headers: {
-      "x-hasura-admin-secret": process.env.Hasura_Secret as string,
-      "cache-control": "no-cache",
-    },
-    body: JSON.stringify({
-      query: operationsDoc,
-      variables: variables,
-      operationName: operationName,
-    }),
-  });
+    const result = await fetch(process.env.Hasura_URL as string, {
+        method: "POST",
+        next: {
+            revalidate: 86400,
+        },
+        headers: {
+            "x-hasura-admin-secret": process.env.Hasura_Secret as string,
+            "cache-control": "no-cache",
+        },
+        body: JSON.stringify({
+            query: operationsDoc,
+            variables: variables,
+            operationName: operationName,
+        }),
+    });
 
-  return await result.json();
+    return await result.json();
 }

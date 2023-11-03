@@ -22,7 +22,7 @@ const Cardforproduct = ({
   return (
     <motion.div
       variants={varients}
-      className={` ${className} min-w-[30vh]  max-w-[55vh] w-full shrink-0   flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-gray-500/10`}
+      className={` ${className} min-w-[30vh]  max-w-[55vh] w-full shrink-0   flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-gray-500/20 border border-gray-500/30`}
       viewport={{ once: true }}
     >
       <div

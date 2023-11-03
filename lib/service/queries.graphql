@@ -27,11 +27,6 @@ query GetUserDetails {
   }
 }
 
-query IsEmailExists {
-  users {
-    user_email
-  }
-}
 
 mutation InsertVerifyUrl($UUID: String!, $verifyurl: String!) {
   insert_verificationurls(objects: { UUID: $UUID, verifyurl: $verifyurl }) {
@@ -158,11 +153,7 @@ mutation InsertintoCart(
   }
 }
 
-query IsPasswordMatched {
-  users {
-    user_password
-  }
-}
+
 
 query GetCategories @cached(ttl: 2) {
   categories {
@@ -320,6 +311,30 @@ query GetMyFavourite @cached(refresh:true){
       description
       images
       title
+    }
+  }
+}
+
+query IsEmailExists {
+  users {
+    user_email
+    isverified
+  }
+}
+query UserDetailswithpassword {
+  users {
+    user_password
+    user_first_name
+    user_phone_number
+    user_email
+    unique_id
+  }
+}
+query GetVerificationUrl {
+  verificationurls {
+    verifyurl
+    user_verify {
+      user_first_name
     }
   }
 }

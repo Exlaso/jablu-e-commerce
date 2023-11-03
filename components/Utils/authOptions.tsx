@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
 
       async authorize(credentials) {
         const a: {id:string,name:string,email:string} = credentials as {id:string,name:string,email:string};
-        return { id: a.id, name: a.name, email: a.email };
+        return { id: a.id, name: a.name, email: a.email};
       },
     }),
     GoogleProvider({

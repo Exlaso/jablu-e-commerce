@@ -21,7 +21,7 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
             initial={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="flex gap-5 w-full border p-4 border-gray-500  rounded-3xl"
+            className="flex gap-5 w-full border-b p-4 border-gray-500  "
             key={e.product_id}
           >
             <Link href={"/Products/" + e.product.title.replaceAll(" ","-")}>

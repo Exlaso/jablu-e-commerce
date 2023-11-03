@@ -3,9 +3,9 @@ import { Emailsendinterface } from "@/lib/Interfaces";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_KEY as string);
 
 export async function POST(req: NextRequest) {
+const resend = new Resend(process.env.RESEND_KEY as string);
   try {
     const { to, Subject, Body }: Emailsendinterface = await req.json();
     const data = await resend.emails.send({

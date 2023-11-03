@@ -1,11 +1,16 @@
-import { FunctionComponent } from "react";
+import React, {FunctionComponent} from "react";
+import DeliverySelection from "@/components/Checkout/SelectionSection";
 
 interface DeliveryProps {
-    
+
 }
- 
+
 const Delivery: FunctionComponent<DeliveryProps> = () => {
-    return ( "hemlo" );
+
+return <section>
+    <DeliverySelection />
+
+</section>
 }
- 
+
 export default Delivery;
