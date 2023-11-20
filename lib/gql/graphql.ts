@@ -1010,6 +1010,10 @@ export type Mutation_Root = {
   delete_products?: Maybe<Products_Mutation_Response>;
   /** delete single row from the table: "products" */
   delete_products_by_pk?: Maybe<Products>;
+  /** delete data from the table: "subscribers" */
+  delete_subscribers?: Maybe<Subscribers_Mutation_Response>;
+  /** delete single row from the table: "subscribers" */
+  delete_subscribers_by_pk?: Maybe<Subscribers>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
@@ -1062,6 +1066,10 @@ export type Mutation_Root = {
   insert_products?: Maybe<Products_Mutation_Response>;
   /** insert a single row into the table: "products" */
   insert_products_one?: Maybe<Products>;
+  /** insert data into the table: "subscribers" */
+  insert_subscribers?: Maybe<Subscribers_Mutation_Response>;
+  /** insert a single row into the table: "subscribers" */
+  insert_subscribers_one?: Maybe<Subscribers>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
@@ -1134,6 +1142,12 @@ export type Mutation_Root = {
   update_products_by_pk?: Maybe<Products>;
   /** update multiples rows of table: "products" */
   update_products_many?: Maybe<Array<Maybe<Products_Mutation_Response>>>;
+  /** update data of the table: "subscribers" */
+  update_subscribers?: Maybe<Subscribers_Mutation_Response>;
+  /** update single row of the table: "subscribers" */
+  update_subscribers_by_pk?: Maybe<Subscribers>;
+  /** update multiples rows of table: "subscribers" */
+  update_subscribers_many?: Maybe<Array<Maybe<Subscribers_Mutation_Response>>>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -1279,6 +1293,18 @@ export type Mutation_RootDelete_ProductsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Products_By_PkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_SubscribersArgs = {
+  where: Subscribers_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Subscribers_By_PkArgs = {
+  uuid: Scalars['String']['input'];
 };
 
 
@@ -1457,6 +1483,20 @@ export type Mutation_RootInsert_ProductsArgs = {
 export type Mutation_RootInsert_Products_OneArgs = {
   object: Products_Insert_Input;
   on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_SubscribersArgs = {
+  objects: Array<Subscribers_Insert_Input>;
+  on_conflict?: InputMaybe<Subscribers_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Subscribers_OneArgs = {
+  object: Subscribers_Insert_Input;
+  on_conflict?: InputMaybe<Subscribers_On_Conflict>;
 };
 
 
@@ -1707,6 +1747,26 @@ export type Mutation_RootUpdate_Products_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Products_ManyArgs = {
   updates: Array<Products_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_SubscribersArgs = {
+  _set?: InputMaybe<Subscribers_Set_Input>;
+  where: Subscribers_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Subscribers_By_PkArgs = {
+  _set?: InputMaybe<Subscribers_Set_Input>;
+  pk_columns: Subscribers_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Subscribers_ManyArgs = {
+  updates: Array<Subscribers_Updates>;
 };
 
 
@@ -3727,6 +3787,12 @@ export type Query_Root = {
   products_aggregate: Products_Aggregate;
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>;
+  /** fetch data from the table: "subscribers" */
+  subscribers: Array<Subscribers>;
+  /** fetch aggregated fields from the table: "subscribers" */
+  subscribers_aggregate: Subscribers_Aggregate;
+  /** fetch data from the table: "subscribers" using primary key columns */
+  subscribers_by_pk?: Maybe<Subscribers>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -3985,6 +4051,29 @@ export type Query_RootProducts_By_PkArgs = {
 };
 
 
+export type Query_RootSubscribersArgs = {
+  distinct_on?: InputMaybe<Array<Subscribers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscribers_Order_By>>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+
+export type Query_RootSubscribers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Subscribers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscribers_Order_By>>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+
+export type Query_RootSubscribers_By_PkArgs = {
+  uuid: Scalars['String']['input'];
+};
+
+
 export type Query_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4053,6 +4142,171 @@ export type Query_RootWishlist_Items_AggregateArgs = {
 export type Query_RootWishlist_Items_By_PkArgs = {
   product_id: Scalars['String']['input'];
   user_id: Scalars['String']['input'];
+};
+
+/** columns and relationships of "subscribers" */
+export type Subscribers = {
+  cart: Scalars['Boolean']['output'];
+  favourite: Scalars['Boolean']['output'];
+  newreleases: Scalars['Boolean']['output'];
+  update: Scalars['Boolean']['output'];
+  /** An object relationship */
+  user: Users;
+  uuid: Scalars['String']['output'];
+};
+
+/** aggregated selection of "subscribers" */
+export type Subscribers_Aggregate = {
+  aggregate?: Maybe<Subscribers_Aggregate_Fields>;
+  nodes: Array<Subscribers>;
+};
+
+/** aggregate fields of "subscribers" */
+export type Subscribers_Aggregate_Fields = {
+  count: Scalars['Int']['output'];
+  max?: Maybe<Subscribers_Max_Fields>;
+  min?: Maybe<Subscribers_Min_Fields>;
+};
+
+
+/** aggregate fields of "subscribers" */
+export type Subscribers_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Subscribers_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "subscribers". All fields are combined with a logical 'AND'. */
+export type Subscribers_Bool_Exp = {
+  _and?: InputMaybe<Array<Subscribers_Bool_Exp>>;
+  _not?: InputMaybe<Subscribers_Bool_Exp>;
+  _or?: InputMaybe<Array<Subscribers_Bool_Exp>>;
+  cart?: InputMaybe<Boolean_Comparison_Exp>;
+  favourite?: InputMaybe<Boolean_Comparison_Exp>;
+  newreleases?: InputMaybe<Boolean_Comparison_Exp>;
+  update?: InputMaybe<Boolean_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  uuid?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "subscribers" */
+export type Subscribers_Constraint =
+  /** unique or primary key constraint on columns "uuid" */
+  | 'subscribers_pkey';
+
+/** input type for inserting data into table "subscribers" */
+export type Subscribers_Insert_Input = {
+  cart?: InputMaybe<Scalars['Boolean']['input']>;
+  favourite?: InputMaybe<Scalars['Boolean']['input']>;
+  newreleases?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<Scalars['Boolean']['input']>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  uuid?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Subscribers_Max_Fields = {
+  uuid?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Subscribers_Min_Fields = {
+  uuid?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "subscribers" */
+export type Subscribers_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Subscribers>;
+};
+
+/** input type for inserting object relation for remote table "subscribers" */
+export type Subscribers_Obj_Rel_Insert_Input = {
+  data: Subscribers_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Subscribers_On_Conflict>;
+};
+
+/** on_conflict condition type for table "subscribers" */
+export type Subscribers_On_Conflict = {
+  constraint: Subscribers_Constraint;
+  update_columns?: Array<Subscribers_Update_Column>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "subscribers". */
+export type Subscribers_Order_By = {
+  cart?: InputMaybe<Order_By>;
+  favourite?: InputMaybe<Order_By>;
+  newreleases?: InputMaybe<Order_By>;
+  update?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  uuid?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: subscribers */
+export type Subscribers_Pk_Columns_Input = {
+  uuid: Scalars['String']['input'];
+};
+
+/** select columns of table "subscribers" */
+export type Subscribers_Select_Column =
+  /** column name */
+  | 'cart'
+  /** column name */
+  | 'favourite'
+  /** column name */
+  | 'newreleases'
+  /** column name */
+  | 'update'
+  /** column name */
+  | 'uuid';
+
+/** input type for updating data in table "subscribers" */
+export type Subscribers_Set_Input = {
+  cart?: InputMaybe<Scalars['Boolean']['input']>;
+  favourite?: InputMaybe<Scalars['Boolean']['input']>;
+  newreleases?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<Scalars['Boolean']['input']>;
+  uuid?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "subscribers" */
+export type Subscribers_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Subscribers_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Subscribers_Stream_Cursor_Value_Input = {
+  cart?: InputMaybe<Scalars['Boolean']['input']>;
+  favourite?: InputMaybe<Scalars['Boolean']['input']>;
+  newreleases?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<Scalars['Boolean']['input']>;
+  uuid?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "subscribers" */
+export type Subscribers_Update_Column =
+  /** column name */
+  | 'cart'
+  /** column name */
+  | 'favourite'
+  /** column name */
+  | 'newreleases'
+  /** column name */
+  | 'update'
+  /** column name */
+  | 'uuid';
+
+export type Subscribers_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Subscribers_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Subscribers_Bool_Exp;
 };
 
 export type Subscription_Root = {
@@ -4136,6 +4390,14 @@ export type Subscription_Root = {
   products_by_pk?: Maybe<Products>;
   /** fetch data from the table in a streaming manner: "products" */
   products_stream: Array<Products>;
+  /** fetch data from the table: "subscribers" */
+  subscribers: Array<Subscribers>;
+  /** fetch aggregated fields from the table: "subscribers" */
+  subscribers_aggregate: Subscribers_Aggregate;
+  /** fetch data from the table: "subscribers" using primary key columns */
+  subscribers_by_pk?: Maybe<Subscribers>;
+  /** fetch data from the table in a streaming manner: "subscribers" */
+  subscribers_stream: Array<Subscribers>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -4470,6 +4732,36 @@ export type Subscription_RootProducts_StreamArgs = {
 };
 
 
+export type Subscription_RootSubscribersArgs = {
+  distinct_on?: InputMaybe<Array<Subscribers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscribers_Order_By>>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+
+export type Subscription_RootSubscribers_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Subscribers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscribers_Order_By>>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+
+export type Subscription_RootSubscribers_By_PkArgs = {
+  uuid: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootSubscribers_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Subscribers_Stream_Cursor_Input>>;
+  where?: InputMaybe<Subscribers_Bool_Exp>;
+};
+
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4589,6 +4881,8 @@ export type Users = {
   orders: Array<Orders>;
   /** An aggregate relationship */
   orders_aggregate: Orders_Aggregate;
+  /** An object relationship */
+  subscriber?: Maybe<Subscribers>;
   unique_id: Scalars['String']['output'];
   user_email: Scalars['String']['output'];
   user_first_name: Scalars['String']['output'];
@@ -4738,6 +5032,7 @@ export type Users_Bool_Exp = {
   isverified?: InputMaybe<Boolean_Comparison_Exp>;
   orders?: InputMaybe<Orders_Bool_Exp>;
   orders_aggregate?: InputMaybe<Orders_Aggregate_Bool_Exp>;
+  subscriber?: InputMaybe<Subscribers_Bool_Exp>;
   unique_id?: InputMaybe<String_Comparison_Exp>;
   user_email?: InputMaybe<String_Comparison_Exp>;
   user_first_name?: InputMaybe<String_Comparison_Exp>;
@@ -4764,6 +5059,7 @@ export type Users_Insert_Input = {
   carts?: InputMaybe<Cart_Arr_Rel_Insert_Input>;
   isverified?: InputMaybe<Scalars['Boolean']['input']>;
   orders?: InputMaybe<Orders_Arr_Rel_Insert_Input>;
+  subscriber?: InputMaybe<Subscribers_Obj_Rel_Insert_Input>;
   unique_id?: InputMaybe<Scalars['String']['input']>;
   user_email?: InputMaybe<Scalars['String']['input']>;
   user_first_name?: InputMaybe<Scalars['String']['input']>;
@@ -4825,6 +5121,7 @@ export type Users_Order_By = {
   carts_aggregate?: InputMaybe<Cart_Aggregate_Order_By>;
   isverified?: InputMaybe<Order_By>;
   orders_aggregate?: InputMaybe<Orders_Aggregate_Order_By>;
+  subscriber?: InputMaybe<Subscribers_Order_By>;
   unique_id?: InputMaybe<Order_By>;
   user_email?: InputMaybe<Order_By>;
   user_first_name?: InputMaybe<Order_By>;
@@ -5650,6 +5947,26 @@ export type UpdateOrderStatusMutationVariables = Exact<{
 
 export type UpdateOrderStatusMutation = { update_orders?: { affected_rows: number } | null };
 
+export type GetFavouriteSubscribersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFavouriteSubscribersQuery = { users: Array<{ user_email: string, user_first_name: string, wishlist_items: Array<{ product_id: string, product: { description: string, id: string, images: string, title: string } }> }> };
+
+export type GetSubscribedataQueryVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type GetSubscribedataQuery = { users: Array<{ subscriber?: { favourite: boolean, update: boolean, newreleases: boolean, cart: boolean } | null }> };
+
+export type UpdateSubscribedataMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  updateobject: Subscribers_Set_Input;
+}>;
+
+
+export type UpdateSubscribedataMutation = { update_subscribers?: { affected_rows: number } | null };
+
 
 export const InsertVerificationurlsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"InsertVerificationurls"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"verifyurl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"verificationurls"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"verifyurl"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"verifyurl"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isverified"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<InsertVerificationurlsMutation, InsertVerificationurlsMutationVariables>;
 export const UpdateMainverificationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateMainverification"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"verifyurl"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"verificationurls"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"verifyurl"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"verifyurl"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isverified"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<UpdateMainverificationMutation, UpdateMainverificationMutationVariables>;
@@ -5688,3 +6005,6 @@ export const DeleteAddressDocument = {"kind":"Document","definitions":[{"kind":"
 export const UpdateAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateobject"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"addresses_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_addresses"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"address_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateobject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<UpdateAddressMutation, UpdateAddressMutationVariables>;
 export const GetOrdersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetOrders"},"directives":[{"kind":"Directive","name":{"kind":"Name","value":"cached"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"refresh"},"value":{"kind":"BooleanValue","value":true}}]}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"orders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"order_id"}},{"kind":"Field","name":{"kind":"Name","value":"address_id"}},{"kind":"Field","name":{"kind":"Name","value":"address"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address1"}},{"kind":"Field","name":{"kind":"Name","value":"address2"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}},{"kind":"Field","name":{"kind":"Name","value":"phoneno"}},{"kind":"Field","name":{"kind":"Name","value":"pincode"}},{"kind":"Field","name":{"kind":"Name","value":"region"}},{"kind":"Field","name":{"kind":"Name","value":"regionstate"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"order_date"}},{"kind":"Field","name":{"kind":"Name","value":"shipping_method"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"order_products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"order_id"}},{"kind":"Field","name":{"kind":"Name","value":"product_id"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"images"}},{"kind":"Field","name":{"kind":"Name","value":"price"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetOrdersQuery, GetOrdersQueryVariables>;
 export const UpdateOrderStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateOrderStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"order_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_orders"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"order_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"order_id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<UpdateOrderStatusMutation, UpdateOrderStatusMutationVariables>;
+export const GetFavouriteSubscribersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetFavouriteSubscribers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"subscriber"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"favourite"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"BooleanValue","value":true}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user_email"}},{"kind":"Field","name":{"kind":"Name","value":"user_first_name"}},{"kind":"Field","name":{"kind":"Name","value":"wishlist_items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product_id"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"images"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetFavouriteSubscribersQuery, GetFavouriteSubscribersQueryVariables>;
+export const GetSubscribedataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSubscribedata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_email"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscriber"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"favourite"}},{"kind":"Field","name":{"kind":"Name","value":"update"}},{"kind":"Field","name":{"kind":"Name","value":"newreleases"}},{"kind":"Field","name":{"kind":"Name","value":"cart"}}]}}]}}]}}]} as unknown as DocumentNode<GetSubscribedataQuery, GetSubscribedataQueryVariables>;
+export const UpdateSubscribedataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscribedata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateobject"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"subscribers_set_input"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_subscribers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user_email"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateobject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affected_rows"}}]}}]}}]} as unknown as DocumentNode<UpdateSubscribedataMutation, UpdateSubscribedataMutationVariables>;

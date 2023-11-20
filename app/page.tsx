@@ -7,6 +7,7 @@ import CategoriesDisplay from "@/components/Categories/CategoriesDisplay";
 import WishlistSection from "@/components/Home/WishlistSection";
 import { GetCategories } from "@/lib/db/hasura";
 import {Product} from "@/lib/Interfaces";
+    import LandingSection2 from "@/components/Hero/LandingSection2";
 
 
 
@@ -16,6 +17,7 @@ export default async function Home() {
   await GetCategories();
   return (
     <main className="flex min-h-screen flex-col">
+        {/*<LandingSection2 />*/}
       <LandingSection />
       <Exploresection />
       <ProccessSection />

@@ -83,14 +83,12 @@ const ItemsSection: FunctionComponent<typesforItemsSection> = (props) => {
     const {Orders} = props
 
     return <div className={"w-full"}>
-        <ul className={"w-full flex flex-col gap-6"}>
+        <ul className={"w-full flex flex-col gap-6 "}>
             {Orders.orders.sort((a, b) => {
                 return new Date(b.order_date).getTime() - new Date(a.order_date).getTime()
 
             }).map((e: Items) => {
-                return <li key={e.order_id}>
-                    <ProductCard ogorder={e} token={props.token}/>
-                </li>
+                return <ProductCard ogorder={e} key={e.order_id} token={props.token}/>
             })}
         </ul>
     </div>
@@ -98,6 +96,7 @@ const ItemsSection: FunctionComponent<typesforItemsSection> = (props) => {
 
 const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
     const [order, setorder] = useState<Items>(ogorder);
+    const [isopen, setisopen] = useState<boolean>(false);
     const CancelOrder = (orderid: string) => {
         const gqlres = new Promise(
             (resolve, reject) => {
@@ -109,12 +108,12 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
                 }).then((e) => {
                     if (!e.update_orders?.affected_rows) {
                         reject(e)
-                    }else{
-                    if (e?.update_orders?.affected_rows > 0) {
-                        resolve(e)
                     } else {
-                        reject(e)
-                    }
+                        if (e?.update_orders?.affected_rows > 0) {
+                            resolve(e)
+                        } else {
+                            reject(e)
+                        }
                     }
                 }).catch(
                     (e) => {
@@ -139,16 +138,19 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
         })
 
     }
-    const [isopen, setisopen] = useState<boolean>(false);
-    return <motion.section
+    return <motion.li
+
         initial={"closed"}
+
         animate={isopen ? "opened" : "closed"}
         onClick={() => {
             setisopen(e => !e)
         }}
         key={order.order_id}
-        className={"p-5    rounded-md border border-gray-500/50  "}>
-        <div className="flex gap-3 max-sm:flex-col justify-between">
+        className={"p-5  relative  rounded-md outline-2 outline-red-500 border border-gray-500/50  "}>
+        <div
+
+            className="flex gap-3 max-sm:flex-col  relative justify-between">
             <Image src={order.order_products.at(0)?.product?.images ?? "/static/shuz.jpg"}
 
                    className={"object-contain"}
@@ -274,11 +276,9 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
                         disabled={true}>Track Order
                 </button>
                 {
-                    order.status !== "cancelled" && <button className={"p-2 bg-secondary text-primary rounded-lg w-max disabled:brightness-50"}
-                                                            disabled={false}
-                                                            onClick={() => {
-                                                                CancelOrder(ogorder.order_id);
-                                                            }}
+                    order.status !== "cancelled" &&
+                    <button className={"p-2 bg-secondary text-primary rounded-lg w-max disabled:brightness-50"}
+                            disabled={false}
 
                     >Cancel Order
                     </button>
@@ -286,7 +286,7 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
             </div>
 
         </motion.div>
-        <div className="w-full flex justify-center items-center">
+        <div className="w-full flex justify-center items-center ">
 
             {isopen ?
                 <>
@@ -299,6 +299,6 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
                     <KeyboardArrowDownIcon/>Expand to see more</>
             }
         </div>
-    </motion.section>
+    </motion.li>
 }
 export default ItemsSection

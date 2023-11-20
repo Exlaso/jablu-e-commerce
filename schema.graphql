@@ -1313,6 +1313,19 @@ type mutation_root {
   delete_products_by_pk(id: String!): products
 
   """
+  delete data from the table: "subscribers"
+  """
+  delete_subscribers(
+    """filter the rows which have to be deleted"""
+    where: subscribers_bool_exp!
+  ): subscribers_mutation_response
+
+  """
+  delete single row from the table: "subscribers"
+  """
+  delete_subscribers_by_pk(uuid: String!): subscribers
+
+  """
   delete data from the table: "users"
   """
   delete_users(
@@ -1570,6 +1583,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: products_on_conflict
   ): products
+
+  """
+  insert data into the table: "subscribers"
+  """
+  insert_subscribers(
+    """the rows to be inserted"""
+    objects: [subscribers_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: subscribers_on_conflict
+  ): subscribers_mutation_response
+
+  """
+  insert a single row into the table: "subscribers"
+  """
+  insert_subscribers_one(
+    """the row to be inserted"""
+    object: subscribers_insert_input!
+
+    """upsert condition"""
+    on_conflict: subscribers_on_conflict
+  ): subscribers
 
   """
   insert data into the table: "users"
@@ -1940,6 +1975,34 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [products_updates!]!
   ): [products_mutation_response]
+
+  """
+  update data of the table: "subscribers"
+  """
+  update_subscribers(
+    """sets the columns of the filtered rows to the given values"""
+    _set: subscribers_set_input
+
+    """filter the rows which have to be updated"""
+    where: subscribers_bool_exp!
+  ): subscribers_mutation_response
+
+  """
+  update single row of the table: "subscribers"
+  """
+  update_subscribers_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: subscribers_set_input
+    pk_columns: subscribers_pk_columns_input!
+  ): subscribers
+
+  """
+  update multiples rows of table: "subscribers"
+  """
+  update_subscribers_many(
+    """updates to execute, in order"""
+    updates: [subscribers_updates!]!
+  ): [subscribers_mutation_response]
 
   """
   update data of the table: "users"
@@ -4761,6 +4824,49 @@ type query_root {
   products_by_pk(id: String!): products
 
   """
+  fetch data from the table: "subscribers"
+  """
+  subscribers(
+    """distinct select on columns"""
+    distinct_on: [subscribers_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [subscribers_order_by!]
+
+    """filter the rows returned"""
+    where: subscribers_bool_exp
+  ): [subscribers!]!
+
+  """
+  fetch aggregated fields from the table: "subscribers"
+  """
+  subscribers_aggregate(
+    """distinct select on columns"""
+    distinct_on: [subscribers_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [subscribers_order_by!]
+
+    """filter the rows returned"""
+    where: subscribers_bool_exp
+  ): subscribers_aggregate!
+
+  """fetch data from the table: "subscribers" using primary key columns"""
+  subscribers_by_pk(uuid: String!): subscribers
+
+  """
   fetch data from the table: "users"
   """
   users(
@@ -4882,6 +4988,208 @@ type query_root {
 
   """fetch data from the table: "wishlist_items" using primary key columns"""
   wishlist_items_by_pk(product_id: String!, user_id: String!): wishlist_items
+}
+
+"""
+columns and relationships of "subscribers"
+"""
+type subscribers {
+  cart: Boolean!
+  favourite: Boolean!
+  newreleases: Boolean!
+  update: Boolean!
+
+  """An object relationship"""
+  user: users!
+  uuid: String!
+}
+
+"""
+aggregated selection of "subscribers"
+"""
+type subscribers_aggregate {
+  aggregate: subscribers_aggregate_fields
+  nodes: [subscribers!]!
+}
+
+"""
+aggregate fields of "subscribers"
+"""
+type subscribers_aggregate_fields {
+  count(columns: [subscribers_select_column!], distinct: Boolean): Int!
+  max: subscribers_max_fields
+  min: subscribers_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "subscribers". All fields are combined with a logical 'AND'.
+"""
+input subscribers_bool_exp {
+  _and: [subscribers_bool_exp!]
+  _not: subscribers_bool_exp
+  _or: [subscribers_bool_exp!]
+  cart: Boolean_comparison_exp
+  favourite: Boolean_comparison_exp
+  newreleases: Boolean_comparison_exp
+  update: Boolean_comparison_exp
+  user: users_bool_exp
+  uuid: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "subscribers"
+"""
+enum subscribers_constraint {
+  """
+  unique or primary key constraint on columns "uuid"
+  """
+  subscribers_pkey
+}
+
+"""
+input type for inserting data into table "subscribers"
+"""
+input subscribers_insert_input {
+  cart: Boolean
+  favourite: Boolean
+  newreleases: Boolean
+  update: Boolean
+  user: users_obj_rel_insert_input
+  uuid: String
+}
+
+"""aggregate max on columns"""
+type subscribers_max_fields {
+  uuid: String
+}
+
+"""aggregate min on columns"""
+type subscribers_min_fields {
+  uuid: String
+}
+
+"""
+response of any mutation on the table "subscribers"
+"""
+type subscribers_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [subscribers!]!
+}
+
+"""
+input type for inserting object relation for remote table "subscribers"
+"""
+input subscribers_obj_rel_insert_input {
+  data: subscribers_insert_input!
+
+  """upsert condition"""
+  on_conflict: subscribers_on_conflict
+}
+
+"""
+on_conflict condition type for table "subscribers"
+"""
+input subscribers_on_conflict {
+  constraint: subscribers_constraint!
+  update_columns: [subscribers_update_column!]! = []
+  where: subscribers_bool_exp
+}
+
+"""Ordering options when selecting data from "subscribers"."""
+input subscribers_order_by {
+  cart: order_by
+  favourite: order_by
+  newreleases: order_by
+  update: order_by
+  user: users_order_by
+  uuid: order_by
+}
+
+"""primary key columns input for table: subscribers"""
+input subscribers_pk_columns_input {
+  uuid: String!
+}
+
+"""
+select columns of table "subscribers"
+"""
+enum subscribers_select_column {
+  """column name"""
+  cart
+
+  """column name"""
+  favourite
+
+  """column name"""
+  newreleases
+
+  """column name"""
+  update
+
+  """column name"""
+  uuid
+}
+
+"""
+input type for updating data in table "subscribers"
+"""
+input subscribers_set_input {
+  cart: Boolean
+  favourite: Boolean
+  newreleases: Boolean
+  update: Boolean
+  uuid: String
+}
+
+"""
+Streaming cursor of the table "subscribers"
+"""
+input subscribers_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: subscribers_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input subscribers_stream_cursor_value_input {
+  cart: Boolean
+  favourite: Boolean
+  newreleases: Boolean
+  update: Boolean
+  uuid: String
+}
+
+"""
+update columns of table "subscribers"
+"""
+enum subscribers_update_column {
+  """column name"""
+  cart
+
+  """column name"""
+  favourite
+
+  """column name"""
+  newreleases
+
+  """column name"""
+  update
+
+  """column name"""
+  uuid
+}
+
+input subscribers_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: subscribers_set_input
+
+  """filter the rows which have to be updated"""
+  where: subscribers_bool_exp!
 }
 
 type subscription_root {
@@ -5434,6 +5742,63 @@ type subscription_root {
   ): [products!]!
 
   """
+  fetch data from the table: "subscribers"
+  """
+  subscribers(
+    """distinct select on columns"""
+    distinct_on: [subscribers_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [subscribers_order_by!]
+
+    """filter the rows returned"""
+    where: subscribers_bool_exp
+  ): [subscribers!]!
+
+  """
+  fetch aggregated fields from the table: "subscribers"
+  """
+  subscribers_aggregate(
+    """distinct select on columns"""
+    distinct_on: [subscribers_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [subscribers_order_by!]
+
+    """filter the rows returned"""
+    where: subscribers_bool_exp
+  ): subscribers_aggregate!
+
+  """fetch data from the table: "subscribers" using primary key columns"""
+  subscribers_by_pk(uuid: String!): subscribers
+
+  """
+  fetch data from the table in a streaming manner: "subscribers"
+  """
+  subscribers_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [subscribers_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: subscribers_bool_exp
+  ): [subscribers!]!
+
+  """
   fetch data from the table: "users"
   """
   users(
@@ -5726,6 +6091,9 @@ type users {
     """filter the rows returned"""
     where: orders_bool_exp
   ): orders_aggregate!
+
+  """An object relationship"""
+  subscriber: subscribers
   unique_id: String!
   user_email: String!
   user_first_name: String!
@@ -5838,6 +6206,7 @@ input users_bool_exp {
   isverified: Boolean_comparison_exp
   orders: orders_bool_exp
   orders_aggregate: orders_aggregate_bool_exp
+  subscriber: subscribers_bool_exp
   unique_id: String_comparison_exp
   user_email: String_comparison_exp
   user_first_name: String_comparison_exp
@@ -5874,6 +6243,7 @@ input users_insert_input {
   carts: cart_arr_rel_insert_input
   isverified: Boolean
   orders: orders_arr_rel_insert_input
+  subscriber: subscribers_obj_rel_insert_input
   unique_id: String
   user_email: String
   user_first_name: String
@@ -5943,6 +6313,7 @@ input users_order_by {
   carts_aggregate: cart_aggregate_order_by
   isverified: order_by
   orders_aggregate: orders_aggregate_order_by
+  subscriber: subscribers_order_by
   unique_id: order_by
   user_email: order_by
   user_first_name: order_by

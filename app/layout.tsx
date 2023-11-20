@@ -1,4 +1,4 @@
-// import "./output.css";
+import "./output.css";
 import "./globals.css";
 import type {Metadata} from "next";
 import Footer from "@/components/Footer";

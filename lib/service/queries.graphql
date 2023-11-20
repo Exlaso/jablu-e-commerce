@@ -456,3 +456,35 @@ mutation UpdateOrderStatus($order_id:String!,$status:String!) {
         affected_rows
     }
 }
+
+query GetFavouriteSubscribers @cached(refresh: true){
+    users(where: {subscriber: {favourite: {_eq: true}}}) {
+        user_email
+        user_first_name
+        wishlist_items {
+            product_id
+            product {
+                description
+                id
+                images
+                title
+            }
+        }
+    }
+}
+query GetSubscribedata($email:String!) @cached(refresh: true) {
+    users(where: {user_email: {_eq: $email}}) {
+        subscriber {
+            favourite
+            update
+            newreleases
+            cart
+        }
+    }
+}
+
+mutation UpdateSubscribedata($email:String!,$updateobject:subscribers_set_input!) {
+    update_subscribers(where: {user: {user_email: {_eq: $email}}}, _set: $updateobject) {
+        affected_rows
+    }
+}
