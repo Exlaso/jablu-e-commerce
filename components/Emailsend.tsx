@@ -239,7 +239,7 @@ export const ProductReminderEmail = ({products, name,email}: { email:string,name
 
                 ${products.map((e) => {
                     return `<div style="margin: 5px; height: auto;  padding: 10px; border: 1px solid #80808050; border-radius: 5px; width: 100%;">
-                        <a href="https://jabluu.vercel.app/Product/${e.product_id} " 
+                        <a href="${process.env.NEXTAUTH_URL}/Products/${e.product_id} " 
                            style="text-transform: capitalize; display: flex; color: #6c757d; gap: 4px; flex-direction: row; justify-content: start; align-items: start; width: 100%; height: 100%; text-decoration: none;">
                             <img
                                 src=${e.product.images}
