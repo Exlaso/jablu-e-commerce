@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from "react";
+import  {Dispatch, SetStateAction} from "react";
 
 export interface ColorsType {
     hexcode: string,
@@ -127,32 +127,70 @@ export interface errortype {
     error: boolean;
     message: string;
 }
+
 export interface typeofshippingmethods {
     title: string,
     description: string,
     price: number
 }
+
+export interface API_pretransaction {
+    orderid: string,
+    amount: number,
+    email: string
+}
+
 export interface type_useCartContext {
-    shippingmethod: typeofshippingmethods,
+    setTotal: Dispatch<SetStateAction<number>>,
     setShippingmethod: Dispatch<SetStateAction<typeofshippingmethods>>,
-    progress: number
     setProgress: Dispatch<SetStateAction<number>>
-    region: string
     setRegion: Dispatch<SetStateAction<string>>
-    regionstate: string
     setRegionstate: Dispatch<SetStateAction<string>>
-    phoneno: string
     setPhoneno: Dispatch<SetStateAction<string>>
-    address1: string
     setAddress1: Dispatch<SetStateAction<string>>
-    address2: string
     setAddress2: Dispatch<SetStateAction<string>>
-    city: string
     setCity: Dispatch<SetStateAction<string>>
-    pincode: string
     setPincode: Dispatch<SetStateAction<string>>
-    name: string
     setName: Dispatch<SetStateAction<string>>
-    lastname: string
     setLastname: Dispatch<SetStateAction<string>>
+    setSavedaddress: Dispatch<SetStateAction<boolean>>
+    savedaddress: boolean,
+    selectedaddress: string,
+    setselectedaddress: Dispatch<SetStateAction<string>>
+    products: { color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[],
+    setproducts: Dispatch<SetStateAction<{ color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[]>>
+    total: number,
+    shippingmethod: typeofshippingmethods,
+    progress: number
+    region: string
+    regionstate: string
+    phoneno: string
+    address1: string
+    address2: string
+    city: string
+    pincode: string
+    name: string
+    lastname: string
+}
+
+export interface API_AddAddressAndOrder {
+    pincode: string;
+    addressid:string;
+    total: number;
+    address2: string;
+    regionstate: string;
+    city: string;
+    products: { color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[],
+    user_name: string,
+    shouldsaveaddress: boolean,
+    email: string,
+    address1: string;
+    name: string;
+    progress: number;
+    shippingmethod: typeofshippingmethods;
+    region: string;
+    phoneno: string;
+    lastname: string,
+    userid: string,
+    token: string
 }

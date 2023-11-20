@@ -1,9 +1,10 @@
 "use client"
-import React, {FormEventHandler, FunctionComponent, useState} from "react";
+import React, { FunctionComponent} from "react";
 import {useRouter} from "next/navigation";
 import {useCartContext} from "@/utils/StoreContext";
 import Link from "next/link";
 import {typeofshippingmethods} from "@/lib/Interfaces";
+import {motion} from "framer-motion";
 
 interface DeliverySelectionProps {
 
@@ -13,11 +14,12 @@ const DeliverySelection: FunctionComponent<DeliverySelectionProps> = () => {
 
 
     const router = useRouter();
+
+
     const {progress, phoneno, address1, setProgress, address2, region, regionstate, city, pincode, shippingmethod, setShippingmethod} = useCartContext();
     if (progress < 2) {
-        router.push("./Address")
+        router.push("./Address");
     }
-
     const handleformsubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setProgress(3);
@@ -25,14 +27,17 @@ const DeliverySelection: FunctionComponent<DeliverySelectionProps> = () => {
     }
     const Shippingmethods: typeofshippingmethods[] = [{
         description: "5 to 8 business days",
-        price: 249,
+        price: 349,
         title: "Economy"
     }, {
         description: "3 to 4 business days",
-        price: 359,
+        price: 259,
         title: "Standard"
     }]
-    return <form className={"flex gap-4 flex-col"} onSubmit={e => handleformsubmit(e)}>
+    return <motion.form
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        className={"flex gap-4 flex-col"} onSubmit={e => handleformsubmit(e)}>
         <div className={"w-full rounded-lg border border-gray-500/50 p-3 flex flex-col gap-3"}>
             <div className={"w-full grid grid-cols-[.8fr,2fr,.5fr] gap-3"}>
                 <span className={"grow-0 shrink-0"}>Contact</span><span
@@ -48,7 +53,7 @@ const DeliverySelection: FunctionComponent<DeliverySelectionProps> = () => {
 
             }</span>
                 <Link href={"./Address"}
-                      className={"grow-0 shrink-0 text-sm text-blue-500 underline"}>Change</Link>
+                      className={"grow-0  shrink-0 text-sm text-blue-500 underline"}>Change</Link>
             </div>
 
 
@@ -88,7 +93,7 @@ const DeliverySelection: FunctionComponent<DeliverySelectionProps> = () => {
                 Continue to Payment
             </button>
         </div>
-    </form>
+    </motion.form>
 }
 
 export default DeliverySelection;

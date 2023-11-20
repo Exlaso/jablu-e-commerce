@@ -72,13 +72,11 @@ export const PATCH = async (req: NextRequest) => {
         );
       }
     } else {
-      console.log("api/Gettoken - Token not found");
 
       return NextResponse.json({ error: true, message: "Token Not Found" });
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error);
 
       return NextResponse.json(
         { error: true, message: error.message },

@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: dir?.name.toLowerCase() + " - Jablu.in",
     keywords: [
       dir?.name.toLowerCase() + " - Jablu.in",
-      "Jabluu.in",
+      "Jablu.in",
       "Jabluu",
       "Jablu",
       "Jablu.in",

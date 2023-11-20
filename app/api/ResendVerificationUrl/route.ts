@@ -2,7 +2,6 @@ import {NextRequest, NextResponse} from "next/server";
 import jwt from "jsonwebtoken";
 import {gqlClient} from "@/lib/service/client";
 import {GetVerificationUrlDocument} from "@/lib/gql/graphql";
-import {Resend} from "resend";
 import {Emailsendinterface} from "@/lib/Interfaces";
 import {CreateEmailResponse} from "resend/build/src/emails/interfaces";
 
@@ -22,7 +21,6 @@ export const GET = async (req: NextRequest) => {
             },
             process.env.JWT_KEY as string
         );
-        console.log(JwtTokenforemail)
         const res = await gqlClient.request(GetVerificationUrlDocument, {}, {
             "Authorization": "Bearer " + JwtTokenforemail
         })

@@ -14,6 +14,8 @@ const Cardforproduct = ({
   price,
   mrp,
   product_rating,
+    product_colors,
+
   images,
   varients,
   className,
@@ -48,12 +50,12 @@ const Cardforproduct = ({
               className="rounded-b-[30px] duration-300 w-80 h-80  object-contain  mx-auto"
             ></Image>
           </div>
-          <div className="p-3 flex flex-col items-start  justify-between h-full gap-0">
+          <div className="p-3 flex flex-col items-start w-full  justify-between h-full gap-0">
             <h1 className="max-sm:text-sm text-md capitalize  font-bold ">
               {title}
             </h1>
 
-            <div className="flex items-start flex-col justify-center gap-1">
+            <div className="flex items-start flex-col justify-center gap-1 w-full">
               <div className="flex items-center  font-semibold gap-2">
                 {discount !== "0.0" && (
                   <span className="text-red-600  text-lg">
@@ -69,6 +71,7 @@ const Cardforproduct = ({
                   })}
                 </span>
               </div>
+
 
               <span className="flex gap-1 justify-center items-center py-2  px-1">
                 Ratings: {product_rating?.avg_ratings}
@@ -86,6 +89,9 @@ const Cardforproduct = ({
                   ></path>
                 </svg>
               </span>
+              <div className={"flex  justify-center gap-2 items-center w-full"}>
+                {product_colors.map((e,i) => <div key={i} className={"h-5 shadow-gray-500 shadow w-5 rounded-full"} style={{backgroundColor:e.hexcode}}></div>)}
+              </div>
             </div>
           </div>
         </Link>

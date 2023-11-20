@@ -1,6 +1,5 @@
 import Items from "@/components/Favourites/Items";
-import {Product, Wishlistitems} from "@/lib/Interfaces";
-import {signOut} from "next-auth/react";
+import { Wishlistitems} from "@/lib/Interfaces";
 import {RequestCookie} from "next/dist/compiled/@edge-runtime/cookies";
 import {cookies} from "next/headers";
 import Image from "next/image";
@@ -9,9 +8,7 @@ import {gqlClient} from "@/lib/service/client";
 import {GetMyFavouriteDocument} from "@/lib/gql/graphql";
 import BackButton from "@/components/Utils/Backbtn";
 import {Metadata} from "next";
-import Button from "@/components/Utils/Button";
-import Link from "next/link";
-import Authdiv from "@/components/Authdiv";
+import NotLoggedin from "@/components/Utils/NotLoggedin";
 
 export const metadata: Metadata = {
     title: "Your Favorite Items - Jablu.in  ",
@@ -65,19 +62,7 @@ const Page = async () => {
                     <div className="flex flex-col w-full gap-1 ">
                         {(token?.value) ?
                             <Items wishlistdata={wishlistdata}/> :
-                            <div className=" p-8 rounded w-full relative flex flex-col gap-12 AuthDivcss text-justify ">
-
-                            <p className={"capitalize"}> You&#39;re Not Logged in</p>
-                                <p className={"capitalize"}>
-                                    Please Login to access all your Favourites items.
-                                </p>
-                                <Link className={"text-blue-400 capitalize underline-offset-4 underline"}
-                                      href={`/Auth/Signin?callbackUrl=${process.env.NEXTAUTH_URL}/Favourites`}>
-                                    <Button color={"primary"} className={"capitalize"}>
-                                        Login
-                                    </Button>
-                                </Link>
-                            </div>
+                            <NotLoggedin title={"Please to access all your Favourited items."} />
                         }
                     </div>
                 </section>

@@ -2,7 +2,7 @@
 import {GetMyCartitemsQuery} from "@/lib/gql/graphql";
 import Badge from "@mui/material/Badge";
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import {useMediaQuery} from "@mui/material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -13,12 +13,15 @@ export const ProductSection = ({productdata}: {
 }) => {
 
 
-    const {shippingmethod, progress} = useCartContext()
+    const {shippingmethod, progress, total, setTotal,setproducts} = useCartContext()
+    useEffect(() => {
+        setTotal(0);
+        setproducts(productdata.cart);
+        productdata.cart.map(e => setTotal(ex => (ex + (e.product.price * e.count))))
+    }, [productdata, setTotal,setproducts])
     const [is_view_product_opened, setIs_view_product_opened] = useState<boolean>(false)
     const ispc = useMediaQuery('(min-width:1024px)')
-    let total: number = 0
-    let finaltotal:number = 0
-    return <>
+    return <section>
         <div onClick={() => {
             setIs_view_product_opened(e => !e)
         }}
@@ -41,7 +44,6 @@ export const ProductSection = ({productdata}: {
 
 
             {productdata.cart.map((e, i) => {
-                total += (e.product.price * e.count)
                 return <div
                     className={" overflow-hidden duration-300"} key={i}> {i !== 0 && <hr/>}<ProductCard
                     productdata={e}></ProductCard></div>
@@ -58,22 +60,23 @@ export const ProductSection = ({productdata}: {
             </div>
             <div className={"flex border-b justify-between border-b-gray-500/50 "}>
                 <span>Delivery Charges</span>
-                {progress <= 1 ? <span>Calculated in Next Step</span>: <span>Rs. {shippingmethod.price.toLocaleString("en-US", {
-                    maximumFractionDigits: 2,
-                })}</span>
+                {progress <= 1 ? <span>Calculated in Next Step</span> :
+                    <span>Rs. {shippingmethod.price.toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                    })}</span>
 
                 }
             </div>
             <div className={"flex sticky border-b justify-between border-b-gray-500/50 text-lg font-bold "}>
                 <span>Total</span>
-                <span>Rs. {(shippingmethod.price+total).toLocaleString("en-US", {
+                <span>Rs. {(total + shippingmethod.price).toLocaleString("en-US", {
                     maximumFractionDigits: 2,
                 })}</span>
             </div>
         </div>
-    </>
+    </section>
 }
-const ProductCard = ({productdata}: {
+export const ProductCard = ({productdata}: {
     productdata: {
         color: string,
         count: number,

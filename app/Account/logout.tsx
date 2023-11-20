@@ -12,7 +12,12 @@ const Logout = () => {
       },
     })
       .then((res) => res.json())
-      .then(() => signOut());
+      .then((res) =>
+      {
+        if (!res.error){
+          signOut();
+        }
+      });
   };
 
   return (

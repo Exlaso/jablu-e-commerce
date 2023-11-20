@@ -102,7 +102,6 @@ const Signin = ({callbackUrl}: { callbackUrl: string }) => {
     };
 
     const sendverificationmail = () => {
-        console.log("send verification cliked")
         const Res = new Promise(async (resolve, reject) => {
             const re = await fetch(`/api/ResendVerificationUrl?email=${userInfo.email}`)
             const r = await re.json();

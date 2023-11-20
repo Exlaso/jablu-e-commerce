@@ -24,6 +24,9 @@ const CheckOutProgress: FunctionComponent<CheckOutProgressProps> = () => {
             case path.includes("Payment"):
                 setProgressCount(2);
                 break;
+            case path.includes("Success"):
+                setProgressCount(-1);
+                break;
 
             default:
                 break;

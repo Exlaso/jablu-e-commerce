@@ -5,6 +5,10 @@
   font-family: "Reallocated";
   src: url("/Fonts/Reallocated.ttf");
 }
+.a {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 /* sample using the font */
 :root {
@@ -29,12 +33,12 @@
 }
 
 .jablutext > div:first-child {
-  text-shadow: 5px 5px 0px black;
+  text-shadow: 5px 5px 0 black;
   color: #4b0082;
 }
 .jablutext > div:nth-child(3) {
   color: #008080;
-  text-shadow: 5px 5px 0px black;
+  text-shadow: 5px 5px 0 black;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -93,14 +97,14 @@ body {
 }
 
 .shadowhand {
-  font-family: "Reallocated";
+  font-family: "Reallocated", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 .scrollbaronhover::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
 .scrollbaronhover:hover::-webkit-scrollbar-thumb {
-  background: gray;
+  background: rgb(128, 128, 128);
 }
 
 /* width */
@@ -122,7 +126,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   transition-duration: 0.3s;
-  background: gray;
+  background: rgb(128, 128, 128);
   border-radius: 10px;
 }
 
@@ -144,7 +148,7 @@ body {
   }
 }
 .jablutext {
-  font-family: "Reallocated";
+  font-family: "Reallocated",ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   display: flex;
 }
 

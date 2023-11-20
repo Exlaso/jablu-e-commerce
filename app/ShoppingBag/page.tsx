@@ -1,17 +1,14 @@
 import Items from "@/components/Shopping/Items";
 import BackButton from "@/components/Utils/Backbtn";
-import {Product} from "@/lib/Interfaces";
 import {Metadata} from "next";
-import {signOut} from "next-auth/react";
 import {RequestCookie} from "next/dist/compiled/@edge-runtime/cookies";
 import {cookies} from "next/headers";
 import Image from "next/image";
 import React, {FunctionComponent} from "react";
 import {GetMyCartDocument} from "@/lib/gql/graphql";
 import {gqlClient} from "@/lib/service/client";
-import Link from "next/link";
-import Authdiv from "@/components/Authdiv";
-import Button from "@/components/Utils/Button";
+import getAllProducts from "@/utils/GetProduct";
+import NotLoggedin from "@/components/Utils/NotLoggedin";
 
 export const metadata: Metadata = {
     title: "Shopping Bag - Jablu.in",
@@ -49,8 +46,10 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
         });
         Carteddata = data.cart;
     }
+    const data = await getAllProducts();
+
     return (
-        <>
+        <section>
             <div className="px-[10%]  min-h-screen gap-14 py-[15vh] max-md:px-5 w-full  flex flex-col ">
                 <div className="grid gap-3">
                     <BackButton/>
@@ -67,23 +66,16 @@ const CartPage: FunctionComponent<CartPageProps> = async () => {
                 </div>
                 <section className="relative flex flex-col items-start justify-between ">
                     {token?.value ?
-                        <Items Carteddata={Carteddata}/> :
-                        <div className=" p-8 rounded w-full relative flex flex-col gap-12 AuthDivcss text-justify ">
-                            <p className={"capitalize"}> You&#39;re Not Logged in</p>
-                            <p className={"capitalize"}> Please to access all your Shopping Bag items.
-                            </p>
-                            <Link className={"text-blue-400 underline-offset-4 underline"}
-                                  href={`/Auth/Signin?callbackUrl=${process.env.NEXTAUTH_URL}/ShoppingBag`}><Button
-                                color={"primary"} className={"capitalize"}>
-                                Login
-                            </Button>
-                            </Link>
-                        </div>
+                        <Items Carteddata={Carteddata}
+                        products={data??[]}
+
+                        /> :
+                       <NotLoggedin title={"Please Login to access all your Shopping Bag items."} />
                     }
 
                 </section>
             </div>
-        </>
+        </section>
     );
 };
 

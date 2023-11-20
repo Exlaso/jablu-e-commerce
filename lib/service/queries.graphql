@@ -1,282 +1,282 @@
 mutation InsertVerificationurls($verifyurl: String!) {
-  update_users(
-    where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
-    _set: { isverified: true }
-  ) {
-    affected_rows
-  }
+    update_users(
+        where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
+        _set: { isverified: true }
+    ) {
+        affected_rows
+    }
 }
 
 mutation UpdateMainverification($verifyurl: String!) {
-  update_users(
-    where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
-    _set: { isverified: true }
-  ) {
-    affected_rows
-  }
+    update_users(
+        where: { verificationurls: { verifyurl: { _eq: $verifyurl } } }
+        _set: { isverified: true }
+    ) {
+        affected_rows
+    }
 }
 
 query GetUserDetails {
-  users {
-    user_email
-    unique_id
-    user_first_name
-    user_last_name
-    user_pfp
-    user_phone_number
-  }
+    users {
+        user_email
+        unique_id
+        user_first_name
+        user_last_name
+        user_pfp
+        user_phone_number
+    }
 }
 
 
 mutation InsertVerifyUrl($UUID: String!, $verifyurl: String!) {
-  insert_verificationurls(objects: { UUID: $UUID, verifyurl: $verifyurl }) {
-    affected_rows
-  }
+    insert_verificationurls(objects: { UUID: $UUID, verifyurl: $verifyurl }) {
+        affected_rows
+    }
 }
 
 mutation Updateinfo(
-  $user_phone_number: String!
-  $user_last_name: String!
-  $user_first_name: String!
-  $unique_id: String!
+    $user_phone_number: String!
+    $user_last_name: String!
+    $user_first_name: String!
+    $unique_id: String!
 ) {
-  update_users(
-    _set: {
-      user_phone_number: $user_phone_number
-      user_last_name: $user_last_name
-      user_first_name: $user_first_name
+    update_users(
+        _set: {
+            user_phone_number: $user_phone_number
+            user_last_name: $user_last_name
+            user_first_name: $user_first_name
+        }
+        where: { unique_id: { _eq: $unique_id } }
+    ) {
+        affected_rows
     }
-    where: { unique_id: { _eq: $unique_id } }
-  ) {
-    affected_rows
-  }
 }
 
 
 
 mutation UploadImage($user_pfp: String!, $unique_id: String!) {
-  update_users(
-    _set: { user_pfp: $user_pfp }
-    where: { unique_id: { _eq: $unique_id } }
-  ) {
-    affected_rows
-  }
+    update_users(
+        _set: { user_pfp: $user_pfp }
+        where: { unique_id: { _eq: $unique_id } }
+    ) {
+        affected_rows
+    }
 }
 
 query GetnoofitemsinCart {
-  cart {
-    product_id
-  }
+    cart {
+        product_id
+    }
 }
 
 query GetUserImage($mynum: String!) @cached(ttl: 1) {
-  users(where: { _not: { user_pfp: { _eq: $mynum } } }) {
-    user_pfp
-  }
+    users(where: { _not: { user_pfp: { _eq: $mynum } } }) {
+        user_pfp
+    }
 }
 query Retriveuserdata {
-  users {
-    user_first_name
-    user_phone_number
-    user_email
-    unique_id
-  }
+    users {
+        user_first_name
+        user_phone_number
+        user_email
+        unique_id
+    }
 }
 
 
 mutation DeleteCartItem($color: String!, $size: String!, $product_id: String!) {
-  delete_cart(
-    where: {
-      product_id: { _eq: $product_id }
-      size: { _eq: $size }
-      color: { _eq: $color }
+    delete_cart(
+        where: {
+            product_id: { _eq: $product_id }
+            size: { _eq: $size }
+            color: { _eq: $color }
+        }
+    ) {
+        affected_rows
     }
-  ) {
-    affected_rows
-  }
 }
 
 query GetCartItems($color: String!, $size: String!, $product_id: String!) {
-  cart(
-    where: {
-      product_id: { _eq: $product_id }
-      color: { _eq: $color }
-      size: { _eq: $size }
+    cart(
+        where: {
+            product_id: { _eq: $product_id }
+            color: { _eq: $color }
+            size: { _eq: $size }
+        }
+    ) {
+        count
+        product_id
+        size
+        color
     }
-  ) {
-    count
-    product_id
-    size
-    color
-  }
 }
 
 mutation UpdateCart(
-  $color: String!
-  $count: Int!
-  $size: String!
-  $product_id: String!
+    $color: String!
+    $count: Int!
+    $size: String!
+    $product_id: String!
 ) {
-  update_cart(
-    where: {
-      product_id: { _eq: $product_id }
-      color: { _eq: $color }
-      size: { _eq: $size }
+    update_cart(
+        where: {
+            product_id: { _eq: $product_id }
+            color: { _eq: $color }
+            size: { _eq: $size }
+        }
+        _set: { count: $count }
+    ) {
+        affected_rows
     }
-    _set: { count: $count }
-  ) {
-    affected_rows
-  }
 }
 
 mutation InsertintoCart(
-  $color: String!
-  $count: Int!
-  $size: String!
-  $user_id: String!
-  $product_id: String!
+    $color: String!
+    $count: Int!
+    $size: String!
+    $user_id: String!
+    $product_id: String!
 ) {
-  insert_cart_one(
-    object: {
-      color: $color
-      count: $count
-      product_id: $product_id
-      size: $size
-      user_id: $user_id
+    insert_cart_one(
+        object: {
+            color: $color
+            count: $count
+            product_id: $product_id
+            size: $size
+            user_id: $user_id
+        }
+    ) {
+        color
+        count
+        product_id
+        size
+        user_id
     }
-  ) {
-    color
-    count
-    product_id
-    size
-    user_id
-  }
 }
 
 
 
 query GetCategories @cached(ttl: 2) {
-  categories {
-    description
-    image
-    name
-  }
+    categories {
+        description
+        image
+        name
+    }
 }
 
 query isProductLiked($product_id: String!) {
-  wishlist_items(where: { product_id: { _eq: $product_id } }) {
-    product_id
-    sortid
-    user_id
-  }
+    wishlist_items(where: { product_id: { _eq: $product_id } }) {
+        product_id
+        sortid
+        user_id
+    }
 }
 
 mutation InsertWishlist($product_id: String!, $user_id: String!) {
-  insert_wishlist_items_one(
-    object: { product_id: $product_id, user_id: $user_id }
-  ) {
-    sortid
-    user_id
-    product_id
-  }
+    insert_wishlist_items_one(
+        object: { product_id: $product_id, user_id: $user_id }
+    ) {
+        sortid
+        user_id
+        product_id
+    }
 }
 mutation DeletefromWishlist($product_id: String!) {
-  delete_wishlist_items(where: { product_id: { _eq: $product_id } }) {
-    affected_rows
-  }
+    delete_wishlist_items(where: { product_id: { _eq: $product_id } }) {
+        affected_rows
+    }
 }
 
 mutation SignupUser(
-  $unique_id: String!
-  $user_email: String!
-  $user_first_name: String!
-  $user_last_name: String!
-  $user_password: String!
-  $isverified: Boolean!
+    $unique_id: String!
+    $user_email: String!
+    $user_first_name: String!
+    $user_last_name: String!
+    $user_password: String!
+    $isverified: Boolean!
 ) {
-  insert_users_one(
-    object: {
-      user_email: $user_email
-      user_first_name: $user_first_name
-      user_last_name: $user_last_name
-      user_password: $user_password
-      isverified: $isverified
-      unique_id: $unique_id
+    insert_users_one(
+        object: {
+            user_email: $user_email
+            user_first_name: $user_first_name
+            user_last_name: $user_last_name
+            user_password: $user_password
+            isverified: $isverified
+            unique_id: $unique_id
+        }
+    ) {
+        unique_id
+        user_email
+        user_first_name
+        user_last_name
+        isverified
     }
-  ) {
-    unique_id
-    user_email
-    user_first_name
-    user_last_name
-    isverified
-  }
 }
 query GetProducts @cached(ttl:599) {
-  products {
-    id
-    title
-    price
-    description
-    category
-    mrp
-    images
-    product_colors {
-      hexcode
-      color
+    products {
+        id
+        title
+        price
+        description
+        category
+        mrp
+        images
+        product_colors {
+            hexcode
+            color
 
+        }
+        product_image_urls {
+            image_url
+        }
+        product_sizes {
+            size
+        }
+        product_rating {
+            no_of_rated
+            avg_ratings
+        }
     }
-    product_image_urls {
-      image_url
-    }
-    product_sizes {
-      size
-    }
-    product_rating {
-      no_of_rated
-      avg_ratings
-    }
-  }
 }
 
 
 query Ispasswordvalid($user_password: String!) {
-  users(where: { user_password: { _eq: $user_password } }) {
-    unique_id
-  }
+    users(where: { user_password: { _eq: $user_password } }) {
+        unique_id
+    }
 }
 query GetMyCartitems @cached(refresh:true) {
-  cart {
-    color
-    count
-    size
-    product_id
-    product {
-      images
-      price
-      title
+    cart {
+        color
+        count
+        size
+        product_id
+        product {
+            images
+            price
+            title
+        }
     }
-  }
 }
 
 
 
 
 mutation UpdatePassword($user_password: String = "", $user_email: String = "") {
-  update_users(
-    where: { user_email: { _eq: $user_email } }
-    _set: { user_password: $user_password }
-  ) {
-    affected_rows
-    returning {
-      user_first_name
+    update_users(
+        where: { user_email: { _eq: $user_email } }
+        _set: { user_password: $user_password }
+    ) {
+        affected_rows
+        returning {
+            user_first_name
+        }
     }
-  }
 }
 
 subscription Getuserprofilephoto  {
-  users {
-    user_pfp
-  }
+    users {
+        user_pfp
+    }
 }
 
 
@@ -284,57 +284,175 @@ subscription Getuserprofilephoto  {
 
 
 mutation insertimage($image_url: String = "", $product_id: String = "") {
-  insert_product_image_urls_one(object: {image_url: $image_url, product_id: $product_id}) {
-    product_id
-    image_url
-  }
+    insert_product_image_urls_one(object: {image_url: $image_url, product_id: $product_id}) {
+        product_id
+        image_url
+    }
 }
 
 query GetMyCart @cached(refresh:true){
-  cart {
-    color
-    count
-    product_id
-    size
-    product {
-      images
-      title
-      price
+    cart {
+        color
+        count
+        product_id
+        size
+        product {
+            images
+            title
+            price
+        }
     }
-  }
 }
 
 query GetMyFavourite @cached(refresh:true){
-  wishlist_items {
-    product_id
-    product {
-      description
-      images
-      title
+    wishlist_items {
+        product_id
+        product {
+            description
+            images
+            title
+        }
     }
-  }
 }
 
 query IsEmailExists {
-  users {
-    user_email
-    isverified
-  }
+    users {
+        user_email
+        isverified
+    }
 }
 query UserDetailswithpassword {
-  users {
-    user_password
-    user_first_name
-    user_phone_number
-    user_email
-    unique_id
-  }
+    users {
+        user_password
+        user_first_name
+        user_phone_number
+        user_email
+        unique_id
+    }
 }
 query GetVerificationUrl {
-  verificationurls {
-    verifyurl
-    user_verify {
-      user_first_name
+    verificationurls {
+        verifyurl
+        user_verify {
+            user_first_name
+        }
     }
-  }
+}
+
+
+mutation InsertAddresses($active: Boolean,$userid:String!, $address1: String!, $address2: String!, $city: String!, $firstname: String!, $lastname: String!, $phoneno: String!, $pincode: String!, $region: String!, $regionstate: String!) {
+    insert_addresses(objects: {active: $active,userid: $userid, address1: $address1, address2: $address2, city: $city, firstname: $firstname, lastname: $lastname, phoneno: $phoneno, pincode: $pincode, region: $region, regionstate: $regionstate}) {
+        affected_rows
+        returning {
+            active
+            address1
+            address2
+            city
+            firstname
+            lastname
+            phoneno
+            pincode
+            region
+            regionstate
+            address_id
+            userid
+        }
+    }
+}
+
+mutation InsertOrders($order_id: String!, $address_id: String!, $user_id: String!, $total: numeric!, $shipping_method: json!) {
+    insert_orders(objects: {order_id: $order_id, address_id: $address_id, user_id: $user_id, total: $total, shipping_method: $shipping_method}) {
+        affected_rows
+        returning {
+            order_id
+            address_id
+            user_id
+            shipping_method
+            total
+        }
+    }
+}
+mutation InsertOrderProducts($orderProducts: [order_products_insert_input!]!,$user_id:String!) {
+    insert_order_products(objects: $orderProducts) {
+        affected_rows
+        returning {
+            color
+            count
+            order_id
+            product_id
+            size
+        }
+    }
+    delete_cart(where: {user_id: {_eq: $user_id}}) {
+        affected_rows
+    }
+}
+
+query GetAddress @cached(refresh: true){
+    addresses(where: {active: {_eq: true}}) {
+        active
+        address1
+        address2
+        address_id
+        city
+        firstname
+        lastname
+        userid
+        regionstate
+        region
+        pincode
+        phoneno
+    }
+}
+
+mutation DeleteAddress($id:String!) {
+    update_addresses(where: {address_id: {_eq: $id}},
+        _set: {active: false}   ) {
+        affected_rows
+    }
+}
+mutation UpdateAddress($id:String!,$updateobject:addresses_set_input!) {
+    update_addresses(where: {address_id: {_eq: $id}},
+        _set: $updateobject ) {
+        affected_rows
+    }
+}
+query GetOrders @cached(refresh: true){
+    orders {
+        order_id
+        address_id
+        address {
+address1
+            address2
+            city
+            firstname
+            lastname
+            phoneno
+            pincode
+            region
+            regionstate
+        }
+        user_id
+        status
+        order_date
+        shipping_method
+        total
+        order_products {
+            color
+            count
+            order_id
+            product_id
+            size
+            product {
+                title
+                images
+                price
+            }
+        }
+    }
+}
+mutation UpdateOrderStatus($order_id:String!,$status:String!) {
+    update_orders(where: {order_id: {_eq: $order_id}}, _set: {status: $status}) {
+        affected_rows
+    }
 }

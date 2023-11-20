@@ -7,7 +7,7 @@ import React, { ReactNode } from "react";
 const navigation: { title: string; href: string }[] = [
   { title: "Personal Information", href: "Information" },
   { title: "Account Password", href: "Password" },
-  { title: "Payment Methods", href: "Payment-Methods" },
+  { title: "Saved Addresses", href: "Addresses" },
   { title: "Preferences", href: "Preferences" },
 ];
 

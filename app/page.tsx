@@ -1,4 +1,4 @@
-import LandingSection from "@/components/LandingSection";
+    import LandingSection from "@/components/LandingSection";
 import getAllProducts from "@/utils/GetProduct";
 import ProductsCategories from "@/components/ProductsCategories";
 import ProccessSection from "@/components/Parallax/Parallax";

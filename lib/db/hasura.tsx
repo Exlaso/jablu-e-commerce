@@ -25,7 +25,7 @@ export const SignupUser = async (
         unique_id: string;
     }
 ) => {
-    const response = await fetchGraphQL("SignupUser", token, {
+    return await fetchGraphQL("SignupUser", token, {
         user_email,
         unique_id,
         user_first_name,
@@ -33,8 +33,6 @@ export const SignupUser = async (
         user_password,
         isverified,
     });
-
-    return response;
 };
 export const IsPasswordMatched = async (
     token: string,
@@ -47,7 +45,7 @@ export const IsPasswordMatched = async (
         response.data.users.at(0).user_password,
         process.env.JWT_KEY as string
     );
-    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+        const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     return plaintext === password;
 };
 

@@ -1,6 +1,6 @@
 "use client"
 import React, {createContext, ReactNode, useContext, useState} from "react";
-import {type_useCartContext, typeofshippingmethods} from "@/lib/Interfaces";
+import { type_useCartContext, typeofshippingmethods} from "@/lib/Interfaces";
 
 
 const StoreContext = createContext<any>(null);
@@ -18,14 +18,17 @@ export const ContextProvider = ({children}: {
     const [name, setName] = useState("")
     const [lastname, setLastname] = useState("");
     const [progress, setProgress] = useState<number>(1)
+    const [total, setTotal] = useState<number>(0)
+    const [savedaddress, setSavedaddress] = useState<boolean>(true);
+    const [selectedaddress, setselectedaddress] = useState<string>("");
+    const [products, setproducts] = useState< {color: string, count: number, size: string, product_id: string, product: {images: string, price: number, title: string}}[][]>([]);
     const [shippingmethod, setShippingmethod] = useState<typeofshippingmethods>({
-        title:"",
+        title: "",
         price: 0,
-        description:""
+        description: ""
     })
-
-
     return <StoreContext.Provider value={{
+        total, setTotal,
         progress, setProgress,
         shippingmethod, setShippingmethod,
         region, setRegion,
@@ -36,7 +39,10 @@ export const ContextProvider = ({children}: {
         city, setCity,
         pincode, setPincode,
         name, setName,
-        lastname, setLastname
+        lastname, setLastname,
+        savedaddress, setSavedaddress,
+        products, setproducts,
+        selectedaddress, setselectedaddress
     }}>{children}
 
     </StoreContext.Provider>

@@ -35,7 +35,7 @@ export async function generateMetadata(
         keywords: [
             title.toLowerCase() + " - Jablu.in",
             description,
-            "Jabluu.in",
+            "Jablu.in",
             "Jabluu",
             "Jablu",
             "Jablu.in",
@@ -84,7 +84,7 @@ const Page = async (props: { params: { products: string } }) => {
                 <span>Product ID: {id}</span>
                 <div className=" grid grid-cols-2 max-lg:grid-cols-1 gap-10">
                     <ImageGallery
-                        images={product_image_urls}
+                        images={[{image_url:images},...product_image_urls]}
                         title={title}
                     />
                     <div className="flex flex-col gap-10 ">
