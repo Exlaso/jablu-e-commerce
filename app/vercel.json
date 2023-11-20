@@ -1,6 +1,6 @@
 {
   "crons": [{
     "path": "/api/cronjob",
-    "schedule": "00 20 * * 5"
+    "schedule": "5 18 * * 5"
   }]
 }

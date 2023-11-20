@@ -422,7 +422,7 @@ query GetOrders @cached(refresh: true){
         order_id
         address_id
         address {
-address1
+            address1
             address2
             city
             firstname
@@ -485,6 +485,24 @@ query GetSubscribedata($email:String!) @cached(refresh: true) {
 
 mutation UpdateSubscribedata($email:String!,$updateobject:subscribers_set_input!) {
     update_subscribers(where: {user: {user_email: {_eq: $email}}}, _set: $updateobject) {
+        affected_rows
+    }
+}
+mutation InsertUsers($user: [users_insert_input!]!) {
+    insert_users(objects: $user) {
+        affected_rows
+    }
+}
+query GetUsers @cached(refresh: true){
+    users{
+        unique_id
+    }
+}
+mutation InsertMultipleWishlist($obj:[wishlist_items_insert_input!]!,$subs:[subscribers_insert_input!]!){
+    insert_wishlist_items(objects: $obj){
+        affected_rows
+    }
+    insert_subscribers(objects: $subs){
         affected_rows
     }
 }

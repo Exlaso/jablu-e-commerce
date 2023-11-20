@@ -19,6 +19,9 @@ const page: FunctionComponent<typesforpage> = async (props) => {
         email: props.searchParams.email
     }, {
         "x-hasura-admin-secret": process.env.Hasura_Secret!
+    }).catch(() => {
+        redirect("/");
+
     })
     return <main className={"py-[13vh] min-h-screen flex justify-center items-center"}>
 

@@ -43,7 +43,7 @@ const Navbar = async ({
               <Image
                 className="invertsvg"
                 src={"/static/logo/jablu4.svg"}
-                alt={"jablulogo"}
+                alt={"jablu.in logo"}
                 width={80}
                 height={80}
               ></Image>
