@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [
       dir?.name.toLowerCase() + " - Jablu.in",
       "Jablu.in",
-      "Jabluu",
+      "jablu",
       "Jablu",
       "Jablu.in",
       "Vedant Bhavsar",
@@ -44,13 +44,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     description: dir?.description,
 
-    metadataBase: new URL("https://jabluu.vercel.app"),
+    metadataBase: new URL("https://jablu.exlaso.in"),
     openGraph: {
       title: dir?.name.toLowerCase() + " - Jablu.in",
-      url: `https://jabluu.vercel.app/${dir?.name.replaceAll(" ", "-").toString().toLowerCase()}`,
+      url: `https://jablu.exlaso.in/${dir?.name.replaceAll(" ", "-").toString().toLowerCase()}`,
       siteName: "Jablu.in",
       type: "website",
-      images: "https://jabluu.vercel.app/icon.svg",
+      images: "https://jablu.exlaso.in/icon.svg",
       description: dir?.description,
     },
   };

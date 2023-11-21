@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     keywords:
         "Jablu.in, E-commerce, Favorites, Favorite Items, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
 
-    metadataBase: new URL("https://jabluu.vercel.app"),
+    metadataBase: new URL("https://jablu.exlaso.in"),
     openGraph: {
         title: "Your Favorite Items - Jablu.in  ",
-        url: "https://jabluu.vercel.app/Auth/Favourites",
+        url: "https://jablu.exlaso.in/Auth/Favourites",
         siteName: "Jablu.in",
         type: "website",
-        images: "https://jabluu.vercel.app/icon.svg",
+        images: "https://jablu.exlaso.in/icon.svg",
         description:
             "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
     },
