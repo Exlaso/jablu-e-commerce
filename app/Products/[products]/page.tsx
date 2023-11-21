@@ -36,7 +36,7 @@ export async function generateMetadata(
             title.toLowerCase() + " - Jablu.in",
             description,
             "Jablu.in",
-            "Jabluu",
+            "jablu",
             "Jablu",
             "Jablu.in",
             "Vedant Bhavsar",
@@ -45,16 +45,16 @@ export async function generateMetadata(
         ],
         description: description,
 
-        metadataBase: new URL("https://jabluu.vercel.app"),
+        metadataBase: new URL("https://jablu.exlaso.in"),
         openGraph: {
             title: title.toLowerCase() + " - Jablu.in",
-            url: `https://jabluu.vercel.app/${title
+            url: `https://jablu.exlaso.in/${title
                 .replaceAll(" ", "-")
                 .toString()
                 .toLowerCase()}`,
             siteName: "Jablu.in",
             type: "website",
-            images: "https://jabluu.vercel.app/icon.svg",
+            images: "https://jablu.exlaso.in/icon.svg",
             description: description,
         },
     };

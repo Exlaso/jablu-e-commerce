@@ -3,7 +3,29 @@ import {gqlClient} from "@/lib/service/client";
 import {GetAddressDocument} from "@/lib/gql/graphql";
 import {cookies} from "next/headers";
 import  {AddressSection} from "@/components/Account/Addresses/AddressCard";
+import {Metadata} from "next";
 
+export const metadata:Metadata =  {
+    title: "Addresses - Jablu.in",
+    keywords: [
+        "Jablu.in",
+        "Jablu",
+        "Jablu.in Account",
+        "Jablu.in Addresses",
+        "Jablu.in Account Addresses",
+        "Jablu.in Account Address",
+    ],
+    description: "Edit or Remove your saved addresses",
+    metadataBase: new URL("https://jablu.exlaso.in"),
+    openGraph: {
+        title: "Account - Jablu.in",
+        url: `https://jablu.exlaso.in/Account/Addresses`,
+        siteName: "Jablu.in",
+        type: "website",
+        images: "https://jablu.exlaso.in/icon.svg",
+        description: "Edit or Remove your saved addresses",
+    },
+}
 const Page = async () => {
     const token = cookies().get("jablu_jwt_token")
     const addresses = await gqlClient.request(GetAddressDocument, {}, {

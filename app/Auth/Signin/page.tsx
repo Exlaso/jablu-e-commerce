@@ -9,16 +9,16 @@ export const metadata: Metadata = {
     "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
   keywords: "Jablu.in, E-commerce, Signin, Jablu, Exlaso, Vedant Bhavsar",
   icons: {
-    icon: "https://jabluu.vercel.app/icon.svg",
+    icon: "https://jablu.exlaso.in/icon.svg",
   },
  
-    metadataBase: new URL("https://jabluu.vercel.app"),
+    metadataBase: new URL("https://jablu.exlaso.in"),
  openGraph: {
     title: "Sign in - Jablu.in",
-    url: "https://jabluu.vercel.app/Auth/Signin",
+    url: "https://jablu.exlaso.in/Auth/Signin",
     siteName: "Jablu.in",
     type: "website",
-    images: "https://jabluu.vercel.app/icon.svg",
+    images: "https://jablu.exlaso.in/icon.svg",
     description:
       "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
   },

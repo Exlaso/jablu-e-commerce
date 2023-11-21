@@ -1,7 +1,24 @@
 import { PasswordSection } from "@/components/Account/Password/PasswordSection";
 import Link from "next/link";
 import React from "react";
+import {Metadata} from "next";
 
+export const metadata:Metadata =  {
+    title: "Account Password - Jablu.in",
+    description:
+        "Manage your account password at Jablu.in, your trusted E-commerce website. Update your password, preferences, and more. Explore unique clothing with premium designs.",
+    keywords: "Jablu.in, E-commerce, Account Password, Account Details, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+    metadataBase: new URL("https://jablu.exlaso.in"),
+    openGraph: {
+        title: "Account Password - Jablu.in",
+        url: "https://jablu.exlaso.in/Account/Password",
+        siteName: "Jablu.in",
+        type: "website",
+        images: "https://jablu.exlaso.in/icon.svg",
+        description:
+        "Manage your account password at Jablu.in, your trusted E-commerce website. Update your password, preferences, and more. Explore unique clothing with premium designs.",
+    }
+}
 const Page = () => {
   return (
     <section className="flex flex-col gap-8">

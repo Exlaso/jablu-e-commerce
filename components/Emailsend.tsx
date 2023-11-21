@@ -263,7 +263,7 @@ export const ProductReminderEmail = ({products, name,email}: { email:string,name
                 Thank you for choosing our website, and we look forward to serving you.
             </p>
             <p>
-            You can Unsubscribe from this email by clicking <a href="https://jabluu.vercel.app/Unsubscribe?email=${email}">here</a>
+            You can Unsubscribe from this email by clicking <a href="https://jablu.exlaso.in/Subscription?email=${email}">here</a>
 </p>
             Best regards,
             <br/>
@@ -272,7 +272,6 @@ export const ProductReminderEmail = ({products, name,email}: { email:string,name
     );
 };
 import { renderToStaticMarkup } from 'react-dom/server';
-
 export const AccountLinkingEmail = ({
                                         name,
                                         email,

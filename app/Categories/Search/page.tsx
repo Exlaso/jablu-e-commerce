@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
   keywords: "Jablu.in, E-commerce, Search, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
  
-    metadataBase: new URL("https://jabluu.vercel.app"),
+    metadataBase: new URL("https://jablu.exlaso.in"),
  openGraph: {
     title: "Search - Jablu.in",
-    url: "https://jabluu.vercel.app/Categories/Search",
+    url: "https://jablu.exlaso.in/Categories/Search",
     siteName: "Jablu.in",
     type: "website",
-    images: "https://jabluu.vercel.app/icon.svg",
+    images: "https://jablu.exlaso.in/icon.svg",
     description:
       "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
   },

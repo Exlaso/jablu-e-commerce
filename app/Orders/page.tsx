@@ -7,9 +7,31 @@ import ItemsSection from "@/components/Orders/ItemsSection";
 import {gqlClient} from "@/lib/service/client";
 import {GetOrdersDocument} from "@/lib/gql/graphql";
 import Loading from "@/app/loading";
+import {Metadata} from "next";
 
 interface typesforpage {
 
+}
+export const metadata:Metadata =  {
+    title: "Orders - Jablu.in",
+    keywords: [
+        "Jablu.in",
+        "Jablu",
+        "Jablu.in Account",
+        "Jablu.in Orders",
+        "Jablu.in Account Orders",
+        "Jablu.in Account Order",
+    ],
+    description: "View your orders history",
+    metadataBase: new URL("https://jablu.exlaso.in"),
+    openGraph: {
+        title: "Orders - Jablu.in",
+        url: `https://jablu.exlaso.in/Orders`,
+        siteName: "Jablu.in",
+        type: "website",
+        images: "https://jablu.exlaso.in/icon.svg",
+        description: "View your orders history",
+    },
 }
 
 const page: FunctionComponent<typesforpage> = async () => {

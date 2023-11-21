@@ -16,7 +16,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://jabluu.vercel.app"),
+    metadataBase: new URL("https://jablu.exlaso.in"),
 
     icons: {
         icon: "icon.svg",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         "Exlaso",
         "Jablu.in tshirt",
     ],
-    authors: {name: "Vedant bhavsar", url: "https://exlaso.vercel.app"},
+    authors: {name: "Vedant bhavsar", url: "https://exlaso.in"},
     description:
         "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs. From trendy apparel to timeless classics, our E-commerce website offers a diverse range of fashion options to suit your individual taste. Explore the latest in fashion trends and elevate your wardrobe with exclusive pieces. Shop at Jablu.in and redefine your style with every click.",
     viewport: "width=device-width, initial-scale=1.0",
@@ -38,10 +38,10 @@ export const metadata: Metadata = {
         description:
             "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs. From trendy apparel to timeless classics, our E-commerce website offers a diverse range of fashion options to suit your individual taste. Explore the latest in fashion trends and elevate your wardrobe with exclusive pieces. Shop at Jablu.in and redefine your style with every click.",
         title: "Jablu.in",
-        url: "https://jabluu.vercel.app",
+        url: "https://jablu.exlaso.in",
         siteName: "Jablu.in",
         type: "website",
-        images: "https://jabluu.vercel.app/icon.svg",
+        images: "https://jablu.exlaso.in/icon.svg",
     },
 
     robots: {

@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://jabluu.vercel.app
+Host: https://jablu.exlaso.in
 
 # Sitemaps
-Sitemap: https://jabluu.vercel.app/sitemap.xml
+Sitemap: https://jablu.exlaso.in/sitemap.xml
