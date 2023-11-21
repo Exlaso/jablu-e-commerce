@@ -75,13 +75,16 @@
 //
 // export default Page;
 import {FunctionComponent} from "react";
-import {redirect, RedirectType} from "next/navigation";
+import {AccountLinkingEmail} from "@/components/Emailsend";
 
 interface typesforpage {
 
 }
 
 const page: FunctionComponent<typesforpage> = (props) => {
-    redirect("/", RedirectType.replace);
+    // redirect("/", RedirectType.replace);
+    return <div className="py-[15vh]">
+        <AccountLinkingEmail name={"Vedant"}  email={"vedat"}/>
+    </div>
 }
 export default page

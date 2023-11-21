@@ -1,6 +1,5 @@
 import React from "react";
 import {Address, ShippingAddressDisplay} from "@/components/Checkout/AddressDisplay";
-import {Product} from "@/lib/Interfaces";
 
 export const EmailVerificationTemplate = ({
                                               Firstname,
@@ -271,6 +270,39 @@ export const ProductReminderEmail = ({products, name,email}: { email:string,name
             Your Website Support Team
         </div>`
     );
+};
+import { renderToStaticMarkup } from 'react-dom/server';
+
+export const AccountLinkingEmail = ({
+                                        name,
+                                        email,
+                                    }: {
+    name: string;
+    email: string;
+}): string => {return `
+        <div style={{display: 'flex', flexDirection: 'column', gap: '3px', padding: '5px'}}>
+            <h1 style={{fontSize: '2em', fontWeight: 'bold'}}>Dear ${name},</h1>
+            <p style={{display: 'flex'}}>
+                We are pleased to inform you that your account on exlaso.rf.gd has been successfully linked to jablu.exlaso.in.
+            </p>
+            <p>
+                You can now access your account on jablu.exlaso.in using your previous email and password.
+            </p>
+            <p>
+                Email: ${email}
+            </p>
+            <p>
+                If you did not request this change, or if you believe this email was sent to you in error, please contact our support team at [Exlaso53@gmail.com].
+            </p>
+            <p>
+                Thank you for choosing Jablu.in , and we look forward to serving you. If you have any questions or require assistance, please feel free to contact our support team at [Exlaso53@gmail.com].
+            </p>
+            <p>
+                Best regards,
+                <br/>
+                Jablu.in Support Team
+            </p>
+        </div>`
 };
 
 export const ResetPassword = ({
