@@ -1,9 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 #custom
-/app/db
-
-/api/dev
-
+/app/(home)/db
+/app/(home)/api/dev
 # dependencies
 /node_modules
 /.pnp

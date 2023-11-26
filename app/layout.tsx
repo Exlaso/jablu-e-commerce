@@ -1,18 +1,16 @@
 import "./output.css";
 import "./globals.css";
 import type {Metadata} from "next";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/navbar";
 import {Session} from "next-auth";
 import {SessionProvider} from "@/components/Utils/SessionProvider";
-import {GetCategories} from "@/lib/db/hasura";
 import {Toaster} from "sonner";
 import React from "react";
 import {MUIthemeprovider} from "@/utils/Themeprovider";
 import {Roboto} from "next/font/google";
+
 const roboto = Roboto({
-    subsets:["latin"],
-    weight:["100","300","400","500","700","900"]
+    subsets: ["latin"],
+    weight: ["100", "300", "400", "500", "700", "900"]
 });
 
 export const metadata: Metadata = {
@@ -65,19 +63,15 @@ export default async function RootLayout({
                                          }: {
     children: React.ReactNode;
 }, session: Session) {
-    const category = await GetCategories();
 
 
     return (
         <html lang="en">
         <SessionProvider session={session}>
             <MUIthemeprovider>
-
                 <body className={roboto.className}>
-                <Navbar category={category.map(e => (e.name))}/>
                 <Toaster position="top-right" richColors/>
-                    {children}
-                <Footer category={category.map(e => (e.name))}/>
+                {children}
                 </body>
             </MUIthemeprovider>
         </SessionProvider>

@@ -48,7 +48,7 @@ const Page = ({
     }
   }
   return (
-    <div className="py-[15vh]  flex items-start justify-center min-h-[120vh] sm:min-h-screen  bg-no-repeat bg-cover  bg-primary ">
+    <>
       {error ? (
         <ResetPassword uperror={error} />
       ) : !token ? (
@@ -59,7 +59,7 @@ const Page = ({
           token={token}
         />
       )}
-    </div>
+    </>
   );
 };
 

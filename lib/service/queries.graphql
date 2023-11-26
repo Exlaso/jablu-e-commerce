@@ -506,3 +506,12 @@ mutation InsertMultipleWishlist($obj:[wishlist_items_insert_input!]!,$subs:[subs
         affected_rows
     }
 }
+
+query Retriveuserdata {
+    users {
+        user_first_name
+        user_phone_number
+        user_email
+        unique_id
+    }
+}
