@@ -1,8 +1,29 @@
-import  {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction} from "react";
 
 export interface ColorsType {
     hexcode: string,
     color: string
+}
+
+export interface API_signin {
+    email: string,
+    password: string
+}
+
+export type API_signinres  ={
+    message:  {
+        user_first_name: string;
+        user_phone_number: string;
+        user_email: string;
+        unique_id: string
+    } | undefined
+    error: false
+}
+
+export type API_ERROR  = {
+    message: string
+    code:string
+    error: true
 }
 
 export type Product = {
@@ -157,8 +178,20 @@ export interface type_useCartContext {
     savedaddress: boolean,
     selectedaddress: string,
     setselectedaddress: Dispatch<SetStateAction<string>>
-    products: { color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[],
-    setproducts: Dispatch<SetStateAction<{ color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[]>>
+    products: {
+        color: string,
+        count: number,
+        size: string,
+        product_id: string,
+        product: { images: string, price: number, title: string }
+    }[],
+    setproducts: Dispatch<SetStateAction<{
+        color: string,
+        count: number,
+        size: string,
+        product_id: string,
+        product: { images: string, price: number, title: string }
+    }[]>>
     total: number,
     shippingmethod: typeofshippingmethods,
     progress: number
@@ -175,12 +208,18 @@ export interface type_useCartContext {
 
 export interface API_AddAddressAndOrder {
     pincode: string;
-    addressid:string;
+    addressid: string;
     total: number;
     address2: string;
     regionstate: string;
     city: string;
-    products: { color: string, count: number, size: string, product_id: string, product: { images: string, price: number, title: string } }[],
+    products: {
+        color: string,
+        count: number,
+        size: string,
+        product_id: string,
+        product: { images: string, price: number, title: string }
+    }[],
     user_name: string,
     shouldsaveaddress: boolean,
     email: string,

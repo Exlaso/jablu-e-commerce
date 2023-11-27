@@ -1,9 +1,9 @@
 "use client"
-import React, {FunctionComponent, useState} from "react";
-import {TextField} from "@mui/material";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {DeleteAddressDocument, UpdateAddressDocument} from "@/lib/gql/graphql";
 import {gqlClient} from "@/lib/service/client";
 import {toast} from "sonner";
+import {Input} from "@material-tailwind/react";
 
 interface address {
     active: boolean;
@@ -82,7 +82,7 @@ const AddressCard: FunctionComponent<typesforAddressCard> = (props) => {
             {!isediting ? <DefaultAddressCard address={props.address} setIsediting={setIsediting}
                                               deleteaddress={props.deleteaddress}/> :
                 <EditAddressCard address={props.address} setIsediting={setIsediting}
-                token={props.token}
+                                 token={props.token}
                 />
             }
         </div>
@@ -90,7 +90,9 @@ const AddressCard: FunctionComponent<typesforAddressCard> = (props) => {
     </section>
 }
 const DefaultAddressCard: FunctionComponent<{
-    address: address, deleteaddress: (addressid: string) => void, setIsediting: React.Dispatch<React.SetStateAction<boolean>>
+    address: address,
+    deleteaddress: (addressid: string) => void,
+    setIsediting: React.Dispatch<React.SetStateAction<boolean>>
 }> = (props) => {
     return <section className={"flex flex-col gap-2"}>
         <h4 className="text-2xl font-bold text-highlight">
@@ -136,103 +138,198 @@ const DefaultAddressCard: FunctionComponent<{
 }
 
 
-const EditAddressCard: FunctionComponent<{ address: address,token:string, setIsediting: React.Dispatch<React.SetStateAction<boolean>> }> = (props) => {
+const EditAddressCard: FunctionComponent<{
+    address: address,
+    token: string,
+    setIsediting: React.Dispatch<React.SetStateAction<boolean>>
+}> = (props) => {
     const [localaddress, setlocaladdress] = useState<address>(props.address);
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
 
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
     const HandleAddressUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const updateaddress = gqlClient.request(UpdateAddressDocument, {
             id: props.address.address_id,
             updateobject: localaddress
-        },{
-            Authorization:`Bearer ${props.token}`
+        }, {
+            Authorization: `Bearer ${props.token}`
 
         })
-        toast.promise(updateaddress,{
-            loading:"Updating Address",
-            success:()=>{
+        toast.promise(updateaddress, {
+            loading: "Updating Address",
+            success: () => {
                 props.setIsediting(false)
                 return "Address Updated"
             },
-            error:err=>{
+            error: err => {
                 console.log(err)
                 return "Error Updating Address"
             }
 
         })
     }
-    return <form className={"flex flex-col gap-2 capitalize"} onSubmit={HandleAddressUpdate}>
+    return <form className={"flex flex-col gap-5 capitalize"} onSubmit={HandleAddressUpdate}>
         <div className={"grid grid-cols-2 gap-2"}>
 
-            <TextField value={localaddress.firstname}
-                       onChange={e => {
-                           setlocaladdress(x => ({...x, firstname: e.target.value}))
-                       }}
+            <Input
+                crossOrigin={""}
+                color={isdarkmode ? "white" : "black"}
+                style={{
+                    fontSize: "1em",
+                }}
+                variant={"outlined"}
+                size={"lg"}
 
-                       label={"First Name"}
-            /> <TextField value={localaddress.lastname}
-                          onChange={e => {
-                              setlocaladdress(x => ({...x, lastname: e.target.value}))
-                          }}
+                value={localaddress.firstname}
+                onChange={e => {
+                    setlocaladdress(x => ({...x, firstname: e.target.value}))
+                }}
 
-                          label={"last Name"}
+                label={"First Name"}
+            /> <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
+
+            value={localaddress.lastname}
+            onChange={e => {
+                setlocaladdress(x => ({...x, lastname: e.target.value}))
+            }}
+
+            label={"last Name"}
         />
         </div>
 
-        <TextField value={localaddress.address1}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, address1: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"Address1"}
+            value={localaddress.address1}
+            onChange={e => {
+                setlocaladdress(x => ({...x, address1: e.target.value}))
+            }}
+
+            label={"Address1"}
         />
 
-        <TextField value={localaddress.address2}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, address2: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"Address2"}
+            value={localaddress.address2}
+            onChange={e => {
+                setlocaladdress(x => ({...x, address2: e.target.value}))
+            }}
+
+            label={"Address2"}
         />
 
-        <TextField value={localaddress.city}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, city: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"city"}
+            value={localaddress.city}
+            onChange={e => {
+                setlocaladdress(x => ({...x, city: e.target.value}))
+            }}
+
+            label={"city"}
         />
 
-        <TextField value={localaddress.regionstate}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, regionstate: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"regionstate"}
+            value={localaddress.regionstate}
+            onChange={e => {
+                setlocaladdress(x => ({...x, regionstate: e.target.value}))
+            }}
+
+            label={"regionstate"}
         />
 
-        <TextField value={localaddress.region}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, region: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"region"}
+            value={localaddress.region}
+            onChange={e => {
+                setlocaladdress(x => ({...x, region: e.target.value}))
+            }}
+
+            label={"region"}
         />
 
-        <TextField value={localaddress.pincode}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, pincode: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"pincode"}
+            value={localaddress.pincode}
+            onChange={e => {
+                setlocaladdress(x => ({...x, pincode: e.target.value}))
+            }}
+
+            label={"pincode"}
         />
 
-        <TextField value={localaddress.phoneno}
-                   onChange={e => {
-                       setlocaladdress(x => ({...x, phoneno: e.target.value}))
-                   }}
+        <Input
+            crossOrigin={""}
+            color={isdarkmode ? "white" : "black"}
+            style={{
+                fontSize: "1em",
+            }}
+            variant={"outlined"}
+            size={"lg"}
 
-                   label={"phoneno"}
+            value={localaddress.phoneno}
+            onChange={e => {
+                setlocaladdress(x => ({...x, phoneno: e.target.value}))
+            }}
+
+            label={"phoneno"}
         />
         <div className="grid grid-cols-2 gap-4 h-min">
 
@@ -241,7 +338,8 @@ const EditAddressCard: FunctionComponent<{ address: address,token:string, setIse
                     className={"p-3 bg-secondary disabled:brightness-50 duration-300 text-primary rounded-lg"}>
                 Save New Address
             </button>
-            <button type={"button"} className={"p-3 bg-secondary disabled:brightness-50 duration-300 text-primary rounded-lg"}
+            <button type={"button"}
+                    className={"p-3 bg-secondary disabled:brightness-50 duration-300 text-primary rounded-lg"}
 
                     onClick={() => {
                         props.setIsediting(false)

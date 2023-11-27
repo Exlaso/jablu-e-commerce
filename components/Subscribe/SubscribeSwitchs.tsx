@@ -1,10 +1,10 @@
 "use client"
-import React, {FunctionComponent, useState} from "react";
-import {FormControlLabel, FormGroup, Switch} from "@mui/material";
-import SaveIcon from '@mui/icons-material/Save';
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {gqlClient} from "@/lib/service/client";
 import {UpdateSubscribedataDocument} from "@/lib/gql/graphql";
 import {toast} from "sonner";
+import {Button, Switch} from "@material-tailwind/react";
+import {FaSave} from "react-icons/fa";
 
 interface typesforSubscribeSwitchs {
     favr: boolean,
@@ -16,6 +16,17 @@ interface typesforSubscribeSwitchs {
 }
 
 const SubscribeSwitches: FunctionComponent<typesforSubscribeSwitchs> = (props) => {
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
     const [favourite, setfavourite] = useState<boolean>(props.favr);
     const [cart, setcart] = useState<boolean>(props.cart);
     const [update, setupdate] = useState<boolean>(props.update);
@@ -42,37 +53,62 @@ const SubscribeSwitches: FunctionComponent<typesforSubscribeSwitchs> = (props) =
         })
     }
     return <>
-        <FormGroup>
-            <FormControlLabel control={<Switch
+        <div className={"flex flex-col gap-5"}>
+            <Switch
+                color={"light-blue"}
+                labelProps={{
+                    className:isdarkmode?"text-white":"text-dark"
+                }}
+
+                crossOrigin={update}
+                label="Favourite Items Reminder"
                 checked={favourite}
                 onChange={e => {
                     setfavourite(e.target.checked)
                 }}
-            />} label="Favourite Items Reminder"/>
-            <FormControlLabel control={<Switch
+            />
+            <Switch
+                color={"light-blue"}
+                labelProps={{
+                    className:isdarkmode?"text-white":"text-dark"
+                }}
+                crossOrigin={update}
+                label="Cart Items Reminder"
                 checked={cart}
                 onChange={e => {
                     setcart(e.target.checked)
                 }}
-            />} label="Cart Items Reminder"/>
-            <FormControlLabel control={<Switch
+            />
+            <Switch
+                color={"light-blue"}
+                labelProps={{
+                    className:isdarkmode?"text-white":"text-dark"
+                }}
+                crossOrigin={update}
+                label="New Update Alert"
                 checked={update}
                 onChange={e => {
                     setupdate(e.target.checked)
                 }}
-            />} label="New Update Alert"/>
-            <FormControlLabel control={<Switch
+            />
+            <Switch
+                color={"light-blue"}
+                labelProps={{
+                    className:isdarkmode?"text-white":"text-dark"
+                }}
+                crossOrigin={update}
+                label="New Product/Collection Release"
                 checked={newrelease}
                 onChange={e => {
                     setnewrelease(e.target.checked)
                 }}
-            />} label="New Product/Collection Release"/>
-        </FormGroup>
+            />
+        </div>
 
-        <button type={"button"} onClick={OnSave}
-                className={"p-3 flex gap-1 bg-secondary text-primary rounded-lg w-max"}>
-            <SaveIcon/> Save Changes
-        </button>
+        <Button type={"button"} onClick={OnSave}
+                className={"p-3 gap-1 bg-secondary text-primary flex-center rounded-lg w-max"}>
+            <FaSave className={"h-6 w-6"}/> Save Changes
+        </Button>
     </>
 
 }

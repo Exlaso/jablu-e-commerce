@@ -1,5 +1,5 @@
 "use client";
-import Input from "@/app/Account/Input";
+import Input from "@/components/Account/Password/Input";
 import { toast } from "sonner";
 import React, { useState } from "react";
 
@@ -37,8 +37,8 @@ const InputSection = ({
       user_last_name: mainuserinfo.user_last_name,
   user_phone_number: mainuserinfo.user_phone_number.replaceAll(" ",""),
     };
-  if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(mainuserinfo.user_phone_number.replaceAll(" ",""))){
-    setIsbtnloading(true);
+  if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s/0-9]*$/g.test(mainuserinfo.user_phone_number.replaceAll(" ",""))){
+    setIsbtnloading(true)
 
     toast.promise(
       fetch("/api/UpdateInfo", {

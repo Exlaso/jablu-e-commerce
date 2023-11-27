@@ -1,8 +1,9 @@
 "use client";
-import React, {ReactNode, useState} from "react";
-import Cardforproduct from "./Cardforproduct";
+import React, {ReactNode} from "react";
 import {Product} from "@/lib/Interfaces";
-import {Variants, motion} from "framer-motion";
+import {motion, Variants} from "framer-motion";
+import {EcommerceCard} from "@/components/mt/Card";
+import Cardforproduct from "@/components/Cardforproduct";
 
 const CardSection = ({
                          data,
@@ -45,21 +46,30 @@ const CardSection = ({
                 className="p-4 flex gap-4 overflow-x-auto snap-mandatory snap-x"
             >
                 {data?.slice(0, 3)?.map((item) => (
-                    <Cardforproduct
-                        product_colors={item.product_colors}
-                        product_image_urls={item.product_image_urls}
-                        product_sizes={item.product_sizes}
-                        mrp={item?.mrp}
-                        varients={varients}
-                        id={item.id}
-                        images={item.images}
-                        category={item.category}
-                        price={item.price}
+                    <EcommerceCard
                         key={item.id}
-                        description={item.description}
-                        product_rating={item.product_rating}
+                        mrp={item?.mrp}
                         title={item.title}
+                        price={item.price}
+                        image={item.images}
+                        availablecolors={item.product_colors}
+
                     />
+                    // <Cardforproduct
+                    //     product_colors={item.product_colors}
+                    //     product_image_urls={item.product_image_urls}
+                    //     product_sizes={item.product_sizes}
+                    //     mrp={item?.mrp}
+                    //     varients={varients}
+                    //     id={item.id}
+                    //     images={item.images}
+                    //     category={item.category}
+                    //     price={item.price}
+                    //     key={item.id}
+                    //     description={item.description}
+                    //     product_rating={item.product_rating}
+                    //     title={item.title}
+                    // />
                 ))}
             </motion.div>
         </div>

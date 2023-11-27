@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
-import { Divider } from "@mui/material";
 const MenuCard = ({
   Categories,
   setIsmenuopen,
@@ -99,7 +98,6 @@ const MenuCard = ({
               <div className="flex flex-col gap-1 justify-center items-start text-lg">
                 {data.data.map((d) => (
                   <Fragment key={d.title}>
-                    <Divider />
                     <Link
                       href={"/Categories/Search/" + d.href.replaceAll(" ", "-")}
                       onClick={() => {

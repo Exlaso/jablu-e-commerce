@@ -1,19 +1,10 @@
 "use client"
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    InputLabel,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
-    TextField
-} from "@mui/material";
-import React from "react";
-import {stateofindia} from "@/Data/Information";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useCartContext} from "@/utils/StoreContext";
 import {GetAddressQuery} from "@/lib/gql/graphql";
+import {Checkbox, Input, Option, Select} from "@material-tailwind/react";
+import {toast} from "sonner";
 
 // interface Address_type {
 //     name: string,
@@ -60,21 +51,29 @@ export const Inputform: React.FC<{
     } = useCartContext();
 
 
-
     const router = useRouter();
-    const handleRegionChange = (event: SelectChangeEvent) => {
-        setRegion(event.target.value as string);
-    };
-    const handleStateChange = (event: SelectChangeEvent) => {
-        setRegionstate(event.target.value as string);
-    };
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
+
     const handleformsubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (region === "" || regionstate === ""){
+            toast.error("Please Select Region and Region State")
+            return;
+        }
         setProgress(2)
         router.push("./Delivery")
 
     }
-
     return (<>
             <div>
                 <fieldset className={"first:rounded-t-2xl last:rounded-b-2xl"}>
@@ -100,26 +99,27 @@ export const Inputform: React.FC<{
                         </label>
                     })}
                     <br/>
-                    <button className={"w-full my-2 py-4 px-4 rounded-lg bg-secondary text-primary disabled:brightness-50 duration-300"}
-                            type={"button"}
-                            disabled={selectedaddress === ""}
-                            onClick={() => {
-                                const address = props.Addresses.addresses.find(e => e.address_id === selectedaddress)
-                                if (address) {
-                                    setPhoneno(address.phoneno);
-                                    setAddress1(address.address1);
-                                    setAddress2(address.address2);
-                                    setCity(address.city);
-                                    setPincode(address.pincode);
-                                    setRegion(address.region);
-                                    setRegionstate(address.regionstate);
-                                    setName(address.firstname);
-                                    setLastname(address.lastname);
-                                    setSavedaddress(false);
-                                    setProgress(2)
-                                    router.push("./Delivery")
-                                }
-                            }}
+                    <button
+                        className={"w-full my-2 py-4 px-4 rounded-lg bg-secondary text-primary disabled:brightness-50 duration-300"}
+                        type={"button"}
+                        disabled={selectedaddress === ""}
+                        onClick={() => {
+                            const address = props.Addresses.addresses.find(e => e.address_id === selectedaddress)
+                            if (address) {
+                                setPhoneno(address.phoneno);
+                                setAddress1(address.address1);
+                                setAddress2(address.address2);
+                                setCity(address.city);
+                                setPincode(address.pincode);
+                                setRegion(address.region);
+                                setRegionstate(address.regionstate);
+                                setName(address.firstname);
+                                setLastname(address.lastname);
+                                setSavedaddress(false);
+                                setProgress(2)
+                                router.push("./Delivery")
+                            }
+                        }}
                     >
                         Use this Address
                     </button>
@@ -131,7 +131,10 @@ export const Inputform: React.FC<{
             <form onSubmit={handleformsubmit} className={"flex flex-col gap-4"}>
                 <div className={"w-full flex flex-col gap-2"}>
                     <h2>Contact</h2>
-                    <TextField
+                    <Input
+                        crossOrigin={""}
+                        size={"lg"}
+                        color={isdarkmode ? "white" : "black"}
                         value={phoneno}
                         onChange={e => setPhoneno(e.target.value)}
                         required={true}
@@ -142,14 +145,20 @@ export const Inputform: React.FC<{
                     <h2>Shipping Address</h2>
 
                     <div className={"grid grid-cols-2 gap-4"}>
-                        <TextField
+                        <Input
+                            crossOrigin={""}
+                            size={"lg"}
+                            color={isdarkmode ? "white" : "black"}
                             value={name}
                             onChange={e => setName(e.target.value)}
                             required={true}
                             label={"First Name"}
                             className={"w-full"}
                         />
-                        <TextField
+                        <Input
+                            crossOrigin={""}
+                            size={"lg"}
+                            color={isdarkmode ? "white" : "black"}
                             value={lastname}
                             onChange={e => setLastname(e.target.value)}
                             required={true}
@@ -160,42 +169,56 @@ export const Inputform: React.FC<{
 
                     <div className={"w-full flex flex-col gap-4"}>
 
-                        <TextField
+                        <Input
+                            crossOrigin={""}
+                            size={"lg"}
+                            color={isdarkmode ? "white" : "black"}
                             required={true}
                             label={"Address 1"}
                             className={"w-full"}
                             value={address1}
                             onChange={e => setAddress1(e.target.value)}
-                        /><TextField
+                        /><Input
+                        crossOrigin={""}
+                        size={"lg"}
+                        color={isdarkmode ? "white" : "black"}
                         label={"Address 2"}
                         className={"w-full"}
                         value={address2}
                         onChange={e => setAddress2(e.target.value)}
                     />
-                        <FormControl required>
-                            <InputLabel id="demo-simple-select-label">Region</InputLabel>
-                            <Select
-                                value={regionstate}
-                                required={true}
-                                label="Region *"
-                                onChange={handleStateChange}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                {stateofindia.map(e => <MenuItem key={e} value={e}>{e}</MenuItem>)}
-                            </Select>
-                        </FormControl>
+                                             <Select
+
+                            label={"Region State"}
+                            size={"lg"}
+                                                 className={isdarkmode ? "text-white" : "text-black"}
+                            id="Region StateSelect"
+                            value={regionstate}
+                            onChange={(e) => {
+                                setRegionstate(e as string)
+                            }}
+                        >
+                            <Option value="">
+                                <em>None</em>
+                            </Option>
+                            <Option value={"Gujarat"}>Gujarat</Option>
+                        </Select>
 
                         <div className={"grid grid-cols-2 gap-4"}>
-                            <TextField
+                            <Input
+                                crossOrigin={""}
+                                size={"lg"}
+                                color={isdarkmode ? "white" : "black"}
                                 value={city}
                                 onChange={e => setCity(e.target.value)}
                                 required={true}
                                 label={"City"}
                                 className={"w-full"}
                             />
-                            <TextField
+                            <Input
+                                crossOrigin={""}
+                                size={"lg"}
+                                color={isdarkmode ? "white" : "black"}
                                 required={true}
 
                                 value={pincode}
@@ -205,25 +228,35 @@ export const Inputform: React.FC<{
                                 className={"w-full"}
                             />
                         </div>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Region</InputLabel>
-                            <Select
+                        <Select
 
-                                value={region}
-                                required={true}
-                                label="Region"
-                                onChange={handleRegionChange}
-                            >
-                                <MenuItem value={"India"}>India</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControlLabel
+                            color={"gray"}
+                            value={region}
+                                                 className={isdarkmode ? "text-white" : "text-black"}
+                            label="Region"
+                            id={"RegionSelect"}
+                            onChange={e => {
+                                setRegion(e as string);
+                            }}
+                        >
+                            <Option value={""}>None</Option>
+                            <Option value={"India"}>India</Option>
+                        </Select>
+                        <div>
+
+                        <Checkbox
+                            labelProps={{
+                                className: (isdarkmode ? "!text-white" : "!text-black"),
+                            }}
+                            crossOrigin={savedaddress}
+                            color={"green"}
+                            label="Save this Address for futher orders"
                             onChange={() => {
                                 setSavedaddress(e => !e);
                             }}
                             checked={savedaddress}
-                            control={<Checkbox defaultChecked color="success"/>}
-                            label="Save this Address for futher orders"/>
+                        />
+                        </div>
 
                         <button className={"w-full py-4 px-4 rounded-lg bg-secondary text-primary"}
                                 type={"submit"}

@@ -1,5 +1,5 @@
 import {Categories, Product} from "../Interfaces";
-
+let CryptoJS = require("crypto-js");
 
 export const GetProducts = async (): Promise<Product[] | undefined> => {
     const response = await fetchGraphQLUsingAdmin("GetProducts");
@@ -40,7 +40,7 @@ export const IsPasswordMatched = async (
 ) => {
     const response = await fetchGraphQL("IsPasswordMatched", token);
 
-    const CryptoJS = require("crypto-js");
+
     const bytes = CryptoJS.AES.decrypt(
         response.data.users.at(0).user_password,
         process.env.JWT_KEY as string

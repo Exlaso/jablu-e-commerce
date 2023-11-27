@@ -1,26 +1,35 @@
 "use client"
 import {GetMyCartitemsQuery} from "@/lib/gql/graphql";
-import Badge from "@mui/material/Badge";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
-import {useMediaQuery} from "@mui/material";
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {useCartContext} from "@/utils/StoreContext";
+import {Badge} from "@material-tailwind/react";
+import {FaChevronRight} from "react-icons/fa6";
 
 export const ProductSection = ({productdata}: {
     productdata: GetMyCartitemsQuery
 }) => {
 
 
-    const {shippingmethod, progress, total, setTotal,setproducts} = useCartContext()
+    const {shippingmethod, progress, total, setTotal, setproducts} = useCartContext()
     useEffect(() => {
         setTotal(0);
         setproducts(productdata.cart);
         productdata.cart.map(e => setTotal(ex => (ex + (e.product.price * e.count))))
-    }, [productdata, setTotal,setproducts])
+    }, [productdata, setTotal, setproducts])
     const [is_view_product_opened, setIs_view_product_opened] = useState<boolean>(false)
-    const ispc = useMediaQuery('(min-width:1024px)')
+    const [ispc, setispc] = useState<boolean>(false);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(min-width:1024px)');
+        const changeHandler = () => setispc(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setispc(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setispc])
     return <section>
         <div onClick={() => {
             setIs_view_product_opened(e => !e)
@@ -32,7 +41,7 @@ export const ProductSection = ({productdata}: {
             </p>
             <span className={`${is_view_product_opened ? "rotate-90" : "rotate-0"}   duration-500`}>
 
-            <ChevronRightIcon/>
+            <FaChevronRight className={"h-4 w-4"}/>
             </span>
         </div>
         <motion.div
@@ -91,9 +100,10 @@ export const ProductCard = ({productdata}: {
 }) => {
     return (<section className={"flex pt-4 gap-2 justify-between px-2 "}>
         <div className={"flex gap-2"}>
-            <Badge badgeContent={productdata.count}
-                   color="primary"
-                   max={999}>
+            <Badge
+                content={productdata.count}
+                color="cyan"
+            >
 
                 <Image
                     className={"rounded-lg border-gray-500/50 border p-1 aspect-square object-contain"}
