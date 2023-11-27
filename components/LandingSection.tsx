@@ -1,7 +1,7 @@
  import React, {FC} from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ExploreIcon from '@mui/icons-material/Explore';
+ import {MdOutlineExplore} from "react-icons/md";
 
 const LandingSection: FC = () => {
 
@@ -36,9 +36,10 @@ const LandingSection: FC = () => {
                 </div>
                 <Link
                     href={"/Categories"}
-                    className="px-4 py-2 bb  rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50"
+                    className="px-4 py-2 bb flex-center gap-2 rounded-md bg-gray-700 hover:bg-gray-800 text-white transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50"
                 >
-                    <ExploreIcon></ExploreIcon> Get Started
+                    <MdOutlineExplore className={"h-6 w-6"}
+                    ></MdOutlineExplore> Get Started
                 </Link>
 
             </div>

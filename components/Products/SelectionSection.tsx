@@ -12,7 +12,7 @@ import DislikeProduct from "@/utils/DisikeProduct";
 import LikeProduct from "@/utils/LikeProduct";
 import Image from "next/image";
 import {toast} from "sonner";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import {MdOutlineVpnKey} from "react-icons/md";
 
 interface SelectionSectionProps {
     data: Product[];
@@ -66,7 +66,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
                         <p>Login required to add items to Favourite.</p>
 
                         <div className="flex justify-start items-center gap-2">
-                            <VpnKeyIcon fontSize="small"></VpnKeyIcon>
+                            <MdOutlineVpnKey className={"h-4 w-6"} fontSize="small"></MdOutlineVpnKey>
                             <Link
                                 href={`/Auth/Signin?callback=${encodeURIComponent(path)}`}
                                 className="underline"

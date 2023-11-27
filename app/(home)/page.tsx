@@ -15,6 +15,7 @@ export default async function Home() {
   const Items: Product[] | undefined = await getAllProducts();
   const data: { name: string; image: string; description: string }[] =
   await GetCategories();
+
   return (
     <main className="flex min-h-screen flex-col">
         {/*<LandingSection2 />*/}

@@ -77,7 +77,6 @@ export const POST = async (req: NextRequest) => {
                         process.env.JWT_KEY as string
                     );
                     const data:API_signinres = {message: user, error: false}
-                    console.log(data)
                     cookies().set("jablu_jwt_token", JwtToken,{
                         maxAge: 60 * 60 * 24 * 7,
                         path: "/",

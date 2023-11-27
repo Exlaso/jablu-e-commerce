@@ -3,10 +3,9 @@ import {FunctionComponent, useState} from "react";
 import {GetOrdersQuery, UpdateOrderStatusDocument} from "@/lib/gql/graphql";
 import Image from "next/image";
 import {motion} from "framer-motion";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {gqlClient} from "@/lib/service/client";
 import {toast} from "sonner";
+import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
 
 interface typesforItemsSection {
     token: string,
@@ -290,13 +289,13 @@ const ProductCard = ({ogorder, token}: { ogorder: Items, token: string }) => {
 
             {isopen ?
                 <>
-                    <KeyboardArrowUpIcon/>
+                    <MdKeyboardArrowUp className={"h-6 w-6"}/>
                     Collapse
                 </>
                 :
                 <>
 
-                    <KeyboardArrowDownIcon/>Expand to see more</>
+                    <MdKeyboardArrowDown className={"h-6 w-6"}/>Expand to see more</>
             }
         </div>
     </motion.li>

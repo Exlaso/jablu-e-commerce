@@ -1,5 +1,5 @@
 "use client"
-import React, {FormEventHandler, FunctionComponent, useState} from "react";
+import React, {FormEventHandler, FunctionComponent, useEffect, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
@@ -8,15 +8,24 @@ import {TokengenBase32} from "@/utils/RandStringGen";
 import {signIn} from "next-auth/react";
 import {toast} from "sonner";
 import {Button, Input, Spinner, Typography} from "@material-tailwind/react";
-import {useMediaQuery} from "@mui/material";
+import {router} from "next/client";
 
 interface typesforSignup {
     callbackUrl: string
 }
 
 const Signup: FunctionComponent<typesforSignup> = ({callbackUrl}) => {
-    const isdarkmode = useMediaQuery('(prefers-color-scheme: dark)');
-    const router = useRouter();
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
     const [userInfo, setUserInfo] = useState<{
         email: string;
         password: string;

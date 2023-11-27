@@ -1,21 +1,27 @@
 "use client";
-import React, {useState} from "react";
+import React, { useEffect, useState} from "react";
 import Link from "next/link";
-import {MyAlert} from "../Utils/Myalert";
 import {AnimatePresence, motion} from "framer-motion";
-import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import {Button, Input, Spinner, Typography} from "@material-tailwind/react";
-import {useMediaQuery} from "@mui/material";
 import {toast} from "sonner";
+import {BsChatRightTextFill} from "react-icons/bs";
 
 const ResetPassword = ({uperror}: { uperror: string }) => {
     const [Email, setEmail] = useState<string>("");
-    const [MainError, setMainError] = useState(uperror);
-    const [open, setOpen] = useState<boolean>(!!uperror);
     const [buttonloading, setButtonloading] = useState<boolean>(false);
     const [Success, setSuccess] = useState<boolean>(false);
-    const isdarkmode = useMediaQuery('(prefers-color-scheme: dark)');
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        toast.error(uperror)
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
 
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode,uperror]);
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
@@ -39,8 +45,7 @@ const ResetPassword = ({uperror}: { uperror: string }) => {
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.error) {
-                        setMainError(data.message);
-                        setOpen(true);
+                        toast.error(data.message);
                     } else {
                         setSuccess(true);
                     }
@@ -51,11 +56,6 @@ const ResetPassword = ({uperror}: { uperror: string }) => {
 
     return (
         <>
-            <MyAlert
-                open={open}
-                setOpen={setOpen}
-                message={MainError}
-            />
             <>
                 <Typography variant={"h1"}
                             color={isdarkmode ? "white" : "black"}
@@ -104,7 +104,7 @@ const ResetPassword = ({uperror}: { uperror: string }) => {
                             className=" shrink-0  w-full"
                         >
                 <span className="flex justify-center">
-                <MarkChatReadIcon fontSize="large" className="text-green-600"/>
+                <BsChatRightTextFill fontSize="large" className=" w-6 h-6 text-green-600"/>
                 </span>
                             <p>
                                 Great news! Your request for a password reset on Jablu.in has

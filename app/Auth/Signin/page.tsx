@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import Signin from "./Signin";
+import Signin from "@/components/Signin/Signin";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 

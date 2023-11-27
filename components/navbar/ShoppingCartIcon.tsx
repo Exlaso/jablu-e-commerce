@@ -1,15 +1,16 @@
 "use client";
 import {  useEffect, useState } from "react";
-import Badge from "@mui/material/Badge";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import Link from "next/link";
 import { createClient } from "graphql-ws";
+import { Badge } from "@material-tailwind/react";
+import { FaShoppingCart} from "react-icons/fa";
 
 
 
 interface ShoppingCartIconProps {token:string, isAuthed:boolean}
 const ShoppingCartIcon = ({token,isAuthed}:ShoppingCartIconProps) => {
 const [Noofitemsincart, setNoofitemsincart] = useState<number>(0);
+
 
 useEffect(() => {
   if (isAuthed) {
@@ -64,13 +65,14 @@ useEffect(() => {
   
   return (
 
-    <Link href={"/ShoppingBag"}>
-      <span>
+    <Link href={"/ShoppingBag"} className={""}>
+      <span className={" flex justify-end items-end border-green-600 h-full w-full"}>
         <Badge
-          badgeContent={Noofitemsincart}
-          color="primary"
+
+          content={Noofitemsincart}
+          color="cyan"
           >
-          <ShoppingBagOutlinedIcon fontSize="large" />
+          <FaShoppingCart className={"h-7  w-7"} />
         </Badge>
       </span>
     </Link>

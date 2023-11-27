@@ -1,5 +1,5 @@
 import React from "react";
-import Logout from "../logout";
+import Logout from "@/components/Account/Password/logout";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import ProfilePhoto from "@/components/Account/Information/ProfilePhoto";

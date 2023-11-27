@@ -10,7 +10,6 @@ interface typesforlayout {
 
 const layout: FunctionComponent<typesforlayout> = async (props) => {
     const category = await GetCategories();
-
     return <>
         <Navbar category={category.map(e => (e.name))}/>
         <Toaster position="top-right" richColors/>

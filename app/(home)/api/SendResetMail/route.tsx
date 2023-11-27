@@ -54,7 +54,7 @@ export const GET = async (req: NextRequest) => {
             `/Auth/ResetPassword?token=${JwtTokenforemail}`,
         }), 
       });
-      if (data.id) {
+      if (data.data?.id) {
         return NextResponse.json({
           error: false,
           message: true

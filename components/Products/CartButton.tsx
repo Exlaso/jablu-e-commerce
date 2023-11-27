@@ -6,7 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent, useState } from "react";
 import { toast } from "sonner";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import {Typography} from "@material-tailwind/react";
+import {MdOutlineVpnKey} from "react-icons/md";
 
 
 interface CartButtonProps {
@@ -64,9 +65,9 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
     } else {
       toast.error(
         <section className="flex flex-col gap-2">
-          <p>Login required to add items to cart.</p>
+          <Typography variant={"paragraph"}>Login required to add items to cart.</Typography>
           <div className="flex justify-start items-center gap-2">
-              <VpnKeyIcon fontSize="small"></VpnKeyIcon>
+              <MdOutlineVpnKey fontSize="small"></MdOutlineVpnKey>
               <Link
                 href={`/Auth/Signin?callback=${encodeURIComponent(path)}`}
                 className="underline"

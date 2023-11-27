@@ -1,13 +1,12 @@
 import {NextRequest, NextResponse} from "next/server";
 import {API_pretransaction} from "@/lib/Interfaces";
 
-let https = require('https');
+const https = require('https');
 /*
 * import checksum generation utility
 * You can get this utility from https://developer.paytm.com/docs/checksum/
 */
-let PaytmChecksum: { generateSignature: (params: string, key: string) => Promise<string> };
-PaytmChecksum = require('paytmchecksum');
+const PaytmChecksum: { generateSignature: (params: string, key: string) => Promise<string> } = require('paytmchecksum');
 export const POST = async (req: NextRequest) => {
    try {
        const data: API_pretransaction = await req.json();
@@ -78,7 +77,7 @@ export const POST = async (req: NextRequest) => {
 
            })
        }
-       let myr = await requestAsync();
+       const myr = await requestAsync();
        return NextResponse.json({message: myr})
    }catch (e) {
        if (e instanceof Error) {

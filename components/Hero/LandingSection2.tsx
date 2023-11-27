@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import Image from "next/image";
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import {MdOutlineTravelExplore} from "react-icons/md";
 
 interface typesforLandingSection2 {
 
@@ -49,7 +49,7 @@ const LandingSection2: FunctionComponent<typesforLandingSection2> = (props) => {
                 </p>
                 <button
                     className={"bg-secondary flex gap-1 justify-center items-center text-primary w-max py-2 px-5 rounded-full"}>
-                    <TravelExploreIcon/> See More
+                    <MdOutlineTravelExplore className={"h-6 w-6"} /> See More
                 </button>
             </div>
         </div>

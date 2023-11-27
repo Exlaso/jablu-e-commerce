@@ -44,7 +44,7 @@ export const GET = async (req: NextRequest) => {
                 body: JSON.stringify(emailsenddata),
             });
             const createemailres: CreateEmailResponse = await emailres.json()
-            if (createemailres.id) {
+            if (createemailres.data?.id) {
 
                 return NextResponse.json({message: `Verification Mail is Successfully Sent to ${email}`, error: false})
             } else {

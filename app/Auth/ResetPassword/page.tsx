@@ -1,3 +1,4 @@
+  let jwt = require("jsonwebtoken");
 // pages/reset-password.tsx
 
 import NewPassword from "@/components/Resetpassword/NewPassword";
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   "Reset your password at Jablu.in, your trusted E-commerce website. Experience a wide range of unique clothing with premium designs.",
   keywords:
   "Jablu.in, E-commerce, Reset Password, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
-  
+
   metadataBase: new URL("https://jablu.exlaso.in"),
   openGraph: {
     title: "Reset Password - Jablu.in",
@@ -28,7 +29,6 @@ const Page = ({
 }: {
   searchParams: { token: string };
 }) => {
-  const jwt = require("jsonwebtoken");
   let error = "";
   let email: string = "";
   if (token) {

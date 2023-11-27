@@ -29,7 +29,6 @@ const Navbar = async ({
     );
     data = await res.json();
   }
-
   return (
     <NavbarHeader>
       <nav className="container mx-auto ">

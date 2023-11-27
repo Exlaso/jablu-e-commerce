@@ -1,15 +1,26 @@
 "use client";
-import React, {FormEventHandler, useState} from "react";
+import React, {FormEventHandler, useEffect, useState} from "react";
 import {signIn} from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
-import {useMediaQuery} from "@mui/material";
 import {toast} from "sonner";
 import {Button, Input, Spinner, Typography} from "@material-tailwind/react";
 import {API_ERROR, API_signin, API_signinres} from "@/lib/Interfaces";
 
 const Signin = ({callbackUrl}: { callbackUrl: string }) => {
-    const isdarkmode = useMediaQuery('(prefers-color-scheme: dark)');
+    const [isdarkmode, setisdarkmode] = useState<boolean>(false);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        // Set the initial value
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
 
     const [userInfo, setUserInfo] = useState<{ email: string; password: string }>(
         {email: "", password: ""}

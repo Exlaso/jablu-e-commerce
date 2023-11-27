@@ -8,7 +8,6 @@ const Accounticon = ({ imgurl }: { imgurl:string }) => {
   const [accountmenu, setAccountmenu] = useState<boolean>(false);
 
   return (
-    <>
       <motion.div
         initial="hidden"
         animate="visible"
@@ -34,7 +33,6 @@ const Accounticon = ({ imgurl }: { imgurl:string }) => {
           {accountmenu && <Accountmenu setAccountmenu={setAccountmenu} />}
         </AnimatePresence>
       </motion.div>
-    </>
   );
 };
 

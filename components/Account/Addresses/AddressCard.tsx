@@ -1,10 +1,9 @@
 "use client"
-import React, {FunctionComponent, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {DeleteAddressDocument, UpdateAddressDocument} from "@/lib/gql/graphql";
 import {gqlClient} from "@/lib/service/client";
 import {toast} from "sonner";
 import {Input} from "@material-tailwind/react";
-import {useMediaQuery} from "@mui/material";
 
 interface address {
     active: boolean;
@@ -145,7 +144,17 @@ const EditAddressCard: FunctionComponent<{
     setIsediting: React.Dispatch<React.SetStateAction<boolean>>
 }> = (props) => {
     const [localaddress, setlocaladdress] = useState<address>(props.address);
-    const isdarkmode = useMediaQuery("(prefers-color-scheme:dark)")
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
+
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
     const HandleAddressUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const updateaddress = gqlClient.request(UpdateAddressDocument, {

@@ -1,6 +1,5 @@
 import React, {FunctionComponent, Suspense} from "react";
 import BackButton from "@/components/Utils/Backbtn";
-import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import {cookies} from "next/headers";
 import NotLoggedin from "@/components/Utils/NotLoggedin";
 import ItemsSection from "@/components/Orders/ItemsSection";
@@ -8,6 +7,7 @@ import {gqlClient} from "@/lib/service/client";
 import {GetOrdersDocument} from "@/lib/gql/graphql";
 import Loading from "@/app/(home)/loading";
 import {Metadata} from "next";
+import {MdLocalShipping} from "react-icons/md";
 
 interface typesforpage {
 
@@ -46,7 +46,7 @@ const page: FunctionComponent<typesforpage> = async () => {
             <div className="grid gap-3">
                 <BackButton/>
                 <h1 className="flex gap-2 items-center text-4xl font-bold exlasi">
-                    <LocalShippingRoundedIcon fontSize={"large"}/>
+                    <MdLocalShipping className={"h-6 w-6"} fontSize={"large"}/>
                     Orders
                 </h1>
             </div>

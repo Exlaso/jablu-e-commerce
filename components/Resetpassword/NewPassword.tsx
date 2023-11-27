@@ -1,13 +1,11 @@
 "use client";
-import React, {FormEvent, FunctionComponent, useState} from "react";
-import {useMediaQuery} from "@mui/material";
+import React, {FormEvent, FunctionComponent, useEffect, useState} from "react";
 import {API_UpdatePassword_Body} from "@/lib/Interfaces";
 import {AnimatePresence, motion} from "framer-motion";
 import Link from "next/link";
-import {MyAlert} from "../Utils/Myalert";
-import PasswordIcon from "@mui/icons-material/Password";
 import {Button, Input, Spinner, Typography} from "@material-tailwind/react";
 import {toast} from "sonner";
+import {MdOutlinePassword} from "react-icons/md";
 
 interface NewPasswordProps {
     email: string;
@@ -21,10 +19,17 @@ const NewPassword: FunctionComponent<NewPasswordProps> = ({email, token}) => {
     const [Passwordmatcherror, setPasswordmatcherror] = useState<boolean>(false);
     const [buttonloading, setButtonloading] = useState<boolean>(false);
     const [Success, setSuccess] = useState<boolean>(false);
-    const [MainError, setMainError] = useState<string>("");
-    const [open, setOpen] = useState<boolean>(false);
-    const isdarkmode = useMediaQuery('(prefers-color-scheme: dark)');
+    const [isdarkmode, setisdarkmode] = useState<boolean>(true);
+    useEffect(() => {
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const changeHandler = () => setisdarkmode(darkModeMediaQuery.matches);
 
+        darkModeMediaQuery.addEventListener('change', changeHandler);
+
+        setisdarkmode(darkModeMediaQuery.matches);
+
+        return () => darkModeMediaQuery.removeEventListener('change', changeHandler);
+    }, [setisdarkmode]);
     const ValidatePassword = (e: string) => e.length < 8;
     const handlePasswordupdateForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,8 +59,7 @@ const NewPassword: FunctionComponent<NewPasswordProps> = ({email, token}) => {
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.error) {
-                            setMainError(data.message);
-                            setOpen(true);
+                            toast.error(data.message);
                         } else {
                             setSuccess(true);
                         }
@@ -67,93 +71,86 @@ const NewPassword: FunctionComponent<NewPasswordProps> = ({email, token}) => {
 
     return (
         <>
-            {MainError && (
-                <MyAlert
-                    open={open}
-                    setOpen={setOpen}
-                    message={MainError}
-                />
-            )}
             <>
                 <Typography variant={"h1"}
                             color={isdarkmode ? "white" : "black"}
                 > Update Password on
                 </Typography>
-                    <AnimatePresence>
-                        {Success ? (
-                            <motion.div
-                                animate={{x: 0}}
-                                initial={{x: "100%"}}
-                                exit={{x: "0%"}}
-                                transition={{
-                                    damping: 0,
-                                }}
-                            >
+                <AnimatePresence>
+                    {Success ? (
+                        <motion.div
+                            animate={{x: 0}}
+                            initial={{x: "100%"}}
+                            exit={{x: "0%"}}
+                            transition={{
+                                damping: 0,
+                            }}
+                        >
                 <span className="flex justify-center text-green-500">
                   {" "}
-                    <PasswordIcon fontSize="large"></PasswordIcon>
+                    <MdOutlinePassword className={"h-6 w-6"}></MdOutlinePassword>
                 </span>
-                                <p>
-                                    <strong>Congratulations</strong>, your password on Jablu.in has been
-                                    successfully updated.
-                                </p>
-                                <p>
-                                    Your account is now more secure than ever. If you didn&apos;t make
-                                    this change, please contact our support team immediately for
-                                    assistance.
-                                </p>
-                                <p>
-                                    Thank you for choosing Jablu.in for your online shopping
-                                    needs.
-                                </p>
-                            </motion.div>
-                        ) : (
-                            <motion.form
-                                animate={{x: "0%"}}
-                                exit={{x: "-110%"}}
-                                initial={{x: "0%"}}
-                                onSubmit={handlePasswordupdateForm}
-                                className={"flex flex-col  gap-10 w-full"}
+                            <p>
+                                <strong>Congratulations</strong>, your password on Jablu.in has been
+                                successfully updated.
+                            </p>
+                            <p>
+                                Your account is now more secure than ever. If you didn&apos;t make
+                                this change, please contact our support team immediately for
+                                assistance.
+                            </p>
+                            <p>
+                                Thank you for choosing Jablu.in for your online shopping
+                                needs.
+                            </p>
+                        </motion.div>
+                    ) : (
+                        <motion.form
+                            animate={{x: "0%"}}
+                            exit={{x: "-110%"}}
+                            initial={{x: "0%"}}
+                            onSubmit={handlePasswordupdateForm}
+                            className={"flex flex-col  gap-10 w-full"}
+                        >
+                            <Input
+                                label="New Password"
+                                type="password"
+                                crossOrigin={""}
+                                variant={"static"}
+                                color={isdarkmode ? "white" : "black"}
+                                value={Password}
+                                error={Error}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setError(false);
+                                }}
+                            />
+                            <Input
+                                label="Confirm Password"
+                                crossOrigin={""}
+                                variant={"static"}
+                                color={isdarkmode ? "white" : "black"}
+                                value={ConfirmPassword}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    setPasswordmatcherror(false);
+                                }}
+                                type="password"
+                                error={Passwordmatcherror}
+                            />
+                            <Button
+                                disabled={buttonloading}
+                                type="submit"
+                                className={"p-3 w-full flex gap-2 justify-center items-center rounded-xl text-sm"}
                             >
-                                <Input
-                                    label="New Password"
-                                    type="password"
-                                    crossOrigin={""}
-                                    variant={"static"}
-                                    color={isdarkmode ? "white" : "black"}
-                                    value={Password}
-                                    error={Error}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                        setError(false);
-                                    }}
-                                />
-                                <Input
-                                    label="Confirm Password"
-                                    crossOrigin={""}
-                                    variant={"static"}
-                                    color={isdarkmode ? "white" : "black"}
-                                    value={ConfirmPassword}
-                                    onChange={(e) => {
-                                        setConfirmPassword(e.target.value);
-                                        setPasswordmatcherror(false);
-                                    }}
-                                    type="password"
-                                    error={Passwordmatcherror}
-                                />
-                                <Button
-                                    disabled={buttonloading}
-                                    type="submit"
-                                    className={"p-3 w-full flex gap-2 justify-center items-center rounded-xl text-sm"}
-                                >
-                                    {buttonloading ? <Spinner className={"h-4 w-4"}/> : null}
+                                {buttonloading ? <Spinner className={"h-4 w-4"}/> : null}
 
-                                    {buttonloading ? "Loading..." : "Update"}
-                                </Button>
-                            </motion.form>
-                        )}
-                    </AnimatePresence>
-                <Typography variant={"paragraph"} >
+                                {buttonloading ? "Loading..." : "Update"}
+                            </Button>
+                        </motion.form>
+                    )}
+                </AnimatePresence>
+                <Typography variant={"paragraph"}>
                     Changed Password?{"  "}
                     <Link href={`/Auth/Signin?callbackUrl=/}`}
                           className={"underline"}>Sign in here</Link>
