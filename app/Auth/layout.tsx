@@ -35,7 +35,7 @@ const Layout: FunctionComponent<typesforpage> = ({children}) => {
         <div
             className={"bg-[var(--primary-color)] relative z-10 h-full w-full md:rounded-s-[2.5em] flex justify-center items-center"}>
             <div
-                className={" flex flex-col w-full     gap-20  justify-center  items-start px-[20vw] max-md:px-[5vh] max-lg:px-[10vh] py-[10vh]"}>
+                className={" flex flex-col w-full     gap-20  justify-center  items-start md:px-[20vw]  max-md:px-[5vw] max-lg:px-[10vw] py-[10vh]"}>
                 {children}
             </div>
         </div>

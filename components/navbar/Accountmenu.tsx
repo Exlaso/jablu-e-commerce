@@ -30,17 +30,17 @@ const Accountmenu = ({
         if (status === "authenticated") {
             setlist([
                 {
-                    image: <IoSettingsOutline className={"h-6 w-6"} />,
+                    image: <IoSettingsOutline className={"h-6 w-6"}/>,
                     title: "Account Settings",
                     href: "/Account/Information",
                 },
                 {
-                    image: <CiHeart  className={"h-6 w-6"} />,
+                    image: <CiHeart className={"h-6 w-6"}/>,
                     title: "Favourites",
                     href: "/Favourites",
                 },
                 {
-                    image: <FaShoppingCart  className={"h-6 w-6"} />,
+                    image: <FaShoppingCart className={"h-6 w-6"}/>,
                     title: "Orders",
                     href: "/Orders",
                 },
@@ -99,41 +99,31 @@ const Accountmenu = ({
             >
                 <List className={"w-full "}>
                     {list.map((e) => (
-                        <ListItem key={e.title}
-                                className="flex justify-start items-center h-full w-full "
-                        >
-                            <Link
-                                key={e.title}
-                                href={e.href}
-                                onClick={(xe) => {
-                                    setAccountmenu(false);
-                                    if (e.href === "") {
-                                        xe.preventDefault();
-                                        if (e.onClick) {
-                                            e.onClick();
-                                        }
+                        <Link
+                            key={e.title}
+                            href={e.href}
+                            className={"w-full h-full"}
+                            onClick={(xe) => {
+                                setAccountmenu(false);
+                                if (e.href === "") {
+                                    xe.preventDefault();
+                                    if (e.onClick) {
+                                        e.onClick();
                                     }
-                                }}
+                                }
+                            }}
+                        >
+                            <ListItem key={e.title}
+                                      className="flex justify-start items-center h-full w-full "
                             >
-                                <motion.li
+                                <li
                                     className="flex items-center justify-start gap-3 w-full h-full"
-                                    whileHover={{
-                                        y: -5,
-                                    }}
-                                    variants={{
-                                        hidden: {x: -10, opacity: 0},
-                                        visible: {
-                                            x: 0,
-                                            opacity: 1,
-                                            y: 0,
-                                        },
-                                    }}
                                 >
                                     {e.image}
                                     <h1>{e.title}</h1>
-                                </motion.li>
-                            </Link>
-                        </ListItem>
+                                </li>
+                            </ListItem>
+                        </Link>
                     ))}
                 </List>
             </motion.ul>

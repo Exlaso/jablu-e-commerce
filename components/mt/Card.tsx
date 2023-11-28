@@ -36,8 +36,8 @@ export function EcommerceCard({
     const discount: string = (((mrp - price) / mrp) * 100 * -1).toFixed(0);
 
     return (
-        <Link href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`}>
-            <Card className={` w-[25vw] max-lg:snap-center   max-lg:w-[50vw] max-md:w-[70vw] max-sm:w-[90vw] sm: shrink-0 ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
+        <Link href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`} className={"shrink-0"}>
+            <Card className={` w-[25vw] max-lg:snap-center   max-lg:w-[50vw] max-md:w-[70vw] max-sm:w-[90vw] sm:shrink-0 ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
 
             >
                 <CardHeader shadow={false} floated={false}
