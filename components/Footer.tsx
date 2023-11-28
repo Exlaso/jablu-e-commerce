@@ -6,7 +6,7 @@ import React from "react";
 
 const Footer = ({category}:{category:string[]}) => {
   return (
-    <footer className="bg-gray-800 text-gray-300 py-12  px-6">
+    <footer className="dark:bg-gray-900 bg-gray-400  dark:text-gray-300 text-gray-900 py-12  px-6">
       <div className="container mx-auto flex flex-col  items-center justify-between gap-10">
         <Link href="/" className="flex justify-center items-center flex-col  w-full">
           <Image

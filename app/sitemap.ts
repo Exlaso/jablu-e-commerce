@@ -17,7 +17,7 @@ async function getAllRoutes() {
             if (file.includes("page")) {
 
                 const splited = file.split("/");
-                const removed = splited.filter(e => !(e.includes(".tsx") || e.includes("[") || e.includes("app")));
+                const removed = splited.filter(e => !(e.includes(".tsx") || e.includes("[") || e.includes("(") || e.includes("app")));
                 if (!unique.includes(removed.join("/"))) {
                     unique.push(removed.join("/"))
 

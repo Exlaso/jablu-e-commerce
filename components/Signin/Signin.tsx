@@ -133,7 +133,7 @@ const Signin = ({callbackUrl}: { callbackUrl: string }) => {
             </Typography>
             <form
                 onSubmit={handleSubmit}
-                className={"flex flex-col  gap-10 w-full"}
+                className={"flex flex-col  gap-10  w-full"}
             >
                 <Input
                     crossOrigin={""}
