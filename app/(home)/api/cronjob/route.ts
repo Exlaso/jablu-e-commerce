@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest) => {
         user.users.map(async e => {
             if (e.wishlist_items.length > 0) {
                 await resend.emails.send({
-                    from: "Jablu.in <Jablu@taskvn.in>",
+                    from: "Jablu.in <Jablu@exlaso.in>",
                     to: [e.user_email],
                     subject: `You have ${e.wishlist_items.length} products in your Favorites List`,
                     html: ProductReminderEmail({

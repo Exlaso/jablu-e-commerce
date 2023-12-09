@@ -72,7 +72,7 @@ export const POST = async (req: NextRequest) => {
 
             const resend = new Resend(process.env.RESEND_KEY as string);
             await resend.emails.send({
-                from: "Jablu.in <Jablu@taskvn.in>",
+                from: "Jablu.in <Jablu@exlaso.in>",
                 to: [body.email],
                 subject: `Order Confirmation on Jablu.in`,
                 react: OrderConfirmationEmail({

@@ -144,7 +144,7 @@ export const PasswordSection = () => {
                     ></Image>
                 </div>
             </div>
-            <div className={"flex flex-col gap-8 justify-center items-center w-1/2"}>
+            <div className={"flex flex-col gap-8 justify-center items-center w-1/2 max-md:w-full"}>
                 <Input
                     crossOrigin={""}
                     size={"lg"}
