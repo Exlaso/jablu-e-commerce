@@ -41,7 +41,7 @@ export const PATCH = async (req: NextRequest) => {
       const resend = new Resend(process.env.RESEND_KEY as string);
 
       resend.emails.send({
-        from: "Jablu.in <Jablu@taskvn.in>",
+        from: "Jablu.in <Jablu@exlaso.in>",
         to: [user_email],
         subject: "Important: Your Jablu.in Account's Password Has Been Successfully Updated",
         react: AlertRegardingUpdatedPassword({
