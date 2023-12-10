@@ -2,10 +2,10 @@ import React from 'react'
 import {gqlClient} from "@/lib/service/client";
 import {GetAddressDocument} from "@/lib/gql/graphql";
 import {cookies} from "next/headers";
-import  {AddressSection} from "@/components/Account/Addresses/AddressCard";
+import {AddressSection} from "@/components/Account/Addresses/AddressCard";
 import {Metadata} from "next";
 
-export const metadata:Metadata =  {
+export const metadata: Metadata = {
     title: "Addresses - Jablu.in",
     keywords: [
         "Jablu.in",
@@ -15,6 +15,9 @@ export const metadata:Metadata =  {
         "Jablu.in Account Addresses",
         "Jablu.in Account Address",
     ],
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Account/Addresses"
+    },
     description: "Edit or Remove your saved addresses",
     metadataBase: new URL("https://jablu.exlaso.in"),
     openGraph: {

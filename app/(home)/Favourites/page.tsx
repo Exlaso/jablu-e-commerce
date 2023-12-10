@@ -28,6 +28,9 @@ export const metadata: Metadata = {
         description:
             "Jablu.in is your E-commerce destination. Sign in to explore a wide range of products.",
     },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Auth/Favourites",
+    },
 };
 
 const Page = async () => {

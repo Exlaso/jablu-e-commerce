@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     description:
       "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
   },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Categories/Search",
+    },
 };
 
 

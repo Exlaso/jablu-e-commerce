@@ -32,6 +32,9 @@ export const metadata:Metadata =  {
         images: "https://jablu.exlaso.in/icon.svg",
         description: "View your orders history",
     },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Orders"
+    },
 }
 
 const page: FunctionComponent<typesforpage> = async () => {

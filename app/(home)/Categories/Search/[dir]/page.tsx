@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     description: dir?.description,
 
+
     metadataBase: new URL("https://jablu.exlaso.in"),
     openGraph: {
       title: dir?.name.toLowerCase() + " - Jablu.in",
@@ -53,6 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: "https://jablu.exlaso.in/icon.svg",
       description: dir?.description,
     },
+    alternates: {
+      canonical: `https://jablu.exlaso.in/${dir?.name.replaceAll(" ", "-").toString().toLowerCase()}`,
+    },
+
   };
 }
 

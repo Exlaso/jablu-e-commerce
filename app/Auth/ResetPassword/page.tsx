@@ -15,13 +15,16 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://jablu.exlaso.in"),
   openGraph: {
     title: "Reset Password - Jablu.in",
-    url: "https://jablu.exlaso.in/Auth/Signin",
+    url: "https://jablu.exlaso.in/Auth/ResetPassword",
     siteName: "Jablu.in",
     type: "website",
     images: "https://jablu.exlaso.in/icon.svg",
     description:
     "Reset your password at Jablu.in, your trusted E-commerce website. Experience a wide range of unique clothing with premium designs.",
   },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Auth/ResetPassword",
+    },
 };
 
 const Page = ({

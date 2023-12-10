@@ -33,6 +33,9 @@ export const metadata: Metadata = {
         images: "https://jablu.exlaso.in/icon.svg",
         description: "Manage your subscription settings for Jablu.in",
     },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Subscription"
+    },
 }
 
 const page: FunctionComponent<typesforpage> = async (props) => {

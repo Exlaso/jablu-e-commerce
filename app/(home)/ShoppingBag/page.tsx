@@ -27,6 +27,9 @@ export const metadata: Metadata = {
         description:
             "Your shopping bag at Jablu.in - Explore our E-commerce website's wide selection of unique clothing with premium designs. Review and manage your favorite picks in your shopping cart.",
     },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/ShoppingBag",
+    },
 };
 
 interface CartPageProps {

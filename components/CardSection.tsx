@@ -34,9 +34,9 @@ const CardSection = ({
 
     return (
         <div>
-            <h1 className="text-4xl font-bold px-4 break-all capitalize">
+            <h2 className="text-4xl font-bold px-4 break-all capitalize">
                 {children}
-            </h1>
+            </h2>
             {/* <Filter data={data} filteritem={filteritem}/> */}
             <motion.div
                 variants={divVarients}

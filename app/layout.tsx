@@ -12,10 +12,10 @@ const roboto = Roboto({
     subsets: ["latin"],
     weight: ["100", "300", "400", "500", "700", "900"]
 });
- export const viewport: Viewport = {
-     width: "device-width",
-     initialScale: 1,
- }
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+}
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://jablu.exlaso.in"),
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     icons: {
         icon: "icon.svg",
     },
-    title: "Jablu.in",
+    title: "Jablu.in - Unique clothing with premium designs",
     keywords: [
         "Jablu.in",
         "Jablu",
@@ -34,12 +34,14 @@ export const metadata: Metadata = {
     ],
     authors: {name: "Vedant bhavsar", url: "https://exlaso.in"},
     description:
-        "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs. From trendy apparel to timeless classics, our E-commerce website offers a diverse range of fashion options to suit your individual taste. Explore the latest in fashion trends and elevate your wardrobe with exclusive pieces. Shop at Jablu.in and redefine your style with every click.",
-
+        "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs.",
+    alternates: {
+        canonical: "https://jablu.exlaso.in"
+    },
     openGraph: {
         description:
-            "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs. From trendy apparel to timeless classics, our E-commerce website offers a diverse range of fashion options to suit your individual taste. Explore the latest in fashion trends and elevate your wardrobe with exclusive pieces. Shop at Jablu.in and redefine your style with every click.",
-        title: "Jablu.in",
+            "Welcome to Jablu.in, your premier destination for one-of-a-kind fashion. Discover a world of style at Jablu.in, where we curate a collection of unique clothing with premium designs.",
+        title: "Jablu.in - Unique clothing with premium designs",
         url: "https://jablu.exlaso.in",
         siteName: "Jablu.in",
         type: "website",
@@ -47,13 +49,13 @@ export const metadata: Metadata = {
     },
 
     robots: {
-        index: false,
+        index: true,
         follow: true,
         nocache: true,
         googleBot: {
             index: true,
-            follow: false,
-            noimageindex: true,
+            follow: true,
+            noimageindex: false,
             "max-video-preview": -1,
             "max-image-preview": "large",
             "max-snippet": -1,

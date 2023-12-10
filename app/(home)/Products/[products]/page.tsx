@@ -57,6 +57,12 @@ export async function generateMetadata(
             images: "https://jablu.exlaso.in/icon.svg",
             description: description,
         },
+        alternates: {
+            canonical: `https://jablu.exlaso.in/${title
+                .replaceAll(" ", "-")
+                .toString()
+                .toLowerCase()}`,
+        },
     };
 }
 

@@ -23,6 +23,9 @@ export const metadata: Metadata = {
         description:
             "Welcome to Jablu.in, your go-to E-commerce destination. Sign up now to access a world of unique clothing with premium designs.",
     },
+    alternates: {
+        canonical: "https://jablu.exlaso.in/Auth/Signup",
+    },
 };
 
 
