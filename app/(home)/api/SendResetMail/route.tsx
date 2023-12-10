@@ -44,7 +44,7 @@ export const GET = async (req: NextRequest) => {
       const resend = new Resend(process.env.RESEND_KEY as string);
 
       const data = await resend.emails.send({
-        from: "Jablu.in <Jablu@taskvn.in>",
+        from: "Jablu.in <Jablu@exlaso.in>",
         to: [email],
         subject: "Reset Password Request for Your Jablu.in Account",
         react: ResetPassword({

@@ -9,6 +9,7 @@ module.exports = withMT({
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    darkMode: 'media',
     extend: {
       screens: {
 

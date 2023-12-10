@@ -9,7 +9,7 @@ const resend = new Resend(process.env.RESEND_KEY as string);
   try {
     const { to, Subject, Body }: Emailsendinterface = await req.json();
     const data = await resend.emails.send({
-      from: "Jablu.in <Jablu@taskvn.in>",
+      from: "Jablu.in <Jablu@exlaso.in>",
       to: [to],
       subject: Subject,
       react: EmailVerificationTemplate({

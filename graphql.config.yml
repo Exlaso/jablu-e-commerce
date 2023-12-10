@@ -1,0 +1,8 @@
+schema: schema.graphql
+documents:
+  - ./app/**/*.graphql
+extensions:
+  endpoints:
+    "default": "https://premium-python-13.hasura.app/v1/graphql"
+
+
