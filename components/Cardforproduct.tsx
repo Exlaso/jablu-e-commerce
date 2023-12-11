@@ -59,9 +59,9 @@ const Cardforproduct = ({
               <div className="flex items-center  font-semibold gap-2">
                 {discount !== "0.0" && (
                   <span className="text-red-600  text-lg">
-                    <s>Rs. {mrp.toLocaleString("en-US", {
+                    <small>Rs. {mrp.toLocaleString("en-US", {
                       maximumFractionDigits: 2,
-                    })}</s>
+                    })}</small>
                   </span>
                 )}
                 <span className=" rounded-full  text-xl  ">

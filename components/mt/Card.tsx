@@ -59,9 +59,9 @@ export function EcommerceCard({
                             <Typography color={"red"} className=" flex gap-2 font-medium" variant={"small"}>
 
                                 {discount !== "0.0" && (
-                                    <s>Rs. {mrp.toLocaleString("en-US", {
+                                    <small>Rs. {mrp.toLocaleString("en-US", {
                                         maximumFractionDigits: 2,
-                                    })}</s>
+                                    })}</small>
                                 )}
                             </Typography>
 

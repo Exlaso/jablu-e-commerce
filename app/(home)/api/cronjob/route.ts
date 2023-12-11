@@ -5,9 +5,10 @@ import {gqlClient} from "@/lib/service/client";
 import {GetFavouriteSubscribersDocument} from "@/lib/gql/graphql";
 
 export const GET = async (req: NextRequest) => {
-    if (req.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
-        return NextResponse.json('Unauthorized',{
-            status:(401)
+    const authHeader = req.headers.get('authorization');
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        return new Response('Unauthorized', {
+            status: 401,
         });
     }
     try {
@@ -16,8 +17,10 @@ export const GET = async (req: NextRequest) => {
         })
 
         const resend = new Resend(process.env.RESEND_KEY as string);
-        user.users.map(async e => {
+        for (const e of user.users) {
             if (e.wishlist_items.length > 0) {
+                await new Promise(resolve => setTimeout(resolve, 150));
+
                 await resend.emails.send({
                     from: "Jablu.in <Jablu@exlaso.in>",
                     to: [e.user_email],
@@ -29,7 +32,7 @@ export const GET = async (req: NextRequest) => {
                     })
                 });
             }
-        })
+        }
         return NextResponse.json({
             message: "Success",
             error: false,

@@ -119,7 +119,7 @@ const SelectionSection: FunctionComponent<SelectionSectionProps> = ({
           </span>
                     {discount !== "0.0" && (
                         <span className="text-red-600  text-lg">
-              <s>Rs. {mrp}</s>
+              <small>Rs. {mrp}</small>
             </span>
                     )}
                 </div>
