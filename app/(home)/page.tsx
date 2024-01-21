@@ -22,7 +22,11 @@ export default async function Home() {
       <LandingSection />
       <Exploresection />
       <ProccessSection />
-      <CategoriesDisplay className="py-20"  data={data?.slice(0, 3)}/>
+      <CategoriesDisplay className="py-20"  data={data.sort((a,b) => {
+          const textA = a.name.toUpperCase();
+          const textB = b.name.toUpperCase();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      }).slice(0,3)}/>
       <div className=" px-16 py-4 max-lg:px-0 flex flex-col gap-5 ">
         <WishlistSection />
         <ProductsCategories data={Items} />

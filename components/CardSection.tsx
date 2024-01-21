@@ -37,7 +37,6 @@ const CardSection = ({
             <h2 className="text-4xl font-bold px-4 break-all capitalize">
                 {children}
             </h2>
-            {/* <Filter data={data} filteritem={filteritem}/> */}
             <motion.div
                 variants={divVarients}
                 viewport={{once: true}}
@@ -55,21 +54,6 @@ const CardSection = ({
                         availablecolors={item.product_colors}
 
                     />
-                    // <Cardforproduct
-                    //     product_colors={item.product_colors}
-                    //     product_image_urls={item.product_image_urls}
-                    //     product_sizes={item.product_sizes}
-                    //     mrp={item?.mrp}
-                    //     varients={varients}
-                    //     id={item.id}
-                    //     images={item.images}
-                    //     category={item.category}
-                    //     price={item.price}
-                    //     key={item.id}
-                    //     description={item.description}
-                    //     product_rating={item.product_rating}
-                    //     title={item.title}
-                    // />
                 ))}
             </motion.div>
         </div>

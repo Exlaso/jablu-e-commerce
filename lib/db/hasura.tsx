@@ -110,7 +110,7 @@ export const GetFavouritedItems = async (token: string) => {
 };
 
 export const GetCategories = async (): Promise<Categories[]> => {
-    const response = await fetchGraphQLUsingAdmin("GetCategories");
+    const response = await fetchGraphQLUsingAdmin("GetLandingCategories");
     return response.data.categories;
 
 };
@@ -415,12 +415,12 @@ query IsPasswordMatched {
   }
 }
 
-query GetCategories @cached(ttl: 2) {
-  categories {
+query GetLandingCategories @cached(refresh: true) {
+categories(order_by: {name: asc}) {
     description
     image
     name
-  }
+ }
 }
 
 
@@ -529,7 +529,7 @@ export async function fetchGraphQLUsingAdmin(
     const result = await fetch(process.env.Hasura_URL as string, {
         method: "POST",
         next: {
-            revalidate: 86400,
+            revalidate: 1,
         },
         headers: {
             "x-hasura-admin-secret": process.env.Hasura_Secret as string,

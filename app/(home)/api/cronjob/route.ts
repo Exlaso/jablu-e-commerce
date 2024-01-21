@@ -12,7 +12,11 @@ export const GET = async (req: NextRequest) => {
 
 
         const url = new URL(`${process.env.NEXTAUTH_URL}/api/cronjob/SetFavouritedMail`);
-        fetch(url)
+        fetch(url,{
+            headers: {
+                Authorization: `Bearer ${process.env.CRON_SECRET}`
+            }
+        })
         const resdata = {
             message: "success",
             error: false
