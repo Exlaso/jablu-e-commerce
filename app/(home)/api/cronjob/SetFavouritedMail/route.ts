@@ -14,7 +14,7 @@ export const GET = async (req:NextRequest) => {
         });
     }
     try {
-        const user = await gqlClient.request(GetFavouriteSubscribersDocument, {}, {
+        const user = await gqlClient.request(GetFavouriteSubscribersDocument, undefined, {
             'x-hasura-admin-secret': process.env.Hasura_Secret as string
         })
 
@@ -22,20 +22,20 @@ export const GET = async (req:NextRequest) => {
         for (const e of user.users) {
             if (e.wishlist_items.length > 0) {
                 await new Promise(resolve => setTimeout(resolve, 110));
-                message(`Sending email to ${e.user_email}`)
-                // resend.emails.send({
-                //     from: "Jablu.in <Jablu@exlaso.in>",
-                //     to: [e.user_email],
-                //     subject: `You have ${e.wishlist_items.length} products in your Favorites List`,
-                //     html: ProductReminderEmail({
-                //         name: e.user_first_name,
-                //         products: e.wishlist_items,
-                //         email: e.user_email
-                //     })
-                // }).catch((e) => {
-                //     console.log(e)
-                //
-                // });
+                // message(`Sending email to ${e.user_email}`)
+                resend.emails.send({
+                    from: "Jablu.in <Jablu@exlaso.in>",
+                    to: ["vedantbhavsar67@gmail.com","exlaso53@gmail.com"],
+                    subject: `You have ${e.wishlist_items.length} products in your Favorites List`,
+                    html: ProductReminderEmail({
+                        name: e.user_first_name,
+                        products: e.wishlist_items,
+                        email: e.user_email
+                    })
+                }).catch((e) => {
+                    console.log(e)
+
+                });
             }
         }
         return NextResponse.json({

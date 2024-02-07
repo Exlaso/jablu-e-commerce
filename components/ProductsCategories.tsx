@@ -23,7 +23,7 @@ const ProductsCategories = ({
     });
 
     return (
-        <section className="flex flex-col gap-14">
+        <section className="flex flex-col gap-14 shrink-0">
             {categorizeddata.map((e, i) => (
                 <CardSection
                     data={e}

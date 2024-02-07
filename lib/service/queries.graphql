@@ -458,7 +458,8 @@ mutation UpdateOrderStatus($order_id:String!,$status:String!) {
 }
 
 query GetFavouriteSubscribers @cached(refresh: true){
-    users(where: {subscriber: {favourite: {_eq: true}}}) {
+    users(where:  {subscriber: {favourite: {_eq: true},
+    }},order_by:  {srno: asc}  ) {
         user_email
         user_first_name
         wishlist_items {
@@ -469,6 +470,13 @@ query GetFavouriteSubscribers @cached(refresh: true){
                 images
                 title
             }
+        }
+    }
+}
+query GetTotalFavouriteSubscribers @cached(refresh: true){
+    users_aggregate(where: {subscriber: {favourite: {_eq: true}}}) {
+        aggregate {
+            count
         }
     }
 }
@@ -514,4 +522,10 @@ query Retriveuserdata {
         user_email
         unique_id
     }
+}
+mutation UpdateProductURL($newurl:String!,$id: String_comparison_exp!) {
+    update_products(_set: {images: $newurl},where: {id: $id}){
+        affected_rows
+    }
+
 }

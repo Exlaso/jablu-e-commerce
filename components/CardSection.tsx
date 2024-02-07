@@ -42,7 +42,7 @@ const CardSection = ({
                 viewport={{once: true}}
                 initial="hidden"
                 whileInView={"visible"}
-                className="p-4 flex gap-4 overflow-x-auto snap-mandatory snap-x"
+                className="p-4 flex gap-4 overflow-x-auto shrink-0 snap-mandatory snap-x"
             >
                 {data?.slice(0, 3)?.map((item) => (
                     <EcommerceCard

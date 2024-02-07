@@ -2008,6 +2008,9 @@ type mutation_root {
   update data of the table: "users"
   """
   update_users(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: users_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: users_set_input
 
@@ -2019,6 +2022,9 @@ type mutation_root {
   update single row of the table: "users"
   """
   update_users_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: users_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: users_set_input
     pk_columns: users_pk_columns_input!
@@ -6091,6 +6097,7 @@ type users {
     """filter the rows returned"""
     where: orders_bool_exp
   ): orders_aggregate!
+  srno: Int!
 
   """An object relationship"""
   subscriber: subscribers
@@ -6187,9 +6194,22 @@ type users_aggregate {
 aggregate fields of "users"
 """
 type users_aggregate_fields {
+  avg: users_avg_fields
   count(columns: [users_select_column!], distinct: Boolean): Int!
   max: users_max_fields
   min: users_min_fields
+  stddev: users_stddev_fields
+  stddev_pop: users_stddev_pop_fields
+  stddev_samp: users_stddev_samp_fields
+  sum: users_sum_fields
+  var_pop: users_var_pop_fields
+  var_samp: users_var_samp_fields
+  variance: users_variance_fields
+}
+
+"""aggregate avg on columns"""
+type users_avg_fields {
+  srno: Float
 }
 
 """
@@ -6206,6 +6226,7 @@ input users_bool_exp {
   isverified: Boolean_comparison_exp
   orders: orders_bool_exp
   orders_aggregate: orders_aggregate_bool_exp
+  srno: Int_comparison_exp
   subscriber: subscribers_bool_exp
   unique_id: String_comparison_exp
   user_email: String_comparison_exp
@@ -6230,9 +6251,21 @@ enum users_constraint {
   users_pkey
 
   """
+  unique or primary key constraint on columns "srno"
+  """
+  users_srno_key
+
+  """
   unique or primary key constraint on columns "unique_id"
   """
   users_unique_id_key
+}
+
+"""
+input type for incrementing numeric columns in table "users"
+"""
+input users_inc_input {
+  srno: Int
 }
 
 """
@@ -6243,6 +6276,7 @@ input users_insert_input {
   carts: cart_arr_rel_insert_input
   isverified: Boolean
   orders: orders_arr_rel_insert_input
+  srno: Int
   subscriber: subscribers_obj_rel_insert_input
   unique_id: String
   user_email: String
@@ -6257,6 +6291,7 @@ input users_insert_input {
 
 """aggregate max on columns"""
 type users_max_fields {
+  srno: Int
   unique_id: String
   user_email: String
   user_first_name: String
@@ -6268,6 +6303,7 @@ type users_max_fields {
 
 """aggregate min on columns"""
 type users_min_fields {
+  srno: Int
   unique_id: String
   user_email: String
   user_first_name: String
@@ -6313,6 +6349,7 @@ input users_order_by {
   carts_aggregate: cart_aggregate_order_by
   isverified: order_by
   orders_aggregate: orders_aggregate_order_by
+  srno: order_by
   subscriber: subscribers_order_by
   unique_id: order_by
   user_email: order_by
@@ -6336,6 +6373,9 @@ select columns of table "users"
 enum users_select_column {
   """column name"""
   isverified
+
+  """column name"""
+  srno
 
   """column name"""
   unique_id
@@ -6364,6 +6404,7 @@ input type for updating data in table "users"
 """
 input users_set_input {
   isverified: Boolean
+  srno: Int
   unique_id: String
   user_email: String
   user_first_name: String
@@ -6371,6 +6412,21 @@ input users_set_input {
   user_password: String
   user_pfp: String
   user_phone_number: String
+}
+
+"""aggregate stddev on columns"""
+type users_stddev_fields {
+  srno: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type users_stddev_pop_fields {
+  srno: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type users_stddev_samp_fields {
+  srno: Float
 }
 
 """
@@ -6387,6 +6443,7 @@ input users_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input users_stream_cursor_value_input {
   isverified: Boolean
+  srno: Int
   unique_id: String
   user_email: String
   user_first_name: String
@@ -6396,12 +6453,20 @@ input users_stream_cursor_value_input {
   user_phone_number: String
 }
 
+"""aggregate sum on columns"""
+type users_sum_fields {
+  srno: Int
+}
+
 """
 update columns of table "users"
 """
 enum users_update_column {
   """column name"""
   isverified
+
+  """column name"""
+  srno
 
   """column name"""
   unique_id
@@ -6426,11 +6491,29 @@ enum users_update_column {
 }
 
 input users_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: users_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: users_set_input
 
   """filter the rows which have to be updated"""
   where: users_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type users_var_pop_fields {
+  srno: Float
+}
+
+"""aggregate var_samp on columns"""
+type users_var_samp_fields {
+  srno: Float
+}
+
+"""aggregate variance on columns"""
+type users_variance_fields {
+  srno: Float
 }
 
 """

@@ -41,7 +41,7 @@ export function EcommerceCard({
 
             >
                 <CardHeader shadow={false} floated={false}
-                            className={`h-[40vh] p-5  ${isdarkmode ? "bg-black/50" : "bg-white/50"}  `}>
+                            className={`h-[40vh] bg-[#C3E2C2af]    `}>
                     <Image
                         src={image}
                         alt={title}
@@ -56,7 +56,7 @@ export function EcommerceCard({
                             {title}
                         </Typography>
                         <div className={"flex gap-2"}>
-                            <Typography color={"red"} className=" flex gap-2 font-medium" variant={"small"}>
+                            <Typography color={"red"} className=" flex gap-2 line-through font-medium" variant={"small"}>
 
                                 {discount !== "0.0" && (
                                     <small>Rs. {mrp.toLocaleString("en-US", {
