@@ -3,7 +3,6 @@ import React, {ReactNode} from "react";
 import {Product} from "@/lib/Interfaces";
 import {motion, Variants} from "framer-motion";
 import {EcommerceCard} from "@/components/mt/Card";
-import Cardforproduct from "@/components/Cardforproduct";
 
 const CardSection = ({
                          data,
@@ -34,9 +33,11 @@ const CardSection = ({
 
     return (
         <div>
-            <h2 className="text-4xl font-bold px-4 break-all capitalize">
-                {children}
-            </h2>
+            {data?.length !== 0 &&
+                <h2 className="text-4xl font-bold px-4 break-all capitalize">
+                    {children}
+                </h2>
+            }
             <motion.div
                 variants={divVarients}
                 viewport={{once: true}}
