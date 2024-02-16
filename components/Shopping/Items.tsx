@@ -7,6 +7,7 @@ import IncDecButton from "../Cart/EncDecButton";
 import {toast} from "sonner";
 import {Cartitems, Product} from "@/lib/Interfaces";
 import CardSection from "@/components/CardSection";
+import {LitUpButton} from "@/components/ui/tailwindcss-buttons";
 
 
 const Items = ({
@@ -75,9 +76,10 @@ const Items = ({
                         <p>
                             Add some items to cart
                         </p>
-                        <Link href={"/Categories"} className={"p-4 bg-secondary text-primary rounded-lg w-max"}>Explore
-                            Products
-                            here</Link>
+                        <LitUpButton className={"p-4  rounded-lg w-max"}>
+                            <Link href={"/Categories"}>Explore Products
+                                here</Link>
+                        </LitUpButton>
                         <p className={"border-y-2 border-gray-500 my-10 py-2 px-20"}>OR</p>
 
                         <div className="w-full">
@@ -174,13 +176,9 @@ const Items = ({
             </div>}
             <div className="flex justify-end items-end">
                 {carteditems?.length !== 0 && (
+
                     <Link href={"/Checkoutcart/Address"}>
-                        <motion.button
-                            type="button"
-                            initial={{scale: 1}}
-                            whileTap={{scale: 0.9}}
-                            className="flex px-10 border  select-none items-center justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-cyan-200 duration-100"
-                        >
+                       <LitUpButton className={"flex justify-center items-center gap-1 py-2 "}>
                             <Image
                                 src={"/static/icons/navbar/buy.svg"}
                                 alt={"Buy Icon"}
@@ -189,7 +187,7 @@ const Items = ({
                                 className="invertsvg"
                             ></Image>
                             <p>Check Out</p>
-                        </motion.button>
+                        </LitUpButton>
                     </Link>
                 )}
             </div>

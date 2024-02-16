@@ -3,161 +3,182 @@
 @tailwind utilities;
 
 
-.flex-center{
+.flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
+
 @font-face {
-  font-family: "Reallocated";
-  src: url("/Fonts/Reallocated.ttf");
+    font-family: "Reallocated";
+    src: url("/Fonts/Reallocated.ttf");
 }
+
 .a {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.appleFont {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* sample using the font */
 :root {
-  --primary-color: white;
-  --secondary-color: rgb(96, 96, 96);
-  --tertiary-color: rgb(241 245 249 / 0.8);
-  --highlight-color: black;
-  --invert-color: 0;
+    --primary-color: white;
+    --secondary-color: rgb(96, 96, 96);
+    --tertiary-color: rgb(241 245 249 / 0.8);
+    --highlight-color: black;
+    --invert-color: 0;
 }
+
 .darkmode {
-  --primary-color: rgb(0, 0, 0);
-  --secondary-color: rgb(200, 200, 200);
-  --tertiary-color: rgba(51, 51, 51, 0.8);
-  --highlight-color: white;
-}
-
-.darkmode .frontimage {
-  filter: brightness(0.4);
-}
-.darkmode .invertsvg {
-  filter: invert() brightness(0.8);
-}
-
-.jablutext > div:first-child {
-  text-shadow: 5px 5px 0 black;
-  color: #4b0082;
-}
-.jablutext > div:nth-child(3) {
-  color: #008080;
-  text-shadow: 5px 5px 0 black;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
     --primary-color: rgb(0, 0, 0);
     --secondary-color: rgb(200, 200, 200);
     --tertiary-color: rgba(51, 51, 51, 0.8);
     --highlight-color: white;
-    --invert-color: 1;
-  }
-  .frontimage {
-    filter: brightness(0.5);
-  }
-  .invertsvg {
+}
+
+.darkmode .frontimage {
+    filter: brightness(0.4);
+}
+
+.darkmode .invertsvg {
     filter: invert() brightness(0.8);
-  }
-  .jablutext > div:first-child {
+}
+
+.jablutext > div:first-child {
     text-shadow: 5px 5px 0 black;
     color: #4b0082;
-  }
-  .jablutext > div:nth-child(3) {
+}
+
+.jablutext > div:nth-child(3) {
     color: #008080;
     text-shadow: 5px 5px 0 black;
-  }
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: rgb(0, 0, 0);
+        --secondary-color: rgb(200, 200, 200);
+        --tertiary-color: rgba(51, 51, 51, 0.8);
+        --highlight-color: white;
+        --invert-color: 1;
+    }
+
+    .frontimage {
+        filter: brightness(0.5);
+    }
+
+    .invertsvg {
+        filter: invert() brightness(0.8);
+    }
+
+    .jablutext > div:first-child {
+        text-shadow: 5px 5px 0 black;
+        color: #4b0082;
+    }
+
+    .jablutext > div:nth-child(3) {
+        color: #008080;
+        text-shadow: 5px 5px 0 black;
+    }
+}
+
 hr {
-  border-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
 .text-highlight {
-  color: var(--highlight-color);
+    color: var(--highlight-color);
 }
 
 .text-tertiary {
-  color: var(--tertiary-color);
+    color: var(--tertiary-color);
 }
 
 .bg-primary {
-  background-color: var(--primary-color);
+    background-color: var(--primary-color);
 }
+
 .bg-secondary {
-  background-color: var(--secondary-color);
+    background-color: var(--secondary-color);
 }
+
 .bg-tertiary {
-  background-color: var(--tertiary-color);
+    background-color: var(--tertiary-color);
 }
+
 .text-secondary {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
+
 .text-primary {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 body {
-  color: var(--secondary-color);
-  background: var(--primary-color);
+    color: var(--secondary-color);
+    background: var(--primary-color);
 }
 
 .shadowhand {
-  font-family: "Reallocated", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Reallocated", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 .scrollbaronhover::-webkit-scrollbar-thumb {
-  background: transparent;
+    background: transparent;
 }
 
 .scrollbaronhover:hover::-webkit-scrollbar-thumb {
-  background: rgb(128, 128, 128);
+    background: rgb(128, 128, 128);
 }
 
 /* width */
 
 ::-webkit-scrollbar {
-  width: 5px;
-  transition-duration: 0.3s;
-  height: 5px;
+    width: 5px;
+    transition-duration: 0.3s;
+    height: 5px;
 }
 
 /* Track */
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px transparent;
-  border-radius: 50%;
+    box-shadow: inset 0 0 5px transparent;
+    border-radius: 50%;
 }
 
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-  transition-duration: 0.3s;
-  background: rgb(128, 128, 128);
-  border-radius: 10px;
+    transition-duration: 0.3s;
+    background: rgb(128, 128, 128);
+    border-radius: 10px;
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 .jablutext {
-  font-family: "Reallocated",ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  display: flex;
+    font-family: "Reallocated", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    display: flex;
 }
 
 input[type="color"],
@@ -176,163 +197,180 @@ input[type="url"],
 input[type="week"],
 select:focus,
 textarea {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .overlay {
-  background: var(--primary-color);
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+    background: var(--primary-color);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .spinner {
-  font-size: 75px;
-  position: relative;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
+    font-size: 75px;
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
 }
+
 .spinner.center {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .spinner-blade {
-  position: absolute;
-  left: 0.4629em;
-  bottom: 0;
-  width: 0.074em;
-  height: 0.2777em;
-  border-radius: 0.5em;
-  background-color: transparent;
-  transform-origin: center -0.2222em;
-  -webkit-animation: spinner-fade 1s infinite linear;
-  animation: spinner-fade 1s infinite linear;
+    position: absolute;
+    left: 0.4629em;
+    bottom: 0;
+    width: 0.074em;
+    height: 0.2777em;
+    border-radius: 0.5em;
+    background-color: transparent;
+    transform-origin: center -0.2222em;
+    -webkit-animation: spinner-fade 1s infinite linear;
+    animation: spinner-fade 1s infinite linear;
 }
+
 .spinner-blade:nth-child(1) {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  transform: rotate(0deg);
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    transform: rotate(0deg);
 }
+
 .spinner-blade:nth-child(2) {
-  -webkit-animation-delay: 0.083s;
-  animation-delay: 0.083s;
-  transform: rotate(30deg);
+    -webkit-animation-delay: 0.083s;
+    animation-delay: 0.083s;
+    transform: rotate(30deg);
 }
+
 .spinner-blade:nth-child(3) {
-  -webkit-animation-delay: 0.166s;
-  animation-delay: 0.166s;
-  transform: rotate(60deg);
+    -webkit-animation-delay: 0.166s;
+    animation-delay: 0.166s;
+    transform: rotate(60deg);
 }
+
 .spinner-blade:nth-child(4) {
-  -webkit-animation-delay: 0.249s;
-  animation-delay: 0.249s;
-  transform: rotate(90deg);
+    -webkit-animation-delay: 0.249s;
+    animation-delay: 0.249s;
+    transform: rotate(90deg);
 }
+
 .spinner-blade:nth-child(5) {
-  -webkit-animation-delay: 0.332s;
-  animation-delay: 0.332s;
-  transform: rotate(120deg);
+    -webkit-animation-delay: 0.332s;
+    animation-delay: 0.332s;
+    transform: rotate(120deg);
 }
+
 .spinner-blade:nth-child(6) {
-  -webkit-animation-delay: 0.415s;
-  animation-delay: 0.415s;
-  transform: rotate(150deg);
+    -webkit-animation-delay: 0.415s;
+    animation-delay: 0.415s;
+    transform: rotate(150deg);
 }
+
 .spinner-blade:nth-child(7) {
-  -webkit-animation-delay: 0.498s;
-  animation-delay: 0.498s;
-  transform: rotate(180deg);
+    -webkit-animation-delay: 0.498s;
+    animation-delay: 0.498s;
+    transform: rotate(180deg);
 }
+
 .spinner-blade:nth-child(8) {
-  -webkit-animation-delay: 0.581s;
-  animation-delay: 0.581s;
-  transform: rotate(210deg);
+    -webkit-animation-delay: 0.581s;
+    animation-delay: 0.581s;
+    transform: rotate(210deg);
 }
+
 .spinner-blade:nth-child(9) {
-  -webkit-animation-delay: 0.664s;
-  animation-delay: 0.664s;
-  transform: rotate(240deg);
+    -webkit-animation-delay: 0.664s;
+    animation-delay: 0.664s;
+    transform: rotate(240deg);
 }
+
 .spinner-blade:nth-child(10) {
-  -webkit-animation-delay: 0.747s;
-  animation-delay: 0.747s;
-  transform: rotate(270deg);
+    -webkit-animation-delay: 0.747s;
+    animation-delay: 0.747s;
+    transform: rotate(270deg);
 }
+
 .spinner-blade:nth-child(11) {
-  -webkit-animation-delay: 0.83s;
-  animation-delay: 0.83s;
-  transform: rotate(300deg);
+    -webkit-animation-delay: 0.83s;
+    animation-delay: 0.83s;
+    transform: rotate(300deg);
 }
+
 .spinner-blade:nth-child(12) {
-  -webkit-animation-delay: 0.913s;
-  animation-delay: 0.913s;
-  transform: rotate(330deg);
+    -webkit-animation-delay: 0.913s;
+    animation-delay: 0.913s;
+    transform: rotate(330deg);
 }
 
 @-webkit-keyframes spinner-fade {
-  0% {
-    background-color: #69717d;
-  }
-  100% {
-    background-color: transparent;
-  }
+    0% {
+        background-color: #69717d;
+    }
+    100% {
+        background-color: transparent;
+    }
 }
 
 @keyframes spinner-fade {
-  0% {
-    background-color: #69717d;
-  }
-  100% {
-    background-color: transparent;
-  }
+    0% {
+        background-color: #69717d;
+    }
+    100% {
+        background-color: transparent;
+    }
 }
 
 
 .bb {
-  --clr: #386397;
-  --outline: 3px solid var(--clr);
-  outline: var(--outline);
-  border: var(--outline);
-  outline-offset: -2px;
-  transition: outline-offset 200ms ease;
+    --clr: #386397;
+    --outline: 3px solid var(--clr);
+    outline: var(--outline);
+    border: var(--outline);
+    outline-offset: -2px;
+    transition: outline-offset 200ms ease;
 }
 
 .bb:hover,
 .bb:focus {
-  outline: var(--outline);
-  outline-offset: 3px;
+    outline: var(--outline);
+    outline-offset: 3px;
 }
-.Menucardcss{
-  box-shadow: 0 4px 30px rgb(96, 96, 96, 0.5);
+
+.Menucardcss {
+    box-shadow: 0 4px 30px rgb(96, 96, 96, 0.5);
 
 }
+
 .AuthDivcss {
-  /* From https://css.glass */
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgb(96, 96, 96, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.29);
+    /* From https://css.glass */
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgb(96, 96, 96, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.29);
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
+
 input[type="radio"]:checked + label {
-  border-color: #00FF00; /* Change the border color when the radio is selected */
+    border-color: #00FF00; /* Change the border color when the radio is selected */
 }

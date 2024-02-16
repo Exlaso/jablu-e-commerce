@@ -11,6 +11,7 @@ import Loading from "@/app/(home)/loading";
 import Link from "next/link";
 import CardSection from "@/components/CardSection";
 import getAllProducts from "@/utils/GetProduct";
+import {LitUpButton} from "@/components/ui/tailwindcss-buttons";
 
 export const dynamic = "force-dynamic";
 
@@ -34,8 +35,10 @@ const CheckoutForm: React.FC<{
             <p>
                 Add some items to cart
             </p>
-            <Link href={"/Categories"} className={"p-4 bg-secondary text-primary rounded-lg w-max"}>Explore Products
-                here</Link>
+            <LitUpButton className={"p-4  rounded-lg w-max"}>
+                <Link href={"/Categories"}>Explore Products
+                    here</Link>
+            </LitUpButton>
             <p className={"border-y-2 border-gray-500 my-10 py-2 px-20"}>OR</p>
 
             <div className="w-full">
