@@ -26,17 +26,17 @@ export default async function Home() {
                 title: e.title,
                 link: "/Products/" + e.title.replaceAll(" ", "-"),
                 thumbnail: e.images
-            })),...Items.map(e => ({
+            })), ...Items.map(e => ({
                 title: e.title,
                 link: "/Products/" + e.title.replaceAll(" ", "-"),
                 thumbnail: e.images
             }))] : []}></HeroParallax>
 
             <MaskContainer
-                revealText={<div className="flex flex-col items-center justify-center  w-full gap-4 ">
+                revealText={<div className="flex flex-col items-center justify-evenly  h-full  w-full gap-4 ">
                     {[0, 0, 0, 0, 0, 0, 0,].map((e, i) => (
                         <h2 key={i + e}
-                            className=" flex justify-center gap-3 flex-wrap max-md:px-5  items-center uppercase text-white  w-full font-bold ">
+                            className=" flex justify-center gap-3 flex-wrap max-md:px-1 items-center uppercase text-white  w-full font-bold ">
                             {"We have the best product for you".split(" ").map((e, i) => <span key={i + e}>{e} </span>)}
                         </h2>))}
                 </div>
@@ -44,10 +44,10 @@ export default async function Home() {
                 size={50}
                 revealSize={300}
             >
-                <div className="flex flex-col items-center justify-center  w-full gap-4">
+                <div className="flex flex-col items-center justify-evenly  h-full  w-full gap-4">
                     {[0, 0, 0, 0, 0, 0, 0,].map((e, i) => (
                         <h2 key={i + e}
-                            className=" flex justify-center gap-3 flex-wrap max-md:px-5  items-center uppercase text-white  w-full font-bold ">
+                            className=" flex justify-center gap-3 flex-wrap max-md:px-1 items-center uppercase text-white  w-full font-bold ">
                             {"We have the best pricing for you".split(" ").map((e, i) => {
                                 if (e === "pricing") return <span key={i + e} className="text-[red]">{e} </span>
                                 return <span key={i + e}>{e} </span>
