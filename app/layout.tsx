@@ -1,5 +1,5 @@
 import "./output.css";
-// import "./globals.css";
+import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Session } from "next-auth";
 import { AuthSessionProvider } from "@/components/Utils/SessionProvider";

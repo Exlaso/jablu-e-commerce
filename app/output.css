@@ -1298,6 +1298,10 @@ video {
   display: none;
 }
 
+.aspect-1 {
+  aspect-ratio: 1;
+}
+
 .h-0 {
   height: 0px;
 }
