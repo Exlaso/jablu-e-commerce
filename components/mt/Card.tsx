@@ -47,7 +47,7 @@ export function EcommerceCard({
   return (
     <Link
       href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`}
-      className={"shrink-0   w-full"}
+      className={"shrink-0  flex-1"}
     >
       <BackgroundGradient
         className={" h-full w-full "}
