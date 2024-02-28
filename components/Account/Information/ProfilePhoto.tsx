@@ -17,7 +17,7 @@ const ProfilePhoto = ({
       <div className="bg-tertiary h-[300px] w-full relative flex justify-center items-center ">
         <Image
           src={imageurll}
-          className="rounded-full aspect-square object-cover w-[250px]"
+          className="rounded-full aspect-1 object-cover w-[250px]"
           alt="Profile Photo"
           width={500}
           quality={100}

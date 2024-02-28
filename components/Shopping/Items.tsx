@@ -116,7 +116,7 @@ const Items = ({
                     alt={e.product.title + " image"}
                     width={150}
                     height={150}
-                    className="aspect-square object-contain"
+                    className="aspect-1 object-contain"
                   ></Image>
                 </Link>
                 <div className="w-full flex flex-col gap-3">

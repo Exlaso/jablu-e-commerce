@@ -47,19 +47,19 @@ export function EcommerceCard({
   return (
     <Link
       href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`}
-      className={"shrink-0  flex-1"}
+      className={"shrink-0  "}
     >
       <BackgroundGradient
         className={" h-full w-full "}
         containerClassName={"p-2 h-full w-full "}
       >
         <Card
-          className={` shrink-0  h-full w-full   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
+          className={`  h-full w-min   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
         >
           <CardHeader
             shadow={false}
             floated={false}
-            className={`h-[40vh] bg-[#C3E2C2af]      `}
+            className={`max-md:h-[calc(22vh+22vw)] h-[calc(15vh+15vw)] bg-[#C3E2C2af]  aspect-1 object-cover    `}
           >
             <Image
               src={image}
