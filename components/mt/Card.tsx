@@ -54,7 +54,7 @@ export function EcommerceCard({
         containerClassName={"p-2 h-full w-full "}
       >
         <Card
-          className={`  h-full w-min   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
+          className={`  h-full w-full   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
         >
           <CardHeader
             shadow={false}
