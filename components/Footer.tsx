@@ -3,12 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SubscribeByEmail } from "@/components/SubscribeByEmail";
 
-const Footer = ({category}:{category:string[]}) => {
+const Footer = ({ category }: { category: string[] }) => {
+  const token = process.env.Hasura_Secret!;
+
   return (
     <footer className="bg-gray-500/20 py-12  px-6">
       <div className="container mx-auto flex flex-col  items-center justify-between gap-10">
-        <Link href="/" className="flex justify-center items-center flex-col  w-full">
+        <Link
+          href="/"
+          className="flex justify-center items-center flex-col  w-full"
+        >
           <Image
             src={"/icon.svg"}
             priority
@@ -16,19 +22,24 @@ const Footer = ({category}:{category:string[]}) => {
             width={200}
             height={200}
           ></Image>
-          <p className="mt-2">Jablesh</p>
+          <p className="mt-2">Jablu.in</p>
         </Link>
 
         <div className="grid grid-cols-3 w-full max-md:grid-cols-2 gap-5 mt-4 lg:mt-0">
           <div className="w-full md:flex flex-col items-center gap-5 justify-start">
             <h3 className="text-lg font-semibold">Categories</h3>
             <ul className="mt-2 flex flex-col gap-1 capitalize">
-             {category.map((e,i) => <Link href={"/Categories/Search/"+e}
-             key={i}
-             className="cursor-pointer">{e}</Link>)}
+              {category.map((e, i) => (
+                <Link
+                  href={"/Categories/Search/" + e}
+                  key={i}
+                  className="cursor-pointer"
+                >
+                  {e}
+                </Link>
+              ))}
             </ul>
           </div>
-
           <div className="w-full md:flex flex-col items-center gap-5 justify-start">
             <h3 className="text-lg font-semibold">Customer Service</h3>
             <ul className="mt-2 flex flex-col gap-1">
@@ -38,7 +49,6 @@ const Footer = ({category}:{category:string[]}) => {
               <li>FAQs</li>
             </ul>
           </div>
-
           <div className="w-full md:flex flex-col items-center gap-5 justify-start">
             <h3 className="text-lg font-semibold">Connect With Us</h3>
             <ul className="mt-2 flex flex-col gap-1">
@@ -48,26 +58,16 @@ const Footer = ({category}:{category:string[]}) => {
               <li>LinkedIn</li>
             </ul>
           </div>
-
-          <div className="w-full md:flex flex-col items-center gap-5 justify-start col-start-2 col-span-1 max-md:col-span-full ">
-            <h3 className="text-lg font-semibold ">Newsletter</h3>
-            <p className="mt-2">
-              Subscribe to our newsletter for updates and promotions.
-            </p>
-            <form className="mt-4">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="w-full md:flex flex-col items-center gap-5 justify-start bg-gray-700 py-2 px-3 rounded-md text-gray-200"
-              />
-              <button
-                type="submit"
-                className="mt-2 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md transition duration-300"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
+          <SubscribeByEmail token={token} />
+        </div>
+        <div className={"flex gap-1"}>
+          Developed by -
+          <Link
+            href={"https://exlaso.in"}
+            className={"flex gap-1 text-red-500"}
+          >
+            Vedant Bhavsar
+          </Link>
         </div>
       </div>
     </footer>

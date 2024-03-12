@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     "Jablu.in",
     "Jablu",
     "Vedant Bhavsar",
-
     "Exlaso",
     "Jablu.in tshirt",
   ],

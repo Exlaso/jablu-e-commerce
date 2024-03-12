@@ -529,3 +529,12 @@ mutation UpdateProductURL($newurl:String!,$id: String_comparison_exp!) {
     }
 
 }
+mutation addtoPromotional($email:String!){
+    update_subscribers(where: {user: {user_email: {_eq: $email}}}
+        _set: {favourite: true,newreleases: true,update: true,cart: true}
+
+    ){
+        affected_rows
+    }
+
+}
