@@ -49,77 +49,77 @@ export function EcommerceCard({
       href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`}
       className={"shrink-0  "}
     >
-      <BackgroundGradient
-        className={" h-full w-full "}
-        containerClassName={"p-2 h-full w-full "}
+      {/*<BackgroundGradient*/}
+      {/*  className={" h-full w-full "}*/}
+      {/*  containerClassName={"p-2 h-full w-full "}*/}
+      {/*>*/}
+      <Card
+        className={`  h-full w-full   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
       >
-        <Card
-          className={`  h-full w-full   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
+        <CardHeader
+          shadow={false}
+          floated={false}
+          className={`max-md:h-[calc(22vh+22vw)] h-[calc(15vh+15vw)] bg-[#C3E2C2af]  aspect-1 object-cover    `}
         >
-          <CardHeader
-            shadow={false}
-            floated={false}
-            className={`max-md:h-[calc(22vh+22vw)] h-[calc(15vh+15vw)] bg-[#C3E2C2af]  aspect-1 object-cover    `}
-          >
-            <Image
-              src={image}
-              alt={title}
-              width={300}
-              height={300}
-              className="h-full w-full object-contain bg-transparent "
-            />
-          </CardHeader>
-          <CardBody>
-            <div className="mb-2 flex items-center h-full  justify-between flex-wrap gap-3">
+          <Image
+            src={image}
+            alt={title}
+            width={300}
+            height={300}
+            className="h-full w-full object-contain bg-transparent "
+          />
+        </CardHeader>
+        <CardBody>
+          <div className="mb-2 flex items-center h-full  justify-between flex-wrap gap-3">
+            <Typography
+              color={isdarkmode ? "white" : "black"}
+              className="font-medium capitalize"
+            >
+              {title}
+            </Typography>
+            <div className={"flex gap-2"}>
+              <Typography
+                color={"red"}
+                className=" flex gap-2 line-through font-medium"
+                variant={"small"}
+              >
+                {discount !== "0.0" && (
+                  <small>
+                    Rs.{" "}
+                    {mrp.toLocaleString("en-US", {
+                      maximumFractionDigits: 2,
+                    })}
+                  </small>
+                )}
+              </Typography>
+
               <Typography
                 color={isdarkmode ? "white" : "black"}
-                className="font-medium capitalize"
+                className=" flex gap-2 font-medium"
               >
-                {title}
+                Rs.
+                {price.toLocaleString("en-US", {
+                  maximumFractionDigits: 2,
+                })}
               </Typography>
-              <div className={"flex gap-2"}>
-                <Typography
-                  color={"red"}
-                  className=" flex gap-2 line-through font-medium"
-                  variant={"small"}
-                >
-                  {discount !== "0.0" && (
-                    <small>
-                      Rs.{" "}
-                      {mrp.toLocaleString("en-US", {
-                        maximumFractionDigits: 2,
-                      })}
-                    </small>
-                  )}
-                </Typography>
-
-                <Typography
-                  color={isdarkmode ? "white" : "black"}
-                  className=" flex gap-2 font-medium"
-                >
-                  Rs.
-                  {price.toLocaleString("en-US", {
-                    maximumFractionDigits: 2,
-                  })}
-                </Typography>
-              </div>
             </div>
-          </CardBody>
-          <CardFooter className="pt-0 flex flex-col  text-gray-500 mt-5 ">
-            Available Colors:
-            <div className="group mt-2  inline-flex flex-wrap items-center gap-3">
-              {availablecolors.map((item) => (
-                <Tooltip content={item.color.toUpperCase()} key={item.color}>
-                  <span
-                    className="cursor-pointer rounded-full  border border-gray-900/5 bg-gray-900/5 p-2 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70"
-                    style={{ backgroundColor: item.hexcode }}
-                  ></span>
-                </Tooltip>
-              ))}
-            </div>
-          </CardFooter>
-        </Card>
-      </BackgroundGradient>
+          </div>
+        </CardBody>
+        <CardFooter className="pt-0 flex flex-col  text-gray-500 mt-5 ">
+          Available Colors:
+          <div className="group mt-2  inline-flex flex-wrap items-center gap-3">
+            {availablecolors.map((item) => (
+              <Tooltip content={item.color.toUpperCase()} key={item.color}>
+                <span
+                  className="cursor-pointer rounded-full  border border-gray-900/5 bg-gray-900/5 p-2 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70"
+                  style={{ backgroundColor: item.hexcode }}
+                ></span>
+              </Tooltip>
+            ))}
+          </div>
+        </CardFooter>
+      </Card>
+      {/*</BackgroundGradient>*/}
     </Link>
   );
 }
