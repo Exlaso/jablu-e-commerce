@@ -21,10 +21,11 @@ const CategoriesDisplay = ({
             key={i}
             initial="faded"
             whileHover="visible"
+            // @ts-ignore
             className={` w-full h-full relative border bg-black  hover:border-gray-500 duration-150 border-transparent  group overflow-hidden ${innerClassName}`}
           >
             <Link
-              href={"Categories/Search/"+e.name.replaceAll(" ", "-")}
+              href={"Categories/Search/" + e.name.replaceAll(" ", "-")}
               className="group"
             >
               <motion.div
@@ -40,6 +41,7 @@ const CategoriesDisplay = ({
                     transition: { scale: { duration: 60 } },
                   },
                 }}
+                // @ts-ignore
                 className="h-full w-full"
               >
                 <Image
@@ -74,6 +76,7 @@ const CategoriesDisplay = ({
                       x: 0,
                     },
                   }}
+                  // @ts-ignore
                   className=" text-xl max-lg:text-lg"
                 >
                   {e.description}

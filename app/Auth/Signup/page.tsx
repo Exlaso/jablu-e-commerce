@@ -29,13 +29,13 @@ export const metadata: Metadata = {
 };
 
 
-const page = async (props: { searchParams: { callbackUrl: string } }) => {
+const page = async (props: { searchParams: Promise<{ callbackUrl: string }> }) => {
     const user = await getServerSession();
     if (!!user?.user?.email) {
         redirect(`${process.env.NEXTAUTH_URL}/Account/Information`)
     }
     return <>
-        <Signup callbackUrl={props.searchParams.callbackUrl}/>
-    </>
+        <Signup callbackUrl={(await props.searchParams).callbackUrl}/>
+    </>;
 }
 export default page

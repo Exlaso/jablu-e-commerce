@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, {  useState } from "react";
+import React, { useState } from "react";
+
 const Navformd = ({
   navigation,
   path,
@@ -11,6 +12,7 @@ const Navformd = ({
 }) => {
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
 
+  // @ts-ignore
   return (
     <div className="w-full h-full md:hidden">
       <div className="text-2xl justify-between flex font-bold my-5 text-[var(--highlight-color)] bg-tertiary p-3">
@@ -30,21 +32,21 @@ const Navformd = ({
       </div>
       <motion.div
         initial={{ height: 0 }}
+        // @ts-ignore
         className="overflow-hidden"
         {...(ismenuopen ? { animate: { height: "auto" } } : "")}
       >
-        <motion.ul className="flex flex-col gap-10 py-5  text-xl font-semibold px-2">
+        <motion.ul
+          // @ts-ignore
+          className={"flex flex-col gap-10 py-5  text-xl font-semibold px-2"}
+        >
           {navigation.map((e, i) => {
             let selected = "";
             if (path.includes(e.href)) {
               selected = "  bg-tertiary text-[var(--highlight-color)] ";
             }
             return (
-              <Link
-                href={e.href}
-                key={i}
-                className={selected + " p-2"}
-              >
+              <Link href={e.href} key={i} className={selected + " p-2"}>
                 {e.title}
               </Link>
             );

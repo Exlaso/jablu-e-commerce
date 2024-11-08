@@ -12,7 +12,7 @@ export const PATCH = async (request: NextRequest) => {
       unique_id: string;
     } = await request.json();
 
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
     if (!token?.value) {
       return NextResponse.json({
         message: "Token Not Found",

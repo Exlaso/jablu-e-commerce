@@ -54,9 +54,15 @@ export function EcommerceCard({
       {/*  containerClassName={"p-2 h-full w-full "}*/}
       {/*>*/}
       <Card
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         className={`  h-full w-full   ${isdarkmode ? "bg-gray-900/50" : "bg-gray-400/50"}`}
       >
         <CardHeader
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
           shadow={false}
           floated={false}
           className={`max-md:h-[calc(22vh+22vw)] h-[calc(15vh+15vw)] bg-[#C3E2C2af]  aspect-1 object-cover    `}
@@ -69,9 +75,16 @@ export function EcommerceCard({
             className="h-full w-full object-contain bg-transparent "
           />
         </CardHeader>
-        <CardBody>
+        <CardBody
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           <div className="mb-2 flex items-center h-full  justify-between flex-wrap gap-3">
             <Typography
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
               color={isdarkmode ? "white" : "black"}
               className="font-medium capitalize"
             >
@@ -79,6 +92,9 @@ export function EcommerceCard({
             </Typography>
             <div className={"flex gap-2"}>
               <Typography
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
                 color={"red"}
                 className=" flex gap-2 line-through font-medium"
                 variant={"small"}
@@ -94,6 +110,9 @@ export function EcommerceCard({
               </Typography>
 
               <Typography
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
                 color={isdarkmode ? "white" : "black"}
                 className=" flex gap-2 font-medium"
               >
@@ -105,7 +124,12 @@ export function EcommerceCard({
             </div>
           </div>
         </CardBody>
-        <CardFooter className="pt-0 flex flex-col  text-gray-500 mt-5 ">
+        <CardFooter
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          className="pt-0 flex flex-col  text-gray-500 mt-5 "
+        >
           Available Colors:
           <div className="group mt-2  inline-flex flex-wrap items-center gap-3">
             {availablecolors.map((item) => (

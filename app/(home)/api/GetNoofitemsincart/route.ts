@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export const GET = async () => {
   try {
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
 
     if (!token?.value) {
       return NextResponse.json({

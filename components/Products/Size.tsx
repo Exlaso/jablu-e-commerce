@@ -19,7 +19,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
   ];
   const [currentColor, setCurrentColor] = useState(Size?.at(0));
   const ColorChoose = (
-    e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>
+    e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>,
   ) => {
     setCurrentColor(e.currentTarget.id);
   };
@@ -61,7 +61,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
               key={e}
               initial={{ scale: 1 }}
               {...(isavailable && { whileTap: { scale: 0.9 } })}
-              id={e}
+              // @ts-ignore
               onClick={(e) => {
                 ColorChoose(e);
                 FetchSize(
@@ -72,7 +72,7 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
                     | "L"
                     | "XL"
                     | "XXL"
-                    | "XXXL"
+                    | "XXXL",
                 );
               }}
               className={`disabled:after:absolute disabled:text-secondary disabled:bg-gray-500/10 disabled:brightness-50 disabled:after:bg-gray-500/50 disabled:opacity-[25] disabled:after:inset-0  disabled:after:my-auto disabled:after:-rotate-[20deg] overflow-hidden after:bg-red-500 after:h-[1px] after:w-full relative  rounded-3xl select-none ${

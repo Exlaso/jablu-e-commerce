@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 const CheckoutForm: React.FC<{
   children: ReactNode;
 }> = async ({ children }) => {
-  const jabluJwtToken = cookies().get("jablu_jwt_token");
+  const jabluJwtToken = (await cookies()).get("jablu_jwt_token");
   if (!jabluJwtToken?.value) {
     return redirect("/Auth/Signin");
   }

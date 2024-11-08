@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
 }
 const Page = async () => {
-    const token = cookies().get("jablu_jwt_token")
+    const token = (await cookies()).get("jablu_jwt_token")
     const addresses = await gqlClient.request(GetAddressDocument, {}, {
         Authorization: `Bearer ${token?.value}`
     })

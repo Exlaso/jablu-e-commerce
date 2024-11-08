@@ -7,7 +7,7 @@ import {GetAddressDocument} from "@/lib/gql/graphql";
 export const dynamic = "force-dynamic";
 
 const CheckoutForm: React.FC = async () => {
-    const token = cookies().get("jablu_jwt_token");
+    const token = (await cookies()).get("jablu_jwt_token");
     const Addresses = await gqlClient.request(GetAddressDocument, {}, {
         "Authorization": "Bearer " + token?.value,
     });

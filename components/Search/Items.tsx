@@ -13,6 +13,7 @@ const Items = ({ filtereddata }: { filtereddata: Product[] | undefined }) => {
       transition={{
         staggerChildren: 0.1,
       }}
+      // @ts-ignore
       className="grid grid-cols-2  max-lg:grid-cols-1 gap-5  w-full mx-auto"
     >
       {filtereddata?.map((e) => (

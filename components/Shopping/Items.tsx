@@ -105,6 +105,7 @@ const Items = ({
                 initial={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
+                // @ts-ignore
                 className="flex gap-5 w-full"
                 key={e.product_id}
               >

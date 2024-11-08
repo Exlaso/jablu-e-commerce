@@ -39,7 +39,7 @@ export const metadata:Metadata =  {
 
 const page: FunctionComponent<typesforpage> = async () => {
 
-    const token = cookies().get("jablu_jwt_token");
+    const token = (await cookies()).get("jablu_jwt_token");
     const Orders = await gqlClient.request(GetOrdersDocument, {},
         {
             "Authorization": "Bearer " + token?.value

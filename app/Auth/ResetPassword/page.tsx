@@ -27,11 +27,17 @@ export const metadata: Metadata = {
     },
 };
 
-const Page = ({
-  searchParams: { token },
-}: {
-  searchParams: { token: string };
-}) => {
+const Page = async (
+  props: {
+    searchParams: Promise<{ token: string }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
+
+  const {
+    token
+  } = searchParams;
+
   let error = "";
   let email: string = "";
   if (token) {

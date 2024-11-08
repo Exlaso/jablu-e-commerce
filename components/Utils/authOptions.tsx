@@ -3,7 +3,7 @@ import { Account,  NextAuthOptions, Profile, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { cookies } from "next/headers";
+import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
           await googgleaccountres.json();
 
         if (!jsonres.error) {
-          cookies().set("jablu_jwt_token", jsonres.message, {
+          (cookies() as unknown as UnsafeUnwrappedCookies).set("jablu_jwt_token", jsonres.message, {
             path: "/",
             maxAge: 605800,
           });

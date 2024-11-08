@@ -46,6 +46,7 @@ const CardSection = ({
         viewport={{ once: true }}
         initial="hidden"
         whileInView={"visible"}
+        // @ts-ignore
         className="p-4 flex h-full  w-full  gap-4 overflow-x-auto shrink-0 snap-mandatory snap-x"
       >
         {data

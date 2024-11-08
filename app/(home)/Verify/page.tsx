@@ -12,14 +12,15 @@ import Authdiv from "@/components/Authdiv";
 
 
 
-const SuccessVerificationPage = async ({
-  searchParams,
-}: {
-  searchParams: { verifyurl: string };
-}) => {
+const SuccessVerificationPage = async (
+  props: {
+    searchParams: Promise<{ verifyurl: string }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
   const verifyurl = searchParams?.verifyurl;
   let isSuccess: boolean = false;
-  
+
   if (verifyurl) {
     const res = await IsvalidUrl(verifyurl);
     isSuccess = res === true;

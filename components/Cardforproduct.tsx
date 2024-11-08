@@ -1,5 +1,5 @@
 "use client";
-import { Product} from "@/lib/Interfaces";
+import { Product } from "@/lib/Interfaces";
 import { Variants, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,11 +10,11 @@ interface datawithvarients extends Product {
   className?: string;
 }
 const Cardforproduct = ({
-   title,
+  title,
   price,
   mrp,
   product_rating,
-    product_colors,
+  product_colors,
 
   images,
   varients,
@@ -24,13 +24,11 @@ const Cardforproduct = ({
   return (
     <motion.div
       variants={varients}
+      // @ts-ignore
       className={` ${className} min-w-[30vh]  max-w-[55vh] w-full shrink-0   flex rounded-[30px] overflow-hidden   max-sm:snap-center relative  gap-4 justify-start  items-start flex-col bg-gray-500/20 border border-gray-500/30`}
       viewport={{ once: true }}
     >
-      <div
-        className="flex flex-col gap-4 w-full h-full group justify-start  items-start"
-
-      >
+      <div className="flex flex-col gap-4 w-full h-full group justify-start  items-start">
         {discount !== "0.0" && (
           <div className="absolute right-2 top-2 z-10 py-1 px-2 text-sm bg-[var(--primary-color)] rounded-2xl ">
             {discount + "%"}
@@ -38,7 +36,7 @@ const Cardforproduct = ({
         )}
         <Link
           className="flex gap-4  w-full justify-start items-start h-full flex-col"
-          href={`/Products/${title.replaceAll(" ","-").toLowerCase()}`}
+          href={`/Products/${title.replaceAll(" ", "-").toLowerCase()}`}
         >
           <div className="flex justify-center items-center w-full pt-4 ">
             <Image
@@ -59,9 +57,12 @@ const Cardforproduct = ({
               <div className="flex items-center  font-semibold gap-2">
                 {discount !== "0.0" && (
                   <span className="text-red-600  text-lg">
-                    <small>Rs. {mrp.toLocaleString("en-US", {
-                      maximumFractionDigits: 2,
-                    })}</small>
+                    <small>
+                      Rs.{" "}
+                      {mrp.toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                      })}
+                    </small>
                   </span>
                 )}
                 <span className=" rounded-full  text-xl  ">
@@ -71,7 +72,6 @@ const Cardforproduct = ({
                   })}
                 </span>
               </div>
-
 
               <span className="flex gap-1 justify-center items-center py-2  px-1">
                 Ratings: {product_rating?.avg_ratings}
@@ -90,7 +90,13 @@ const Cardforproduct = ({
                 </svg>
               </span>
               <div className={"flex  justify-center gap-2 items-center w-full"}>
-                {product_colors.map((e,i) => <div key={i} className={"h-5 shadow-gray-500 shadow w-5 rounded-full"} style={{backgroundColor:e.hexcode}}></div>)}
+                {product_colors.map((e, i) => (
+                  <div
+                    key={i}
+                    className={"h-5 shadow-gray-500 shadow w-5 rounded-full"}
+                    style={{ backgroundColor: e.hexcode }}
+                  ></div>
+                ))}
               </div>
             </div>
           </div>

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 
 const Page = async () => {
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
     const res = await fetch(
         `${process.env.NEXTAUTH_URL}/api/FetchUserDetails?jablu_jwt_token=${token?.value}`
     );

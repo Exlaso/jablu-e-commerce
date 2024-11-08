@@ -8,11 +8,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
-  params: { dir: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ dir: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   // read route params
   const directory = decodeURIComponent(params.dir);
   const data: Categories[] = await GetCategories();
@@ -61,13 +62,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const Dir = async ({
-  params,
-  searchParams,
-}: {
-  params: { dir: string };
-  searchParams: { rate: string };
-}) => {
+const Dir = async (
+  props: {
+    params: Promise<{ dir: string }>;
+    searchParams: Promise<{ rate: string }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const directory = decodeURIComponent(params.dir);
   const data = await getAllProducts();
   let filtereddata: Product[] | undefined;

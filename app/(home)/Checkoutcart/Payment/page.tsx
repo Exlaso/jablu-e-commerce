@@ -10,7 +10,7 @@ interface PaymentProps {
 }
 
 const Payment: FunctionComponent<PaymentProps> = async () => {
-    const jabluJwtToken = cookies().get("jablu_jwt_token");
+    const jabluJwtToken = (await cookies()).get("jablu_jwt_token");
     const userid: {
         userid: string;
     } = jwt.verify(jabluJwtToken?.value!, process.env.JWT_KEY as string);

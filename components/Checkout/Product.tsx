@@ -61,6 +61,7 @@ export const ProductSection = ({
             ? { animate: { height: "auto" } }
             : { animate: { height: 0 } }
           : "")}
+        // @ts-ignore
         className={"flex flex-col gap-2"}
       >
         {productdata.cart.map((e, i) => {

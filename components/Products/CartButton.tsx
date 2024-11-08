@@ -6,9 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent, useState } from "react";
 import { toast } from "sonner";
-import {Typography} from "@material-tailwind/react";
-import {MdOutlineVpnKey} from "react-icons/md";
-
+import { Typography } from "@material-tailwind/react";
+import { MdOutlineVpnKey } from "react-icons/md";
 
 interface CartButtonProps {
   data: Productwithmetadata;
@@ -16,7 +15,6 @@ interface CartButtonProps {
 }
 
 const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
-
   const path = usePathname();
   const [isadding, setIsadding] = useState(false);
 
@@ -49,10 +47,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
                   {data.title.toLowerCase()} x {data.count} was successfully
                   added to cart.
                 </p>
-                <Link
-                  href={"/ShoppingBag"}
-                  className="underline"
-                >
+                <Link href={"/ShoppingBag"} className="underline">
                   View Cart
                 </Link>
               </section>
@@ -60,22 +55,29 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
           },
 
           error: "Error",
-        }
+        },
       );
     } else {
       toast.error(
         <section className="flex flex-col gap-2">
-          <Typography variant={"paragraph"}>Login required to add items to cart.</Typography>
+          <Typography
+            variant={"paragraph"}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
+            Login required to add items to cart.
+          </Typography>
           <div className="flex justify-start items-center gap-2">
-              <MdOutlineVpnKey fontSize="small"></MdOutlineVpnKey>
-              <Link
-                href={`/Auth/Signin?callback=${encodeURIComponent(path)}`}
-                className="underline"
-              >
-                Login Here
-              </Link>
-            </div>
-        </section>
+            <MdOutlineVpnKey fontSize="small"></MdOutlineVpnKey>
+            <Link
+              href={`/Auth/Signin?callback=${encodeURIComponent(path)}`}
+              className="underline"
+            >
+              Login Here
+            </Link>
+          </div>
+        </section>,
       );
     }
   };
@@ -86,6 +88,7 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
       type="button"
       {...(!isadding && { whileTap: { scale: 0.9 } })}
       initial={{ scale: 1 }}
+      // @ts-ignore
       onClick={addtoCartHandler}
       className="flex bg-[var(--tertiary-color)] grow select-none items-start justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-gray-500/50 duration-100"
     >

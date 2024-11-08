@@ -1,10 +1,10 @@
 import {cookies} from "next/headers";
 import {NextResponse} from "next/server";
 
-export const DELETE = () => {
+export const DELETE = async () => {
     try {
- cookies().delete("jablu_jwt_token")
-        const token = cookies().get("jablu_jwt_token");
+ (await cookies()).delete("jablu_jwt_token")
+        const token = (await cookies()).get("jablu_jwt_token");
         if (!token?.value) {
             return NextResponse.json({message: "Success", error: false});
 

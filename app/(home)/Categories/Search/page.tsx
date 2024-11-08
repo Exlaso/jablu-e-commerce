@@ -31,11 +31,12 @@ export const metadata: Metadata = {
 
 
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: { q: string; rate: string };
-}) => {
+const Page = async (
+  props: {
+    searchParams: Promise<{ q: string; rate: string }>;
+  }
+) => {
+  const searchParams = await props.searchParams;
   const Query: string | undefined = searchParams.q
     ? decodeURIComponent(searchParams?.q)
     : undefined;

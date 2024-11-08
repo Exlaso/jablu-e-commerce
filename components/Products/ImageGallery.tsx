@@ -11,7 +11,12 @@ const ImageGallery = ({
   title: string;
 }) => {
   return (
-    <Carousel className="rounded-xl  max-md:h-[45vh] z-0   ">
+    <Carousel
+      className="rounded-xl  max-md:h-[45vh] z-0   "
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
       {images.map((image) => (
         <Image
           key={image.image_url}

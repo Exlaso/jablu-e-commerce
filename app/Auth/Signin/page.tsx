@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     },
 };
 
-const SignIn = async (e: { searchParams: { callbackUrl: string } }) => {
-    const callbackUrl = e?.searchParams?.callbackUrl;
+const SignIn = async (e: { searchParams: Promise<{ callbackUrl: string }> }) => {
+    const callbackUrl = (await e?.searchParams)?.callbackUrl;
     const user = await getServerSession();
 
 

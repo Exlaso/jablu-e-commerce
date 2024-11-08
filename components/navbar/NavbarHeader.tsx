@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode,  useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 const NavbarHeader = ({ children }: { children: ReactNode }) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
@@ -25,17 +25,16 @@ const NavbarHeader = ({ children }: { children: ReactNode }) => {
       return () => {
         window.removeEventListener("scroll", handleScroll);
       };
-    } 
+    }
   }, []);
-  
 
   return (
     <header
-      className={`px-2 min-h-[8vh] w-full fixed  flex z-[27] justify-center backdrop-blur-sm items-center top-0 border-b border-b-slate-500 transition-transform duration-300 ease-in-out ${
+      className={`px-2 min-h-[8vh] w-full fixed  flex z-[27] justify-center  items-center top-0  transition-transform duration-300 ease-in-out ${
         isScrolling ? "-translate-y-full" : "translate-y-0"
       } `}
     >
-    {children}
+      {children}
     </header>
   );
 };

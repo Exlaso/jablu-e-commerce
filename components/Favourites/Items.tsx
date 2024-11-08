@@ -1,11 +1,11 @@
 "use client";
 import { Wishlistitems } from "@/lib/Interfaces";
-import DislikeProduct from "@/utils/DisikeProduct";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { List, ListItem, ListItemSuffix } from "@material-tailwind/react";
+import DislikeProduct from "@/utils/DisikeProduct";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +33,12 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
       {favourited?.length === 0 && (
         <h2 className="text-lg">Favourites is Empty</h2>
       )}
-      <List color={"blue-gray"}>
+      <List
+        color={"blue-gray"}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
         {favourited?.sort()?.map((e) => {
           return (
             <ListItem
@@ -44,11 +49,23 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
                         ${isdarkmode ? "text-white/80" : "text-black/80"}
                         ${isdarkmode ? "hover:text-white/80" : "hover:text-black/80"}
                         `}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             >
               <motion.div
-                initial={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{
+                  opacity: 1,
+                  height: "auto",
+                }}
+                exit={{
+                  opacity: 0,
+                  height: 0,
+                }}
+                transition={{
+                  duration: 0.3,
+                }}
+                // @ts-ignore
                 className="flex gap-5 w-full  p-4  "
                 key={e.product_id}
               >
@@ -60,7 +77,10 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
                     alt={e.product.images}
                     width={150}
                     height={150}
-                    className={`aspect-1 object-contain   ${isdarkmode ? "bg-black/50" : "bg-white/50"}  rounded-2xl p-2`}
+                    className={`aspect-1 object-contain   $
+                    {isdarkmode ? "bg-black/50" : "bg-white/50"
+                    }
+                    rounded-2xl p-2`}
                   ></Image>
                 </Link>
                 <div className="w-full flex flex-col gap-3">
@@ -91,6 +111,9 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
                   );
                   DislikeProduct(e.product_id);
                 }}
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               >
                 <Image
                   src={"/static/icons/delete.svg"}
@@ -106,5 +129,4 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
     </AnimatePresence>
   );
 };
-
 export default Items;

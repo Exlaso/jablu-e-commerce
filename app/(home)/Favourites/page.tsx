@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
     let wishlistdata: Wishlistitems[] = []
 
     if (token?.value) {

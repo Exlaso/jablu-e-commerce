@@ -9,11 +9,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 type Props = {
-  params: { products: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ products: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   // read route params
   const data = await getAllProducts();
   const newdata = data?.filter(
@@ -62,12 +63,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const Page = async (props: { params: { products: string } }) => {
+const Page = async (props: { params: Promise<{ products: string }> }) => {
   const data = await getAllProducts();
   const newdata = data?.filter(
-    (e) =>
+    async (e) =>
       e.title.replaceAll(" ", "-").toString().toLowerCase() ===
-      props.params.products.toString().toLowerCase(),
+      (await props.params).products.toString().toLowerCase(),
   );
   if (newdata?.length === 0) {
     notFound();

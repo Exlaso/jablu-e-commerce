@@ -36,7 +36,7 @@ interface CartPageProps {
 }
 
 const CartPage: FunctionComponent<CartPageProps> = async () => {
-    const token: RequestCookie | undefined = cookies().get("jablu_jwt_token");
+    const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
     let Carteddata: {
         color: string,
         count: number,
