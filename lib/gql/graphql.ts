@@ -543,7 +543,7 @@ export type Cart_Bool_Exp = {
 
 /** unique or primary key constraints on table "cart" */
 export type Cart_Constraint =
-  /** unique or primary key constraint on columns "product_id", "user_id", "color", "size" */
+  /** unique or primary key constraint on columns "user_id", "size", "product_id", "color" */
   | 'cart_pkey';
 
 /** input type for incrementing numeric columns in table "cart" */
@@ -1010,6 +1010,10 @@ export type Mutation_Root = {
   delete_products?: Maybe<Products_Mutation_Response>;
   /** delete single row from the table: "products" */
   delete_products_by_pk?: Maybe<Products>;
+  /** delete data from the table: "split_bizz.links" */
+  delete_split_bizz_links?: Maybe<Split_Bizz_Links_Mutation_Response>;
+  /** delete single row from the table: "split_bizz.links" */
+  delete_split_bizz_links_by_pk?: Maybe<Split_Bizz_Links>;
   /** delete data from the table: "subscribers" */
   delete_subscribers?: Maybe<Subscribers_Mutation_Response>;
   /** delete single row from the table: "subscribers" */
@@ -1066,6 +1070,10 @@ export type Mutation_Root = {
   insert_products?: Maybe<Products_Mutation_Response>;
   /** insert a single row into the table: "products" */
   insert_products_one?: Maybe<Products>;
+  /** insert data into the table: "split_bizz.links" */
+  insert_split_bizz_links?: Maybe<Split_Bizz_Links_Mutation_Response>;
+  /** insert a single row into the table: "split_bizz.links" */
+  insert_split_bizz_links_one?: Maybe<Split_Bizz_Links>;
   /** insert data into the table: "subscribers" */
   insert_subscribers?: Maybe<Subscribers_Mutation_Response>;
   /** insert a single row into the table: "subscribers" */
@@ -1142,6 +1150,12 @@ export type Mutation_Root = {
   update_products_by_pk?: Maybe<Products>;
   /** update multiples rows of table: "products" */
   update_products_many?: Maybe<Array<Maybe<Products_Mutation_Response>>>;
+  /** update data of the table: "split_bizz.links" */
+  update_split_bizz_links?: Maybe<Split_Bizz_Links_Mutation_Response>;
+  /** update single row of the table: "split_bizz.links" */
+  update_split_bizz_links_by_pk?: Maybe<Split_Bizz_Links>;
+  /** update multiples rows of table: "split_bizz.links" */
+  update_split_bizz_links_many?: Maybe<Array<Maybe<Split_Bizz_Links_Mutation_Response>>>;
   /** update data of the table: "subscribers" */
   update_subscribers?: Maybe<Subscribers_Mutation_Response>;
   /** update single row of the table: "subscribers" */
@@ -1293,6 +1307,18 @@ export type Mutation_RootDelete_ProductsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Products_By_PkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Split_Bizz_LinksArgs = {
+  where: Split_Bizz_Links_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Split_Bizz_Links_By_PkArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -1483,6 +1509,20 @@ export type Mutation_RootInsert_ProductsArgs = {
 export type Mutation_RootInsert_Products_OneArgs = {
   object: Products_Insert_Input;
   on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Split_Bizz_LinksArgs = {
+  objects: Array<Split_Bizz_Links_Insert_Input>;
+  on_conflict?: InputMaybe<Split_Bizz_Links_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Split_Bizz_Links_OneArgs = {
+  object: Split_Bizz_Links_Insert_Input;
+  on_conflict?: InputMaybe<Split_Bizz_Links_On_Conflict>;
 };
 
 
@@ -1747,6 +1787,28 @@ export type Mutation_RootUpdate_Products_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Products_ManyArgs = {
   updates: Array<Products_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Split_Bizz_LinksArgs = {
+  _inc?: InputMaybe<Split_Bizz_Links_Inc_Input>;
+  _set?: InputMaybe<Split_Bizz_Links_Set_Input>;
+  where: Split_Bizz_Links_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Split_Bizz_Links_By_PkArgs = {
+  _inc?: InputMaybe<Split_Bizz_Links_Inc_Input>;
+  _set?: InputMaybe<Split_Bizz_Links_Set_Input>;
+  pk_columns: Split_Bizz_Links_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Split_Bizz_Links_ManyArgs = {
+  updates: Array<Split_Bizz_Links_Updates>;
 };
 
 
@@ -2705,9 +2767,9 @@ export type Product_Image_Urls_Bool_Exp = {
 
 /** unique or primary key constraints on table "product_image_urls" */
 export type Product_Image_Urls_Constraint =
-  /** unique or primary key constraint on columns "image_url", "product_id" */
+  /** unique or primary key constraint on columns "product_id", "image_url" */
   | 'product_image_urls_image_url_product_id_key'
-  /** unique or primary key constraint on columns "image_url", "product_id" */
+  /** unique or primary key constraint on columns "product_id", "image_url" */
   | 'product_image_urls_pkey';
 
 /** input type for inserting data into table "product_image_urls" */
@@ -3088,7 +3150,7 @@ export type Product_Sizes_Bool_Exp = {
 
 /** unique or primary key constraints on table "product_sizes" */
 export type Product_Sizes_Constraint =
-  /** unique or primary key constraint on columns "product_id", "size" */
+  /** unique or primary key constraint on columns "size", "product_id" */
   | 'product_sizes_pkey';
 
 /** input type for inserting data into table "product_sizes" */
@@ -3789,6 +3851,12 @@ export type Query_Root = {
   products_aggregate: Products_Aggregate;
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>;
+  /** fetch data from the table: "split_bizz.links" */
+  split_bizz_links: Array<Split_Bizz_Links>;
+  /** fetch aggregated fields from the table: "split_bizz.links" */
+  split_bizz_links_aggregate: Split_Bizz_Links_Aggregate;
+  /** fetch data from the table: "split_bizz.links" using primary key columns */
+  split_bizz_links_by_pk?: Maybe<Split_Bizz_Links>;
   /** fetch data from the table: "subscribers" */
   subscribers: Array<Subscribers>;
   /** fetch aggregated fields from the table: "subscribers" */
@@ -4053,6 +4121,29 @@ export type Query_RootProducts_By_PkArgs = {
 };
 
 
+export type Query_RootSplit_Bizz_LinksArgs = {
+  distinct_on?: InputMaybe<Array<Split_Bizz_Links_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Split_Bizz_Links_Order_By>>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+};
+
+
+export type Query_RootSplit_Bizz_Links_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Split_Bizz_Links_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Split_Bizz_Links_Order_By>>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+};
+
+
+export type Query_RootSplit_Bizz_Links_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
 export type Query_RootSubscribersArgs = {
   distinct_on?: InputMaybe<Array<Subscribers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4144,6 +4235,186 @@ export type Query_RootWishlist_Items_AggregateArgs = {
 export type Query_RootWishlist_Items_By_PkArgs = {
   product_id: Scalars['String']['input'];
   user_id: Scalars['String']['input'];
+};
+
+/** columns and relationships of "split_bizz.links" */
+export type Split_Bizz_Links = {
+  id: Scalars['Int']['output'];
+  link: Scalars['String']['output'];
+};
+
+/** aggregated selection of "split_bizz.links" */
+export type Split_Bizz_Links_Aggregate = {
+  aggregate?: Maybe<Split_Bizz_Links_Aggregate_Fields>;
+  nodes: Array<Split_Bizz_Links>;
+};
+
+/** aggregate fields of "split_bizz.links" */
+export type Split_Bizz_Links_Aggregate_Fields = {
+  avg?: Maybe<Split_Bizz_Links_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Split_Bizz_Links_Max_Fields>;
+  min?: Maybe<Split_Bizz_Links_Min_Fields>;
+  stddev?: Maybe<Split_Bizz_Links_Stddev_Fields>;
+  stddev_pop?: Maybe<Split_Bizz_Links_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Split_Bizz_Links_Stddev_Samp_Fields>;
+  sum?: Maybe<Split_Bizz_Links_Sum_Fields>;
+  var_pop?: Maybe<Split_Bizz_Links_Var_Pop_Fields>;
+  var_samp?: Maybe<Split_Bizz_Links_Var_Samp_Fields>;
+  variance?: Maybe<Split_Bizz_Links_Variance_Fields>;
+};
+
+
+/** aggregate fields of "split_bizz.links" */
+export type Split_Bizz_Links_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Split_Bizz_Links_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Split_Bizz_Links_Avg_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "split_bizz.links". All fields are combined with a logical 'AND'. */
+export type Split_Bizz_Links_Bool_Exp = {
+  _and?: InputMaybe<Array<Split_Bizz_Links_Bool_Exp>>;
+  _not?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+  _or?: InputMaybe<Array<Split_Bizz_Links_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  link?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "split_bizz.links" */
+export type Split_Bizz_Links_Constraint =
+  /** unique or primary key constraint on columns "id" */
+  | 'links_pkey';
+
+/** input type for incrementing numeric columns in table "split_bizz.links" */
+export type Split_Bizz_Links_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "split_bizz.links" */
+export type Split_Bizz_Links_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Split_Bizz_Links_Max_Fields = {
+  id?: Maybe<Scalars['Int']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Split_Bizz_Links_Min_Fields = {
+  id?: Maybe<Scalars['Int']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "split_bizz.links" */
+export type Split_Bizz_Links_Mutation_Response = {
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Split_Bizz_Links>;
+};
+
+/** on_conflict condition type for table "split_bizz.links" */
+export type Split_Bizz_Links_On_Conflict = {
+  constraint: Split_Bizz_Links_Constraint;
+  update_columns?: Array<Split_Bizz_Links_Update_Column>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "split_bizz.links". */
+export type Split_Bizz_Links_Order_By = {
+  id?: InputMaybe<Order_By>;
+  link?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: split_bizz.links */
+export type Split_Bizz_Links_Pk_Columns_Input = {
+  id: Scalars['Int']['input'];
+};
+
+/** select columns of table "split_bizz.links" */
+export type Split_Bizz_Links_Select_Column =
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'link';
+
+/** input type for updating data in table "split_bizz.links" */
+export type Split_Bizz_Links_Set_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Split_Bizz_Links_Stddev_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Split_Bizz_Links_Stddev_Pop_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Split_Bizz_Links_Stddev_Samp_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "split_bizz_links" */
+export type Split_Bizz_Links_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Split_Bizz_Links_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Split_Bizz_Links_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Split_Bizz_Links_Sum_Fields = {
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "split_bizz.links" */
+export type Split_Bizz_Links_Update_Column =
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'link';
+
+export type Split_Bizz_Links_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Split_Bizz_Links_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Split_Bizz_Links_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Split_Bizz_Links_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Split_Bizz_Links_Var_Pop_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Split_Bizz_Links_Var_Samp_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Split_Bizz_Links_Variance_Fields = {
+  id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "subscribers" */
@@ -4392,6 +4663,14 @@ export type Subscription_Root = {
   products_by_pk?: Maybe<Products>;
   /** fetch data from the table in a streaming manner: "products" */
   products_stream: Array<Products>;
+  /** fetch data from the table: "split_bizz.links" */
+  split_bizz_links: Array<Split_Bizz_Links>;
+  /** fetch aggregated fields from the table: "split_bizz.links" */
+  split_bizz_links_aggregate: Split_Bizz_Links_Aggregate;
+  /** fetch data from the table: "split_bizz.links" using primary key columns */
+  split_bizz_links_by_pk?: Maybe<Split_Bizz_Links>;
+  /** fetch data from the table in a streaming manner: "split_bizz.links" */
+  split_bizz_links_stream: Array<Split_Bizz_Links>;
   /** fetch data from the table: "subscribers" */
   subscribers: Array<Subscribers>;
   /** fetch aggregated fields from the table: "subscribers" */
@@ -4731,6 +5010,36 @@ export type Subscription_RootProducts_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Products_Stream_Cursor_Input>>;
   where?: InputMaybe<Products_Bool_Exp>;
+};
+
+
+export type Subscription_RootSplit_Bizz_LinksArgs = {
+  distinct_on?: InputMaybe<Array<Split_Bizz_Links_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Split_Bizz_Links_Order_By>>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+};
+
+
+export type Subscription_RootSplit_Bizz_Links_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Split_Bizz_Links_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Split_Bizz_Links_Order_By>>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
+};
+
+
+export type Subscription_RootSplit_Bizz_Links_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type Subscription_RootSplit_Bizz_Links_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Split_Bizz_Links_Stream_Cursor_Input>>;
+  where?: InputMaybe<Split_Bizz_Links_Bool_Exp>;
 };
 
 
@@ -5351,7 +5660,7 @@ export type Verificationurls_Bool_Exp = {
 
 /** unique or primary key constraints on table "verificationurls" */
 export type Verificationurls_Constraint =
-  /** unique or primary key constraint on columns "UUID", "verifyurl" */
+  /** unique or primary key constraint on columns "verifyurl", "UUID" */
   | 'VerificationUrls_pkey'
   /** unique or primary key constraint on columns "verifyurl" */
   | 'VerificationUrls_verifyurl_key';
@@ -5552,7 +5861,7 @@ export type Wishlist_Items_Bool_Exp = {
 
 /** unique or primary key constraints on table "wishlist_items" */
 export type Wishlist_Items_Constraint =
-  /** unique or primary key constraint on columns "product_id", "user_id" */
+  /** unique or primary key constraint on columns "user_id", "product_id" */
   | 'wishlist_items_pkey';
 
 /** input type for incrementing numeric columns in table "wishlist_items" */

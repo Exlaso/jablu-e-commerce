@@ -651,7 +651,7 @@ unique or primary key constraints on table "cart"
 """
 enum cart_constraint {
   """
-  unique or primary key constraint on columns "product_id", "user_id", "color", "size"
+  unique or primary key constraint on columns "user_id", "size", "product_id", "color"
   """
   cart_pkey
 }
@@ -1313,6 +1313,19 @@ type mutation_root {
   delete_products_by_pk(id: String!): products
 
   """
+  delete data from the table: "split_bizz.links"
+  """
+  delete_split_bizz_links(
+    """filter the rows which have to be deleted"""
+    where: split_bizz_links_bool_exp!
+  ): split_bizz_links_mutation_response
+
+  """
+  delete single row from the table: "split_bizz.links"
+  """
+  delete_split_bizz_links_by_pk(id: Int!): split_bizz_links
+
+  """
   delete data from the table: "subscribers"
   """
   delete_subscribers(
@@ -1583,6 +1596,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: products_on_conflict
   ): products
+
+  """
+  insert data into the table: "split_bizz.links"
+  """
+  insert_split_bizz_links(
+    """the rows to be inserted"""
+    objects: [split_bizz_links_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: split_bizz_links_on_conflict
+  ): split_bizz_links_mutation_response
+
+  """
+  insert a single row into the table: "split_bizz.links"
+  """
+  insert_split_bizz_links_one(
+    """the row to be inserted"""
+    object: split_bizz_links_insert_input!
+
+    """upsert condition"""
+    on_conflict: split_bizz_links_on_conflict
+  ): split_bizz_links
 
   """
   insert data into the table: "subscribers"
@@ -1975,6 +2010,40 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [products_updates!]!
   ): [products_mutation_response]
+
+  """
+  update data of the table: "split_bizz.links"
+  """
+  update_split_bizz_links(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: split_bizz_links_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: split_bizz_links_set_input
+
+    """filter the rows which have to be updated"""
+    where: split_bizz_links_bool_exp!
+  ): split_bizz_links_mutation_response
+
+  """
+  update single row of the table: "split_bizz.links"
+  """
+  update_split_bizz_links_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: split_bizz_links_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: split_bizz_links_set_input
+    pk_columns: split_bizz_links_pk_columns_input!
+  ): split_bizz_links
+
+  """
+  update multiples rows of table: "split_bizz.links"
+  """
+  update_split_bizz_links_many(
+    """updates to execute, in order"""
+    updates: [split_bizz_links_updates!]!
+  ): [split_bizz_links_mutation_response]
 
   """
   update data of the table: "subscribers"
@@ -3154,12 +3223,12 @@ unique or primary key constraints on table "product_image_urls"
 """
 enum product_image_urls_constraint {
   """
-  unique or primary key constraint on columns "image_url", "product_id"
+  unique or primary key constraint on columns "product_id", "image_url"
   """
   product_image_urls_image_url_product_id_key
 
   """
-  unique or primary key constraint on columns "image_url", "product_id"
+  unique or primary key constraint on columns "product_id", "image_url"
   """
   product_image_urls_pkey
 }
@@ -3612,7 +3681,7 @@ unique or primary key constraints on table "product_sizes"
 """
 enum product_sizes_constraint {
   """
-  unique or primary key constraint on columns "product_id", "size"
+  unique or primary key constraint on columns "size", "product_id"
   """
   product_sizes_pkey
 }
@@ -4830,6 +4899,51 @@ type query_root {
   products_by_pk(id: String!): products
 
   """
+  fetch data from the table: "split_bizz.links"
+  """
+  split_bizz_links(
+    """distinct select on columns"""
+    distinct_on: [split_bizz_links_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [split_bizz_links_order_by!]
+
+    """filter the rows returned"""
+    where: split_bizz_links_bool_exp
+  ): [split_bizz_links!]!
+
+  """
+  fetch aggregated fields from the table: "split_bizz.links"
+  """
+  split_bizz_links_aggregate(
+    """distinct select on columns"""
+    distinct_on: [split_bizz_links_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [split_bizz_links_order_by!]
+
+    """filter the rows returned"""
+    where: split_bizz_links_bool_exp
+  ): split_bizz_links_aggregate!
+
+  """
+  fetch data from the table: "split_bizz.links" using primary key columns
+  """
+  split_bizz_links_by_pk(id: Int!): split_bizz_links
+
+  """
   fetch data from the table: "subscribers"
   """
   subscribers(
@@ -4994,6 +5108,216 @@ type query_root {
 
   """fetch data from the table: "wishlist_items" using primary key columns"""
   wishlist_items_by_pk(product_id: String!, user_id: String!): wishlist_items
+}
+
+"""
+columns and relationships of "split_bizz.links"
+"""
+type split_bizz_links {
+  id: Int!
+  link: String!
+}
+
+"""
+aggregated selection of "split_bizz.links"
+"""
+type split_bizz_links_aggregate {
+  aggregate: split_bizz_links_aggregate_fields
+  nodes: [split_bizz_links!]!
+}
+
+"""
+aggregate fields of "split_bizz.links"
+"""
+type split_bizz_links_aggregate_fields {
+  avg: split_bizz_links_avg_fields
+  count(columns: [split_bizz_links_select_column!], distinct: Boolean): Int!
+  max: split_bizz_links_max_fields
+  min: split_bizz_links_min_fields
+  stddev: split_bizz_links_stddev_fields
+  stddev_pop: split_bizz_links_stddev_pop_fields
+  stddev_samp: split_bizz_links_stddev_samp_fields
+  sum: split_bizz_links_sum_fields
+  var_pop: split_bizz_links_var_pop_fields
+  var_samp: split_bizz_links_var_samp_fields
+  variance: split_bizz_links_variance_fields
+}
+
+"""aggregate avg on columns"""
+type split_bizz_links_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "split_bizz.links". All fields are combined with a logical 'AND'.
+"""
+input split_bizz_links_bool_exp {
+  _and: [split_bizz_links_bool_exp!]
+  _not: split_bizz_links_bool_exp
+  _or: [split_bizz_links_bool_exp!]
+  id: Int_comparison_exp
+  link: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "split_bizz.links"
+"""
+enum split_bizz_links_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  links_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "split_bizz.links"
+"""
+input split_bizz_links_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "split_bizz.links"
+"""
+input split_bizz_links_insert_input {
+  id: Int
+  link: String
+}
+
+"""aggregate max on columns"""
+type split_bizz_links_max_fields {
+  id: Int
+  link: String
+}
+
+"""aggregate min on columns"""
+type split_bizz_links_min_fields {
+  id: Int
+  link: String
+}
+
+"""
+response of any mutation on the table "split_bizz.links"
+"""
+type split_bizz_links_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [split_bizz_links!]!
+}
+
+"""
+on_conflict condition type for table "split_bizz.links"
+"""
+input split_bizz_links_on_conflict {
+  constraint: split_bizz_links_constraint!
+  update_columns: [split_bizz_links_update_column!]! = []
+  where: split_bizz_links_bool_exp
+}
+
+"""Ordering options when selecting data from "split_bizz.links"."""
+input split_bizz_links_order_by {
+  id: order_by
+  link: order_by
+}
+
+"""primary key columns input for table: split_bizz.links"""
+input split_bizz_links_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "split_bizz.links"
+"""
+enum split_bizz_links_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  link
+}
+
+"""
+input type for updating data in table "split_bizz.links"
+"""
+input split_bizz_links_set_input {
+  id: Int
+  link: String
+}
+
+"""aggregate stddev on columns"""
+type split_bizz_links_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type split_bizz_links_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type split_bizz_links_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "split_bizz_links"
+"""
+input split_bizz_links_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: split_bizz_links_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input split_bizz_links_stream_cursor_value_input {
+  id: Int
+  link: String
+}
+
+"""aggregate sum on columns"""
+type split_bizz_links_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "split_bizz.links"
+"""
+enum split_bizz_links_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  link
+}
+
+input split_bizz_links_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: split_bizz_links_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: split_bizz_links_set_input
+
+  """filter the rows which have to be updated"""
+  where: split_bizz_links_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type split_bizz_links_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type split_bizz_links_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type split_bizz_links_variance_fields {
+  id: Float
 }
 
 """
@@ -5746,6 +6070,65 @@ type subscription_root {
     """filter the rows returned"""
     where: products_bool_exp
   ): [products!]!
+
+  """
+  fetch data from the table: "split_bizz.links"
+  """
+  split_bizz_links(
+    """distinct select on columns"""
+    distinct_on: [split_bizz_links_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [split_bizz_links_order_by!]
+
+    """filter the rows returned"""
+    where: split_bizz_links_bool_exp
+  ): [split_bizz_links!]!
+
+  """
+  fetch aggregated fields from the table: "split_bizz.links"
+  """
+  split_bizz_links_aggregate(
+    """distinct select on columns"""
+    distinct_on: [split_bizz_links_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [split_bizz_links_order_by!]
+
+    """filter the rows returned"""
+    where: split_bizz_links_bool_exp
+  ): split_bizz_links_aggregate!
+
+  """
+  fetch data from the table: "split_bizz.links" using primary key columns
+  """
+  split_bizz_links_by_pk(id: Int!): split_bizz_links
+
+  """
+  fetch data from the table in a streaming manner: "split_bizz.links"
+  """
+  split_bizz_links_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [split_bizz_links_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: split_bizz_links_bool_exp
+  ): [split_bizz_links!]!
 
   """
   fetch data from the table: "subscribers"
@@ -6591,7 +6974,7 @@ unique or primary key constraints on table "verificationurls"
 """
 enum verificationurls_constraint {
   """
-  unique or primary key constraint on columns "UUID", "verifyurl"
+  unique or primary key constraint on columns "verifyurl", "UUID"
   """
   VerificationUrls_pkey
 
@@ -6834,7 +7217,7 @@ unique or primary key constraints on table "wishlist_items"
 """
 enum wishlist_items_constraint {
   """
-  unique or primary key constraint on columns "product_id", "user_id"
+  unique or primary key constraint on columns "user_id", "product_id"
   """
   wishlist_items_pkey
 }

@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import React from "react";
 import { MTThemeprovider } from "@/utils/MTThemeprovider";
 import { Montserrat } from "next/font/google";
+import { APILoader } from "@/lib/essential-utils/loading";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -74,10 +75,12 @@ export default async function RootLayout(
     <html lang="en">
       <body className={montserrat.className}>
         <AuthSessionProvider session={session}>
-          <MTThemeprovider>
-            <Toaster position="top-right" richColors />
-            {children}
-          </MTThemeprovider>
+          <APILoader>
+            <MTThemeprovider>
+              <Toaster position="top-right" richColors />
+              {children}
+            </MTThemeprovider>
+          </APILoader>
         </AuthSessionProvider>
       </body>
     </html>

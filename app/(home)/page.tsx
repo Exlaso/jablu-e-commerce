@@ -12,13 +12,14 @@ import LandingSection from "@/components/LandingSection";
 
 export default async function Home() {
   const Items: Product[] | undefined = await getAllProducts();
-  const data: { name: string; image: string; description: string }[] =
-    await GetCategories();
-  const sortFunction = (a: any, b: any) => {
+  const data = await GetCategories();
+
+  const sortFunction = (a: { name: string }, b: { name: string }) => {
     const textA = a.name.toUpperCase();
     const textB = b.name.toUpperCase();
     return textA < textB ? -1 : textA > textB ? 1 : 0;
   };
+
   return (
     <main className="flex min-h-screen flex-col">
       <LandingSection />
