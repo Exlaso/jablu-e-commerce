@@ -1,8 +1,10 @@
 import { Product } from "@/lib/Interfaces";
 import React from "react";
 import CardSection from "./CardSection";
+import getAllProducts from "@/utils/GetProduct";
 
-const ProductsCategories = ({ data }: { data: Product[] | undefined }) => {
+const ProductsCategories = async () => {
+  const data = await getAllProducts();
   const category: string[] = [];
   data?.map((product) => {
     if (!category.includes(product.category)) category.push(product.category);

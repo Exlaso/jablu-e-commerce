@@ -202,7 +202,6 @@ const ProductCard = ({ ogorder, token }: { ogorder: Items; token: string }) => {
     <motion.li
       initial={"closed"}
       animate={isopen ? "opened" : "closed"}
-      // @ts-ignore
       onClick={() => {
         setisopen((e) => !e);
       }}

@@ -48,9 +48,7 @@ const DeliverySelection: FunctionComponent<DeliverySelectionProps> = () => {
     <motion.form
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      // @ts-ignore
       className={"flex gap-4 flex-col"}
-      // @ts-ignore
       onSubmit={(e) => handleformsubmit(e)}
     >
       <div

@@ -40,7 +40,6 @@ export const MaskContainer = ({
   return (
     <motion.div
       ref={containerRef}
-      // @ts-ignore
       className={cn("h-screen relative capitalized ", className)}
       animate={{
         backgroundColor: isHovered
@@ -49,7 +48,6 @@ export const MaskContainer = ({
       }}
     >
       <motion.div
-        // @ts-ignore
         className="w-full h-full flex items-center justify-center text-6xl absolute bg-[var(--highlight-color)] bg-grid-white/[0.2]  [mask-image:url(/mask.svg)] [mask-size:40px] [mask-repeat:no-repeat]"
         animate={{
           WebkitMaskPosition: `${mousePosition.x - maskSize / 2}px ${

@@ -42,7 +42,6 @@ const Colors: FunctionComponent<colorsProps> = ({ Colors, FetchColor }) => {
               key={e.color}
               initial={{ scale: 1 }}
               whileTap={{ scale: 0.9 }}
-              // @ts-ignore
               onClick={(e) => {
                 ColorChoose(e);
                 FetchColor(

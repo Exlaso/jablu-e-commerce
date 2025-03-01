@@ -12,7 +12,6 @@ const Navformd = ({
 }) => {
   const [ismenuopen, setIsmenuopen] = useState<boolean>(false);
 
-  // @ts-ignore
   return (
     <div className="w-full h-full md:hidden">
       <div className="text-2xl justify-between flex font-bold my-5 text-[var(--highlight-color)] bg-tertiary p-3">
@@ -32,12 +31,10 @@ const Navformd = ({
       </div>
       <motion.div
         initial={{ height: 0 }}
-        // @ts-ignore
         className="overflow-hidden"
         {...(ismenuopen ? { animate: { height: "auto" } } : "")}
       >
         <motion.ul
-          // @ts-ignore
           className={"flex flex-col gap-10 py-5  text-xl font-semibold px-2"}
         >
           {navigation.map((e, i) => {

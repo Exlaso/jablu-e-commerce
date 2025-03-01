@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const CategoriesDisplay = ({
+const CategoriesCardContainer = ({
   data,
   className,
   innerClassName,
@@ -40,7 +40,6 @@ const CategoriesDisplay = ({
                     transition: { scale: { duration: 60 } },
                   },
                 }}
-                // @ts-ignore
                 className="h-full w-full"
               >
                 <Image
@@ -75,7 +74,6 @@ const CategoriesDisplay = ({
                       x: 0,
                     },
                   }}
-                  // @ts-ignore
                   className=" text-xl max-lg:text-lg"
                 >
                   {e.description}
@@ -89,4 +87,4 @@ const CategoriesDisplay = ({
   );
 };
 
-export default CategoriesDisplay;
+export default CategoriesCardContainer;

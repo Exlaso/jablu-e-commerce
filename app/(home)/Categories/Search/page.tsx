@@ -8,10 +8,11 @@ export const metadata: Metadata = {
   title: "Search - Jablu.in",
   description:
     "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
-  keywords: "Jablu.in, E-commerce, Search, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
- 
-    metadataBase: new URL("https://jablu.exlaso.in"),
- openGraph: {
+  keywords:
+    "Jablu.in, E-commerce, Search, Unique clothing, Premium designs, Exlaso, Vedant Bhavsar",
+
+  metadataBase: new URL("https://jablu.exlaso.in"),
+  openGraph: {
     title: "Search - Jablu.in",
     url: "https://jablu.exlaso.in/Categories/Search",
     siteName: "Jablu.in",
@@ -20,22 +21,14 @@ export const metadata: Metadata = {
     description:
       "Find what you're looking for at Jablu.in, your trusted E-commerce website. Explore a wide selection of unique clothing with premium designs. Search for your favorite items and discover new treasures.",
   },
-    alternates: {
-        canonical: "https://jablu.exlaso.in/Categories/Search",
-    },
+  alternates: {
+    canonical: "https://jablu.exlaso.in/Categories/Search",
+  },
 };
 
-
-
-
-
-
-
-const Page = async (
-  props: {
-    searchParams: Promise<{ q: string; rate: string }>;
-  }
-) => {
+const Page = async (props: {
+  searchParams: Promise<{ q: string; rate: string }>;
+}) => {
   const searchParams = await props.searchParams;
   const Query: string | undefined = searchParams.q
     ? decodeURIComponent(searchParams?.q)
@@ -43,12 +36,12 @@ const Page = async (
 
   const data = await getAllProducts();
   let filtereddata = data?.filter((product) =>
-    product.title.toLowerCase().includes(Query ? Query?.toLowerCase() : "")
+    product.title.toLowerCase().includes(Query ? Query?.toLowerCase() : ""),
   );
   switch (searchParams.rate) {
     case "relevant":
       filtereddata = data?.filter((product) =>
-        product.title.toLowerCase().includes(Query ? Query?.toLowerCase() : "")
+        product.title.toLowerCase().includes(Query ? Query?.toLowerCase() : ""),
       );
 
       break;
@@ -63,23 +56,23 @@ const Page = async (
       break;
   }
   return (
-   <>
-        <div className="flex flex-col gap-9 min-h-screen">
-          {Query !== undefined ? (
-            <h1>
-              Showing {filtereddata?.length} results for{" "}
-              <span className="font-bold uppercase exlasi">{Query}</span>
-            </h1>
-          ) : null}
-          <Items filtereddata={filtereddata}></Items>
+    <>
+      <div className="flex flex-col gap-9 min-h-screen">
+        {Query !== undefined ? (
+          <h1>
+            Showing {filtereddata?.length} results for{" "}
+            <span className="font-bold uppercase ">{Query}</span>
+          </h1>
+        ) : null}
+        <Items filtereddata={filtereddata}></Items>
+      </div>
+      <div className="w-full max-md:row-start-2 ">
+        <div className="w-full md:sticky top-[12vh]  ">
+          <p className="text-sm text-gray-500 my-3 ">Sort by</p>
+          <SortBy Query={Query} />
         </div>
-        <div className="w-full max-md:row-start-2 ">
-          <div className="w-full md:sticky top-[12vh]  ">
-            <p className="text-sm text-gray-500 my-3 ">Sort by</p>
-            <SortBy Query={Query} />
-          </div>
-        </div>
-   </>
+      </div>
+    </>
   );
 };
 

@@ -61,7 +61,6 @@ const Size: FunctionComponent<colorsProps> = ({ Size, FetchSize }) => {
               key={e}
               initial={{ scale: 1 }}
               {...(isavailable && { whileTap: { scale: 0.9 } })}
-              // @ts-ignore
               onClick={(e) => {
                 ColorChoose(e);
                 FetchSize(

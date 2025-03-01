@@ -2,7 +2,7 @@ import { Product } from "@/lib/Interfaces";
 import { GetFavouritedItems } from "@/lib/db/hasura";
 import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -16,9 +16,10 @@ export const GET = async (req: NextRequest) => {
         code: "A-FUD-I",
       });
     }
-    const token: string = searchParams.get("jablu_jwt_token") as string; 
-    
+    const token: string = searchParams.get("jablu_jwt_token") as string;
+
     const wishlist: Product[] = await GetFavouritedItems(token);
+    console.log({ wishlist });
     return NextResponse.json({
       message: wishlist,
       error: false,
@@ -32,7 +33,7 @@ export const GET = async (req: NextRequest) => {
         { message: error, code: "A-SN-IV", error: true },
         {
           status: 400,
-        }
+        },
       );
     } else if (error instanceof Error) {
       console.error("Error in api/Getwishlist", error?.message);
@@ -40,7 +41,7 @@ export const GET = async (req: NextRequest) => {
         { message: error?.message, code: "A-SN-V", error: true },
         {
           status: 400,
-        }
+        },
       );
     }
   }

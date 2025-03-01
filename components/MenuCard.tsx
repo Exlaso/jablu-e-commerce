@@ -82,7 +82,6 @@ const MenuCard = ({
         duration: 0.2,
       }}
       exit={{ y: "-100%" }}
-      // @ts-ignore
       className="fixed left-0  pt-[10%] pb-[5%] max-sm:pt-[30%] max-sm:pb-[15%]  Menucardcss top-0 w-full  h-auto z-[21]  border-b-[var(--tertiary-color)] bg-[var(--primary-color)]"
     >
       <div className="flex flex-col gap-8">

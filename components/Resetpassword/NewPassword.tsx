@@ -122,7 +122,6 @@ const NewPassword: FunctionComponent<NewPasswordProps> = ({ email, token }) => {
               animate={{ x: "0%" }}
               exit={{ x: "-110%" }}
               initial={{ x: "0%" }}
-              // @ts-ignore
               onSubmit={handlePasswordupdateForm}
               className={"flex flex-col  gap-10 w-full"}
             >

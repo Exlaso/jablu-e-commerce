@@ -10,7 +10,6 @@ const SearchProductCard = ({ title, id, imgurl }: props) => {
         initial={{ y: 0, opacity: 0 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -5 }}
-        // @ts-ignore
         className="flex gap-2 items-center "
       >
         <Image

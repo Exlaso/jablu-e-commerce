@@ -2,7 +2,7 @@
 import React, { ReactNode } from "react";
 import { Product } from "@/lib/Interfaces";
 import { motion, Variants } from "framer-motion";
-import { EcommerceCard } from "@/components/mt/Card";
+import { ProductCard } from "@/components/mt/Card";
 import Link from "next/link";
 
 const CardSection = ({
@@ -21,19 +21,6 @@ const CardSection = ({
     hidden: {},
   };
 
-  const varients: Variants = {
-    hidden: {
-      scale: 0.5,
-      opacity: 0,
-      y: 50,
-    },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      y: 0,
-    },
-  };
-
   return (
     <div className={"w-full"}>
       {data?.length !== 0 && (
@@ -46,21 +33,11 @@ const CardSection = ({
         viewport={{ once: true }}
         initial="hidden"
         whileInView={"visible"}
-        // @ts-ignore
         className="p-4 flex h-full  w-full  gap-4 overflow-x-auto shrink-0 snap-mandatory snap-x"
       >
         {data
           ?.slice(0, 3)
-          ?.map((item) => (
-            <EcommerceCard
-              key={item.id}
-              mrp={item?.mrp}
-              title={item.title}
-              price={item.price}
-              image={item.images}
-              availablecolors={item.product_colors}
-            />
-          ))}
+          ?.map((item) => <ProductCard key={item.id} {...item} />)}
       </motion.div>
     </div>
   );

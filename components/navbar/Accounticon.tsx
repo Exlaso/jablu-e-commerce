@@ -11,7 +11,6 @@ const Accounticon = ({ imgurl }: { imgurl: string }) => {
     <motion.div
       initial="hidden"
       animate="visible"
-      // @ts-ignore
       className="relative flex flex-col items-center justify-center gap-2 text-lg font-bold group"
     >
       <motion.div initial={{ scale: 1 }} whileTap={{ scale: 0.85 }}>

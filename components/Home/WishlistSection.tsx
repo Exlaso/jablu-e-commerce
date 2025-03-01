@@ -5,7 +5,9 @@ import { cookies } from "next/headers";
 import { Product } from "@/lib/Interfaces";
 
 const WishlistSection = async () => {
-  const token: RequestCookie | undefined = (await cookies()).get("jablu_jwt_token");
+  const token: RequestCookie | undefined = (await cookies()).get(
+    "jablu_jwt_token",
+  );
   let wishlistdata;
   if (token?.value) {
     const res = await fetch(
@@ -16,6 +18,7 @@ const WishlistSection = async () => {
       },
     );
     const data = await res.json();
+    console.log({ data });
     if (data.errorcode === "TCNF") {
       wishlistdata = [];
     } else {

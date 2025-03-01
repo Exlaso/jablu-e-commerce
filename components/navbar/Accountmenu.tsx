@@ -94,7 +94,6 @@ const Accountmenu = ({
           delay: 0.1,
         },
       }}
-      // @ts-ignore
       className="absolute w-64 border font-normal overflow-hidden rounded-lg top-[110%] right-0 shadow-lg  bg-white"
     >
       <motion.ul
@@ -103,7 +102,6 @@ const Accountmenu = ({
         transition={{
           staggerChildren: 0.15,
         }}
-        // @ts-ignore
         className="flex flex-col  text-lg text-black items-start justify-around font-bold gap-3"
       >
         <List

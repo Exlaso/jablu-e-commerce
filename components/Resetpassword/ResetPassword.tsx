@@ -74,7 +74,6 @@ const ResetPassword = ({ uperror }: { uperror: string }) => {
             <motion.form
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              // @ts-ignore
               className={"flex flex-col  gap-10 w-full"}
               onSubmit={handleEmailsubmit}
             >
@@ -121,7 +120,6 @@ const ResetPassword = ({ uperror }: { uperror: string }) => {
               transition={{
                 damping: 0,
               }}
-              // @ts-ignore
               className=" shrink-0  w-full"
             >
               <span className="flex justify-center">

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Cartitems, Product } from "@/lib/Interfaces";
 import CardSection from "@/components/CardSection";
 import { LitUpButton } from "@/components/ui/tailwindcss-buttons";
+import { useMutation } from "@tanstack/react-query";
 
 const Items = ({
   Carteddata,
@@ -18,9 +19,25 @@ const Items = ({
 }) => {
   const [carteditems, setCarteditems] = useState<Cartitems[]>(Carteddata);
   let total: number = 0;
-  const ItemRemoveHandler = (productdata: Cartitems) => {
-    toast.promise(
-      fetch("api/UpdateCount", {
+
+  const onRemoveSuccess = (productData: Cartitems) => {
+    setCarteditems((prev) => {
+      return [
+        ...prev.filter(
+          (e) =>
+            !(
+              e.product_id === productData.product_id &&
+              e.color === productData.color &&
+              e.size === productData.size
+            ),
+        ),
+      ];
+    });
+  };
+
+  const { mutate: handleUpdate, isPending } = useMutation({
+    mutationFn: async (productdata: Cartitems) => {
+      const res = await fetch("api/UpdateCount", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -32,35 +49,13 @@ const Items = ({
           count: 0,
           inc: -1,
         }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            console.error(data.message);
-          } else {
-            setCarteditems((prev) => {
-              return [
-                ...prev.filter(
-                  (e) =>
-                    !(
-                      e.product_id === productdata.product_id &&
-                      e.color === productdata.color &&
-                      e.size === productdata.size
-                    ),
-                ),
-              ];
-            });
-          }
-        }),
-      {
-        loading: "Updating...",
-        success: () => {
-          return `Information Was Successfully Removed.`;
-        },
-        error: "Error",
-      },
-    );
-  };
+      });
+      const data = (await res.json()) as { message: string; error: string };
+      if (data.error) {
+        throw new Error(data.message);
+      }
+    },
+  });
 
   return (
     <div className=" w-full flex-col flex gap-4">
@@ -105,7 +100,6 @@ const Items = ({
                 initial={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                // @ts-ignore
                 className="flex gap-5 w-full"
                 key={e.product_id}
               >
@@ -148,7 +142,9 @@ const Items = ({
                       <span
                         className="underline capitalize cursor-pointer text-red-500"
                         onClick={() => {
-                          ItemRemoveHandler(e);
+                          handleUpdate(e, {
+                            onSuccess: () => onRemoveSuccess(e),
+                          });
                         }}
                       >
                         remove

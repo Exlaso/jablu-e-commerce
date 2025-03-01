@@ -3,7 +3,7 @@
 import React from "react";
 import { Product } from "@/lib/Interfaces";
 import { motion } from "framer-motion";
-import { EcommerceCard } from "@/components/mt/Card";
+import { ProductCard } from "@/components/mt/Card";
 
 const Items = ({ filtereddata }: { filtereddata: Product[] | undefined }) => {
   return (
@@ -13,19 +13,9 @@ const Items = ({ filtereddata }: { filtereddata: Product[] | undefined }) => {
       transition={{
         staggerChildren: 0.1,
       }}
-      // @ts-ignore
       className="grid grid-cols-2  max-lg:grid-cols-1 gap-5  w-full mx-auto"
     >
-      {filtereddata?.map((e) => (
-        <EcommerceCard
-          image={e.images}
-          title={e.title}
-          price={e.price}
-          mrp={e.mrp}
-          availablecolors={e.product_colors}
-          key={e.id}
-        />
-      ))}
+      {filtereddata?.map((e) => <ProductCard key={e.id} {...e} />)}
     </motion.div>
   );
 };

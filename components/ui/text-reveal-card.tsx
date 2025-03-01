@@ -78,7 +78,6 @@ export const TextRevealCard = ({
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          // @ts-ignore
           className="absolute bg-[#1d1c20] z-20  will-change-transform"
         >
           <p
@@ -97,7 +96,6 @@ export const TextRevealCard = ({
             opacity: widthPercentage > 0 ? 1 : 0,
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          // @ts-ignore
           className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
         ></motion.div>
 
@@ -168,7 +166,6 @@ const Stars = () => {
             borderRadius: "50%",
             zIndex: 1,
           }}
-          // @ts-ignore
           className="inline-block"
         ></motion.span>
       ))}

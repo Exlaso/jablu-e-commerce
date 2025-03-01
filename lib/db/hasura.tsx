@@ -1,4 +1,5 @@
 import { Categories, Product } from "../Interfaces";
+import { wait } from "@apollo/client/testing";
 let CryptoJS = require("crypto-js");
 
 export const GetProducts = async (): Promise<Product[] | undefined> => {
@@ -98,7 +99,7 @@ export const InsertWishlist = async (
 };
 
 export const GetFavouritedItems = async (token: string) => {
-  const response = await fetchGraphQL("GetFavouritedItems", token, {
+  const response = await fetchGraphQL("GetMyFavourite", token, {
     mynum: Date.now().toString(),
   });
   if (response?.data?.wishlist_items) {
@@ -107,6 +108,8 @@ export const GetFavouritedItems = async (token: string) => {
     return [];
   }
 };
+const waiter = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 export const GetCategories = async (): Promise<Categories[]> => {
   const response = await fetchGraphQLUsingAdmin("GetLandingCategories");

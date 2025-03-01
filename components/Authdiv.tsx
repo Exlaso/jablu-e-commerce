@@ -15,7 +15,6 @@ const Authdiv: FunctionComponent<AuthdivProps> = ({ children }) => {
       transition={{
         ease: "linear",
       }}
-      // @ts-ignore
       className=" p-8 rounded max-w-xl max-lg:max-w-[80vw]  max-sm:max-w-[98vw] relative flex flex-col gap-12 AuthDivcss text-justify "
     >
       {children}

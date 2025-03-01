@@ -65,7 +65,6 @@ const Items = ({ wishlistdata }: { wishlistdata: Wishlistitems[] }) => {
                 transition={{
                   duration: 0.3,
                 }}
-                // @ts-ignore
                 className="flex gap-5 w-full  p-4  "
                 key={e.product_id}
               >

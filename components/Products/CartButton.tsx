@@ -88,7 +88,6 @@ const CartButton: FunctionComponent<CartButtonProps> = ({ data, islogin }) => {
       type="button"
       {...(!isadding && { whileTap: { scale: 0.9 } })}
       initial={{ scale: 1 }}
-      // @ts-ignore
       onClick={addtoCartHandler}
       className="flex bg-[var(--tertiary-color)] grow select-none items-start justify-center gap-2 rounded-full w-fit p-4 shadow-lg hover:bg-gray-500/50 duration-100"
     >

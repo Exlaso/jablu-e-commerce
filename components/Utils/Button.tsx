@@ -30,7 +30,6 @@ const Button = ({
 
   return (
     <motion.button
-      // @ts-ignore
       onClick={onClick}
       className={`px-4 py-2 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring focus:ring-opacity-50    ${colorClasses}  `}
     >
