@@ -193,7 +193,6 @@ const ProductCard = ({ ogorder, token }: { ogorder: Items; token: string }) => {
         return "Order Cancelled";
       },
       error: (err) => {
-        console.log(err);
         return "Error Cancelling Order";
       },
     });

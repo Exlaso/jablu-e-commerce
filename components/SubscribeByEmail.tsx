@@ -32,11 +32,11 @@ export function SubscribeByEmail({ token }: { token: string }) {
                 return "You've been subscribed";
               },
               error: (e) => {
-                console.log(
+                console.error(
                   "=================SubscribeByEmail========================",
                 );
-                console.log(e);
-                console.log(
+                console.error(e);
+                console.error(
                   "======================================================",
                 );
                 return "Something went wrong";

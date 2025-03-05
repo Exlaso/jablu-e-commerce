@@ -19,7 +19,6 @@ export const GET = async (req: NextRequest) => {
     const token: string = searchParams.get("jablu_jwt_token") as string;
 
     const wishlist: Product[] = await GetFavouritedItems(token);
-    console.log({ wishlist });
     return NextResponse.json({
       message: wishlist,
       error: false,
